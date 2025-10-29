@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura e Padrões de Software - Módulo 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- SLIDE 1: TITLE SLIDE -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content title-slide">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+                <h1 class="main-title">Arquitetura e Padrões de Software</h1>
+                <p class="subtitle">Fundamentos, Elementos e Estilos Arquiteturais</p>
+            <div class="title-decoration"></div>
+            <br>
+            <div class="module-badge">Módulo 1</div>
+        </div>
+    </div>
+
+        <!-- Slide 2: Table of Contents -->
+        <div class="slide" data-slide="2">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sumário da Aula</h2>
+                <div class="toc-grid">
+                    <div class="toc-card">
+                        <div class="toc-number">01</div>
+                        <div class="toc-title">Definição de Arquitetura de Software</div>
+                        <div class="toc-slides">Slide 3</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">02</div>
+                        <div class="toc-title">Importância da Arquitetura</div>
+                        <div class="toc-slides">Slide 4</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">03</div>
+                        <div class="toc-title">Elementos Arquiteturais</div>
+                        <div class="toc-slides">Slides 5-10</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">04</div>
+                        <div class="toc-title">Estilos Arquiteturais</div>
+                        <div class="toc-slides">Slides 11-13</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">05</div>
+                        <div class="toc-title">Arquitetura em Camadas</div>
+                        <div class="toc-slides">Slides 14-17</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">06</div>
+                        <div class="toc-title">Vantagens e Desvantagens</div>
+                        <div class="toc-slides">Slides 18-20</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">07</div>
+                        <div class="toc-title">Exemplo Prático</div>
+                        <div class="toc-slides">Slides 21-23</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">08</div>
+                        <div class="toc-title">Atividade e Conclusão</div>
+                        <div class="toc-slides">Slides 24-28</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: O que é Arquitetura de Software? -->
+        <div class="slide" data-slide="3">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">O que é Arquitetura de Software?</h2>
+                <div class="definition-card">
+                    <div class="icon">📐</div>
+                    <p class="definition-text">Estrutura fundamental de um sistema de software que define seus componentes, suas relações e os princípios que orientam seu design e evolução.</p>
+                </div>
+                <div class="section-title">Principais Aspectos</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Define <strong>COMO</strong> o software será construído</li>
+                        <li>Organiza componentes e suas interações</li>
+                        <li>Conecta tecnologia e estratégia de negócio</li>
+                        <li>Responde a requisitos funcionais e não funcionais</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Importância da Arquitetura de Software -->
+        <div class="slide" data-slide="4">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Importância da Arquitetura de Software</h2>
+                <p class="slide-subtitle">Benefícios de uma Boa Arquitetura</p>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📈</div>
+                        <h3>Escalabilidade</h3>
+                        <p>Permite expansões graduais</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">⚡</div>
+                        <h3>Performance</h3>
+                        <p>Recursos alocados corretamente</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">♻️</div>
+                        <h3>Reuso</h3>
+                        <p>Componentes reutilizáveis</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔄</div>
+                        <h3>Flexibilidade</h3>
+                        <p>Adaptação a mudanças</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🛡️</div>
+                        <h3>Robustez</h3>
+                        <p>Resistência a falhas</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔧</div>
+                        <h3>Manutenibilidade</h3>
+                        <p>Facilita evolução do sistema</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Elementos da Arquitetura de Software -->
+        <div class="slide" data-slide="5">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Elementos da Arquitetura de Software</h2>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <div class="element-icon">🧩</div>
+                        <h3>COMPONENTES</h3>
+                        <p>Unidades de computação ou armazenamento de dados</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">🔗</div>
+                        <h3>CONECTORES</h3>
+                        <p>Elementos que modelam interações entre componentes</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">🗂️</div>
+                        <h3>CONFIGURAÇÃO</h3>
+                        <p>Topologia que descreve a estrutura arquitetural</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Componentes -->
+        <div class="slide" data-slide="6">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Componentes</h2>
+                <div class="definition-card">
+                    <p class="definition-text">Unidades modulares de software que encapsulam um conjunto de funcionalidades e dados relacionados.</p>
+                </div>
+                <div class="section-title">Características</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Possuem interfaces bem definidas</li>
+                        <li>São independentes e substituíveis</li>
+                        <li>Encapsulam lógica de negócio</li>
+                        <li>Podem ser reutilizados em diferentes contextos</li>
+                    </ul>
+                </div>
+                <div class="section-title">Exemplos</div>
+                <div class="content-card">
+                    <p><strong>Módulos, Classes, Serviços, Bibliotecas, Bancos de Dados</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Conectores -->
+        <div class="slide" data-slide="7">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Conectores</h2>
+                <div class="definition-card">
+                    <p class="definition-text">Mecanismos que mediam a comunicação, coordenação e cooperação entre componentes.</p>
+                </div>
+                <div class="section-title">Serviços Fornecidos</div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h4>📡 Comunicação</h4>
+                        <p>Transmissão de dados</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>🎯 Coordenação</h4>
+                        <p>Controle de fluxo</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>🔄 Conversão</h4>
+                        <p>Transformação de dados</p>
+                    </div>
+                    <div class="service-card">
+                        <h4>🛠️ Facilitação</h4>
+                        <p>Serviços adicionais</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Diferença: Componentes vs Conectores -->
+        <div class="slide" data-slide="8">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Diferença: Componentes vs Conectores</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">Componentes</h3>
+                        <div class="comparison-card">
+                            <ul>
+                                <li>✓ Realizam computação</li>
+                                <li>✓ Armazenam estado</li>
+                                <li>✓ Implementam lógica de negócio</li>
+                                <li>✓ Focam no <strong>QUE</strong> fazer</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">Conectores</h3>
+                        <div class="comparison-card">
+                            <ul>
+                                <li>✓ Facilitam interação</li>
+                                <li>✓ Transferem dados e controle</li>
+                                <li>✓ Não possuem lógica de aplicação</li>
+                                <li>✓ Focam no <strong>COMO</strong> interagir</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Tipos de Conectores -->
+        <div class="slide" data-slide="9">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Tipos de Conectores</h2>
+                <div class="connector-types-grid">
+                    <div class="connector-type-card">
+                        <h4>Procedure Call</h4>
+                        <p>Invocação de métodos</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Event</h4>
+                        <p>Notificações e eventos</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Data Access</h4>
+                        <p>Acesso a dados</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Linkage</h4>
+                        <p>Ligação de módulos</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Stream</h4>
+                        <p>Fluxo contínuo de dados</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Arbitrator</h4>
+                        <p>Mediação e coordenação</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Adaptor</h4>
+                        <p>Adaptação de interfaces</p>
+                    </div>
+                    <div class="connector-type-card">
+                        <h4>Distributor</h4>
+                        <p>Distribuição de requisições</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Configuração Arquitetural -->
+        <div class="slide" data-slide="10">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Configuração Arquitetural</h2>
+                <div class="definition-card">
+                    <p class="definition-text">A topologia que descreve como componentes e conectores são organizados e conectados para formar a estrutura do sistema.</p>
+                </div>
+                <div class="section-title">Propósito</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Define a estrutura geral do sistema</li>
+                        <li>✓ Especifica quais componentes estão conectados</li>
+                        <li>✓ Determina o padrão de comunicação</li>
+                        <li>✓ Estabelece hierarquias e dependências</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p><strong>Nota:</strong> A configuração pode ser estruturada hierarquicamente, permitindo múltiplos níveis de abstração.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Estilos Arquiteturais -->
+        <div class="slide" data-slide="11">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Estilos Arquiteturais</h2>
+                <div class="definition-card">
+                    <div class="icon">🏛️</div>
+                    <p class="definition-text">Padrões estabelecidos de organização de componentes e conectores que definem uma família de arquiteturas com características comuns.</p>
+                </div>
+                <div class="section-title">Características</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Vocabulário de tipos de componentes e conectores</li>
+                        <li>Restrições sobre como podem ser combinados</li>
+                        <li>Interpretação semântica para computação</li>
+                        <li>Benefícios e trade-offs conhecidos</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p><strong>Importante:</strong> A escolha do estilo adequado impacta diretamente qualidade, manutenção e evolução do sistema.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Estilos vs Padrões Arquiteturais -->
+        <div class="slide" data-slide="12">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Estilos vs Padrões Arquiteturais</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">Estilos Arquiteturais</h3>
+                        <div class="comparison-card">
+                            <ul>
+                                <li>✓ Mais abstratos e genéricos</li>
+                                <li>✓ Definem estrutura geral</li>
+                                <li>✓ Aplicáveis ao sistema inteiro</li>
+                                <li>✓ Exemplo: Camadas, Cliente-Servidor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">Padrões Arquiteturais</h3>
+                        <div class="comparison-card">
+                            <ul>
+                                <li>✓ Mais específicos e concretos</li>
+                                <li>✓ Soluções para problemas recorrentes</li>
+                                <li>✓ Aplicáveis a partes do sistema</li>
+                                <li>✓ Exemplo: MVC, Repository, Factory</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Principais Estilos Arquiteturais -->
+        <div class="slide" data-slide="13">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Principais Estilos Arquiteturais</h2>
+                <div class="styles-grid">
+                    <div class="style-card">
+                        <div class="style-number">01</div>
+                        <h4>Arquitetura em Camadas</h4>
+                        <p>Layered Architecture</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">02</div>
+                        <h4>Cliente-Servidor</h4>
+                        <p>Client-Server</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">03</div>
+                        <h4>Microsserviços</h4>
+                        <p>Microservices</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">04</div>
+                        <h4>Model-View-Controller</h4>
+                        <p>MVC</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">05</div>
+                        <h4>Pipes and Filters</h4>
+                        <p>Processamento em pipeline</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">06</div>
+                        <h4>Event-Driven</h4>
+                        <p>Orientado a eventos</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">07</div>
+                        <h4>Peer-to-Peer</h4>
+                        <p>P2P</p>
+                    </div>
+                    <div class="style-card">
+                        <div class="style-number">08</div>
+                        <h4>Service-Oriented Architecture</h4>
+                        <p>SOA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Arquitetura em Camadas -->
+        <div class="slide" data-slide="14">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Arquitetura em Camadas</h2>
+                <p class="slide-subtitle">Layered Architecture</p>
+                <div class="definition-card highlight">
+                    <p class="definition-text">Organiza o sistema em grupos de subtarefas hierárquicas, onde cada camada fornece serviços para a camada superior e utiliza serviços da camada inferior.</p>
+                </div>
+                <div class="section-title">Princípios Fundamentais</div>
+                <div class="principles-grid">
+                    <div class="principle-card">
+                        <div class="principle-icon">📚</div>
+                        <p>Separação de responsabilidades</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">⬆️</div>
+                        <p>Dependência unidirecional</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">🔒</div>
+                        <p>Encapsulamento entre camadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Camadas Típicas -->
+        <div class="slide" data-slide="15">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Camadas Típicas</h2>
+                <div class="layers-container">
+                    <div class="layer-card layer-presentation">
+                        <div class="layer-header">
+                            <h3>🖥️ Camada de Apresentação (UI)</h3>
+                        </div>
+                        <div class="layer-content">
+                            <p><strong>Responsabilidade:</strong> Interface com o usuário</p>
+                            <p><strong>Funções:</strong> Exibição de dados, captura de entrada, validação básica</p>
+                        </div>
+                    </div>
+                    <div class="layer-card layer-business">
+                        <div class="layer-header">
+                            <h3>⚙️ Camada de Aplicação/Negócio</h3>
+                        </div>
+                        <div class="layer-content">
+                            <p><strong>Responsabilidade:</strong> Lógica de negócio</p>
+                            <p><strong>Funções:</strong> Regras de negócio, processamento, orquestração</p>
+                        </div>
+                    </div>
+                    <div class="layer-card layer-data">
+                        <div class="layer-header">
+                            <h3>💾 Camada de Dados/Persistência</h3>
+                        </div>
+                        <div class="layer-content">
+                            <p><strong>Responsabilidade:</strong> Gerenciamento de dados</p>
+                            <p><strong>Funções:</strong> CRUD, acesso a banco de dados, persistência</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Camada de Apresentação (UI) -->
+        <div class="slide" data-slide="16">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Camada de Apresentação (UI)</h2>
+                <div class="highlight-card">
+                    <h3>Responsabilidade Principal</h3>
+                    <p>Gerenciar a interação com o usuário, exibindo informações e coletando entrada de dados.</p>
+                </div>
+                <div class="section-title">Funções-Chave</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Renderizar interfaces visuais</li>
+                        <li>Validar entrada de usuário (formato básico)</li>
+                        <li>Formatar dados para exibição</li>
+                        <li>Enviar comandos para camada de negócio</li>
+                    </ul>
+                </div>
+                <div class="warning-card">
+                    <h4>⚠️ O que EVITAR nesta camada:</h4>
+                    <ul>
+                        <li>Lógica de negócio complexa</li>
+                        <li>Acesso direto ao banco de dados</li>
+                        <li>Cálculos de regras de negócio</li>
+                    </ul>
+                </div>
+                <div class="section-title">Exemplos de Implementação</div>
+                <div class="content-card">
+                    <p><strong>HTML/CSS/JavaScript, React, Angular, Vue.js, Mobile Apps (iOS/Android)</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Fluxo de Dados em Camadas -->
+        <div class="slide" data-slide="17">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Fluxo de Dados em Camadas</h2>
+                <p class="slide-subtitle">Padrão Top-Down</p>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p>Usuário interage com a <strong>UI</strong></p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p><strong>Camada de Apresentação</strong> captura a ação</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p><strong>Camada de Negócio</strong> processa a lógica</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <p><strong>Camada de Dados</strong> persiste/recupera dados</p>
+                    </div>
+                    <div class="flow-arrow">↑</div>
+                    <div class="flow-step">
+                        <div class="flow-number">5</div>
+                        <p>Dados retornam pelas camadas</p>
+                    </div>
+                    <div class="flow-arrow">↑</div>
+                    <div class="flow-step">
+                        <div class="flow-number">6</div>
+                        <p><strong>UI</strong> exibe o resultado ao usuário</p>
+                    </div>
+                </div>
+                <div class="section-title">Benefícios</div>
+                <div class="content-card">
+                    <p>✓ Clara separação de responsabilidades<br>
+                    ✓ Facilita manutenção e testes<br>
+                    ✓ Permite mudanças independentes em cada camada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Vantagens da Arquitetura em Camadas -->
+        <div class="slide" data-slide="18">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Vantagens da Arquitetura em Camadas</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">✓</div>
+                        <h4>Separação de Responsabilidades</h4>
+                        <p>Cada camada tem uma função específica e bem definida</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">✓</div>
+                        <h4>Facilita Manutenção</h4>
+                        <p>Mudanças isoladas em uma camada</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">✓</div>
+                        <h4>Reutilização</h4>
+                        <p>Camadas podem ser reutilizadas em diferentes contextos</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">✓</div>
+                        <h4>Testabilidade</h4>
+                        <p>Cada camada pode ser testada independentemente</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">✓</div>
+                        <h4>Escalabilidade</h4>
+                        <p>Camadas podem ser distribuídas em diferentes servidores</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">✓</div>
+                        <h4>Substituibilidade</h4>
+                        <p>Implementações podem ser trocadas sem afetar outras camadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Desvantagens da Arquitetura em Camadas -->
+        <div class="slide" data-slide="19">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Desvantagens da Arquitetura em Camadas</h2>
+                <div class="content-card">
+                    <ul class="disadvantages-list">
+                        <li>
+                            <span class="warning-icon">⚠️</span>
+                            <div>
+                                <strong>Overhead de Performance</strong>
+                                <p>Múltiplas camadas podem adicionar latência na comunicação</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">⚠️</span>
+                            <div>
+                                <strong>Complexidade Adicional</strong>
+                                <p>Para sistemas simples, pode ser excessivo</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">⚠️</span>
+                            <div>
+                                <strong>Cascata de Mudanças</strong>
+                                <p>Alterações em interfaces podem propagar entre camadas</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">⚠️</span>
+                            <div>
+                                <strong>Rigidez</strong>
+                                <p>Estrutura hierárquica pode limitar comunicação direta entre camadas não adjacentes</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">⚠️</span>
+                            <div>
+                                <strong>Duplicação de Código</strong>
+                                <p>Objetos de transferência entre camadas podem levar a redundância</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Divisão Física vs Lógica -->
+        <div class="slide" data-slide="20">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Divisão Física vs Lógica</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">Divisão Lógica</h3>
+                        <div class="comparison-card">
+                            <ul>
+                                <li>✓ Separação conceitual de responsabilidades</li>
+                                <li>✓ Todas as camadas no mesmo processo/servidor</li>
+                                <li>✓ Comunicação via chamadas de método</li>
+                                <li>✓ <strong>Exemplo:</strong> Aplicação monolítica</li>
+                                <li>✓ <strong>Vantagem:</strong> Mais simples e rápida</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">Divisão Física</h3>
+                        <div class="comparison-card">
+                            <ul>
+                                <li>✓ Camadas executam em processos/servidores separados</li>
+                                <li>✓ Comunicação via rede (HTTP, RPC, etc.)</li>
+                                <li>✓ Permite escalabilidade independente</li>
+                                <li>✓ <strong>Exemplo:</strong> Frontend separado do Backend</li>
+                                <li>✓ <strong>Vantagem:</strong> Melhor escalabilidade e resiliência</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Exemplo Prático: Sistema de E-commerce -->
+        <div class="slide" data-slide="21">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Exemplo Prático: Sistema de E-commerce</h2>
+                <div class="example-layers">
+                    <div class="example-layer">
+                        <h3>🖥️ Camada de Apresentação</h3>
+                        <div class="example-content">
+                            <p><strong>Componentes:</strong></p>
+                            <ul>
+                                <li>Interface web (React/Angular)</li>
+                                <li>App mobile (iOS/Android)</li>
+                                <li>Telas: catálogo, carrinho, checkout, perfil</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>⚙️ Camada de Negócio</h3>
+                        <div class="example-content">
+                            <p><strong>Serviços:</strong></p>
+                            <ul>
+                                <li>Gerenciamento de produtos</li>
+                                <li>Processamento de pedidos</li>
+                                <li>Cálculo de frete e impostos</li>
+                                <li>Gestão de estoque</li>
+                                <li>Autenticação e autorização</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>💾 Camada de Dados</h3>
+                        <div class="example-content">
+                            <p><strong>Repositórios e Persistência:</strong></p>
+                            <ul>
+                                <li>Banco de dados de produtos</li>
+                                <li>Banco de dados de usuários</li>
+                                <li>Banco de dados de pedidos</li>
+                                <li>Cache (Redis)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Boas Práticas -->
+        <div class="slide" data-slide="22">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Boas Práticas</h2>
+                <div class="best-practices-grid">
+                    <div class="practice-card">
+                        <div class="practice-icon">📋</div>
+                        <h4>Defina Interfaces Claras</h4>
+                        <p>Contratos bem definidos entre camadas</p>
+                    </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">🚫</div>
+                        <h4>Evite Acoplamento</h4>
+                        <p>Minimize dependências diretas</p>
+                    </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">🎯</div>
+                        <h4>Responsabilidade Única</h4>
+                        <p>Cada camada com foco específico</p>
+                    </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">🔄</div>
+                        <h4>Use Inversão de Dependência</h4>
+                        <p>Dependa de abstrações, não de implementações</p>
+                    </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">📦</div>
+                        <h4>DTOs para Transferência</h4>
+                        <p>Objetos específicos para comunicação entre camadas</p>
+                    </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">🧪</div>
+                        <h4>Teste Cada Camada</h4>
+                        <p>Testes unitários e de integração independentes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Papel do Arquiteto de Software -->
+        <div class="slide" data-slide="23">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Papel do Arquiteto de Software</h2>
+                <div class="content-card">
+                    <ul class="architect-responsibilities">
+                        <li>
+                            <span class="role-icon">🎯</span>
+                            <div>
+                                <strong>Definir a Arquitetura</strong>
+                                <p>Escolher estilos e padrões adequados ao contexto</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="role-icon">📊</span>
+                            <div>
+                                <strong>Avaliar Requisitos</strong>
+                                <p>Analisar requisitos funcionais e não funcionais</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="role-icon">⚖️</span>
+                            <div>
+                                <strong>Balancear Trade-offs</strong>
+                                <p>Equilibrar performance, custo, manutenibilidade</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="role-icon">👥</span>
+                            <div>
+                                <strong>Comunicar Decisões</strong>
+                                <p>Documentar e explicar escolhas arquiteturais</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="role-icon">🔍</span>
+                            <div>
+                                <strong>Revisar Implementações</strong>
+                                <p>Garantir aderência aos padrões definidos</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="role-icon">🔄</span>
+                            <div>
+                                <strong>Evoluir a Arquitetura</strong>
+                                <p>Adaptar a arquitetura conforme necessidades mudam</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Atividade 1 -->
+        <div class="slide" data-slide="24">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Atividade 1 - Perguntas</h2>
+                <div class="question-card">
+                    <div class="question-number">Questão 1</div>
+                    <p class="question-text">Qual é a principal responsabilidade da camada de Apresentação (ou UI) em uma Arquitetura em Camadas?</p>
+                </div>
+                <div class="question-card">
+                    <div class="question-number">Questão 2</div>
+                    <p class="question-text">Explique, com suas palavras, a diferença entre um Componente e um Conector em uma arquitetura de software.</p>
+                </div>
+                <div class="note-card">
+                    <p><strong>📝 Importante:</strong> Máximo 10 linhas por pergunta</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Orientações para Atividade 1 -->
+        <div class="slide" data-slide="25">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Orientações para Atividade 1</h2>
+                <div class="guidance-card">
+                    <h3>Para a Questão 1:</h3>
+                    <ul>
+                        <li>Mencione a função principal da camada de apresentação</li>
+                        <li>Cite exemplos de atividades que essa camada realiza</li>
+                        <li>Explique o que ela NÃO deve fazer</li>
+                        <li>Relacione com o princípio de separação de responsabilidades</li>
+                    </ul>
+                </div>
+                <div class="guidance-card">
+                    <h3>Para a Questão 2:</h3>
+                    <ul>
+                        <li>Defina o que é um componente</li>
+                        <li>Defina o que é um conector</li>
+                        <li>Explique a diferença fundamental entre eles</li>
+                        <li>Use exemplos concretos para ilustrar</li>
+                        <li>Mencione o foco de cada um (QUE vs COMO)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: Resumo dos Conceitos-Chave -->
+        <div class="slide" data-slide="26">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Resumo dos Conceitos-Chave</h2>
+                <div class="summary-card">
+                    <ul class="summary-list">
+                        <li><strong>Arquitetura de Software:</strong> Estrutura fundamental que define componentes, relações e princípios de design</li>
+                        <li><strong>Componentes:</strong> Unidades que realizam computação e armazenam estado (O QUE fazer)</li>
+                        <li><strong>Conectores:</strong> Mecanismos que facilitam interação entre componentes (COMO interagir)</li>
+                        <li><strong>Configuração:</strong> Topologia que organiza componentes e conectores</li>
+                        <li><strong>Estilos Arquiteturais:</strong> Padrões estabelecidos de organização com características comuns</li>
+                        <li><strong>Arquitetura em Camadas:</strong> Organização hierárquica com separação de responsabilidades</li>
+                        <li><strong>Camada de Apresentação:</strong> Gerencia interação com usuário</li>
+                        <li><strong>Camada de Negócio:</strong> Implementa lógica de negócio</li>
+                        <li><strong>Camada de Dados:</strong> Gerencia persistência e acesso a dados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 27: Referências -->
+        <div class="slide" data-slide="27">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Referências</h2>
+                <div class="references-card">
+                    <ul class="references-list">
+                        <li>BASS, L.; CLEMENTS, P.; KAZMAN, R. <em>Software Architecture in Practice</em>. 4th ed. Addison-Wesley, 2021.</li>
+                        <li>SHAW, M.; GARLAN, D. <em>Software Architecture: Perspectives on an Emerging Discipline</em>. Prentice Hall, 1996.</li>
+                        <li>FOWLER, M. <em>Patterns of Enterprise Application Architecture</em>. Addison-Wesley, 2002.</li>
+                        <li>RICHARDS, M.; FORD, N. <em>Fundamentals of Software Architecture</em>. O'Reilly Media, 2020.</li>
+                        <li>PRESSMAN, R. S.; MAXIM, B. R. <em>Engenharia de Software: Uma Abordagem Profissional</em>. 8ª ed. McGraw Hill, 2016.</li>
+                        <li>SOMMERVILLE, I. <em>Engenharia de Software</em>. 10ª ed. Pearson, 2018.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 28: Conclusão -->
+        <div class="slide" data-slide="28">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content title-slide">
+                <h2 class="slide-title">Conclusão</h2>
+                <div class="conclusion-card">
+                    <ul class="conclusion-list">
+                        <li>✓ A arquitetura de software é fundamental para o sucesso de sistemas complexos</li>
+                        <li>✓ Compreender elementos (componentes, conectores, configuração) é essencial</li>
+                        <li>✓ Estilos arquiteturais fornecem soluções comprovadas para problemas recorrentes</li>
+                        <li>✓ Arquitetura em camadas oferece separação clara de responsabilidades</li>
+                        <li>✓ Escolhas arquiteturais impactam qualidade, manutenibilidade e evolução</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation-controls">
+        <button class="nav-button" id="prevBtn" aria-label="Slide anterior">
+            <span>‹</span>
+        </button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">28</span>
+        </div>
+        <button class="nav-button" id="nextBtn" aria-label="Próximo slide">
+            <span>›</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
