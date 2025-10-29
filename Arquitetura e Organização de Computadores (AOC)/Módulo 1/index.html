@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arquitetura e Organização de Computadores - META</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="presentation-container">
+    
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <div class="slide active" data-slide="1">
+      <div class="slide-content title-slide">
+        <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        <h1 class="main-title">Arquitetura e Organização<br>de Computadores</h1>
+        <p class="subtitle">Fundamentos, Sistemas de Numeração e Conversões</p>
+        <div class="title-decoration"></div>
+        <br>
+        <p>Módulo 1</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: SUMÁRIO -->
+    <div class="slide" data-slide="2">
+      <div class="slide-content">
+        <h2 class="slide-title">Sumário da Aula</h2>
+        <div class="toc-grid">
+          <div class="toc-item">
+            <div class="toc-number">01</div>
+            <div class="toc-content">
+              <h3>Introdução e Objetivos</h3>
+              <p>Slide 3</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">02</div>
+            <div class="toc-content">
+              <h3>Arquitetura vs. Organização</h3>
+              <p>Slides 4-7</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">03</div>
+            <div class="toc-content">
+              <h3>Linguagem Binária</h3>
+              <p>Slides 8-9</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">04</div>
+            <div class="toc-content">
+              <h3>Sistemas de Numeração</h3>
+              <p>Slides 10-13</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">05</div>
+            <div class="toc-content">
+              <h3>Métodos de Conversão</h3>
+              <p>Slides 14-22</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">06</div>
+            <div class="toc-content">
+              <h3>Arquitetura de Von Neumann</h3>
+              <p>Slides 23-24</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">07</div>
+            <div class="toc-content">
+              <h3>Atividade Prática</h3>
+              <p>Slide 25</p>
+            </div>
+          </div>
+          <div class="toc-item">
+            <div class="toc-number">08</div>
+            <div class="toc-content">
+              <h3>Exemplos e Conclusão</h3>
+              <p>Slides 26-28</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: OBJETIVOS -->
+    <div class="slide" data-slide="3">
+      <div class="slide-content">
+        <h2 class="slide-title">Objetivos de Aprendizagem</h2>
+        <div class="objectives-list">
+          <div class="objective-item">
+            <span class="bullet">📚</span>
+            <p><strong>Diferenciar</strong> Arquitetura de Organização de Computadores</p>
+          </div>
+          <div class="objective-item">
+            <span class="bullet">💡</span>
+            <p><strong>Compreender</strong> a representação binária da informação</p>
+          </div>
+          <div class="objective-item">
+            <span class="bullet">🔢</span>
+            <p><strong>Dominar</strong> os conceitos de Bit, Byte e suas aplicações</p>
+          </div>
+          <div class="objective-item">
+            <span class="bullet">🔄</span>
+            <p><strong>Conhecer</strong> os sistemas de numeração: Decimal, Binário, Octal e Hexadecimal</p>
+          </div>
+          <div class="objective-item">
+            <span class="bullet">⚙️</span>
+            <p><strong>Aplicar</strong> métodos de conversão entre diferentes bases numéricas</p>
+          </div>
+          <div class="objective-item">
+            <span class="bullet">✅</span>
+            <p><strong>Resolver</strong> problemas práticos de conversão</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: INTRODUÇÃO -->
+    <div class="slide" data-slide="4">
+      <div class="slide-content">
+        <h2 class="slide-title">1. Arquitetura vs. Organização de Computadores</h2>
+        <div class="intro-section">
+          <div class="intro-box">
+            <h3>Conceitos Fundamentais</h3>
+            <p class="intro-text">A distinção entre <strong>Arquitetura</strong> e <strong>Organização</strong> é fundamental para compreender o funcionamento dos computadores.</p>
+            <div class="concept-comparison">
+              <div class="concept-side">
+                <div class="concept-icon">📐</div>
+                <h4>Arquitetura</h4>
+                <p class="concept-desc">O QUE o computador faz</p>
+              </div>
+              <div class="concept-divider">vs</div>
+              <div class="concept-side">
+                <div class="concept-icon">🔧</div>
+                <h4>Organização</h4>
+                <p class="concept-desc">COMO o computador faz</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: ARQUITETURA DETALHADA -->
+    <div class="slide" data-slide="5">
+      <div class="slide-content">
+        <h2 class="slide-title">Arquitetura de Computadores</h2>
+        <p class="slide-subtitle">Visão do Programador</p>
+        <div class="detail-box">
+          <div class="detail-section">
+            <h3>📋 DEFINIÇÃO</h3>
+            <p>Refere-se aos <strong>atributos de um sistema visíveis ao programador</strong>. São características que impactam diretamente a execução lógica de programas.</p>
+          </div>
+          <div class="detail-section">
+            <h3>🎯 PRINCIPAIS ELEMENTOS</h3>
+            <ul class="detail-list">
+              <li>Conjunto de Instruções (Instruction Set)</li>
+              <li>Número de bits para representar dados (8, 16, 32, 64 bits)</li>
+              <li>Modos de endereçamento de memória</li>
+              <li>Mecanismos de Entrada/Saída (E/S)</li>
+              <li>Tipos de dados suportados</li>
+              <li>Registradores visíveis ao usuário</li>
+            </ul>
+          </div>
+          <div class="detail-section example">
+            <h3>💡 EXEMPLO PRÁTICO</h3>
+            <p>Decidir se o computador terá uma instrução de <strong>MULTIPLICAÇÃO</strong> é uma decisão de <strong>ARQUITETURA</strong></p>
+          </div>
+          <div class="detail-section analogy">
+            <h3>🏠 ANALOGIA</h3>
+            <p>Como a <strong>'planta de uma casa'</strong> - define ONDE cada cômodo fica e QUAL é sua função</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: ORGANIZAÇÃO DETALHADA -->
+    <div class="slide" data-slide="6">
+      <div class="slide-content">
+        <h2 class="slide-title">Organização de Computadores</h2>
+        <p class="slide-subtitle">Visão do Engenheiro</p>
+        <div class="detail-box">
+          <div class="detail-section">
+            <h3>📋 DEFINIÇÃO</h3>
+            <p>Refere-se às <strong>unidades operacionais e suas interconexões</strong> que implementam as especificações arquiteturais. São detalhes transparentes ao programador.</p>
+          </div>
+          <div class="detail-section">
+            <h3>🎯 PRINCIPAIS ELEMENTOS</h3>
+            <ul class="detail-list">
+              <li>Tecnologia de memória utilizada (SRAM, DRAM, DDR4, etc.)</li>
+              <li>Sinais de controle internos</li>
+              <li>Interfaces entre computador e periféricos</li>
+              <li>Unidades funcionais e suas interconexões</li>
+              <li>Hierarquia de memória (Cache L1, L2, L3)</li>
+              <li>Barramentos de dados, endereços e controle</li>
+            </ul>
+          </div>
+          <div class="detail-section example">
+            <h3>💡 EXEMPLO PRÁTICO</h3>
+            <p>Decidir <strong>COMO implementar</strong> a multiplicação (unidade dedicada ou repetição de somas) é uma decisão de <strong>ORGANIZAÇÃO</strong></p>
+          </div>
+          <div class="detail-section analogy">
+            <h3>🏠 ANALOGIA</h3>
+            <p>Como a <strong>'construção da casa'</strong> - define os MATERIAIS e COMO tudo será construído</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: COMPARAÇÃO -->
+    <div class="slide" data-slide="7">
+      <div class="slide-content">
+        <h2 class="slide-title">Arquitetura vs. Organização - Resumo Comparativo</h2>
+        <div class="comparison-table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>ARQUITETURA</th>
+                <th>ORGANIZAÇÃO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Visível ao programador</td>
+                <td>Transparente ao programador</td>
+              </tr>
+              <tr>
+                <td>O QUE o sistema faz</td>
+                <td>COMO o sistema faz</td>
+              </tr>
+              <tr>
+                <td>Conjunto de instruções</td>
+                <td>Implementação das instruções</td>
+              </tr>
+              <tr>
+                <td>Impacta a programação</td>
+                <td>Impacta o desempenho</td>
+              </tr>
+              <tr>
+                <td>Exemplo: Ter instrução MULT</td>
+                <td>Exemplo: MULT via hardware dedicado</td>
+              </tr>
+              <tr>
+                <td>Permanece entre modelos</td>
+                <td>Varia entre modelos da mesma família</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="important-note">
+            <strong>⚠️ IMPORTANTE:</strong> Computadores da mesma ARQUITETURA podem ter ORGANIZAÇÕES diferentes!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: LINGUAGEM BINÁRIA -->
+    <div class="slide" data-slide="8">
+      <div class="slide-content">
+        <h2 class="slide-title">2. A Linguagem Binária</h2>
+        <p class="slide-subtitle">A Base da Computação Digital</p>
+        <div class="binary-intro">
+          <div class="why-binary">
+            <h3>💻 POR QUE BINÁRIO?</h3>
+            <div class="reasons-list">
+              <div class="reason-item">
+                <span class="icon">⚡</span>
+                <p>Computadores digitais trabalham com circuitos eletrônicos</p>
+              </div>
+              <div class="reason-item">
+                <span class="icon">🔘</span>
+                <p>Circuitos têm apenas 2 estados estáveis: LIGADO (1) ou DESLIGADO (0)</p>
+              </div>
+              <div class="reason-item">
+                <span class="icon">🔧</span>
+                <p>Facilita a implementação física com transistores</p>
+              </div>
+              <div class="reason-item">
+                <span class="icon">✅</span>
+                <p>Maior confiabilidade e menor susceptibilidade a ruído</p>
+              </div>
+            </div>
+          </div>
+          <div class="binary-representation">
+            <h3>📊 REPRESENTAÇÃO</h3>
+            <div class="representation-boxes">
+              <div class="rep-box">
+                <div class="rep-value">0</div>
+                <div class="rep-desc">Estado Baixo<br>(~0V)</div>
+              </div>
+              <div class="rep-box">
+                <div class="rep-value">1</div>
+                <div class="rep-desc">Estado Alto<br>(3.3V ou 5V)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: BIT E BYTE -->
+    <div class="slide" data-slide="9">
+      <div class="slide-content">
+        <h2 class="slide-title">Bit e Byte - Unidades Fundamentais</h2>
+        <div class="bit-byte-content">
+          <div class="concept-card bit-card">
+            <h3>🔸 BIT (Binary Digit)</h3>
+            <ul>
+              <li>Menor unidade de informação em computação</li>
+              <li>Pode assumir apenas dois valores: <strong>0</strong> ou <strong>1</strong></li>
+              <li>Representa um único dígito binário</li>
+            </ul>
+          </div>
+          <div class="concept-card byte-card">
+            <h3>📦 BYTE</h3>
+            <ul>
+              <li>Conjunto de <strong>8 bits</strong></li>
+              <li>Unidade básica de armazenamento</li>
+              <li>Pode representar 2<sup>8</sup> = <strong>256 valores</strong> diferentes (0 a 255)</li>
+              <li>Usado para representar caracteres (ASCII, UTF-8)</li>
+            </ul>
+          </div>
+          <div class="byte-visual">
+            <p class="byte-label">📊 VISUALIZAÇÃO: 1 Byte = 8 Bits</p>
+            <div class="bits-container">
+              <div class="bit">0</div>
+              <div class="bit">1</div>
+              <div class="bit">1</div>
+              <div class="bit">0</div>
+              <div class="bit">1</div>
+              <div class="bit">0</div>
+              <div class="bit">0</div>
+              <div class="bit">1</div>
+            </div>
+            <div class="bit-positions">
+              <span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span><span>0</span>
+            </div>
+          </div>
+          <div class="multiples-box">
+            <h3>📏 MÚLTIPLOS</h3>
+            <div class="multiples-grid">
+              <div class="multiple-item">1 KB = 1024 bytes</div>
+              <div class="multiple-item">1 MB = 1024 KB</div>
+              <div class="multiple-item">1 GB = 1024 MB</div>
+              <div class="multiple-item">1 TB = 1024 GB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: SISTEMAS DE NUMERAÇÃO INTRO -->
+    <div class="slide" data-slide="10">
+      <div class="slide-content">
+        <h2 class="slide-title">3. Sistemas de Numeração</h2>
+        <p class="slide-subtitle">Diferentes Formas de Representar Quantidades</p>
+        <div class="number-systems-intro">
+          <div class="intro-definition">
+            <h3>❓ O QUE É UM SISTEMA DE NUMERAÇÃO?</h3>
+            <p class="definition-text">É um conjunto de regras e símbolos usados para representar quantidades numéricas</p>
+          </div>
+          <div class="characteristics-section">
+            <h3>🎯 CARACTERÍSTICAS</h3>
+            <div class="char-grid">
+              <div class="char-item">
+                <strong>Base:</strong> quantidade de símbolos diferentes
+              </div>
+              <div class="char-item">
+                <strong>Posicional:</strong> o valor depende da posição do dígito
+              </div>
+              <div class="char-item">
+                <strong>Potências:</strong> cada posição representa uma potência da base
+              </div>
+            </div>
+          </div>
+          <div class="systems-used">
+            <h3>💻 SISTEMAS UTILIZADOS EM COMPUTAÇÃO</h3>
+            <div class="systems-grid">
+              <div class="system-preview decimal-preview">
+                <div class="sys-icon">10</div>
+                <h4>Decimal</h4>
+                <p>Usado por humanos</p>
+              </div>
+              <div class="system-preview binary-preview">
+                <div class="sys-icon">2</div>
+                <h4>Binário</h4>
+                <p>Usado pelos computadores</p>
+              </div>
+              <div class="system-preview octal-preview">
+                <div class="sys-icon">8</div>
+                <h4>Octal</h4>
+                <p>Raramente usado</p>
+              </div>
+              <div class="system-preview hex-preview">
+                <div class="sys-icon">16</div>
+                <h4>Hexadecimal</h4>
+                <p>Muito usado em programação</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: SISTEMA DECIMAL -->
+    <div class="slide" data-slide="11">
+      <div class="slide-content">
+        <h2 class="slide-title">Sistema Decimal (Base 10)</h2>
+        <div class="system-detail">
+          <div class="system-chars">
+            <h3>📊 CARACTERÍSTICAS</h3>
+            <ul>
+              <li><strong>Base:</strong> 10</li>
+              <li><strong>Dígitos:</strong> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9</li>
+              <li><strong>Uso:</strong> Sistema usado no dia a dia</li>
+            </ul>
+          </div>
+          <div class="positional-notation">
+            <h3>📐 NOTAÇÃO POSICIONAL</h3>
+            <p class="example-number">Exemplo: 3527₁₀</p>
+            <table class="notation-table">
+              <tr class="table-header">
+                <th>Posição</th>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <th>Dígito</th>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>7</td>
+              </tr>
+              <tr>
+                <th>Potência</th>
+                <td>10³</td>
+                <td>10²</td>
+                <td>10¹</td>
+                <td>10⁰</td>
+              </tr>
+              <tr>
+                <th>Valor</th>
+                <td>3000</td>
+                <td>500</td>
+                <td>20</td>
+                <td>7</td>
+              </tr>
+            </table>
+          </div>
+          <div class="calculation-box">
+            <h3>🧮 CÁLCULO</h3>
+            <div class="calc-steps">
+              <p>3527 = (3 × 10³) + (5 × 10²) + (2 × 10¹) + (7 × 10⁰)</p>
+              <p>3527 = 3000 + 500 + 20 + 7</p>
+              <p class="calc-result">= 3527₁₀</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: SISTEMA BINÁRIO -->
+    <div class="slide" data-slide="12">
+      <div class="slide-content">
+        <h2 class="slide-title">Sistema Binário (Base 2)</h2>
+        <div class="system-detail">
+          <div class="system-chars">
+            <h3>📊 CARACTERÍSTICAS</h3>
+            <ul>
+              <li><strong>Base:</strong> 2</li>
+              <li><strong>Dígitos:</strong> 0, 1</li>
+              <li><strong>Uso:</strong> Sistema usado internamente pelos computadores</li>
+              <li><strong>Nota:</strong> Cada dígito é chamado de BIT</li>
+            </ul>
+          </div>
+          <div class="positional-notation">
+            <h3>📐 NOTAÇÃO POSICIONAL</h3>
+            <p class="example-number">Exemplo: 1011₂</p>
+            <table class="notation-table">
+              <tr class="table-header">
+                <th>Posição</th>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <th>Bit</th>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <th>Potência</th>
+                <td>2³</td>
+                <td>2²</td>
+                <td>2¹</td>
+                <td>2⁰</td>
+              </tr>
+              <tr>
+                <th>Valor</th>
+                <td>8</td>
+                <td>0</td>
+                <td>2</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </div>
+          <div class="calculation-box">
+            <h3>🧮 CÁLCULO</h3>
+            <div class="calc-steps">
+              <p>1011₂ = (1 × 2³) + (0 × 2²) + (1 × 2¹) + (1 × 2⁰)</p>
+              <p>1011₂ = 8 + 0 + 2 + 1</p>
+              <p class="calc-result">= 11₁₀</p>
+            </div>
+          </div>
+          <div class="powers-table">
+            <h3>⚡ TABELA DE POTÊNCIAS DE 2</h3>
+            <div class="powers-grid">
+              <span>2⁰=1</span><span>2¹=2</span><span>2²=4</span><span>2³=8</span>
+              <span>2⁴=16</span><span>2⁵=32</span><span>2⁶=64</span><span>2⁷=128</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: SISTEMA HEXADECIMAL -->
+    <div class="slide" data-slide="13">
+      <div class="slide-content">
+        <h2 class="slide-title">Sistema Hexadecimal (Base 16)</h2>
+        <div class="system-detail hex-detail">
+          <div class="system-chars">
+            <h3>📊 CARACTERÍSTICAS</h3>
+            <ul>
+              <li><strong>Base:</strong> 16</li>
+              <li><strong>Dígitos:</strong> 0-9 e A-F</li>
+              <li><strong>Uso:</strong> Facilita a leitura de números binários longos</li>
+              <li><strong>Aplicações:</strong> Endereços de memória, cores em HTML/CSS</li>
+            </ul>
+          </div>
+          <div class="hex-symbols">
+            <h3>🔤 SÍMBOLOS HEXADECIMAIS</h3>
+            <table class="hex-table-complete">
+              <thead>
+                <tr>
+                  <th>Decimal</th>
+                  <th>Binário</th>
+                  <th>Hexadecimal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>0000</td><td>0</td></tr>
+                <tr><td>1</td><td>0001</td><td>1</td></tr>
+                <tr><td>2</td><td>0010</td><td>2</td></tr>
+                <tr><td>3</td><td>0011</td><td>3</td></tr>
+                <tr><td>10</td><td>1010</td><td>A</td></tr>
+                <tr><td>11</td><td>1011</td><td>B</td></tr>
+                <tr><td>12</td><td>1100</td><td>C</td></tr>
+                <tr><td>13</td><td>1101</td><td>D</td></tr>
+                <tr><td>14</td><td>1110</td><td>E</td></tr>
+                <tr><td>15</td><td>1111</td><td>F</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="hex-example">
+            <h3>💡 EXEMPLO</h3>
+            <p class="hex-calc">2F₁₆ = (2 × 16¹) + (15 × 16⁰) = 32 + 15 = <strong>47₁₀</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: CONVERSÃO DECIMAL → BINÁRIO -->
+    <div class="slide" data-slide="14">
+      <div class="slide-content">
+        <h2 class="slide-title">4. Métodos de Conversão</h2>
+        <p class="slide-subtitle">Decimal → Binário</p>
+        <div class="conversion-box">
+          <div class="method">
+            <strong>MÉTODO:</strong> Divisão Sucessiva por 2
+          </div>
+          <div class="steps-list">
+            <h3>📋 PASSO A PASSO</h3>
+            <ol>
+              <li>Divida o número decimal por 2</li>
+              <li>Anote o QUOCIENTE e o RESTO</li>
+              <li>Repita com o quociente até chegar a 0</li>
+              <li>O resultado é a leitura dos RESTOS de baixo para cima</li>
+            </ol>
+          </div>
+          <div class="example-conversion">
+            <h3>💡 EXEMPLO: 150₁₀ → ?₂</h3>
+            <div class="division-steps">
+              <div class="step">150 ÷ 2 = 75 <span class="resto">resto 0</span> ↑</div>
+              <div class="step">75 ÷ 2 = 37 <span class="resto">resto 1</span> |</div>
+              <div class="step">37 ÷ 2 = 18 <span class="resto">resto 1</span> |</div>
+              <div class="step">18 ÷ 2 = 9 <span class="resto">resto 0</span> |</div>
+              <div class="step">9 ÷ 2 = 4 <span class="resto">resto 1</span> |</div>
+              <div class="step">4 ÷ 2 = 2 <span class="resto">resto 0</span> |</div>
+              <div class="step">2 ÷ 2 = 1 <span class="resto">resto 0</span> |</div>
+              <div class="step">1 ÷ 2 = 0 <span class="resto">resto 1</span> | Leia aqui</div>
+            </div>
+            <div class="result">
+              <p class="answer">RESULTADO: 150₁₀ = 10010110₂</p>
+            </div>
+            <div class="verification">
+              <h4>✅ VERIFICAÇÃO:</h4>
+              <p>1×128 + 0×64 + 0×32 + 1×16 + 0×8 + 1×4 + 1×2 + 0×1 = 150 ✓</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: CONVERSÃO BINÁRIO → DECIMAL -->
+    <div class="slide" data-slide="15">
+      <div class="slide-content">
+        <h2 class="slide-title">Conversão: Binário → Decimal</h2>
+        <div class="conversion-box">
+          <div class="method">
+            <strong>MÉTODO:</strong> Multiplicação por Potências de 2
+          </div>
+          <div class="steps-list">
+            <h3>📋 PASSO A PASSO</h3>
+            <ol>
+              <li>Numere as posições da direita para esquerda (começando em 0)</li>
+              <li>Multiplique cada bit por 2 elevado à sua posição</li>
+              <li>Some todos os resultados</li>
+            </ol>
+          </div>
+          <div class="example-conversion">
+            <h3>💡 EXEMPLO: 110101₂ → ?₁₀</h3>
+            <table class="notation-table">
+              <tr class="table-header">
+                <th>Posição</th>
+                <td>5</td>
+                <td>4</td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <th>Bit</th>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <th>Potência</th>
+                <td>2⁵</td>
+                <td>2⁴</td>
+                <td>2³</td>
+                <td>2²</td>
+                <td>2¹</td>
+                <td>2⁰</td>
+              </tr>
+              <tr>
+                <th>Valor</th>
+                <td>32</td>
+                <td>16</td>
+                <td>0</td>
+                <td>4</td>
+                <td>0</td>
+                <td>1</td>
+              </tr>
+            </table>
+            <div class="detailed-calc">
+              <h4>🧮 CÁLCULO DETALHADO:</h4>
+              <ul class="calc-list">
+                <li>Posição 5: 1 × 2⁵ = 1 × 32 = 32</li>
+                <li>Posição 4: 1 × 2⁴ = 1 × 16 = 16</li>
+                <li>Posição 3: 0 × 2³ = 0 × 8 = 0</li>
+                <li>Posição 2: 1 × 2² = 1 × 4 = 4</li>
+                <li>Posição 1: 0 × 2¹ = 0 × 2 = 0</li>
+                <li>Posição 0: 1 × 2⁰ = 1 × 1 = 1</li>
+              </ul>
+              <p class="sum-result"><strong>SOMA:</strong> 32 + 16 + 4 + 1 = 53</p>
+            </div>
+            <div class="result">
+              <p class="answer">RESULTADO: 110101₂ = 53₁₀</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: CONVERSÃO DECIMAL → HEXADECIMAL -->
+    <div class="slide" data-slide="16">
+      <div class="slide-content">
+        <h2 class="slide-title">Conversão: Decimal → Hexadecimal</h2>
+        <div class="conversion-box">
+          <div class="method">
+            <strong>MÉTODO:</strong> Divisão Sucessiva por 16
+          </div>
+          <div class="steps-list">
+            <h3>📋 PASSO A PASSO</h3>
+            <ol>
+              <li>Divida o número decimal por 16</li>
+              <li>Anote o QUOCIENTE e o RESTO</li>
+              <li>Se resto ≥ 10, converta para A-F</li>
+              <li>Repita com o quociente até chegar a 0</li>
+              <li>O resultado é a leitura dos restos de baixo para cima</li>
+            </ol>
+          </div>
+          <div class="hex-reference">
+            <h4>📋 TABELA DE CONVERSÃO:</h4>
+            <div class="hex-table">
+              <span>10→A</span><span>11→B</span><span>12→C</span><span>13→D</span><span>14→E</span><span>15→F</span>
+            </div>
+          </div>
+          <div class="example-conversion">
+            <h3>💡 EXEMPLO: 150₁₀ → ?₁₆</h3>
+            <div class="division-steps">
+              <div class="step">150 ÷ 16 = 9 <span class="resto">resto 6</span> ↑</div>
+              <div class="step">9 ÷ 16 = 0 <span class="resto">resto 9</span> | Leia aqui</div>
+            </div>
+            <div class="result">
+              <p class="answer">RESULTADO: 150₁₀ = 96₁₆</p>
+            </div>
+            <div class="verification">
+              <h4>✅ VERIFICAÇÃO:</h4>
+              <p>(9 × 16¹) + (6 × 16⁰) = 144 + 6 = 150 ✓</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 17: CONVERSÃO HEXADECIMAL → DECIMAL -->
+    <div class="slide" data-slide="17">
+      <div class="slide-content">
+        <h2 class="slide-title">Conversão: Hexadecimal → Decimal</h2>
+        <div class="conversion-box">
+          <div class="method">
+            <strong>MÉTODO:</strong> Multiplicação por Potências de 16
+          </div>
+          <div class="steps-list">
+            <h3>📋 PASSO A PASSO</h3>
+            <ol>
+              <li>Numere as posições da direita para esquerda (começando em 0)</li>
+              <li>Converta letras A-F para valores 10-15</li>
+              <li>Multiplique cada dígito por 16 elevado à sua posição</li>
+              <li>Some todos os resultados</li>
+            </ol>
+          </div>
+          <div class="example-conversion">
+            <h3>💡 EXEMPLO: 3A₁₆ → ?₁₀</h3>
+            <table class="notation-table">
+              <tr class="table-header">
+                <th>Posição</th>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <th>Dígito</th>
+                <td>3</td>
+                <td>A</td>
+              </tr>
+              <tr>
+                <th>Valor Decimal</th>
+                <td>3</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <th>Potência</th>
+                <td>16¹</td>
+                <td>16⁰</td>
+              </tr>
+            </table>
+            <div class="detailed-calc">
+              <h4>🧮 CÁLCULO:</h4>
+              <ul class="calc-list">
+                <li>Posição 1: 3 × 16¹ = 3 × 16 = 48</li>
+                <li>Posição 0: 10 × 16⁰ = 10 × 1 = 10</li>
+              </ul>
+              <p class="sum-result"><strong>SOMA:</strong> 48 + 10 = 58</p>
+            </div>
+            <div class="result">
+              <p class="answer">RESULTADO: 3A₁₆ = 58₁₀</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 18: CONVERSÃO BINÁRIO → HEXADECIMAL -->
+    <div class="slide" data-slide="18">
+      <div class="slide-content">
+        <h2 class="slide-title">Conversão: Binário → Hexadecimal</h2>
+        <div class="conversion-box">
+          <div class="method">
+            <strong>MÉTODO:</strong> Agrupamento de 4 Bits
+          </div>
+          <div class="concept-highlight">
+            <h3>💡 CONCEITO IMPORTANTE</h3>
+            <ul>
+              <li>Cada dígito hexadecimal representa EXATAMENTE 4 bits</li>
+              <li>4 bits = 16 combinações = 0 a F em hexadecimal</li>
+            </ul>
+          </div>
+          <div class="steps-list">
+            <h3>📋 PASSO A PASSO</h3>
+            <ol>
+              <li>Agrupe os bits de 4 em 4, da DIREITA para ESQUERDA</li>
+              <li>Se necessário, complete o último grupo com zeros à esquerda</li>
+              <li>Converta cada grupo de 4 bits para seu equivalente hexadecimal</li>
+              <li>Una os dígitos hexadecimais</li>
+            </ol>
+          </div>
+          <div class="example-conversion">
+            <h3>💡 EXEMPLO: 10010110₂ → ?₁₆</h3>
+            <div class="binary-group">
+              <p><strong>Agrupamento:</strong></p>
+              <div class="bits-grouped">
+                <span class="group">1001</span>
+                <span class="separator">|</span>
+                <span class="group">0110</span>
+              </div>
+            </div>
+            <div class="group-conversion">
+              <p><strong>Conversão de cada grupo:</strong></p>
+              <div class="group-calc">
+                <p>Grupo 1: <code>1001₂</code> = 9₁₀ = <strong>9₁₆</strong></p>
+                <p>Grupo 2: <code>0110₂</code> = 6₁₀ = <strong>6₁₆</strong></p>
+              </div>
+            </div>
+            <div class="result">
+              <p class="answer">RESULTADO: 10010110₂ = 96₁₆</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 19: CONVERSÃO HEXADECIMAL → BINÁRIO -->
+    <div class="slide" data-slide="19">
+      <div class="slide-content">
+        <h2 class="slide-title">Conversão: Hexadecimal → Binário</h2>
+        <div class="conversion-box">
+          <div class="method">
+            <strong>MÉTODO:</strong> Conversão Dígito a Dígito
+          </div>
+          <div class="steps-list">
+            <h3>📋 PASSO A PASSO</h3>
+            <ol>
+              <li>Separe cada dígito hexadecimal</li>
+              <li>Converta cada dígito para seu equivalente binário de 4 bits</li>
+              <li>Una todos os grupos de 4 bits</li>
+            </ol>
+          </div>
+          <div class="example-conversion">
+            <h3>💡 EXEMPLO: A7₁₆ → ?₂</h3>
+            <div class="hex-to-bin">
+              <div class="hex-digit-conv">
+                <p><strong>Dígito A:</strong></p>
+                <p>A₁₆ = 10₁₀ = <code>1010₂</code></p>
+              </div>
+              <div class="hex-digit-conv">
+                <p><strong>Dígito 7:</strong></p>
+                <p>7₁₆ = 7₁₀ = <code>0111₂</code></p>
+              </div>
+            </div>
+            <div class="result">
+              <p class="answer">RESULTADO: A7₁₆ = 10100111₂</p>
+            </div>
+          </div>
+          <div class="reference-table-mini">
+            <h4>📋 TABELA DE REFERÊNCIA RÁPIDA</h4>
+            <table class="hex-bin-table">
+              <tr>
+                <th>Hex</th>
+                <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td>
+              </tr>
+              <tr>
+                <th>Bin</th>
+                <td>0000</td><td>0001</td><td>0010</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td>
+              </tr>
+              <tr>
+                <th>Hex</th>
+                <td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td>
+              </tr>
+              <tr>
+                <th>Bin</th>
+                <td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 20: ARQUITETURA VON NEUMANN -->
+    <div class="slide" data-slide="20">
+      <div class="slide-content">
+        <h2 class="slide-title">Complemento: Arquitetura de Von Neumann</h2>
+        <div class="von-neumann-content">
+          <div class="vn-intro">
+            <h3>❓ O QUE É?</h3>
+            <p>Modelo fundamental que define como computadores modernos são organizados. Proposta por <strong>John von Neumann</strong> em 1945.</p>
+          </div>
+          <div class="vn-components">
+            <h3>🏗️ COMPONENTES PRINCIPAIS</h3>
+            <div class="components-grid">
+              <div class="component-card">
+                <div class="comp-icon">🖥️</div>
+                <h4>1. CPU</h4>
+                <ul>
+                  <li><strong>ULA</strong> - Unidade Lógica e Aritmética (realiza operações)</li>
+                  <li><strong>UC</strong> - Unidade de Controle (coordena as operações)</li>
+                  <li><strong>Registradores</strong> - memória de alta velocidade</li>
+                </ul>
+              </div>
+              <div class="component-card">
+                <div class="comp-icon">💾</div>
+                <h4>2. Memória Principal</h4>
+                <ul>
+                  <li>Armazena programas E dados</li>
+                  <li><strong>RAM</strong> (volátil)</li>
+                  <li><strong>ROM</strong> (não-volátil)</li>
+                </ul>
+              </div>
+              <div class="component-card">
+                <div class="comp-icon">⌨️</div>
+                <h4>3. Dispositivos E/S</h4>
+                <ul>
+                  <li><strong>Entrada:</strong> Teclado, mouse, scanner</li>
+                  <li><strong>Saída:</strong> Monitor, impressora, alto-falantes</li>
+                </ul>
+              </div>
+              <div class="component-card">
+                <div class="comp-icon">🔌</div>
+                <h4>4. Barramentos</h4>
+                <ul>
+                  <li>Barramento de Dados</li>
+                  <li>Barramento de Endereços</li>
+                  <li>Barramento de Controle</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="vn-principle">
+            <h3>⭐ PRINCÍPIO FUNDAMENTAL</h3>
+            <p class="principle-text">"Programas e dados compartilham o mesmo espaço de memória"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 21: HIERARQUIA DE MEMÓRIA -->
+    <div class="slide" data-slide="21">
+      <div class="slide-content">
+        <h2 class="slide-title">Hierarquia de Memória em Computadores</h2>
+        <div class="memory-hierarchy">
+          <div class="mem-intro">
+            <h3>💡 CONCEITO</h3>
+            <p>Organização das memórias em níveis, balanceando velocidade, capacidade e custo</p>
+          </div>
+          <div class="pyramid-container">
+            <h3>📊 PIRÂMIDE DE MEMÓRIA</h3>
+            <div class="memory-pyramid">
+              <div class="mem-level level-1">
+                <div class="level-content">
+                  <h4>NÍVEL 1 - REGISTRADORES</h4>
+                  <ul>
+                    <li>Mais rápidos (&lt; 1 ns)</li>
+                    <li>Menor capacidade (bytes)</li>
+                    <li>Dentro da CPU</li>
+                    <li>Mais caros por bit</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mem-level level-2">
+                <div class="level-content">
+                  <h4>NÍVEL 2 - CACHE (L1, L2, L3)</h4>
+                  <ul>
+                    <li>Muito rápidos (1-10 ns)</li>
+                    <li>Pequena capacidade (KB a MB)</li>
+                    <li>Próxima ou dentro da CPU</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mem-level level-3">
+                <div class="level-content">
+                  <h4>NÍVEL 3 - MEMÓRIA PRINCIPAL (RAM)</h4>
+                  <ul>
+                    <li>Rápida (50-100 ns)</li>
+                    <li>Média capacidade (GB)</li>
+                    <li>Volátil</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mem-level level-4">
+                <div class="level-content">
+                  <h4>NÍVEL 4 - ARMAZENAMENTO (SSD/HD)</h4>
+                  <ul>
+                    <li>Mais lenta (ms)</li>
+                    <li>Grande capacidade (TB)</li>
+                    <li>Não-volátil</li>
+                    <li>Mais barata por bit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mem-principle">
+            <h3>⚡ PRINCÍPIO</h3>
+            <p class="principle-text">"Quanto mais perto da CPU, mais rápido e menor"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 22: RESUMO DAS CONVERSÕES -->
+    <div class="slide" data-slide="22">
+      <div class="slide-content">
+        <h2 class="slide-title">Resumo Geral: Todas as Conversões</h2>
+        <div class="all-conversions">
+          <div class="conversion-diagram-complete">
+            <div class="conv-center">
+              <div class="system-node decimal-node">DECIMAL</div>
+            </div>
+            <div class="conv-sides">
+              <div class="system-node binary-node">BINÁRIO</div>
+              <div class="system-node hex-node">HEXADECIMAL</div>
+            </div>
+            <div class="direct-link">
+              <span class="link-arrow">↔</span>
+              <span class="link-label">Direto</span>
+            </div>
+          </div>
+          <div class="methods-summary">
+            <h3>🔄 MÉTODOS RÁPIDOS</h3>
+            <div class="methods-grid">
+              <div class="method-item">
+                <strong>Decimal → Binário:</strong> Divisão por 2
+              </div>
+              <div class="method-item">
+                <strong>Decimal → Hexadecimal:</strong> Divisão por 16
+              </div>
+              <div class="method-item">
+                <strong>Binário → Decimal:</strong> Soma de potências de 2
+              </div>
+              <div class="method-item">
+                <strong>Binário → Hexadecimal:</strong> Grupos de 4 bits
+              </div>
+              <div class="method-item">
+                <strong>Hexadecimal → Decimal:</strong> Soma de potências de 16
+              </div>
+              <div class="method-item">
+                <strong>Hexadecimal → Binário:</strong> Cada dígito = 4 bits
+              </div>
+            </div>
+          </div>
+          <div class="important-tip">
+            <h3>💡 DICA IMPORTANTE</h3>
+            <p>Para converter entre <strong>Binário</strong> e <strong>Hexadecimal</strong>, NÃO é necessário passar pelo Decimal!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 23: TABELA DE REFERÊNCIA -->
+    <div class="slide" data-slide="23">
+      <div class="slide-content">
+        <h2 class="slide-title">Tabela de Referência para Conversões</h2>
+        <div class="reference-table-full">
+          <p class="table-instruction">📋 Memorize esta tabela para conversões rápidas!</p>
+          <table class="full-reference-table">
+            <thead>
+              <tr>
+                <th>Decimal</th>
+                <th>Binário</th>
+                <th>Hexadecimal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>0</td><td>0000</td><td>0</td></tr>
+              <tr><td>1</td><td>0001</td><td>1</td></tr>
+              <tr><td>2</td><td>0010</td><td>2</td></tr>
+              <tr><td>3</td><td>0011</td><td>3</td></tr>
+              <tr><td>4</td><td>0100</td><td>4</td></tr>
+              <tr><td>5</td><td>0101</td><td>5</td></tr>
+              <tr><td>6</td><td>0110</td><td>6</td></tr>
+              <tr><td>7</td><td>0111</td><td>7</td></tr>
+              <tr><td>8</td><td>1000</td><td>8</td></tr>
+              <tr><td>9</td><td>1001</td><td>9</td></tr>
+              <tr><td>10</td><td>1010</td><td>A</td></tr>
+              <tr><td>11</td><td>1011</td><td>B</td></tr>
+              <tr><td>12</td><td>1100</td><td>C</td></tr>
+              <tr><td>13</td><td>1101</td><td>D</td></tr>
+              <tr><td>14</td><td>1110</td><td>E</td></tr>
+              <tr><td>15</td><td>1111</td><td>F</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 24: EXEMPLO ADICIONAL 1 -->
+    <div class="slide" data-slide="24">
+      <div class="slide-content">
+        <h2 class="slide-title">Exemplo Adicional: Conversão Completa</h2>
+        <div class="complete-example">
+          <div class="example-header">
+            <h3>🎯 DESAFIO: Converta 200₁₀ para todas as bases</h3>
+          </div>
+          <div class="example-steps">
+            <div class="conv-step">
+              <h4>1️⃣ 200₁₀ → Binário</h4>
+              <div class="step-work">
+                <p>200 ÷ 2 = 100, resto 0</p>
+                <p>100 ÷ 2 = 50, resto 0</p>
+                <p>50 ÷ 2 = 25, resto 0</p>
+                <p>25 ÷ 2 = 12, resto 1</p>
+                <p>12 ÷ 2 = 6, resto 0</p>
+                <p>6 ÷ 2 = 3, resto 0</p>
+                <p>3 ÷ 2 = 1, resto 1</p>
+                <p>1 ÷ 2 = 0, resto 1</p>
+              </div>
+              <p class="step-result"><strong>Resultado: 11001000₂</strong></p>
+            </div>
+            <div class="conv-step">
+              <h4>2️⃣ 200₁₀ → Hexadecimal</h4>
+              <div class="step-work">
+                <p>200 ÷ 16 = 12, resto 8</p>
+                <p>12 ÷ 16 = 0, resto 12 (C)</p>
+              </div>
+              <p class="step-result"><strong>Resultado: C8₁₆</strong></p>
+            </div>
+            <div class="conv-step">
+              <h4>3️⃣ Verificação: C8₁₆ → Binário</h4>
+              <div class="step-work">
+                <p>C = 12₁₀ = 1100₂</p>
+                <p>8 = 8₁₀ = 1000₂</p>
+              </div>
+              <p class="step-result"><strong>Resultado: 11001000₂ ✓</strong></p>
+            </div>
+          </div>
+          <div class="summary-box">
+            <h4>📝 RESUMO</h4>
+            <p><strong>200₁₀ = 11001000₂ = C8₁₆</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 25: ATIVIDADE PRÁTICA -->
+    <div class="slide" data-slide="25">
+      <div class="slide-content">
+        <h2 class="slide-title">Atividade 1 - Exercícios de Fixação</h2>
+        <p class="slide-subtitle">Conversão entre Sistemas de Numeração</p>
+        <div class="activity-box">
+          <div class="activity-instructions">
+            <h3>📋 INSTRUÇÕES</h3>
+            <ul>
+              <li>Utilize os métodos apresentados na aula</li>
+              <li>Mostre TODOS os passos dos cálculos</li>
+              <li>Faça a verificação dos resultados</li>
+              <li>Submeta as respostas via Google Forms</li>
+            </ul>
+          </div>
+          <div class="questions">
+            <h3>❓ QUESTÕES</h3>
+            <div class="question">
+              <span class="q-number">1</span>
+              <div class="q-content">
+                <p><strong>Questão 1:</strong> Converta o número decimal (150)₁₀ para:</p>
+                <p style="margin-left: 20px;">a) Base binária</p>
+                <p style="margin-left: 20px;">b) Base hexadecimal</p>
+              </div>
+            </div>
+            <div class="question">
+              <span class="q-number">2</span>
+              <div class="q-content">
+                <p><strong>Questão 2:</strong> Converta o número hexadecimal (3A)₁₆ para a base decimal.</p>
+              </div>
+            </div>
+            <div class="question">
+              <span class="q-number">3</span>
+              <div class="q-content">
+                <p><strong>Questão 3:</strong> Converta o número binário (110101)₂ para a base decimal.</p>
+              </div>
+            </div>
+          </div>
+          <div class="activity-footer">
+            <p><strong>⏰ PRAZO DE ENTREGA:</strong> Conforme indicado no Google Classroom</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 26: EXEMPLO ADICIONAL 2 -->
+    <div class="slide" data-slide="26">
+      <div class="slide-content">
+        <h2 class="slide-title">Exemplo Adicional: Verificação de Resultados</h2>
+        <div class="verification-example">
+          <div class="ver-intro">
+            <h3>🔍 COMO VERIFICAR SE SUA CONVERSÃO ESTÁ CORRETA?</h3>
+            <p>Sempre converta o resultado de volta para a base original!</p>
+          </div>
+          <div class="ver-example">
+            <h4>💡 EXEMPLO: Verificando 150₁₀ = 10010110₂</h4>
+            <div class="ver-steps">
+              <h5>Passo 1: Converta de volta para decimal</h5>
+              <table class="notation-table">
+                <tr>
+                  <th>Bit</th>
+                  <td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td>
+                </tr>
+                <tr>
+                  <th>Posição</th>
+                  <td>7</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td>
+                </tr>
+                <tr>
+                  <th>Valor</th>
+                  <td>128</td><td>0</td><td>0</td><td>16</td><td>0</td><td>4</td><td>2</td><td>0</td>
+                </tr>
+              </table>
+              <h5>Passo 2: Some os valores</h5>
+              <p class="calc-line">128 + 16 + 4 + 2 = 150 ✓</p>
+              <h5>Passo 3: Compare com o original</h5>
+              <p class="calc-line">150 = 150 ✓ <strong>Conversão CORRETA!</strong></p>
+            </div>
+          </div>
+          <div class="ver-tips">
+            <h4>💡 DICAS PARA VERIFICAÇÃO</h4>
+            <ul class="tips-list">
+              <li>Sempre faça a verificação convertendo de volta</li>
+              <li>Use calculadora científica para confirmar</li>
+              <li>Verifique se o número de dígitos faz sentido</li>
+              <li>Números binários longos devem ter valores decimais grandes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 27: DICAS E MACETES -->
+    <div class="slide" data-slide="27">
+      <div class="slide-content">
+        <h2 class="slide-title">Dicas e Macetes para Conversões</h2>
+        <div class="tips-content">
+          <div class="tip-section">
+            <h3>💡 ATALHOS ÚTEIS</h3>
+            <div class="tips-grid">
+              <div class="tip-card">
+                <div class="tip-icon">🚀</div>
+                <h4>Binário → Hexadecimal</h4>
+                <p>Não passe pelo decimal! Agrupe de 4 em 4 bits e converta diretamente</p>
+                <p class="tip-example">Ex: 11111111₂ = FF₁₆</p>
+              </div>
+              <div class="tip-card">
+                <div class="tip-icon">🎯</div>
+                <h4>Memorize Potências de 2</h4>
+                <p>Saiba de cor: 2⁴=16, 2⁸=256, 2¹⁰=1024</p>
+                <p class="tip-example">Facilita conversões rápidas</p>
+              </div>
+              <div class="tip-card">
+                <div class="tip-icon">✨</div>
+                <h4>Números Hexadecimais</h4>
+                <p>Use a tabela 0-15. Sempre que ver A-F, lembre: A=10, B=11... F=15</p>
+                <p class="tip-example">FF₁₆ = 255₁₀</p>
+              </div>
+              <div class="tip-card">
+                <div class="tip-icon">🔢</div>
+                <h4>Verifique o Resultado</h4>
+                <p>Sempre converta de volta para confirmar</p>
+                <p class="tip-example">Evita erros de cálculo</p>
+              </div>
+            </div>
+          </div>
+          <div class="common-mistakes">
+            <h3>⚠️ ERROS COMUNS A EVITAR</h3>
+            <ul class="mistakes-list">
+              <li>❌ Esquecer de ler os restos de baixo para cima nas divisões</li>
+              <li>❌ Não completar grupos de 4 bits com zeros à esquerda</li>
+              <li>❌ Confundir a ordem das potências (sempre da direita para esquerda, começando em 0)</li>
+              <li>❌ Esquecer de converter letras A-F para números 10-15</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 28: CONCLUSÃO -->
+    <div class="slide" data-slide="28">
+      <div class="slide-content final-slide">
+        <h2 class="slide-title">Conclusão</h2>
+        <div class="conclusion-content">
+          <div class="takeaways">
+            <h3>📚 PRINCIPAIS APRENDIZADOS</h3>
+            <div class="takeaway-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Arquitetura vs. Organização:</strong>
+                <p>Compreendemos que são conceitos complementares que descrevem diferentes aspectos do computador</p>
+              </div>
+            </div>
+            <div class="takeaway-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Linguagem Binária:</strong>
+                <p>Entendemos por que computadores usam binário e o conceito de Bit e Byte</p>
+              </div>
+            </div>
+            <div class="takeaway-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Sistemas de Numeração:</strong>
+                <p>Conhecemos Decimal, Binário e Hexadecimal e suas aplicações</p>
+              </div>
+            </div>
+            <div class="takeaway-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Conversões:</strong>
+                <p>Dominamos os métodos para converter entre diferentes bases numéricas</p>
+              </div>
+            </div>
+          </div>
+          <div class="applications">
+            <h3>🚀 APLICAÇÕES PRÁTICAS</h3>
+            <ul class="app-list">
+              <li>Programação de baixo nível</li>
+              <li>Análise de memória e debugging</li>
+              <li>Compreensão do funcionamento interno dos computadores</li>
+              <li>Otimização de código</li>
+            </ul>
+          </div>
+          <div class="references">
+            <h3>📚 REFERÊNCIAS BIBLIOGRÁFICAS</h3>
+            <ul class="ref-list">
+              <li>STALLINGS, William. Arquitetura e Organização de Computadores. 10ª ed.</li>
+              <li>TANENBAUM, Andrew S. Organização Estruturada de Computadores. 6ª ed.</li>
+              <li>PATTERSON &amp; HENNESSY. Organização e Projeto de Computadores. 5ª ed.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="controls">
+    <button class="nav-button" id="prevBtn" aria-label="Slide anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <div class="slide-counter">
+      <span id="currentSlide">1</span> / <span id="totalSlides">28</span>
+    </div>
+    <button class="nav-button" id="nextBtn" aria-label="Próximo slide">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
