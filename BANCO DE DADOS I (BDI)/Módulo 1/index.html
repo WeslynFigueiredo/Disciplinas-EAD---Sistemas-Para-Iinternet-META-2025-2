@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÓDULO 1 - Introdução a Banco de Dados (BD I)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="progress-header">
+            <span class="progress-text" id="progressText">Slide 1 de 17</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="slide-wrapper">
+            <!-- Slide 1: Title -->
+            <div class="slide active" data-slide="1">
+                <div class="title-slide">
+                    <div class="database-icon">🗄️</div>
+                    <h1>MÓDULO 1 - Introdução a Banco de Dados</h1>
+                    <p class="subtitle">Fundamentos, Conceitos e Componentes Essenciais</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Objectives -->
+            <div class="slide" data-slide="2">
+                <h2>📋 Objetivos do Módulo</h2>
+                <p>Ao final deste módulo, você será capaz de:</p>
+                <ul class="objectives-list">
+                    <li>Compreender os conceitos fundamentais: Dado, Informação e Banco de Dados</li>
+                    <li>Entender o papel do Sistema Gerenciador de Banco de Dados (SGBD)</li>
+                    <li>Conhecer o Modelo Entidade-Relacionamento (MER)</li>
+                    <li>Identificar e classificar Entidades, Atributos e Relacionamentos</li>
+                    <li>Aplicar conhecimentos em atividades práticas</li>
+                </ul>
+            </div>
+
+            <!-- Slide 3: Conceitos -->
+            <div class="slide" data-slide="3">
+                <h2>💡 Conceitos: Dado, Informação e Banco de Dados</h2>
+                <p style="margin-bottom: 2rem;">Os três conceitos são fundamentais para entender Bancos de Dados. Vamos entender a diferença crucial entre eles:</p>
+                
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔢</div>
+                            <div class="concept-name">DADO</div>
+                        </div>
+                        <div class="concept-definition">Informação em estado bruto, sem contexto ou processamento</div>
+                        <div class="concept-example">
+                            <strong>Exemplo:</strong> Uma lista com números:<br>
+                            11987654321, 11987654322, 11987654323
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">📇</div>
+                            <div class="concept-name">INFORMAÇÃO</div>
+                        </div>
+                        <div class="concept-definition">Dado processado e contextualizado com significado</div>
+                        <div class="concept-example">
+                            <strong>Exemplo:</strong> Uma agenda com nomes e números organizados:<br>
+                            João - 11987654321<br>
+                            Maria - 11987654322
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗄️</div>
+                            <div class="concept-name">BANCO DE DADOS</div>
+                        </div>
+                        <div class="concept-definition">Coleção organizada e estruturada de dados relacionados</div>
+                        <div class="concept-example">
+                            <strong>Exemplo:</strong> Sistema de contatos com múltiplas informações estruturadas:<br>
+                            Nome, Telefone, Email, Endereço, etc.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="curiosity-box">
+                    <div class="curiosity-title">🌍 CURIOSIDADE DO MUNDO REAL</div>
+                    <p><strong>Netflix:</strong> Armazena dados de MILHÕES de usuários em Bancos de Dados especializados. Cada clique, série assistida e classificação é registrada para criar recomendações personalizadas.</p>
+                    <p style="margin-top: 1rem;"><strong>Spotify:</strong> Usa Bancos de Dados para recomendar músicas baseado no histórico de audição. Mais de 70 milhões de músicas rastreadas!</p>
+                </div>
+            </div>
+
+            <!-- Slide 4: SGBD Introduction -->
+            <div class="slide" data-slide="4">
+                <h2>🔧 O SGBD - Sistema Gerenciador de Banco de Dados</h2>
+                <h3 style="text-align: center; color: #f4b41a;">O Gerente/Cozinheiro-Chefe do Banco de Dados</h3>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">O que é um SGBD?</div>
+                    <div class="card-content">
+                        Um sistema responsável por <strong>gerenciar, controlar e facilitar o acesso</strong> aos dados armazenados. Ele atua como um intermediário entre os usuários/aplicações e os dados propriamente ditos.
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🍽️</div>
+                    <div class="card-title">Analogia do Gerente de Restaurante</div>
+                    <div class="card-content">
+                        <p>Assim como um gerente de restaurante coordena todas as operações, o SGBD:</p>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li><strong>Armazena os pedidos</strong> de forma organizada (ARMAZENAMENTO)</li>
+                            <li><strong>Protege a receita secreta</strong> do restaurante (SEGURANÇA)</li>
+                            <li><strong>Garante que nenhum pedido seja perdido</strong> ou duplicado (INTEGRIDADE)</li>
+                            <li><strong>Permite que garçons e chefs acessem</strong> as informações certas (ACESSO)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: SGBD Functions -->
+            <div class="slide" data-slide="5">
+                <h2>⚙️ As 4 Funções Principais do SGBD</h2>
+                
+                <div class="functions-grid">
+                    <div class="function-card">
+                        <div class="function-icon">💾</div>
+                        <div class="function-name">ARMAZENAMENTO</div>
+                        <div class="function-description">Mantém todos os dados de forma organizada e estruturada, facilitando a recuperação e o gerenciamento eficiente.</div>
+                    </div>
+
+                    <div class="function-card">
+                        <div class="function-icon">🔒</div>
+                        <div class="function-name">SEGURANÇA</div>
+                        <div class="function-description">Garante que apenas usuários autorizados acessem os dados, protegendo contra acessos não autorizados.</div>
+                    </div>
+
+                    <div class="function-card">
+                        <div class="function-icon">✅</div>
+                        <div class="function-name">INTEGRIDADE</div>
+                        <div class="function-description">Assegura que os dados permaneçam consistentes e corretos, prevenindo erros e inconsistências.</div>
+                    </div>
+
+                    <div class="function-card">
+                        <div class="function-icon">✏️</div>
+                        <div class="function-name">ACESSO/MANIPULAÇÃO</div>
+                        <div class="function-description">Permite inserir, atualizar, consultar e deletar dados de forma controlada e eficiente.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Mini Challenge -->
+            <div class="slide" data-slide="6">
+                <h2>🎯 Mini-Desafio Rápido: O que o SGBD faz?</h2>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        Seu objetivo é garantir que <strong>APENAS o DONO</strong> possa deletar um registro. Qual função do SGBD você está usando?
+                    </div>
+                    
+                    <div class="quiz-options" id="quizOptions">
+                        <div class="quiz-option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Armazenamento</div>
+                        </div>
+                        <div class="quiz-option" data-value="B" data-correct="true">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Segurança/Controle de Acesso</div>
+                        </div>
+                        <div class="quiz-option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Integridade</div>
+                        </div>
+                        <div class="quiz-option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Acesso/Manipulação</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="quizFeedback">
+                        <div class="quiz-feedback-icon">🎉</div>
+                        <strong>Correto!</strong> Você identificou a função de <strong>SEGURANÇA</strong>. O SGBD controla quem pode fazer o quê com os dados através de permissões e controle de acesso. Isso garante que operações sensíveis como deletar registros sejam restritas apenas a usuários autorizados.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: MER Introduction -->
+            <div class="slide" data-slide="7">
+                <h2>🗺️ O Modelo Entidade-Relacionamento (MER)</h2>
+                <h3 style="text-align: center; color: #f4b41a;">O Esboço do Banco de Dados</h3>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">📐 Definição</div>
+                    <div class="card-content">
+                        Um <strong>modelo conceitual</strong> que representa a estrutura lógica de um banco de dados <strong>ANTES</strong> de sua implementação. É uma representação abstrata que captura a essência dos dados e seus relacionamentos.
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🏗️</div>
+                    <div class="card-title">Analogia de Engenharia Civil</div>
+                    <div class="card-content">
+                        Assim como arquitetos fazem uma <strong>planta baixa ANTES de construir uma casa</strong>, o MER é feito <strong>ANTES de criar o BD</strong>. Isso permite visualizar a estrutura, identificar problemas e fazer ajustes antes de investir tempo e recursos na implementação.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🎨 Nível de Abstração</div>
+                    <div class="card-content">
+                        É uma visão de <strong>ALTO NÍVEL (Conceitual)</strong> - abstrata e independente de qualquer tecnologia específica de banco de dados.
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Benefícios do MER:</h3>
+                <ul class="objectives-list">
+                    <li>Visualização clara da estrutura dos dados</li>
+                    <li>Facilita comunicação entre equipes</li>
+                    <li>Permite identificar problemas antes da implementação</li>
+                </ul>
+            </div>
+
+            <!-- Slide 8: Entities -->
+            <div class="slide" data-slide="8">
+                <h2>📦 Componentes do MER: ENTIDADES</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">O que é uma Entidade?</div>
+                    <div class="card-content">
+                        Uma <strong>'coisa' do mundo real</strong> que queremos armazenar dados sobre. É um objeto, conceito ou evento que tem existência independente e pode ser identificado de forma única.
+                    </div>
+                </div>
+
+                <div class="visual-demo">
+                    <div class="visual-shape rectangle">ENTIDADE</div>
+                    <p style="flex: 1;"><strong>Representação Visual:</strong> Retângulo com linha grossa</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Exemplos de Entidades:</h3>
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <div class="concept-icon">👨‍🎓</div>
+                        <div class="concept-name">ALUNO</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">📚</div>
+                        <div class="concept-name">LIVRO</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">👨‍🏫</div>
+                        <div class="concept-name">PROFESSOR</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">👔</div>
+                        <div class="concept-name">FUNCIONÁRIO</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">🏢</div>
+                        <div class="concept-name">DEPARTAMENTO</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(244, 180, 26, 0.1);">
+                    <div class="card-content">
+                        <strong>📝 Nota Importante:</strong> Cada entidade representa um <strong>conjunto de objetos similares</strong>. Por exemplo, ALUNO representa todos os alunos do sistema, não apenas um aluno específico.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Attributes -->
+            <div class="slide" data-slide="9">
+                <h2>🏷️ Componentes do MER: ATRIBUTOS</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">O que é um Atributo?</div>
+                    <div class="card-content">
+                        <strong>Propriedades ou características</strong> de uma entidade. São os dados específicos que queremos armazenar sobre cada instância da entidade.
+                    </div>
+                </div>
+
+                <div class="visual-demo">
+                    <div class="visual-shape ellipse">ATRIBUTO</div>
+                    <p style="flex: 1;"><strong>Representação Visual:</strong> Elipse/Círculo</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Exemplos de Atributos para a entidade ALUNO:</h3>
+                <div class="card">
+                    <div class="entity-card" style="border-color: #48bb78;">
+                        <div class="entity-name" style="text-align: center;">👨‍🎓 ALUNO</div>
+                        <ul class="attribute-list">
+                            <li><strong>Matrícula</strong> - Identificador único do aluno</li>
+                            <li><strong>Nome</strong> - Nome completo do aluno</li>
+                            <li><strong>Data de Nascimento</strong> - Quando o aluno nasceu</li>
+                            <li><strong>Email</strong> - Endereço de email para contato</li>
+                            <li><strong>Telefone</strong> - Número de telefone para contato</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(244, 180, 26, 0.1);">
+                    <div class="card-content">
+                        <strong>📝 Nota Importante:</strong> Cada atributo descreve uma <strong>qualidade específica</strong> da entidade. Atributos contêm os valores reais dos dados.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Relationships -->
+            <div class="slide" data-slide="10">
+                <h2>🔗 Componentes do MER: RELACIONAMENTOS</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">O que é um Relacionamento?</div>
+                    <div class="card-content">
+                        A <strong>forma como entidades se conectam ou se relacionam</strong> entre si. Representa associações significativas entre duas ou mais entidades.
+                    </div>
+                </div>
+
+                <div class="visual-demo">
+                    <div class="visual-shape diamond"><span>REL</span></div>
+                    <p style="flex: 1;"><strong>Representação Visual:</strong> Losango</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Exemplos de Relacionamentos:</h3>
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <div class="concept-icon">🔗</div>
+                        <div class="concept-name">ALUNO estuda em UNIVERSIDADE</div>
+                        <div class="concept-example">
+                            Um aluno está matriculado e estuda em uma universidade específica.
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-icon">🔗</div>
+                        <div class="concept-name">PROFESSOR ensina DISCIPLINA</div>
+                        <div class="concept-example">
+                            Um professor é responsável por lecionar uma ou mais disciplinas.
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-icon">🔗</div>
+                        <div class="concept-name">FUNCIONÁRIO trabalha em DEPARTAMENTO</div>
+                        <div class="concept-example">
+                            Um funcionário está alocado em um departamento da organização.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(244, 180, 26, 0.1);">
+                    <div class="card-content">
+                        <strong>📝 Nota Importante:</strong> Relacionamentos definem <strong>como as informações de diferentes entidades se conectam</strong>, criando a estrutura lógica do banco de dados.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Game -->
+            <div class="slide" data-slide="11">
+                <h2>🎮 Jogo dos Componentes - Classificação</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">Classifique os itens a seguir em <strong style="color: #f4b41a;">E (Entidade)</strong>, <strong style="color: #48bb78;">A (Atributo)</strong> ou <strong style="color: #4299e1;">R (Relacionamento)</strong></p>
+                
+                <div class="score-display" id="gameScore">Pontuação: 0/6</div>
+                
+                <div class="game-container" id="gameContainer">
+                    <!-- Questions will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Slide 12: Activity 1 Intro -->
+            <div class="slide" data-slide="12">
+                <h2>📝 ATIVIDADE 1 (BD I) - Análise e Definição de Componentes</h2>
+                <h3 style="text-align: center; color: #f4b41a;">Sistema de Gerenciamento de Biblioteca</h3>
+                
+                <div class="card" style="margin: 2rem 0; background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon" style="font-size: 3rem; text-align: center;">📚</div>
+                    <div class="card-title" style="text-align: center; font-size: 1.4rem;">Instruções da Atividade</div>
+                    <div class="card-content" style="font-size: 1.05rem;">
+                        <p>Para um <strong>SISTEMA DE GERENCIAMENTO DE BIBLIOTECA</strong>, você deve:</p>
+                        <ul style="margin-top: 1.5rem; padding-left: 2rem; line-height: 2;">
+                            <li>Identificar <strong>3 ENTIDADES CHAVE</strong></li>
+                            <li>Definir pelo menos <strong>3 ATRIBUTOS</strong> para cada entidade</li>
+                            <li>Descrever <strong>1 RELACIONAMENTO PRINCIPAL</strong> entre duas entidades</li>
+                            <li>Justificar brevemente as escolhas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content" style="text-align: center; font-size: 1.1rem;">
+                        💡 Nas próximas seções, você verá um <strong>exemplo de solução</strong> e depois terá a oportunidade de <strong>criar sua própria análise</strong>!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Example Solution -->
+            <div class="slide" data-slide="13">
+                <h2>💡 Exemplo de Solução - Atividade 1</h2>
+                <h3 style="text-align: center; color: #f4b41a; margin-bottom: 1rem;">Sistema de Gerenciamento de Loja de Eletrônicos</h3>
+                <p style="margin-bottom: 2rem; font-size: 1.05rem; text-align: center; color: #a0d7e7;">Use este exemplo como referência para sua própria análise (tema diferente da sua atividade):</p>
+                
+                <div class="solution-grid">
+                    <div class="entity-card">
+                        <div class="entity-name">📱 ENTIDADE 1: PRODUTO</div>
+                        <div class="entity-section">
+                            <div class="entity-section-title">Atributos:</div>
+                            <ul class="attribute-list">
+                                <li><strong>Código do Produto</strong> - Identificador único do produto</li>
+                                <li><strong>Nome do Produto</strong> - Descrição do eletrônico</li>
+                                <li><strong>Marca/Fabricante</strong> - Fabricante do produto</li>
+                                <li><strong>Preço</strong> - Valor de venda</li>
+                                <li><strong>Categoria</strong> - Tipo de eletrônico (smartphone, notebook, etc.)</li>
+                                <li><strong>Quantidade em Estoque</strong> - Unidades disponíveis</li>
+                            </ul>
+                        </div>
+                        <div class="entity-section">
+                            <div class="justification">
+                                <strong>Justificativa:</strong> Um Produto é o elemento central de uma loja de eletrônicos. Cada produto tem características específicas que precisam ser armazenadas, consultadas e controladas. O estoque é crítico para a operação da loja.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entity-card">
+                        <div class="entity-name">👤 ENTIDADE 2: CLIENTE</div>
+                        <div class="entity-section">
+                            <div class="entity-section-title">Atributos:</div>
+                            <ul class="attribute-list">
+                                <li><strong>CPF</strong> - Identificador único do cliente</li>
+                                <li><strong>Nome Completo</strong> - Nome do cliente</li>
+                                <li><strong>Email</strong> - Contato eletrônico</li>
+                                <li><strong>Telefone</strong> - Número de contato</li>
+                                <li><strong>Data de Cadastro</strong> - Quando se registrou</li>
+                                <li><strong>Endereço</strong> - Local de entrega</li>
+                            </ul>
+                        </div>
+                        <div class="entity-section">
+                            <div class="justification">
+                                <strong>Justificativa:</strong> Clientes são os consumidores que compram na loja. Precisamos armazenar suas informações para registrar compras, enviar promoções, manter contato e garantir entregas corretas. São a base do negócio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entity-card">
+                        <div class="entity-name">💳 ENTIDADE 3: VENDA/PEDIDO</div>
+                        <div class="entity-section">
+                            <div class="entity-section-title">Atributos:</div>
+                            <ul class="attribute-list">
+                                <li><strong>Número da Venda</strong> - Identificador único da transação</li>
+                                <li><strong>Data da Venda</strong> - Quando foi realizada a compra</li>
+                                <li><strong>Data de Entrega</strong> - Prazo previsto de entrega</li>
+                                <li><strong>Valor Total</strong> - Valor total da venda</li>
+                                <li><strong>Status</strong> - Pendente, entregue ou cancelado</li>
+                                <li><strong>Forma de Pagamento</strong> - Cartão, boleto, PIX, etc.</li>
+                            </ul>
+                        </div>
+                        <div class="entity-section">
+                            <div class="justification">
+                                <strong>Justificativa:</strong> Cada venda/pedido registra uma transação na loja. É essencial para rastrear compras, valor total, datas, status de entrega e histórico de vendas. Permite relatórios financeiros e acompanhamento de pedidos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="entity-card" style="border-color: #48bb78; background: rgba(72, 187, 120, 0.1);">
+                        <div class="entity-name" style="color: #48bb78;">🔗 RELACIONAMENTO PRINCIPAL</div>
+                        <div class="entity-section">
+                            <div class="entity-section-title">Entidades Envolvidas:</div>
+                            <p style="color: #cbd5e0; margin: 0.5rem 0;">CLIENTE, PRODUTO, VENDA</p>
+                        </div>
+                        <div class="entity-section">
+                            <div class="entity-section-title">Descrição:</div>
+                            <p style="color: #cbd5e0; margin: 0.5rem 0;">Um <strong>CLIENTE</strong> faz uma <strong>VENDA</strong> que contém um ou mais <strong>PRODUTOS</strong></p>
+                        </div>
+                        <div class="entity-section">
+                            <div class="justification" style="border-left-color: #48bb78;">
+                                <strong>Justificativa:</strong> Este relacionamento conecta os três elementos principais do sistema de uma loja. Quando um cliente realiza uma compra, ele faz uma venda que pode incluir vários produtos diferentes. Isso permite rastrear: QUEM comprou, O QUE foi comprado, QUANDO foi comprado e quanto custou.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Activity Form -->
+            <div class="slide" data-slide="14">
+                <h2>✍️ ATIVIDADE 1 (BD I) - Sua Resposta</h2>
+                <p style="margin-bottom: 1.5rem;">Envie as respostas pelo Google Sala de Aula</p>
+            </div>
+
+            <!-- Slide 15: Summary of Concepts -->
+            <div class="slide" data-slide="15">
+                <h2>📚 Resumo dos Conceitos - Banco de Dados I</h2>
+                <div class="card" style="background: rgba(244, 180, 26, 0.15); border-color: #f4b41a; margin-bottom: 2rem;">
+                    <div class="card-content" style="text-align: center; font-weight: 600;">
+                        ⚠️ Revise todos esses conceitos antes de começar a trabalhar com projetos reais de Banco de Dados. Eles formam a base de toda a disciplina!
+                    </div>
+                </div>
+                
+                <div class="concept-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔢</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">DADO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Informação em estado bruto, sem contexto</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Exemplo:</strong> Números isolados, texto sem significado
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">📇</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">INFORMAÇÃO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Dado processado com significado e contexto</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Exemplo:</strong> Agenda organizada com contatos
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗄️</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">BANCO DE DADOS</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Coleção estruturada de dados relacionados</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Exemplo:</strong> Sistema completo de armazenamento e consulta
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔧</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">SGBD</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Sistema que gerencia, controla e facilita acesso aos dados</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Funções:</strong> Armazenamento, Segurança, Integridade, Acesso/Manipulação
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗺️</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">MER</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Modelo conceitual de um BD antes da implementação</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Nível:</strong> Alto nível, abstrato, independente de tecnologia
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">📦</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">ENTIDADE</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">'Coisa' do mundo real que armazenamos dados sobre</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Representação:</strong> Retângulo
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🏷️</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">ATRIBUTO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Propriedade ou característica de uma entidade</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Representação:</strong> Elipse
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔗</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">RELACIONAMENTO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Forma como entidades se conectam e se relacionam</div>
+                        <div class="concept-example" style="font-size: 0.9rem;">
+                            <strong>Representação:</strong> Losango
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Conclusion -->
+            <div class="slide" data-slide="16">
+                <h2>🎓 Conclusão - Banco de Dados I</h2>
+                
+                <div class="card" style="margin: 1.5rem 0;">
+                    <div class="card-title" style="color: #f4b41a;">💎 Importância dos Conceitos Fundamentais</div>
+                    <div class="card-content">
+                        Neste módulo, você aprendeu os fundamentos essenciais de Banco de Dados. Os conceitos de Dado, Informação e Banco de Dados são a base para qualquer sistema de informação moderno. Sem uma compreensão clara desses conceitos, é impossível trabalhar com qualidade em projetos de tecnologia.
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1.5rem 0;">
+                    <div class="card-title" style="color: #f4b41a;">🔧 SGBD - Sua Aplicação Prática</div>
+                    <div class="card-content">
+                        O Sistema Gerenciador de Banco de Dados (SGBD) é uma ferramenta onipresente no mercado de tecnologia. Desde bancos de dados de loja online até sistemas de redes sociais com bilhões de usuários, o SGBD é o 'maestro' que orquestra tudo. Entender suas funções permite que você aprecie e trabalhe com qualquer plataforma de dados.
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1.5rem 0;">
+                    <div class="card-title" style="color: #f4b41a;">🗺️ MER - O Segredo do Planejamento</div>
+                    <div class="card-content">
+                        O Modelo Entidade-Relacionamento é fundamental para o planejamento de qualquer projeto de dados. Profissionais experientes sabem que investir tempo em uma boa modelagem conceitual economiza tempo, erros e custos futuros. Um MER bem feito é a diferença entre um projeto caótico e um projeto profissional.
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1.5rem 0;">
+                    <div class="card-title" style="color: #f4b41a;">🚀 Próximos Passos</div>
+                    <div class="card-content">
+                        Agora que você compreende os fundamentos, está pronto para aprofundar em tópicos mais avançados, como Normalização de Dados, Linguagem SQL e Otimização de Consultas. Continue estudando e praticando - os conceitos deste módulo serão sua ferramenta de trabalho por toda sua carreira!
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(72, 187, 120, 0.15) 0%, rgba(26, 58, 74, 0.8) 100%); border-color: #48bb78; margin: 2rem 0;">
+                    <div class="card-title" style="text-align: center; font-size: 1.3rem;">✅ CHECKLIST DE APRENDIZADO</div>
+                    <ul class="objectives-list" style="margin-top: 1rem;">
+                        <li>Compreendi a diferença entre Dado, Informação e Banco de Dados</li>
+                        <li>Entendi as 4 funções principais do SGBD</li>
+                        <li>Conheço o Modelo Entidade-Relacionamento e sua importância</li>
+                        <li>Consigo identificar Entidades, Atributos e Relacionamentos</li>
+                        <li>Completei a Atividade 1 com sucesso</li>
+                        <li>Estou pronto para módulos mais avançados</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%); border: 2px solid #f4b41a; text-align: center; padding: 2rem;">
+                    <div class="card-icon" style="font-size: 3rem;">🎉</div>
+                    <div class="card-content" style="font-size: 1.2rem; font-weight: 600; color: #ffd700;">
+                        Parabéns! Você completou o Módulo 1 de Banco de Dados. Você agora tem uma sólida fundamentação teórica. Continue sua jornada de aprendizado!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: References -->
+            <div class="slide" data-slide="17">
+                <h2>📖 Referências Bibliográficas</h2>
+                
+                <h3 style="margin-top: 2rem;">📚 REFERÊNCIAS PRINCIPAIS:</h3>
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>1. Heuser, Carlos A.</strong> (2009). <em>"Projeto de Banco de Dados"</em> (6ª ed.). Editora Sagra Luzzatto.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Livro fundamental sobre modelagem de dados e projeto de bancos de dados em português.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>2. Date, C. J.</strong> (2005). <em>"An Introduction to Database Systems"</em> (8th ed.). Pearson.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Referência clássica internacional sobre conceitos de bancos de dados e teoria relacional.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>3. Silberschatz, A., Korth, H. F., &amp; Sudarshan, S.</strong> (2010). <em>"Database System Concepts"</em> (6th ed.). McGraw-Hill.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Excelente para aprofundamento em arquitetura, processamento de consultas e transações.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>4. Elmasri, R., &amp; Navathe, S. B.</strong> (2011). <em>"Fundamentals of Database Systems"</em> (6th ed.). Pearson.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Abordagem prática com muitos exemplos e exercícios sobre modelagem ER.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>5. Teorey, T. J., Lightstone, S. S., &amp; Nadeau, T. P.</strong> (2011). <em>"Database Modeling &amp; Design"</em> (5th ed.). Morgan Kaufmann.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Foco prático em design e modelagem para aplicações reais.</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">🌐 DOCUMENTAÇÃO ONLINE:</h3>
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>6. W3Schools - SQL Tutorial:</strong> <a href="https://www.w3schools.com/sql/" target="_blank" style="color: #f4b41a;">https://www.w3schools.com/sql/</a><br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Referência interativa de SQL, linguagem padrão para consulta em bancos de dados.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>7. PostgreSQL Official Documentation:</strong> <a href="https://www.postgresql.org/docs/" target="_blank" style="color: #f4b41a;">https://www.postgresql.org/docs/</a><br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Documentação completa do PostgreSQL, SGBD open-source muito utilizado.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>8. MySQL Official Documentation:</strong> <a href="https://dev.mysql.com/doc/" target="_blank" style="color: #f4b41a;">https://dev.mysql.com/doc/</a><br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Documentação do MySQL, um dos SGBDs mais populares no mundo.</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">📘 RECURSOS COMPLEMENTARES:</h3>
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>9. Dewson, Craig, et al.</strong> (2009). <em>"Beginning Database Design"</em> (1st ed.). Wrox Press.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Livro prático para iniciantes em design de bancos de dados.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin: 1rem 0;">
+                    <div class="card-content">
+                        <strong>10. Garcia-Molina, H., Ullman, J. D., &amp; Widom, J.</strong> (2008). <em>"Database Systems: The Complete Book"</em> (2nd ed.). Prentice Hall.<br>
+                        <span style="color: #a0d7e7; font-size: 0.95rem; display: block; margin-top: 0.5rem;">Abordagem teórica e prática integradas, com muitos exemplos.</span>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(244, 180, 26, 0.15); border-color: #f4b41a; margin-top: 2rem;">
+                    <div class="card-content" style="text-align: center; font-weight: 600;">
+                        📌 NOTA IMPORTANTE: As referências acima fornecem embasamento sólido para continuar estudando Banco de Dados. Recomenda-se consultar essas fontes para aprofundamento em tópicos específicos, práticas de modelagem avançada e estudos de caso reais.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="navigation">
+                <button class="nav-btn prev" id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
+                <div class="slide-indicator" id="slideIndicator">Slide 1 de 17</div>
+                <button class="nav-btn next" id="nextBtn" onclick="changeSlide(1)">Próximo ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
