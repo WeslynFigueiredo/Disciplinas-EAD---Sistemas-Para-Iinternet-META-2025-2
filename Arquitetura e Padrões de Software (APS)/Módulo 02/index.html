@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura e Padrões de Software - Módulo 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" data-slide="1">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content title-slide">
+                <div class="module-badge">Módulo 2</div>
+                <h1 class="main-title">Arquitetura e Padrões de Software (APS)</h1>
+                <p class="subtitle">Estilos Arquitetônicos</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Table of Contents -->
+        <div class="slide" data-slide="2">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sumário da Aula</h2>
+                <div class="toc-grid">
+                    <div class="toc-card">
+                        <div class="toc-number">01</div>
+                        <div class="toc-title">Características e Desvantagens do Estilo Camadas</div>
+                        <div class="toc-slides">Slide 3</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">02</div>
+                        <div class="toc-title">Detalhamento do Estilo Cliente-Servidor</div>
+                        <div class="toc-slides">Slides 4-6</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">03</div>
+                        <div class="toc-title">Detalhamento do Estilo Microsserviços</div>
+                        <div class="toc-slides">Slides 7-13</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">04</div>
+                        <div class="toc-title">Seleção de Estilos: Camadas vs Microsserviços</div>
+                        <div class="toc-slides">Slides 14-20</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Layered Architecture Review -->
+        <div class="slide" data-slide="3">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Estilo Camadas (Layered Architecture) - Revisão</h2>
+                <div class="section-title">Características Principais</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Organização em camadas hierárquicas (Apresentação, Negócio, Dados)</li>
+                        <li>✓ Comunicação apenas entre camadas adjacentes</li>
+                        <li>✓ Separação clara de responsabilidades</li>
+                        <li>✓ Deploy integrado da aplicação</li>
+                    </ul>
+                </div>
+                <div class="section-title">Desvantagens Críticas</div>
+                <div class="content-card">
+                    <ul class="disadvantages-list">
+                        <li>
+                            <span class="warning-icon">✗</span>
+                            <div>
+                                <strong>ACOPLAMENTO</strong>
+                                <p>Mudanças em uma camada afetam outras (efeito dominó)</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">✗</span>
+                            <div>
+                                <strong>MONOLITO</strong>
+                                <p>Escalar requer deploying entire application</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">✗</span>
+                            <div>
+                                <strong>BOTTLENECK</strong>
+                                <p>Uma camada lenta desacelera tudo</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">✗</span>
+                            <div>
+                                <strong>DEPLOY INTEGRADO</strong>
+                                <p>Mudar algo pequeno requer deploy completo</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="warning-icon">✗</span>
+                            <div>
+                                <strong>FALTA DE FLEXIBILIDADE</strong>
+                                <p>Tecnologia única para todas as camadas</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p><strong>ANALOGIA:</strong> Como uma empresa com departamentos hierárquicos - Recepção (Apresentação), Gerência (Negócio), Arquivo (Dados). Mudança em um departamento afeta os outros.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: INTERACTIVE ACTIVITY #1 - Efeito Dominó -->
+        <div class="slide" data-slide="4">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade Prática: Efeito Dominó nas Camadas</h2>
+                <p class="slide-subtitle">Teste seu entendimento sobre acoplamento!</p>
+                
+                <div class="highlight-card">
+                    <h3>CENÁRIO</h3>
+                    <p>Uma aplicação bancária tem 3 camadas: Apresentação (UI web), Negócio (validação e cálculos), Dados (banco SQL)</p>
+                </div>
+
+                <div class="activity-question">
+                    <h3>PERGUNTA: A equipe de dados decide mudar de SQL para NoSQL. Quais camadas serão impactadas?</h3>
+                </div>
+
+                <div class="quiz-options" id="activity1-options">
+                    <button class="quiz-option" data-correct="false" data-activity="1" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Apenas a camada de Dados</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="1" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Apenas a camada de Negócio</span>
+                    </button>
+                    <button class="quiz-option" data-correct="true" data-activity="1" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Camadas de Negócio e Dados</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="1" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Todas as três camadas</span>
+                    </button>
+                </div>
+
+                <div class="feedback-box" id="activity1-feedback" style="display: none;"></div>
+                
+                <div class="score-display">
+                    <span>Pontuação: <strong id="score-display">0/5</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Client-Server Introduction -->
+        <div class="slide" data-slide="4">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Arquitetura Cliente-Servidor: Conceito Fundamental</h2>
+                <div class="definition-card highlight">
+                    <div class="icon">🌐</div>
+                    <p class="definition-text">Padrão de comunicação baseado em REQUISIÇÃO e RESPOSTA entre duas entidades principais</p>
+                </div>
+                <div class="section-title">Modelo Request/Response</div>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">C</div>
+                        <p><strong>CLIENTE</strong> envia requisição</p>
+                    </div>
+                    <div class="flow-arrow">↔</div>
+                    <div class="flow-step">
+                        <div class="flow-number">S</div>
+                        <p><strong>SERVIDOR</strong> processa e responde</p>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>Conceito-Chave:</strong> Separação entre quem solicita (cliente) e quem processa (servidor)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Client-Server Components -->
+        <div class="slide" data-slide="6">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Componentes Principais</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">CLIENTE (Quem Solicita)</h3>
+                        <div class="comparison-card">
+                            <p><strong>Definição:</strong> Entidade que solicita serviços</p>
+                            <br>
+                            <p><strong>Exemplos:</strong></p>
+                            <ul>
+                                <li>Navegador web</li>
+                                <li>Aplicativo mobile</li>
+                                <li>Software desktop</li>
+                            </ul>
+                            <br>
+                            <p><strong>Responsabilidades:</strong></p>
+                            <ul>
+                                <li>• Apresentar interface ao usuário</li>
+                                <li>• Capturar entradas do usuário</li>
+                                <li>• Enviar requisições (HTTP GET, POST, etc)</li>
+                                <li>• Exibir respostas processadas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">SERVIDOR (Quem Processa)</h3>
+                        <div class="comparison-card">
+                            <p><strong>Definição:</strong> Entidade que processa requisições</p>
+                            <br>
+                            <p><strong>Exemplos:</strong></p>
+                            <ul>
+                                <li>Servidor web</li>
+                                <li>API REST</li>
+                                <li>Banco de dados</li>
+                            </ul>
+                            <br>
+                            <p><strong>Responsabilidades:</strong></p>
+                            <ul>
+                                <li>• Receber requisições do cliente</li>
+                                <li>• Processar lógica de negócio</li>
+                                <li>• Buscar/armazenar dados</li>
+                                <li>• Enviar respostas ao cliente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Client-Server Communication Flow -->
+        <div class="slide" data-slide="7">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Fluxo de Comunicação: Request/Response</h2>
+                <div class="note-card">
+                    <p><strong>ANALOGIA DO RESTAURANTE:</strong> Cliente (você) faz pedido → Garçom (requisição) → Cozinha (servidor processa) → Garçom (resposta) → Cliente consome</p>
+                </div>
+                <div class="section-title">Fluxo Passo a Passo</div>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p>Cliente envia requisição ao servidor</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p>Servidor recebe e valida</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p>Servidor processa lógica e busca dados</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <p>Servidor prepara resposta</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">5</div>
+                        <p>Cliente recebe e exibe dados</p>
+                    </div>
+                </div>
+                <div class="section-title">Casos de Uso</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Aplicações web</li>
+                        <li>APIs REST</li>
+                        <li>Aplicativos mobile</li>
+                        <li>Qualquer sistema com processamento centralizado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: INTERACTIVE ACTIVITY #2 - Monte o Fluxo do Restaurante -->
+        <div class="slide" data-slide="8">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🍽️ Atividade Prática: Restaurante Cliente-Servidor</h2>
+                <p class="slide-subtitle">Teste seu entendimento</p>
+                <p class="slide-subtitle">Arraste e organize o fluxo correto!</p> 
+                <div class="activity-instructions">
+                    <p><strong>INSTRUÇÕES:</strong> Arraste os cards abaixo para a ordem CORRETA do fluxo Cliente-Servidor (Analogia do Restaurante)</p>
+                </div>
+
+                <div class="drag-drop-container">
+                    <div class="drop-zones" id="drop-zones">
+                        <div class="drop-zone" data-position="1"><span class="zone-number">1</span></div>
+                        <div class="drop-zone" data-position="2"><span class="zone-number">2</span></div>
+                        <div class="drop-zone" data-position="3"><span class="zone-number">3</span></div>
+                        <div class="drop-zone" data-position="4"><span class="zone-number">4</span></div>
+                        <div class="drop-zone" data-position="5"><span class="zone-number">5</span></div>
+                        <div class="drop-zone" data-position="6"><span class="zone-number">6</span></div>
+                    </div>
+
+                    <div class="draggable-cards" id="draggable-cards">
+                        <div class="drag-card" draggable="true" data-correct-position="1">
+                            <span class="drag-icon">🙋</span>
+                            <p>Cliente faz pedido ao garçom (REQUISIÇÃO)</p>
+                        </div>
+                        <div class="drag-card" draggable="true" data-correct-position="2">
+                            <span class="drag-icon">🚶</span>
+                            <p>Garçom leva pedido para a cozinha</p>
+                        </div>
+                        <div class="drag-card" draggable="true" data-correct-position="3">
+                            <span class="drag-icon">👨‍🍳</span>
+                            <p>Cozinha recebe e valida o pedido</p>
+                        </div>
+                        <div class="drag-card" draggable="true" data-correct-position="4">
+                            <span class="drag-icon">🔥</span>
+                            <p>Cozinha prepara o prato (PROCESSAMENTO)</p>
+                        </div>
+                        <div class="drag-card" draggable="true" data-correct-position="5">
+                            <span class="drag-icon">🚶</span>
+                            <p>Garçom traz o prato pronto</p>
+                        </div>
+                        <div class="drag-card" draggable="true" data-correct-position="6">
+                            <span class="drag-icon">😋</span>
+                            <p>Cliente recebe e consome (RESPOSTA)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity-buttons">
+                    <button class="btn-verify" id="verify-activity2">Verificar Ordem</button>
+                    <button class="btn-reset" id="reset-activity2">Tentar Novamente</button>
+                </div>
+
+                <div class="feedback-box" id="activity2-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Microservices Introduction -->
+        <div class="slide" data-slide="7">
+            <div class="logo-area">
+               <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Microsserviços: A Nova Era da Arquitetura</h2>
+                <div class="definition-card highlight">
+                    <div class="icon">🏗️</div>
+                    <p class="definition-text">Arquitetura onde a aplicação é dividida em PEQUENOS SERVIÇOS INDEPENDENTES que se comunicam via APIs ou mensagens</p>
+                </div>
+                <div class="section-title">Filosofia</div>
+                <div class="content-card">
+                    <p style="font-size: 18px; text-align: center; color: var(--color-accent-orange); font-weight: 600;">Fazer UMA COISA BEM FEITA, ao invés de fazer tudo em um lugar</p>
+                </div>
+                <div class="note-card">
+                    <p><strong>Conceito-Chave:</strong> Contrário ao Monolito</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Microservices Analogy -->
+        <div class="slide" data-slide="10">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Microsserviços: Analogia da Cidade Modular</h2>
+                <div class="note-card">
+                    <p><strong>ANALOGIA DA CIDADE:</strong> A aplicação é como uma CIDADE onde cada PRÉDIO (serviço) tem função específica. Um prédio é Banco, outro Hospital, outro Escola. Cada pode ser REFORMADO independentemente SEM PARAR o resto da cidade. As RUAS (APIs) conectam os prédios.</p>
+                </div>
+                <div class="section-title">Características dos Microsserviços</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Cada serviço responsável por um domínio de negócio específico</li>
+                        <li>✓ Linguagens e frameworks diferentes permitidos</li>
+                        <li>✓ Cada serviço tem próprio banco de dados</li>
+                        <li>✓ Comunicação via APIs HTTP/REST ou Message Queues</li>
+                        <li>✓ Deploy independente de cada serviço</li>
+                        <li>✓ Equipes independentes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: E-commerce Example -->
+        <div class="slide" data-slide="11">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Exemplo: Sistema de E-commerce Decomposto</h2>
+                <div class="example-layers">
+                    <div class="example-layer">
+                        <h3>1. Autenticação</h3>
+                        <div class="example-content">
+                            <p>Gerencia login, registro, tokens JWT</p>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>2. Produtos</h3>
+                        <div class="example-content">
+                            <p>Catálogo, busca, detalhes de produtos</p>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>3. Carrinho</h3>
+                        <div class="example-content">
+                            <p>Adicionar, remover, gerenciar itens</p>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>4. Pedidos</h3>
+                        <div class="example-content">
+                            <p>Processar, rastrear pedidos</p>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>5. Pagamento</h3>
+                        <div class="example-content">
+                            <p>Processar transações de pagamento</p>
+                        </div>
+                    </div>
+                    <div class="example-layer">
+                        <h3>6. Notificações</h3>
+                        <div class="example-content">
+                            <p>Enviar emails, SMS, push notifications</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>Nota:</strong> Cada serviço se comunica via APIs HTTP/REST</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: INTERACTIVE ACTIVITY #3 - Construa a Cidade de Microsserviços -->
+        <div class="slide" data-slide="12">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🏙️ Atividade Prática: Cidade Modular</h2>
+                <p class="slide-subtitle">Monte a arquitetura de um Chat em Tempo Real!</p>
+                
+                <div class="highlight-card">
+                    <h3>CENÁRIO</h3>
+                    <p>Você foi contratado para desenhar a arquitetura de um CHAT EM TEMPO REAL com 1 milhão de usuários. Selecione os MICROSSERVIÇOS necessários:</p>
+                </div>
+
+                <div class="activity-instructions">
+                    <p><strong>TAREFA:</strong> Clique nos serviços que você considera ESSENCIAIS para o chat</p>
+                </div>
+
+                <div class="service-selection-grid" id="service-selection">
+                    <div class="selectable-service" data-essential="true">
+                        <input type="checkbox" id="service1" class="service-checkbox">
+                        <label for="service1">
+                            <span class="service-icon">🔐</span>
+                            <h4>Serviço de Autenticação</h4>
+                            <p>Login/Logout</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="true">
+                        <input type="checkbox" id="service2" class="service-checkbox">
+                        <label for="service2">
+                            <span class="service-icon">💬</span>
+                            <h4>Serviço de Mensagens em Tempo Real</h4>
+                            <p>WebSocket</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="true">
+                        <input type="checkbox" id="service3" class="service-checkbox">
+                        <label for="service3">
+                            <span class="service-icon">💾</span>
+                            <h4>Serviço de Histórico de Mensagens</h4>
+                            <p>Armazenamento</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="true">
+                        <input type="checkbox" id="service4" class="service-checkbox">
+                        <label for="service4">
+                            <span class="service-icon">🔔</span>
+                            <h4>Serviço de Notificações</h4>
+                            <p>Push, Email</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="false">
+                        <input type="checkbox" id="service5" class="service-checkbox">
+                        <label for="service5">
+                            <span class="service-icon">📊</span>
+                            <h4>Serviço de Análise de Dados</h4>
+                            <p>Relatórios</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="true">
+                        <input type="checkbox" id="service6" class="service-checkbox">
+                        <label for="service6">
+                            <span class="service-icon">🟢</span>
+                            <h4>Serviço de Presença Online</h4>
+                            <p>Status: online/offline</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="false">
+                        <input type="checkbox" id="service7" class="service-checkbox">
+                        <label for="service7">
+                            <span class="service-icon">🛍️</span>
+                            <h4>Serviço de E-commerce</h4>
+                            <p>Não faz sentido para chat</p>
+                        </label>
+                    </div>
+                    <div class="selectable-service" data-essential="true">
+                        <input type="checkbox" id="service8" class="service-checkbox">
+                        <label for="service8">
+                            <span class="service-icon">📄</span>
+                            <h4>Serviço de Upload de Arquivos</h4>
+                            <p>Imagens, documentos</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="activity-buttons">
+                    <button class="btn-verify" id="verify-activity3">Verificar Seleção</button>
+                </div>
+
+                <div class="feedback-box" id="activity3-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Microservices Advantages Part 1 -->
+        <div class="slide" data-slide="10">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Vantagens Principais dos Microsserviços</h2>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#1</div>
+                    <h4>ESCALABILIDADE INDEPENDENTE</h4>
+                    <p><strong>Explicação:</strong> Escalar apenas o serviço que precisa, não toda a aplicação</p>
+                    <p><strong>Exemplo:</strong> Sistema de e-commerce com 1M usuários. Serviço de Produtos recebe 80% do tráfego (escala 10x). Autenticação recebe pouco (escala 1x). Com monolito, escalaria tudo 10x = desperdício.</p>
+                    <p><strong>Impacto:</strong> CRÍTICO para sistemas de grande escala</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#2</div>
+                    <h4>INDEPENDÊNCIA TECNOLÓGICA</h4>
+                    <p><strong>Explicação:</strong> Cada serviço pode usar linguagem/framework diferente</p>
+                    <p><strong>Exemplo:</strong> Serviço de IA em Python (TensorFlow), API em Node.js (rápido), processamento de dados em Go (performance)</p>
+                    <p><strong>Impacto:</strong> Usar MELHOR ferramenta para cada problema específico</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#3</div>
+                    <h4>DEPLOY INDEPENDENTE</h4>
+                    <p><strong>Explicação:</strong> Atualizar um serviço sem parar os outros</p>
+                    <p><strong>Exemplo:</strong> Atualizar serviço de Pagamento NÃO afeta E-commerce inteiro. Comparação: Monolito (2h, alto risco) vs Microsserviços (5min, baixo risco)</p>
+                    <p><strong>Impacto:</strong> Deploy contínuo e seguro</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Microservices Advantages Part 2 -->
+        <div class="slide" data-slide="14">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Vantagens Principais - Continuação</h2>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#4</div>
+                    <h4>RESILIÊNCIA E TOLERÂNCIA A FALHAS</h4>
+                    <p><strong>Explicação:</strong> Falha em um serviço NÃO derruba o sistema inteiro</p>
+                    <p><strong>Exemplo:</strong> Serviço de Notificações falha em chat. Em monolito = chat inteiro cai. Em microsserviços = chat continua, apenas sem som de notificação</p>
+                    <p><strong>Padrão:</strong> Circuit Breaker (falha graciosa em vez de cascata)</p>
+                    <p><strong>Impacto:</strong> ULTRA-ALTA DISPONIBILIDADE</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#5</div>
+                    <h4>EQUIPES ÁGEIS E INDEPENDENTES</h4>
+                    <p><strong>Explicação:</strong> Cada equipe desenvolve seu serviço sem sincronização constante</p>
+                    <p><strong>Exemplo:</strong> Equipe A → Autenticação, Equipe B → Pagamento, Equipe C → Notificações. Desenvolvimento em paralelo 3x mais rápido</p>
+                    <p><strong>Problema que resolve:</strong> Conflitos de merge, sincronização</p>
+                    <p><strong>Impacto:</strong> Desenvolvimento mais rápido</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Microservices Challenges Part 1 -->
+        <div class="slide" data-slide="15">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Desafios Principais dos Microsserviços</h2>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#1</div>
+                    <h4>COMUNICAÇÃO COMPLEXA</h4>
+                    <p><strong>Problema:</strong> Serviços se comunicam pela REDE (HTTP calls, message queues)</p>
+                    <p><strong>Consequências:</strong> Latência de rede, possibilidade de falha de rede, complexidade</p>
+                    <p><strong>Exemplo:</strong> Serviço A chama Serviço B que chama Serviço C = latência multiplica</p>
+                    <p><strong>Solução:</strong> Async communication, circuit breaker, timeouts</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#2</div>
+                    <h4>CONSISTÊNCIA DE DADOS</h4>
+                    <p><strong>Problema:</strong> Cada serviço tem seu próprio banco de dados</p>
+                    <p><strong>Consequências:</strong> Como manter dados sincronizados? Transações distribuídas são complexas</p>
+                    <p><strong>Exemplo:</strong> Serviço de Pedidos atualiza status. Serviço de Notificações precisa saber. Como manter em sync?</p>
+                    <p><strong>Solução:</strong> Event-driven architecture, saga pattern</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#3</div>
+                    <h4>TOLERÂNCIA A FALHAS</h4>
+                    <p><strong>Problema:</strong> O que fazer quando um serviço cai ou fica lento?</p>
+                    <p><strong>Consequências:</strong> Precisa implementar circuit breaker, retry, fallback para cada integração</p>
+                    <p><strong>Exemplo:</strong> API de Pagamento está lenta. Retry pode sobrecarregar mais. Circuit breaker pode ajudar</p>
+                    <p><strong>Solução:</strong> Design patterns de resiliência</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: INTERACTIVE ACTIVITY #4 - Escalabilidade: O Jogo das Instâncias -->
+        <div class="slide" data-slide="16">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">⚡ Atividade Prática: Escale Inteligentemente!</h2>
+                <p class="slide-subtitle">Compare Monolito vs Microsserviços</p>
+                
+                <div class="highlight-card">
+                    <h3>CENÁRIO</h3>
+                    <p>Sistema de E-commerce com 1 milhão de usuários. 80% do tráfego está no Serviço de PRODUTOS (pesquisa). 20% nos outros serviços.</p>
+                    <br>
+                    <p><strong>SITUAÇÃO:</strong></p>
+                    <ul class="key-points">
+                        <li>Tráfego Atual: 100.000 requisições/segundo</li>
+                        <li>Serviço de Produtos: 80.000 req/s (SOBRECARREGADO! 🔥)</li>
+                        <li>Outros serviços: 20.000 req/s (OK ✅)</li>
+                    </ul>
+                </div>
+
+                <div class="simulator-options" id="simulator-options">
+                    <div class="simulator-option" data-option="monolith">
+                        <h3>🏗️ OPÇÃO A: MONOLITO (Camadas)</h3>
+                        <button class="btn-simulator">Escalar como Monolito</button>
+                        <div class="simulator-result" style="display: none;">
+                            <p><strong>Resultado:</strong> Precisa escalar TUDO 10x</p>
+                            <p><strong>Custo:</strong> <span class="cost-high">$10.000/mês</span> (10 instâncias completas)</p>
+                            <p><strong>Eficiência:</strong> <span class="efficiency-low">20%</span> (desperdício de 80% dos recursos)</p>
+                            <div class="feedback-negative">
+                                ❌ Caro e ineficiente! Você está escalando serviços que NÃO PRECISAM.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="simulator-option" data-option="microservices">
+                        <h3>🏛️ OPÇÃO B: MICROSSERVIÇOS</h3>
+                        <button class="btn-simulator">Escalar como Microsserviços</button>
+                        <div class="simulator-result" style="display: none;">
+                            <p><strong>Resultado:</strong> Escala APENAS Serviço de Produtos 10x</p>
+                            <p><strong>Custo:</strong> <span class="cost-low">$2.000/mês</span> (10 instâncias de Produtos + 1 instância dos outros)</p>
+                            <p><strong>Eficiência:</strong> <span class="efficiency-high">95%</span></p>
+                            <div class="feedback-positive">
+                                ✅ PERFEITO! Escalabilidade INDEPENDENTE economiza $8.000/mês! Você usa recursos apenas onde precisa.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-card" style="margin-top: 20px;">
+                    <p><strong>CONCLUSÃO:</strong> Esta é a VANTAGEM #1 dos Microsserviços em ação!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Microservices Challenges Part 2 -->
+        <div class="slide" data-slide="13">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Desafios Principais - Continuação</h2>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#4</div>
+                    <h4>COMPLEXIDADE OPERACIONAL</h4>
+                    <p><strong>Problema:</strong> Gerenciar múltiplos serviços em PRODUÇÃO é complexo</p>
+                    <p><strong>Complexidades:</strong> Monitoramento, logging distribuído, rastreamento, orquestração</p>
+                    <p><strong>Exemplo:</strong> 20 serviços = logs em 20 lugares. Como encontrar um erro? Precisa de Elasticsearch, Kibana, Jaeger</p>
+                    <p><strong>Solução:</strong> Kubernetes, ELK stack, Prometheus, distributed tracing</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">#5</div>
+                    <h4>TESTES COMPLEXOS</h4>
+                    <p><strong>Problema:</strong> Testar integração entre múltiplos serviços é lento e frágil</p>
+                    <p><strong>Complexidades:</strong> Todos os serviços precisam estar up. Se um falha, teste falha</p>
+                    <p><strong>Exemplo:</strong> Test de checkout = precisa de 5 serviços (Auth, Cart, Orders, Payment, Notifications). Se um está lento, tudo é lento</p>
+                    <p><strong>Solução:</strong> Contract tests, stub services, testcontainers</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Comparison Matrix -->
+        <div class="slide" data-slide="18">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Comparação: Arquitetura em Camadas vs Microsserviços</h2>
+                <div class="content-card">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <thead>
+                            <tr style="background: var(--color-accent-orange); color: var(--color-bg-dark-blue);">
+                                <th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Aspecto</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Camadas (Monolito)</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Microsserviços</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Escalabilidade</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Limitada (escala tudo junto)</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Ilimitada (escala individual)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Complexidade</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Baixa inicialmente, sobe depois</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Alta desde o início</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Deployment</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Tudo de uma vez (big bang)</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Independente por serviço</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Latência</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Baixa (sem rede)</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Mais alta (network calls)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Resiliência</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Frágil (tudo falha junto)</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Robusta (falhas isoladas)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Custo Inicial</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Baixo</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Alto (mais infraestrutura)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Trabalho em Paralelo</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Limitado</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Completo</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);"><strong>Data Consistency</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Garantida (ACID)</td>
+                                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Eventual</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: When to Use Layers -->
+        <div class="slide" data-slide="19">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Quando Usar Arquitetura em Camadas?</h2>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Sistema é PEQUENO a MÉDIO</li>
+                        <li>✓ Poucos usuários simultâneos</li>
+                        <li>✓ Escopo bem definido e ESTÁVEL</li>
+                        <li>✓ Equipe PEQUENA (< 10 pessoas)</li>
+                        <li>✓ Requisitos ainda têm INCERTEZA</li>
+                        <li>✓ Deploy rápido é PRIORIDADE</li>
+                        <li>✓ Performance local é crítica</li>
+                    </ul>
+                </div>
+                <div class="section-title">Exemplos</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Sistema administrativo interno</li>
+                        <li>CRUD de baixa complexidade</li>
+                        <li>MVP para startup</li>
+                        <li>Sistema monolítico começando do zero</li>
+                    </ul>
+                </div>
+                <div class="section-title">Vantagens-Chave Aqui</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>★ Simples de desenvolver e entender</li>
+                        <li>★ Deploy trivial (um arquivo)</li>
+                        <li>★ Transações ACID garantidas</li>
+                        <li>★ Testes mais fáceis</li>
+                        <li>★ Sem latência de rede</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: INTERACTIVE ACTIVITY #5 - Quiz de Decisão Arquitetural -->
+        <div class="slide" data-slide="20">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🧠 Atividade Prática: Escolha a Arquitetura Certa</h2>
+                <p class="slide-subtitle">Analise 3 cenários e decida!</p>
+                
+                <div class="activity-instructions">
+                    <p><strong>INSTRUÇÕES:</strong> Para cada cenário, escolha: CAMADAS ou MICROSSERVIÇOS</p>
+                </div>
+
+                <div class="scenario-quiz" id="scenario-quiz">
+                    <div class="scenario-item">
+                        <div class="scenario-description">
+                            <h4>CENÁRIO 1</h4>
+                            <p>Startup criando um MVP de rede social. Time de 5 pessoas. Precisa lançar em 3 meses.</p>
+                        </div>
+                        <div class="scenario-options">
+                            <button class="scenario-btn" data-scenario="1" data-answer="layers" data-correct="true">Camadas</button>
+                            <button class="scenario-btn" data-scenario="1" data-answer="microservices" data-correct="false">Microsserviços</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario1-feedback" style="display: none;"></div>
+                    </div>
+
+                    <div class="scenario-item">
+                        <div class="scenario-description">
+                            <h4>CENÁRIO 2</h4>
+                            <p>Banco com 10 milhões de clientes. Sistema de pagamentos em tempo real. Alta disponibilidade crítica (99.99% uptime).</p>
+                        </div>
+                        <div class="scenario-options">
+                            <button class="scenario-btn" data-scenario="2" data-answer="layers" data-correct="false">Camadas</button>
+                            <button class="scenario-btn" data-scenario="2" data-answer="microservices" data-correct="true">Microsserviços</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario2-feedback" style="display: none;"></div>
+                    </div>
+
+                    <div class="scenario-item">
+                        <div class="scenario-description">
+                            <h4>CENÁRIO 3</h4>
+                            <p>Sistema administrativo interno para 100 funcionários. CRUD simples de cadastros. Tráfego previsível.</p>
+                        </div>
+                        <div class="scenario-options">
+                            <button class="scenario-btn" data-scenario="3" data-answer="layers" data-correct="true">Camadas</button>
+                            <button class="scenario-btn" data-scenario="3" data-answer="microservices" data-correct="false">Microsserviços</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario3-feedback" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="final-score-box" id="final-score-box" style="display: none;">
+                    <h3>Pontuação Final</h3>
+                    <p id="final-score-text"></p>
+                    <p id="final-score-message"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: When to Use Microservices -->
+        <div class="slide" data-slide="16">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Quando Usar Microsserviços?</h2>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Sistema é GRANDE e COMPLEXO</li>
+                        <li>✓ Milhões de usuários simultâneos</li>
+                        <li>✓ Alta taxa de CRESCIMENTO esperada</li>
+                        <li>✓ Equipe GRANDE e DISTRIBUÍDA</li>
+                        <li>✓ Diferentes partes escalando DIFERENTEMENTE</li>
+                        <li>✓ Diferentes partes com TECNOLOGIAS diferentes</li>
+                        <li>✓ Alta disponibilidade é CRÍTICA</li>
+                    </ul>
+                </div>
+                <div class="section-title">Exemplos</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Netflix, Uber, Amazon</li>
+                        <li>Rede social com milhões</li>
+                        <li>Sistema de pagamento (alta concorrência)</li>
+                        <li>Plataforma de streaming</li>
+                        <li>Chat em tempo real com milhões</li>
+                    </ul>
+                </div>
+                <div class="section-title">Vantagens-Chave Aqui</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>★ Escalabilidade ilimitada</li>
+                        <li>★ Resiliência e alta disponibilidade</li>
+                        <li>★ Tecnologia certa para cada problema</li>
+                        <li>★ Agilidade de times independentes</li>
+                        <li>★ Deploy contínuo seguro</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Warning Signs to Migrate -->
+        <div class="slide" data-slide="22">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sinais que Seu Monolito Está Crescendo Demais</h2>
+                <div class="warning-card">
+                    <h4>🚨 Sinais de Alerta</h4>
+                    <ul>
+                        <li>🚨 Tráfego &gt; 100 requisições/segundo</li>
+                        <li>🚨 Equipe &gt; 15 pessoas com conflitos de merge crescendo</li>
+                        <li>🚨 Diferentes partes precisam escalar diferentemente</li>
+                        <li>🚨 Partes usam tecnologias/linguagens diferentes</li>
+                        <li>🚨 Falha em uma parte está derrubando tudo</li>
+                        <li>🚨 Deploy é arriscado demais (big bang releases)</li>
+                        <li>🚨 Tempo para novo deploy &gt; 30 minutos</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p><strong>AÇÃO:</strong> Quando 3+ sinais aparecem, considere migração para microsserviços</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Activity 2 - Part 1 -->
+        <div class="slide" data-slide="23">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">ATIVIDADE 2 - Estudo de Caso de Seleção (Entrega no Google Sala de Aula)</h2>
+                <div class="highlight-card">
+                    <h3>CENÁRIO</h3>
+                    <p>Um sistema de BATE-PAPO EM TEMPO REAL (Chat) com MILHÕES DE USUÁRIOS SIMULTÂNEOS precisa ser construído.</p>
+                </div>
+                <div class="section-title">Requisitos</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Milhões de usuários simultâneos</li>
+                        <li>Comunicação em tempo real</li>
+                        <li>Mensagens com latência MÍNIMA</li>
+                        <li>Alta disponibilidade (não pode cair)</li>
+                        <li>Escalabilidade para picos de tráfego</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>QUESTÃO</h3>
+                    <p>Você recomendaria o estilo Arquitetura em Camadas ou Microsserviços?</p>
+                    Justifique a escolha, citando PELO MENOS DUAS VANTAGENS da arquitetura escolhida que são CRÍTICAS para um sistema de alta concorrência e tempo real.
+                </div>
+                <div class="note-card">
+                    <p><strong>Envio: Encaminhe no Google Sala de Aula!</strong> </p>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Slide 26: Summary - Key Concepts -->
+        <div class="slide" data-slide="26">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Resumo: Conceitos-Chave do Módulo 2</h2>
+                <p class="slide-subtitle">O que você aprendeu sobre Estilos Arquitetônicos</p>
+                
+                <div class="section-title">Arquitetura em Camadas (Monolito)</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Organização hierárquica em camadas</li>
+                        <li>✓ Comunicação entre camadas adjacentes</li>
+                        <li>✓ Desvantagens: Acoplamento, monolito, bottleneck</li>
+                        <li>✓ Use para: Sistemas pequenos, equipes pequenas, MVP</li>
+                        <li>✓ Problema: Não escala bem para milhões de usuários</li>
+                    </ul>
+                </div>
+
+                <div class="section-title">Arquitetura Cliente-Servidor</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Modelo Request/Response</li>
+                        <li>✓ Cliente (solicita) ↔ Servidor (processa)</li>
+                        <li>✓ Centralização no servidor</li>
+                        <li>✓ Casos de uso: Web apps, mobile, APIs</li>
+                        <li>✓ Limitação: Ponto único de falha</li>
+                    </ul>
+                </div>
+
+                <div class="section-title">Microsserviços</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Serviços pequenos e independentes</li>
+                        <li>✓ Cada serviço = domínio de negócio específico</li>
+                        <li>✓ Vantagens: Escalabilidade, resiliência, agilidade</li>
+                        <li>✓ Desafios: Comunicação complexa, consistência de dados</li>
+                        <li>✓ Use para: Sistemas grandes, milhões de usuários, alta escalabilidade</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-card">
+                    <h3>⭐ Regra de Ouro</h3>
+                    <p><strong>Camadas:</strong> Rápido para começar, complexo para escalar</p>
+                    <p><strong>Microsserviços:</strong> Complexo para começar, simples para escalar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 27: Conclusion -->
+        <div class="slide" data-slide="27">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Conclusão: Escolhendo a Arquitetura Certa</h2>
+                
+                <div class="highlight-card">
+                    <p style="font-size: 18px; text-align: center;">Não existe arquitetura "perfeita" ou "melhor". A escolha <strong>DEPENDE DO CONTEXTO</strong>, dos requisitos do projeto e do estágio de maturidade da aplicação.</p>
+                </div>
+
+                <div class="section-title">Framework de Decisão</div>
+                
+                <div class="advantage-card" style="border-left-color: #4caf50;">
+                    <h4 style="color: #4caf50;">CAMADAS SE VOCÊ TEM:</h4>
+                    <ul>
+                        <li>• Projeto PEQUENO ou MVP</li>
+                        <li>• Equipe PEQUENA (menos de 10 pessoas)</li>
+                        <li>• Requisitos ESTÁVEIS</li>
+                        <li>• Poucos usuários ou tráfego PREVISÍVEL</li>
+                        <li>• Precisa fazer DEPLOY RÁPIDO</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                    <h4 style="color: var(--color-accent-orange);">CONSIDERE CAMADAS + PLANEJAMENTO SE VOCÊ TEM:</h4>
+                    <ul>
+                        <li>• Projeto de MÉDIO porte</li>
+                        <li>• Crescimento INCERTO mas possível</li>
+                        <li>• Separar responsabilidades bem desde o início</li>
+                        <li>• Estar pronto para migração futura</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-card" style="border-left-color: #2196f3;">
+                    <h4 style="color: #2196f3;">MICROSSERVIÇOS SE VOCÊ TEM:</h4>
+                    <ul>
+                        <li>• Projeto GRANDE e COMPLEXO</li>
+                        <li>• Equipe GRANDE (mais de 15 pessoas)</li>
+                        <li>• Milhões de USUÁRIOS ou TRÁFEGO impredizível</li>
+                        <li>• Diferentes PARTES com escalabilidade DIFERENTE</li>
+                        <li>• Alta DISPONIBILIDADE é CRÍTICA</li>
+                        <li>• Infraestrutura MADURA (Kubernetes, observabilidade)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-card" style="background: linear-gradient(135deg, var(--color-card-bg) 0%, rgba(33, 150, 243, 0.15) 100%); border-left-color: #2196f3;">
+                    <h3 style="color: #2196f3;">💡 O Caminho Mais Comum</h3>
+                    <p>COMEÇAR com Camadas (rápido, simples) e EVOLUIR para Microsserviços (quando sinais de alerta aparecem). Migrar de monolito para microsserviços é possível, mas complexo!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 28: References and Resources -->
+        <div class="slide" data-slide="28">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Referências e Leitura Recomendada</h2>
+
+                <div class="section-title">Livros Essenciais</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>📚 <strong>Building Microservices</strong> - Sam Newman (O'Reilly)<br>
+                        <span style="font-size: 14px; color: var(--color-gray-300);">Referência principal para microsserviços e design de sistemas distribuídos</span></li>
+                        <li>📚 <strong>Release It!</strong> - Michael Nygard (Pragmatic Programmers)<br>
+                        <span style="font-size: 14px; color: var(--color-gray-300);">Design e padrões para sistemas em produção com alta disponibilidade</span></li>
+                        <li>📚 <strong>The Art of Scalability</strong> - Martin Abbott &amp; Michael Fisher<br>
+                        <span style="font-size: 14px; color: var(--color-gray-300);">Escalabilidade de sistemas e arquitetura distribuída</span></li>
+                        <li>📚 <strong>Software Architecture: The Hard Parts</strong> - Neal Ford, Mark Richards (O'Reilly)<br>
+                        <span style="font-size: 14px; color: var(--color-gray-300);">Decisões arquiteturais e trade-offs</span></li>
+                    </ul>
+                </div>
+
+                <div class="section-title">Padrões e Conceitos</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>🔗 Padrão Circuit Breaker - Michael Nygard (2003)</li>
+                        <li>🔗 SOLID Principles - Robert C. Martin</li>
+                        <li>🔗 Event Sourcing e CQRS - Greg Young</li>
+                        <li>🔗 Saga Pattern para transações distribuídas</li>
+                    </ul>
+                </div>
+
+                <div class="section-title">Recursos Online</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>💻 microservices.io - Chris Richardson (referência)</li>
+                        <li>💻 martinfowler.com - Martin Fowler (arquitetura)</li>
+                        <li>💻 Microsoft Learn: Estilos de Arquitetura</li>
+                        <li>💻 AWS Well-Architected Framework</li>
+                    </ul>
+                </div>
+
+                <div class="section-title">Casos de Estudo - Referência</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>🎯 Netflix Architecture (comunicação técnica pública)</li>
+                        <li>🎯 Uber System Design (escala e microsserviços)</li>
+                        <li>🎯 Amazon Prime Video (caso de estudo de sucesso)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-card">
+                    <h3>→ Próximos Passos</h3>
+                    <ul class="key-points" style="margin-top: 15px;">
+                        <li>→ Explorar padrões de comunicação (síncrono, assíncrono)</li>
+                        <li>→ Estudar orquestração (Kubernetes, Docker)</li>
+                        <li>→ Aprender sobre observabilidade (logging, tracing, monitoring)</li>
+                        <li>→ Praticar design de APIs REST</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 29: Final Summary with Achievement -->
+        <div class="slide" data-slide="29">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Parabéns! Você Completou o Módulo 2</h2>
+                
+                <div class="achievement-box" id="achievement-box">
+                    <div class="achievement-icon" id="achievement-icon">🏆</div>
+                    <h3 id="achievement-title">Seu Desempenho</h3>
+                    <div class="achievement-score">
+                        <span class="score-big" id="final-total-score">0/5</span>
+                        <span class="score-percentage" id="final-percentage">0%</span>
+                    </div>
+                    <p class="achievement-message" id="achievement-message">Continue praticando!</p>
+                </div>
+
+                <div class="section-title">O Que Você Aprendeu</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>✓ Entendeu o ACOPLAMENTO em arquiteturas em camadas</li>
+                        <li>✓ Dominou o fluxo REQUEST/RESPONSE do modelo Cliente-Servidor</li>
+                        <li>✓ Sabe DECOMPOR sistemas em microsserviços</li>
+                        <li>✓ Compreendeu as vantagens de ESCALABILIDADE INDEPENDENTE</li>
+                        <li>✓ É capaz de DECIDIR entre Camadas e Microsserviços baseado em critérios</li>
+                    </ul>
+                </div>
+
+                <div class="note-card">
+                    <p><strong>Próximos Passos:</strong> Pratique aplicando esses conceitos em projetos reais. Comece com Camadas e evolua para Microsserviços quando necessário!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 30: Thank You -->
+        <div class="slide" data-slide="30">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage"> 
+            </div>
+            <div class="slide-content title-slide">
+                <div class="thank-you">
+                    <h2>Obrigado!</h2>
+                    <p>Arquitetura e Padrões de Software (APS)</p>
+                    <p style="margin-top: 30px; font-size: 18px;">Módulo 2 - Estilos Arquitetônicos</p>
+                    <div style="margin-top: 50px;">
+                        <p style="font-size: 16px; color: var(--color-accent-orange);">Continue explorando, aprendendo e construindo sistemas incríveis! 🚀</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation-controls">
+        <button class="nav-button" id="prevBtn" aria-label="Slide anterior">
+            <span>‹</span>
+        </button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+        </div>
+        <button class="nav-button" id="nextBtn" aria-label="Próximo slide">
+            <span>›</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
