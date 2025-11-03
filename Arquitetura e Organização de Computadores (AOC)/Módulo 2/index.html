@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 - O Universo dos Bits Negativos | META</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- SLIDE 1: TITLE SLIDE -->
+    <div class="slide active" data-slide="1">
+      <div class="slide-content title-slide">
+        <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        <h1 class="main-title">Arquitetura e Organização<br>de Computadores</h1>
+        <p class="subtitle">Representação de Números Negativos em Complemento de Dois</p>
+        <div class="title-decoration"></div>
+        <br>
+        <p>Módulo 2</p>
+      </div>
+    </div>
+
+        <!-- SLIDE 2: Objetivos -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Objetivos de Aprendizagem</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Compreender a necessidade de representar números negativos em sistemas digitais</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Identificar as 2 limitações principais do método Sinal-Magnitude</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Dominar o método Complemento de Dois (padrão universal)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Resolver problemas práticos de conversão e verificação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: O Problema -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="slide-title">🔧 O Desafio Fundamental</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Como representar números NEGATIVOS usando apenas 0s e 1s?</h3>
+                    <div class="highlight">
+                        <p><strong>Objetivo Maior:</strong></p>
+                        <p>Permitir que o computador faça SUBTRAÇÕES usando apenas circuitos de ADIÇÃO</p>
+                    </div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.08); border-radius: 8px;">
+                        <p style="text-align: center; font-size: 1.4rem; margin: 0;">8 - 3 = 8 + (-3)</p>
+                        <p style="text-align: center; color: var(--meta-gold); font-size: 1.1rem; margin-top: 15px;"><strong>Transformar subtração em adição!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Por Que Isso Importa -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2 class="slide-title">💡 Por Que Isso Importa?</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Simplicidade de Hardware</h4>
+                            <p style="margin: 0;">Circuitos de soma são muito mais simples que circuitos de subtração</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🔌</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Um Único Circuito</h4>
+                            <p style="margin: 0;">Um único circuito somador resolve tudo: positivos, negativos e zeros</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Performance e Custo</h4>
+                            <p style="margin: 0;">Menos transistores = computadores mais rápidos, menores e baratos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Método Sinal-Magnitude -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Método Sinal-Magnitude</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Como Funciona?</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-size: 1.1rem;"><strong>+25 em 8 bits:</strong></p>
+                            <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">00011001</div>
+                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">0 = positivo | 0011001 = magnitude</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-size: 1.1rem;"><strong>-25 em 8 bits:</strong></p>
+                            <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">10011001</div>
+                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">1 = negativo | 0011001 = magnitude</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Limitação 1 - Duplo Zero -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2 class="slide-title">⚠️ Limitação 1: Duplo Zero</h2>
+                <div class="content-box">
+                    <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 30px; border-radius: 8px; text-align: center;">
+                        <p style="font-size: 1.3rem; margin: 0 0 25px 0;"><strong>Existem DUAS representações para zero!</strong></p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>+0 (8 bits):</strong></p>
+                                <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">00000000</div>
+                            </div>
+                            <div>
+                                <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>-0 (8 bits):</strong></p>
+                                <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">10000000</div>
+                            </div>
+                        </div>
+                        <p style="margin: 25px 0 0 0; color: rgba(255,255,255,0.8);">✗ Desperdício de uma combinação binária valiosa</p>
+                        <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.8);">✗ Circuitos precisam de tratamento especial para comparações</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Limitação 2 - Complexidade -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2 class="slide-title">⚠️ Limitação 2: Complexidade Aritmética</h2>
+                <div class="content-box">
+                    <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 30px; border-radius: 8px;">
+                        <p style="margin: 0 0 25px 0; font-size: 1.2rem; text-align: center;"><strong>Para cada soma ou subtração, o circuito precisa:</strong></p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                                <p style="margin: 0 0 15px 0; font-size: 1.1rem;">1️⃣ <strong>Verificar</strong></p>
+                                <p style="margin: 0;">Os sinais de ambos os números</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                                <p style="margin: 0 0 15px 0; font-size: 1.1rem;">2️⃣ <strong>Decidir</strong></p>
+                                <p style="margin: 0;">Se vai somar ou subtrair</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                                <p style="margin: 0 0 15px 0; font-size: 1.1rem;">3️⃣ <strong>Determinar</strong></p>
+                                <p style="margin: 0;">O sinal do resultado</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                                <p style="margin: 0 0 15px 0; font-size: 1.1rem;">4️⃣ <strong>Ajustar</strong></p>
+                                <p style="margin: 0;">Se houver overflow</p>
+                            </div>
+                        </div>
+                        <p style="margin: 25px 0 0 0; text-align: center; color: rgba(255,255,255,0.9);"><strong>Resultado: Circuitos complexos, lentos e caros ❌</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Complemento de Um -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2 class="slide-title">🔄 Complemento de Um (Introdução)</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Definição: Um passo intermediário para o Complemento de Dois</h3>
+                    <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0 0 20px 0; font-size: 1.15rem;"><strong>Processo em 2 Passos:</strong></p>
+                        <div style="display: grid; gap: 15px;">
+                            <div style="display: flex; gap: 15px; align-items: center;">
+                                <span style="background: var(--meta-gold); color: var(--meta-navy); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">1</span>
+                                <p style="margin: 0;">Escreva o número <strong>POSITIVO</strong> em binário</p>
+                            </div>
+                            <div style="display: flex; gap: 15px; align-items: center;">
+                                <span style="background: var(--meta-gold); color: var(--meta-navy); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">2</span>
+                                <p style="margin: 0;"><strong>INVERTA todos os bits</strong> (0 vira 1, 1 vira 0)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplo: Complemento de Um de 10</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0 0 10px 0;"><strong>Positivo</strong></p>
+                            <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">00001010</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0 0 10px 0;"><strong>Complemento de 1</strong></p>
+                            <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">11110101</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: C1 - Problema -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2 class="slide-title">⚠️ Complemento de Um: Ainda tem Duplo Zero!</h2>
+                <div class="content-box">
+                    <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 30px; border-radius: 8px; text-align: center; margin-bottom: 30px;">
+                        <p style="font-size: 1.3rem; margin: 0 0 25px 0;"><strong>O problema persiste:</strong></p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <p style="margin: 0 0 10px 0;"><strong>+0</strong></p>
+                                <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">00000000</div>
+                            </div>
+                            <div>
+                                <p style="margin: 0 0 10px 0;"><strong>-0</strong></p>
+                                <div style="font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 5px;">11111111</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: rgba(255,255,255,0.9); font-size: 1.15rem;">Por isso, o Complemento de Um <strong>NÃO é usado sozinho</strong> 🚫</p>
+                    <p style="text-align: center; color: var(--meta-gold); font-size: 1.15rem; margin-top: 15px;">É apenas um PASSO INTERMEDIÁRIO para o Complemento de Dois ⬇️</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Complemento de Dois - Vantagens -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <h2 class="slide-title">✨ Complemento de Dois: O Padrão Universal</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">✓</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Zero Único</h4>
+                            <p style="margin: 0;">Existe apenas UMA representação para zero</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">✓</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Aritmética Simples</h4>
+                            <p style="margin: 0;">Soma e subtração usam as MESMAS regras</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">✓</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Hardware Eficiente</h4>
+                            <p style="margin: 0;">Um único circuito somador resolve TUDO</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">✓</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Detecção Automática</h4>
+                            <p style="margin: 0;">MSB = 1 significa negativo, MSB = 0 significa positivo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: C2 - Algoritmo -->
+        <div class="slide" data-slide="11">
+            <div class="slide-content">
+                <h2 class="slide-title">🔧 Complemento de Dois: Algoritmo em 3 Passos</h2>
+                <div class="content-box">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; display: inline-block;">PASSO 1</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Binário do Positivo</h4>
+                            <p style="margin: 0;">Converta N (sem sinal) para binário</p>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; display: inline-block;">PASSO 2</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Complemento de Um</h4>
+                            <p style="margin: 0;">Inverta todos os bits (0↔1)</p>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; display: inline-block;">PASSO 3</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Adicione 1</h4>
+                            <p style="margin: 0;">Some 1 ao resultado do Passo 2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Exemplo -10 -->
+        <div class="slide" data-slide="12">
+            <div class="slide-content">
+                <h2 class="slide-title">📝 Exemplo: Representar -10 em C2 (8 bits)</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 1: Binário de +10</strong></p>
+                            <div style="font-family: monospace; font-size: 1.5rem; color: var(--meta-gold); letter-spacing: 4px;">00001010</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 2: Complemento de Um</strong></p>
+                            <div style="font-family: monospace; font-size: 1.5rem; color: var(--meta-gold); letter-spacing: 4px;">11110101</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 3: Adicionar 1</strong></p>
+                            <pre style="margin: 0; font-family: monospace; color: var(--meta-gold); text-align: center;">  11110101
++ 00000001
+  ────────
+  11110110</pre>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0; color: var(--meta-gold); font-size: 1.3rem;"><strong>✓ RESULTADO:</strong></p>
+                            <p style="margin: 10px 0 0 0; font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 4px;">-10₁₀ = 11110110₂</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Verificação -10+10 -->
+        <div class="slide" data-slide="13">
+            <div class="slide-content">
+                <h2 class="slide-title">✅ Verificação: -10 + 10 = 0</h2>
+                <div class="content-box">
+                    <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0 0 20px 0; text-align: center; font-size: 1.2rem;"><strong>Se a representação está correta, então (-10) + (+10) = 0</strong></p>
+                        <pre style="margin: 0; font-family: monospace; color: var(--meta-gold); font-size: 1.1rem; text-align: center; line-height: 2;">  11110110  (-10 em C2)
++ 00001010  (+10 em binário)
+  ────────
+ 100000000  (9 bits)</pre>
+                    </div>
+                    <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0 0 15px 0;"><strong>Observação Crítica:</strong></p>
+                        <p style="margin: 0;">Em sistemas de 8 bits, o bit extra (carry out) é <strong>descartado automaticamente</strong></p>
+                        <p style="margin: 15px 0 0 0; font-family: monospace; font-size: 1.3rem; color: var(--meta-gold);">Resultado final: 00000000 = 0₁₀ ✓</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Exemplo -127 -->
+        <div class="slide" data-slide="14">
+            <div class="slide-content">
+                <h2 class="slide-title">📝 Exemplo: Representar -127 em C2 (8 bits)</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 1: Binário de +127</strong></p>
+                            <div style="font-family: monospace; font-size: 1.5rem; color: var(--meta-gold); letter-spacing: 4px;">01111111</div>
+                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">(maior número positivo em 8 bits)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 2: Complemento de Um</strong></p>
+                            <div style="font-family: monospace; font-size: 1.5rem; color: var(--meta-gold); letter-spacing: 4px;">10000000</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 3: Adicionar 1</strong></p>
+                            <pre style="margin: 0; font-family: monospace; color: var(--meta-gold); text-align: center;">  10000000
++ 00000001
+  ────────
+  10000001</pre>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0; color: var(--meta-gold); font-size: 1.3rem;"><strong>✓ RESULTADO:</strong></p>
+                            <p style="margin: 10px 0 0 0; font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 4px;">-127₁₀ = 10000001₂</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Converter 10000001 para Decimal -->
+        <div class="slide" data-slide="15">
+            <div class="slide-content">
+                <h2 class="slide-title">🔄 Exemplo: Converter 10000001₂ para Decimal</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 1: Verificar o MSB</strong></p>
+                            <p style="margin: 0 0 10px 0;">Binário: <span style="font-family: monospace; font-size: 1.2rem; color: var(--meta-gold);">10000001</span></p>
+                            <p style="margin: 0;">MSB = <strong>1</strong> → Número é <strong>NEGATIVO</strong></p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 2: Inverter Bits + Adicionar 1</strong></p>
+                            <pre style="margin: 0; font-family: monospace; color: var(--meta-gold); text-align: center; line-height: 1.8;">Original:      10000001
+Inverter:      01111110
+Adicionar 1: + 00000001
+          ────────
+Resultado:     01111111</pre>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: var(--meta-gold);"><strong>PASSO 3: Converter para Decimal</strong></p>
+                            <p style="margin: 0;"><span style="font-family: monospace; font-size: 1.2rem; color: var(--meta-gold);">01111111₂</span> = 127₁₀</p>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0; color: var(--meta-gold); font-size: 1.3rem;"><strong>✓ RESULTADO:</strong></p>
+                            <p style="margin: 10px 0 0 0; font-family: monospace; font-size: 1.4rem; color: var(--meta-gold); letter-spacing: 4px;">10000001₂ = -127₁₀</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Intervalos de Representação -->
+        <div class="slide" data-slide="16">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Intervalos de Representação</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Fórmulas Fundamentais para N bits:</h3>
+                    <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center; margin-bottom: 30px;">
+                        <p style="margin: 0 0 20px 0; font-size: 1.2rem;"><strong>Mínimo: -2<sup style="font-size: 0.8em;">N-1</sup></strong></p>
+                        <p style="margin: 0; font-size: 1.2rem;"><strong>Máximo: 2<sup style="font-size: 0.8em;">N-1</sup> - 1</strong></p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplos Práticos:</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-weight: bold;">4 Bits</p>
+                            <p style="margin: 0;">-2<sup>3</sup> a 2<sup>3</sup> - 1</p>
+                            <p style="margin: 10px 0 0 0; font-size: 1.2rem; color: var(--meta-gold);"><strong>-8 a +7</strong></p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-weight: bold;">8 Bits</p>
+                            <p style="margin: 0;">-2<sup>7</sup> a 2<sup>7</sup> - 1</p>
+                            <p style="margin: 10px 0 0 0; font-size: 1.2rem; color: var(--meta-gold);"><strong>-128 a +127</strong></p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-weight: bold;">16 Bits</p>
+                            <p style="margin: 0;">-2<sup>15</sup> a 2<sup>15</sup> - 1</p>
+                            <p style="margin: 10px 0 0 0; font-size: 1.2rem; color: var(--meta-gold);"><strong>-32.768 a +32.767</strong></p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-weight: bold;">32 Bits</p>
+                            <p style="margin: 0;">-2<sup>31</sup> a 2<sup>31</sup> - 1</p>
+                            <p style="margin: 10px 0 0 0; font-size: 1.2rem; color: var(--meta-gold);"><strong>-2.147.483.648 a +2.147.483.647</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17: Características -->
+        <div class="slide" data-slide="17">
+            <div class="slide-content">
+                <h2 class="slide-title">✨ Características Importantes</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚖️</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Intervalo Assimétrico</h4>
+                            <p style="margin: 0;">O intervalo NÃO é simétrico em torno de zero</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📊</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Um Negativo a Mais</h4>
+                            <p style="margin: 0;">Sempre há um número negativo extra sem correspondente positivo</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">0️⃣</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Zero Único</h4>
+                            <p style="margin: 0;">Existe apenas UMA representação para zero em C2</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🏷️</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">MSB como Indicador</h4>
+                            <p style="margin: 0;">MSB = 1 significa negativo | MSB = 0 significa positivo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18: Tabela 4 bits -->
+        <div class="slide" data-slide="18">
+            <div class="slide-content">
+                <h2 class="slide-title">📋 Tabela de Referência: 4 Bits em C2</h2>
+                <div class="content-box">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin-bottom: 15px; text-align: center;">Números Positivos</h4>
+                            <div style="display: grid; gap: 10px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0000</span>
+                                    <span style="color: var(--meta-gold);">0</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0001</span>
+                                    <span style="color: var(--meta-gold);">+1</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0010</span>
+                                    <span style="color: var(--meta-gold);">+2</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0011</span>
+                                    <span style="color: var(--meta-gold);">+3</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0100</span>
+                                    <span style="color: var(--meta-gold);">+4</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0101</span>
+                                    <span style="color: var(--meta-gold);">+5</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0110</span>
+                                    <span style="color: var(--meta-gold);">+6</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">0111</span>
+                                    <span style="color: var(--meta-gold);">+7</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin-bottom: 15px; text-align: center;">Números Negativos</h4>
+                            <div style="display: grid; gap: 10px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1000</span>
+                                    <span style="color: var(--meta-gold);">-8</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1001</span>
+                                    <span style="color: var(--meta-gold);">-7</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1010</span>
+                                    <span style="color: var(--meta-gold);">-6</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1011</span>
+                                    <span style="color: var(--meta-gold);">-5</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1100</span>
+                                    <span style="color: var(--meta-gold);">-4</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1101</span>
+                                    <span style="color: var(--meta-gold);">-3</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1110</span>
+                                    <span style="color: var(--meta-gold);">-2</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                                    <span style="font-family: monospace;">1111</span>
+                                    <span style="color: var(--meta-gold);">-1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19: Dicas Práticas 1 -->
+        <div class="slide" data-slide="19">
+            <div class="slide-content">
+                <h2 class="slide-title">💡 Dicas Práticas para Conversão</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">✅</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Sempre Verifique</h4>
+                            <p style="margin: 0;">Some número com seu oposto: deve sempre dar zero!</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">👁️</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">MSB é Seu Amigo</h4>
+                            <p style="margin: 0;">MSB = 0 → positivo | MSB = 1 → negativo</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🧮</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Memorize Potências</h4>
+                            <p style="margin: 0;">2⁴=16, 2⁸=256, 2¹⁶=65.536, 2³²=4.294.967.296</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📐</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Use Tabelas</h4>
+                            <p style="margin: 0;">Tenha tabelas de conversão à mão para referência rápida</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20: Dicas Práticas 2 -->
+        <div class="slide" data-slide="20">
+            <div class="slide-content">
+                <h2 class="slide-title">⚡ Mais Dicas: Erros Comuns</h2>
+                <div class="reasons-list">
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Confundir C1 com C2</h4>
+                            <p style="margin: 0;">Complemento de Um NÃO é o final! Você PRECISA somar 1 ao C1</p>
+                        </div>
+                    </div>
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Esquecer o Sinal</h4>
+                            <p style="margin: 0;">Sempre coloque o sinal negativo na resposta final</p>
+                        </div>
+                    </div>
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Ignorar o Intervalo</h4>
+                            <p style="margin: 0;">Cuidado com overflow! -128 é o limite mínimo para 8 bits</p>
+                        </div>
+                    </div>
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Não Verificar</h4>
+                            <p style="margin: 0;">Sempre faça a verificação somando com o oposto!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21: Aplicações Práticas -->
+        <div class="slide" data-slide="21">
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Aplicações Práticas do C2</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💻</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Linguagens de Programação</h4>
+                            <p style="margin: 0;">int, byte, short, long - TODOS usam Complemento de Dois</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚙️</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Processadores</h4>
+                            <p style="margin: 0;">CPUs modernas implementam apenas UMA unidade somadora</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📱</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Sistemas Embarcados</h4>
+                            <p style="margin: 0;">Microcontroladores, IoT, sensores - todos usam C2</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🎮</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Gráficos e Áudio</h4>
+                            <p style="margin: 0;">Processamento de sinais digitais usa Complemento de Dois</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 22: Comparação Métodos -->
+        <div class="slide" data-slide="22">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Comparação: Sinal-Magnitude vs C2</h2>
+                <div class="content-box">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <thead>
+                            <tr style="background: rgba(244, 180, 26, 0.15);">
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Aspecto</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Sinal-Magnitude</th>
+                                <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Complemento de Dois</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Zero</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">❌ Duplo (+0 e -0)</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">✓ Único</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Hardware</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">❌ Complexo</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">✓ Simples</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Intervalo</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Simétrico</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Assimétrico</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Uso</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">❌ Histórico</td>
+                                <td style="padding: 15px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">✓ Padrão Universal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23: Exercícios -->
+        <div class="slide" data-slide="23">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Exercícios de Fixação</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgb(59, 130, 246); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: rgb(59, 130, 246); font-weight: bold;"><strong>Questão 1:</strong></p>
+                            <p style="margin: 0;">Converta -10₁₀ para Complemento de Dois (8 bits)</p>
+                        </div>
+                        <div style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgb(59, 130, 246); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: rgb(59, 130, 246); font-weight: bold;"><strong>Questão 2:</strong></p>
+                            <p style="margin: 0;">Converta -127₁₀ para Complemento de Dois (8 bits)</p>
+                        </div>
+                        <div style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgb(59, 130, 246); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0 0 10px 0; color: rgb(59, 130, 246); font-weight: bold;"><strong>Questão 3:</strong></p>
+                            <p style="margin: 0;">Qual é o número decimal representado por 10000001₂ em C2?</p>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 1px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                            <p style="margin: 0; color: rgb(76, 175, 80); text-align: center;"><strong>✓ Encaminhar as resposta pelo Google sala de aula</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SLIDE 24: Conclusão -->
+        <div class="slide" data-slide="24">
+            <div class="slide-content">
+                <h2 class="slide-title">🎉 Conclusões</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💡</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Entendemos o Problema</h4>
+                            <p style="margin: 0;">Por que computadores precisam representar números negativos</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📊</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Conhecemos as Soluções</h4>
+                            <p style="margin: 0;">Sinal-Magnitude, Complemento de Um e Complemento de Dois</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🏆</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Dominamos o Padrão</h4>
+                            <p style="margin: 0;">Complemento de Dois é o método universal usado em todos os computadores</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🎯</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Sabemos Converter</h4>
+                            <p style="margin: 0;">Conseguimos transformar entre decimal e binário em C2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 25: Resumo Executivo -->
+        <div class="slide" data-slide="25">
+            <div class="slide-content">
+                <h2 class="slide-title">📝 Resumo Executivo</h2>
+                <div class="content-box">
+                    <ul style="list-style: none; padding: 0; display: grid; gap: 15px;">
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Necessidade:</strong> Transformar subtrações em adições usando apenas circuitos somadores</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Sinal-Magnitude:</strong> Simples mas com 2 zeros e circuitos complexos ❌</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Complemento de Um:</strong> Passo intermediário que inverte todos os bits</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Complemento de Dois:</strong> Método universal = C1 + 1 ✓</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Intervalo (N bits):</strong> Mínimo = -2^(N-1) | Máximo = 2^(N-1) - 1</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Verificação:</strong> Sempre some número com seu oposto para confirmar (deve dar 0)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 26: Próximos Passos -->
+        <div class="slide" data-slide="26">
+            <div class="slide-content">
+                <h2 class="slide-title">🚀 Próximos Passos</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📚</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Pratique Conversões</h4>
+                            <p style="margin: 0;">Faça muitos exercícios de conversão entre decimal e C2</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🧮</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Entenda a Aritmética</h4>
+                            <p style="margin: 0;">Veja como o hardware faz somas e subtrações com C2</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💻</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Experimente em Código</h4>
+                            <p style="margin: 0;">Teste conversões em Python, C ou Java</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🎯</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Prepare-se</h4>
+                            <p style="margin: 0;">Módulo 3: Operações Aritméticas em Sistemas Digitais</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 27: Obrigado -->
+        <div class="slide" data-slide="27">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+                    <h1 class="main-title" style="font-size: 3rem;">Obrigado! 🎓</h1>
+                    <h2 class="subtitle">Você domina o Universo dos Bits Negativos!</h2>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Módulo 2 - Representação de Números Negativos</p>
+                    <div class="title-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar (NEW STYLE) -->
+    <div class="navigation-bar">
+        <button class="nav-button" id="prevBtn">‹</button>
+        <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">28</span></div>
+        <button class="nav-button" id="nextBtn">›</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
