@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÓDULO 2 - Banco de Dados I (BD I) - Normalização</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+           <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="progress-header">
+            <span class="progress-text" id="progressText">Slide 1 de 25</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="slide-wrapper">
+            <!-- Slide 1: Title -->
+            <div class="slide active" data-slide="1">
+                <div class="title-slide">
+                    <div class="database-icon">🗄️</div>
+                    <h1>MÓDULO 2 - Banco de Dados I</h1>
+                    <p class="subtitle">Normalização: A Arte de Organizar Dados</p>
+                    <p class="subtitle" style="font-size: 1.1rem; margin-top: 0.5rem;">Formas Normais 1FN, 2FN e 3FN - Elimine Redundância e Anomalias</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Objectives -->
+            <div class="slide" data-slide="2">
+                <h2>📋 Objetivos do Módulo</h2>
+                <p>Ao final deste módulo, você será capaz de:</p>
+                <ul class="objectives-list">
+                    <li>Compreender o conceito de redundância e anomalias de dados</li>
+                    <li>Entender as 3 tipos de anomalias: inserção, exclusão e atualização</li>
+                    <li>Conhecer o conceito e importância das Formas Normais</li>
+                    <li>Dominar a Primeira Forma Normal (1FN) e seus critérios</li>
+                    <li>Dominar a Segunda Forma Normal (2FN) e dependências parciais</li>
+                    <li>Dominar a Terceira Forma Normal (3FN) e dependências transitivas</li>
+                    <li>Decompor tabelas para atingir 3FN</li>
+                    <li>Eliminar redundância e anomalias em projetos práticos</li>
+                </ul>
+            </div>
+
+            <!-- Slide 3: Redundancy and Anomalies -->
+            <div class="slide" data-slide="3">
+                <h2>🚫 Redundância e Anomalias: O Problema dos Dados Bagunçados</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">O que é Redundância?</div>
+                    <div class="card-content">
+                        <strong>Dados que são repetidos desnecessariamente na base de dados</strong>, causando problemas de atualização e consistência.
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">📋</div>
+                    <div class="card-title">Analogia da Planilha Bagunçada</div>
+                    <div class="card-content">
+                        É como uma <strong>planilha bagunçada onde você precisa atualizar a mesma informação em vários lugares</strong>. Se esquecer de atualizar uma célula, seus dados ficam inconsistentes e pouco confiáveis.
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; text-align: center;">As 3 Anomalias de Dados</h3>
+                <p style="text-align: center; color: #a0d7e7; margin-bottom: 1.5rem;">Problemas causados pela redundância que você precisa EVITAR:</p>
+                
+                <div class="concept-grid">
+                    <div class="concept-card" style="border-color: #f56565;">
+                        <div class="concept-header">
+                            <div class="concept-icon">❌</div>
+                            <div class="concept-name">ANOMALIA DE INSERÇÃO</div>
+                        </div>
+                        <div class="concept-definition">Impossibilidade de inserir dados incompletos</div>
+                    </div>
+
+                    <div class="concept-card" style="border-color: #f56565;">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗑️</div>
+                            <div class="concept-name">ANOMALIA DE EXCLUSÃO</div>
+                        </div>
+                        <div class="concept-definition">Perda de informações ao deletar um registro</div>
+                    </div>
+
+                    <div class="concept-card" style="border-color: #f56565;">
+                        <div class="concept-header">
+                            <div class="concept-icon">⚠️</div>
+                            <div class="concept-name">ANOMALIA DE ATUALIZAÇÃO</div>
+                        </div>
+                        <div class="concept-definition">Inconsistência por repetição de dados</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-content" style="text-align: center;">
+                        💡 <strong>Nos próximos slides, você verá exemplos VISUAIS de cada anomalia com tabelas!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Anomalia de Inserção -->
+            <div class="slide" data-slide="4">
+                <h2>❌ Anomalia de Inserção - Impossibilidade de Inserir</h2>
+                <p style="margin-bottom: 1rem; font-size: 1.1rem;"><strong>Definição:</strong> Você não pode inserir novos dados sem ter informações incompletas</p>
+                
+                <div class="table-container">
+                    <div class="table-title">Tabela: Vendas_Completa (VIOLADA)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Vendedor</th>
+                                <th>Nome_Vendedor</th>
+                                <th>ID_Pedido</th>
+                                <th>Data_Pedido</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>João Silva</td>
+                                <td>5001</td>
+                                <td>2025-01-15</td>
+                                <td>1500</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Maria Santos</td>
+                                <td>5002</td>
+                                <td>2025-01-16</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr style="background: rgba(245, 101, 101, 0.2);">
+                                <td>103</td>
+                                <td>Pedro Costa</td>
+                                <td>NULL</td>
+                                <td>NULL</td>
+                                <td>NULL</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">PROBLEMA:</div>
+                    <div class="card-content">
+                        Você <strong>NÃO consegue adicionar um novo vendedor</strong> sem ter um pedido associado, ou vice-versa. Informação incompleta!
+                        <br><br>
+                        <strong>Consequência:</strong> Impossível cadastrar vendedores que ainda não fizeram nenhuma venda.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Anomalia de Exclusão -->
+            <div class="slide" data-slide="5">
+                <h2>🗑️ Anomalia de Exclusão - Perda de Informações</h2>
+                <p style="margin-bottom: 1rem; font-size: 1.1rem;"><strong>Definição:</strong> Deletar um registro deleta também informações não relacionadas</p>
+                
+                <div class="table-container">
+                    <div class="table-title">Tabela: Vendas_Completa (VIOLADA)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Vendedor</th>
+                                <th>Nome_Vendedor</th>
+                                <th>ID_Pedido</th>
+                                <th>Data_Pedido</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>João Silva</td>
+                                <td>5001</td>
+                                <td>2025-01-15</td>
+                                <td>1500</td>
+                            </tr>
+                            <tr style="background: rgba(245, 101, 101, 0.2); text-decoration: line-through; opacity: 0.6;">
+                                <td>102</td>
+                                <td>Maria Santos</td>
+                                <td>5002</td>
+                                <td>2025-01-16</td>
+                                <td>2000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">PROBLEMA:</div>
+                    <div class="card-content">
+                        Se você <strong>DELETA o pedido 5002</strong>, você também <strong>PERDE a informação</strong> de que 'Maria Santos' é uma vendedora!
+                        <br><br>
+                        <strong>Consequência:</strong> Informação importante é perdida permanentemente. O banco perde o registro da vendedora Maria Santos.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Anomalia de Atualização -->
+            <div class="slide" data-slide="6">
+                <h2>⚠️ Anomalia de Atualização - Inconsistência de Dados</h2>
+                <p style="margin-bottom: 1rem; font-size: 1.1rem;"><strong>Definição:</strong> Atualizar um dado causa inconsistência porque aparece em múltiplos lugares</p>
+                
+                <div class="table-container">
+                    <div class="table-title">Tabela: Vendas_Completa (VIOLADA)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Vendedor</th>
+                                <th>Nome_Vendedor</th>
+                                <th>ID_Pedido</th>
+                                <th>Data_Pedido</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(244, 180, 26, 0.1);">
+                                <td>101</td>
+                                <td>João Silva</td>
+                                <td>5001</td>
+                                <td>2025-01-15</td>
+                                <td>1500</td>
+                            </tr>
+                            <tr style="background: rgba(244, 180, 26, 0.1);">
+                                <td>101</td>
+                                <td>João Silva</td>
+                                <td>5003</td>
+                                <td>2025-01-17</td>
+                                <td>3000</td>
+                            </tr>
+                            <tr style="background: rgba(244, 180, 26, 0.1);">
+                                <td>101</td>
+                                <td>João Silva</td>
+                                <td>5004</td>
+                                <td>2025-01-18</td>
+                                <td>2500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">PROBLEMA:</div>
+                    <div class="card-content">
+                        Se 'João Silva' mudar de nome para 'João Pedro', você precisa <strong>atualizar em 3 lugares</strong>! Se esquecer 1, os dados ficam <strong>INCONSISTENTES</strong>.
+                        <br><br>
+                        <strong>Consequência:</strong> Banco de dados com informações conflitantes e pouco confiável. Qual é o nome correto?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Jogo Diagnóstico de Anomalias -->
+            <div class="slide" data-slide="7">
+                <h2>🎮 Jogo: Diagnóstico de Anomalias</h2>
+                <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">Leia cada cenário e identifique qual tipo de anomalia está ocorrendo!</p>
+                
+                <div id="anomalyGameContainer" class="game-container"></div>
+                
+                <div class="score-display" id="anomalyScore" style="margin-top: 2rem;">
+                    Você acertou <span id="anomalyScoreNumber">0</span> de 6 diagnósticos!
+                </div>
+            </div>
+
+            <!-- Slide 8: O que são Formas Normais -->
+            <div class="slide" data-slide="8">
+                <h2>📐 O que são Formas Normais? - Regras para Dados Bem Organizados</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        As <strong>Formas Normais (FNs)</strong> são um <strong>conjunto de testes e regras</strong> para verificar e melhorar a qualidade do design do Banco de Dados.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Progressão das Formas Normais</div>
+                    <div class="card-content">
+                        As FNs formam uma sequência progressiva:
+                        <div style="text-align: center; font-size: 1.3rem; margin: 1.5rem 0; color: #f4b41a; font-weight: 700;">
+                            1FN → 2FN → 3FN → BCNF → 4FN → 5FN
+                        </div>
+                        Cada uma é <strong>mais rigorosa</strong> que a anterior.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Objetivo</div>
+                    <div class="card-content">
+                        <strong>Eliminar redundância, anomalias e inconsistências</strong> através de uma estrutura de dados bem organizada.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content" style="text-align: center;">
+                        💡 <strong>Nos próximos slides, você aprenderá 1FN, 2FN e 3FN com exemplos detalhados!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Mito vs Verdade -->
+            <div class="slide" data-slide="9">
+                <h2>💭 Mito vs. Verdade - Desvendando Conceitos Sobre Formas Normais</h2>
+                
+                <div class="myth-card">
+                    <div class="myth-header">❌ MITO 1</div>
+                    <div class="myth-text">"Toda tabela deve estar na 5FN para ser perfeita"</div>
+                    <div class="truth-header">✅ VERDADE</div>
+                    <div class="truth-text">Na prática, <strong>3FN ou BCNF são suficientes</strong> para a maioria dos casos. 4FN e 5FN são para situações muito específicas.</div>
+                </div>
+
+                <div class="myth-card">
+                    <div class="myth-header">❌ MITO 2</div>
+                    <div class="myth-text">"Normalização sempre melhora a performance"</div>
+                    <div class="truth-header">✅ VERDADE</div>
+                    <div class="truth-text">Normalização elimina redundância, mas pode <strong>aumentar complexidade e necessidade de JOINs</strong>. Às vezes, denormalização estratégica é necessária para performance.</div>
+                </div>
+
+                <div class="myth-card">
+                    <div class="myth-header">❌ MITO 3</div>
+                    <div class="myth-text">"Uma tabela não normalizada é sempre ruim"</div>
+                    <div class="truth-header">✅ VERDADE</div>
+                    <div class="truth-text">Para <strong>relatórios e data warehouses</strong>, às vezes mantemos dados denormalizados intencionalmente para melhor performance de leitura.</div>
+                </div>
+            </div>
+
+            <!-- Slide 10: 1FN Definição -->
+            <div class="slide" data-slide="10">
+                <h2>📦 Primeira Forma Normal (1FN) - Atomicidade</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        Uma tabela está em <strong>1FN</strong> quando todos os seus atributos contêm apenas <strong>valores ATÔMICOS (indivisíveis)</strong> e <strong>não há grupos repetitivos</strong>.
+                    </div>
+                </div>
+
+                <div class="criteria-box">
+                    <div class="criteria-header">Critério 1: ATOMICIDADE</div>
+                    <div class="criteria-content">Cada célula deve conter um <strong>único valor</strong>, não um conjunto ou lista</div>
+                </div>
+
+                <div class="criteria-box">
+                    <div class="criteria-header">Critério 2: Eliminação de Grupos Repetitivos</div>
+                    <div class="criteria-content">Não deve haver campos que se repetem (como Telefone1, Telefone2, Telefone3)</div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content" style="text-align: center;">
+                        💡 <strong>Próximo slide: Exemplo visual de violação de 1FN</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: 1FN Violação -->
+            <div class="slide" data-slide="11">
+                <h2>🚫 1FN - Exemplo de Violação: Valores Não Atômicos</h2>
+                
+                <div class="table-container">
+                    <div class="table-title">Tabela: Clientes (NÃO está em 1FN)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Cliente</th>
+                                <th>Nome</th>
+                                <th>Telefones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>João Silva</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">(11) 98765-4321, (11) 3456-7890</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Maria Costa</td>
+                                <td>(21) 99876-5432</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Pedro Lima</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">(31) 98765-4321, (31) 3456-7890, (31) 2345-6789</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">PROBLEMA:</div>
+                    <div class="card-content">
+                        O campo <strong>Telefones</strong> contém <strong>MÚLTIPLOS valores</strong> em uma única célula. Não é ATÔMICO!
+                        <br><br>
+                        <strong>Consequência:</strong> Impossível fazer buscas por telefone específico, queries ficam complexas.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: 1FN Decomposição -->
+            <div class="slide" data-slide="12">
+                <h2>✅ 1FN - Decomposição para Valores Atômicos</h2>
+                
+                <div class="decomposition-container">
+                    <div class="table-container">
+                        <div class="table-title">Tabela 1: Clientes (em 1FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Cliente</th>
+                                    <th>Nome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>João Silva</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Maria Costa</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Pedro Lima</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-container" style="margin-top: 1.5rem;">
+                        <div class="table-title">Tabela 2: Telefones_Cliente (em 1FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Cliente</th>
+                                    <th>Telefone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>(11) 98765-4321</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>(11) 3456-7890</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>(21) 99876-5432</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>(31) 98765-4321</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>(31) 3456-7890</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>(31) 2345-6789</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(72, 187, 120, 0.15); border-color: #48bb78;">
+                    <div class="card-icon">✅</div>
+                    <div class="card-title">SOLUÇÃO:</div>
+                    <div class="card-content">
+                        Cada telefone em sua própria linha. <strong>Valores ATÔMICOS apenas!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: 2FN Definição -->
+            <div class="slide" data-slide="13">
+                <h2>📐 Segunda Forma Normal (2FN) - Dependência Parcial</h2>
+                
+                <div class="card" style="margin: 1.5rem 0; background: rgba(244, 180, 26, 0.1);">
+                    <div class="card-title">Pré-requisito</div>
+                    <div class="card-content">
+                        A tabela deve estar em <strong>1FN</strong>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Conceito: Dependência Funcional</div>
+                    <div class="card-content">
+                        Dizemos que <strong>Y depende funcionalmente de X (X → Y)</strong> se cada valor de X tem um único valor de Y associado.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Definição 2FN</div>
+                    <div class="card-content">
+                        Uma tabela está em <strong>2FN</strong> quando:
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Está em <strong>1FN</strong> E</li>
+                            <li><strong>Nenhum atributo não-chave depende parcialmente</strong> da chave primária (quando ela é composta)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="criteria-box" style="border-color: #f56565;">
+                    <div class="criteria-header" style="color: #f56565;">O Problema: Dependência Parcial</div>
+                    <div class="criteria-content">Um atributo não-chave que depende de <strong>APENAS UMA PARTE</strong> da chave composta (não de toda a chave)</div>
+                </div>
+            </div>
+
+            <!-- Slide 14: 2FN Violação -->
+            <div class="slide" data-slide="14">
+                <h2>🚫 2FN - Exemplo de Violação: Dependências Parciais</h2>
+                
+                <div class="table-container">
+                    <div class="table-title">Tabela: Itens_Pedido (Chave Composta: ID_Pedido + ID_Produto)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Pedido</th>
+                                <th>ID_Produto</th>
+                                <th>Nome_Produto</th>
+                                <th>Preço</th>
+                                <th>Quantidade</th>
+                                <th>Data_Pedido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5001</td>
+                                <td>101</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">Notebook</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">3500</td>
+                                <td>2</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">2025-01-15</td>
+                            </tr>
+                            <tr>
+                                <td>5001</td>
+                                <td>102</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">Mouse</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">150</td>
+                                <td>5</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">2025-01-15</td>
+                            </tr>
+                            <tr>
+                                <td>5002</td>
+                                <td>101</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">Notebook</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">3500</td>
+                                <td>1</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">2025-01-16</td>
+                            </tr>
+                            <tr>
+                                <td>5002</td>
+                                <td>103</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">Teclado</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">350</td>
+                                <td>3</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">2025-01-16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="dependency-box" style="margin-top: 1.5rem;">
+                    <div class="dependency-title">Dependências Funcionais VIOLANDO 2FN:</div>
+                    <div class="dependency-item">ID_Pedido → Data_Pedido (depende APENAS de ID_Pedido, não toda a chave)</div>
+                    <div class="dependency-item">ID_Produto → Nome_Produto (depende APENAS de ID_Produto, não toda a chave)</div>
+                    <div class="dependency-item">ID_Produto → Preço (depende APENAS de ID_Produto, não toda a chave)</div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">PROBLEMA:</div>
+                    <div class="card-content">
+                        O campo <strong>Nome_Produto</strong> aparece repetido porque depende apenas de ID_Produto. <strong>REDUNDÂNCIA!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: 2FN Decomposição -->
+            <div class="slide" data-slide="15">
+                <h2>✅ 2FN - Decomposição para Eliminar Dependências Parciais</h2>
+                
+                <div class="decomposition-container">
+                    <div class="table-container">
+                        <div class="table-title">Tabela 1: Pedidos (em 2FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Pedido</th>
+                                    <th>Data_Pedido</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5001</td>
+                                    <td>2025-01-15</td>
+                                </tr>
+                                <tr>
+                                    <td>5002</td>
+                                    <td>2025-01-16</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-container" style="margin-top: 1rem;">
+                        <div class="table-title">Tabela 2: Produtos (em 2FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Produto</th>
+                                    <th>Nome_Produto</th>
+                                    <th>Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>Notebook</td>
+                                    <td>3500</td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>Mouse</td>
+                                    <td>150</td>
+                                </tr>
+                                <tr>
+                                    <td>103</td>
+                                    <td>Teclado</td>
+                                    <td>350</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-container" style="margin-top: 1rem;">
+                        <div class="table-title">Tabela 3: Itens_Pedido (em 2FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Pedido</th>
+                                    <th>ID_Produto</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5001</td>
+                                    <td>101</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>5001</td>
+                                    <td>102</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>5002</td>
+                                    <td>101</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>5002</td>
+                                    <td>103</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="dependency-box" style="margin-top: 1.5rem; border-color: #48bb78;">
+                    <div class="dependency-title" style="color: #48bb78;">Dependências Corretas (SEM PARCIAIS):</div>
+                    <div class="dependency-item">Pedidos: ID_Pedido → Data_Pedido ✓</div>
+                    <div class="dependency-item">Produtos: ID_Produto → Nome_Produto, Preço ✓</div>
+                    <div class="dependency-item">Itens_Pedido: (ID_Pedido, ID_Produto) → Quantidade ✓</div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Quiz Forma Normal -->
+            <div class="slide" data-slide="16">
+                <h2>🎯 Quiz: Identifique a Forma Normal Violada</h2>
+                <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">Analise cada tabela e identifique qual Forma Normal está sendo VIOLADA!</p>
+                
+                <div id="fnQuizContainer" class="game-container"></div>
+                
+                <div class="score-display" id="fnQuizScore" style="margin-top: 2rem;">
+                    Você acertou <span id="fnQuizScoreNumber">0</span> de 4 quizzes!
+                </div>
+            </div>
+
+            <!-- Slide 17: 3FN Definição -->
+            <div class="slide" data-slide="17">
+                <h2>🔗 Terceira Forma Normal (3FN) - Dependência Transitiva</h2>
+                
+                <div class="card" style="margin: 1.5rem 0; background: rgba(244, 180, 26, 0.1);">
+                    <div class="card-title">Pré-requisito</div>
+                    <div class="card-content">
+                        A tabela deve estar em <strong>2FN</strong>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Conceito: Dependência Transitiva</div>
+                    <div class="card-content">
+                        Um atributo não-chave depende de <strong>OUTRO atributo não-chave</strong>, que por sua vez depende da chave primária.
+                        <div style="text-align: center; font-size: 1.2rem; margin: 1rem 0; color: #f4b41a; font-weight: 700;">
+                            Chave Primária → Atributo Intermediário → Atributo Dependente
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Definição 3FN</div>
+                    <div class="card-content">
+                        Uma tabela está em <strong>3FN</strong> quando:
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Está em <strong>2FN</strong> E</li>
+                            <li><strong>Nenhum atributo não-chave depende transitivamente</strong> da chave primária</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: 3FN Violação -->
+            <div class="slide" data-slide="18">
+                <h2>🚫 3FN - Exemplo de Violação: Dependência Transitiva</h2>
+                
+                <div class="table-container">
+                    <div class="table-title">Tabela: Pedidos (Chave Primária: ID_Pedido)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Pedido</th>
+                                <th>ID_Vendedor</th>
+                                <th>Nome_Vendedor</th>
+                                <th>Email_Vendedor</th>
+                                <th>Data_Pedido</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5001</td>
+                                <td>101</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">João Silva</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">joao@email.com</td>
+                                <td>2025-01-15</td>
+                                <td>1500</td>
+                            </tr>
+                            <tr>
+                                <td>5002</td>
+                                <td>102</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">Maria Santos</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">maria@email.com</td>
+                                <td>2025-01-16</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>5003</td>
+                                <td>101</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">João Silva</td>
+                                <td style="background: rgba(245, 101, 101, 0.2);">joao@email.com</td>
+                                <td>2025-01-17</td>
+                                <td>1800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="dependency-box" style="margin-top: 1.5rem;">
+                    <div class="dependency-title">Dependências VIOLANDO 3FN:</div>
+                    <div class="dependency-item">ID_Pedido → ID_Vendedor (OK)</div>
+                    <div class="dependency-item">ID_Vendedor → Nome_Vendedor (Dependência entre não-chaves)</div>
+                    <div class="dependency-item">ID_Vendedor → Email_Vendedor (Dependência entre não-chaves)</div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(245, 101, 101, 0.2); border-color: #f56565;">
+                    <div class="card-title" style="color: #f56565;">CADEIA DE DEPENDÊNCIA TRANSITIVA:</div>
+                    <div class="card-content" style="font-size: 1.2rem; text-align: center; font-weight: 700; color: #f56565;">
+                        ID_Pedido → ID_Vendedor → Nome_Vendedor
+                        <br>
+                        ID_Pedido → ID_Vendedor → Email_Vendedor
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(245, 101, 101, 0.15); border-color: #f56565;">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">PROBLEMA:</div>
+                    <div class="card-content">
+                        <strong>Nome_Vendedor</strong> e <strong>Email_Vendedor</strong> aparecem repetidos para o mesmo vendedor. <strong>REDUNDÂNCIA e possíveis ANOMALIAS!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: 3FN Decomposição -->
+            <div class="slide" data-slide="19">
+                <h2>✅ 3FN - Decomposição para Eliminar Dependências Transitivas</h2>
+                
+                <div class="decomposition-container">
+                    <div class="table-container">
+                        <div class="table-title">Tabela 1: Pedidos (em 3FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Pedido</th>
+                                    <th>ID_Vendedor</th>
+                                    <th>Data_Pedido</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5001</td>
+                                    <td>101</td>
+                                    <td>2025-01-15</td>
+                                    <td>1500</td>
+                                </tr>
+                                <tr>
+                                    <td>5002</td>
+                                    <td>102</td>
+                                    <td>2025-01-16</td>
+                                    <td>2000</td>
+                                </tr>
+                                <tr>
+                                    <td>5003</td>
+                                    <td>101</td>
+                                    <td>2025-01-17</td>
+                                    <td>1800</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-container" style="margin-top: 1.5rem;">
+                        <div class="table-title">Tabela 2: Vendedores (em 3FN)</div>
+                        <table class="db-table">
+                            <thead>
+                                <tr>
+                                    <th>ID_Vendedor</th>
+                                    <th>Nome_Vendedor</th>
+                                    <th>Email_Vendedor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>João Silva</td>
+                                    <td>joao@email.com</td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>Maria Santos</td>
+                                    <td>maria@email.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="dependency-box" style="margin-top: 1.5rem; border-color: #48bb78;">
+                    <div class="dependency-title" style="color: #48bb78;">Dependências Corretas (SEM TRANSITIVAS):</div>
+                    <div class="dependency-item">Pedidos: ID_Pedido → ID_Vendedor ✓ (sem transitiva)</div>
+                    <div class="dependency-item">Vendedores: ID_Vendedor → Nome_Vendedor, Email_Vendedor ✓ (sem transitiva)</div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Jogo Decomposição Rápida -->
+            <div class="slide" data-slide="20">
+                <h2>🎲 Jogo: Decomposição Rápida</h2>
+                <p style="text-align: center; margin-bottom: 1rem; font-size: 1.1rem;">Arraste cada campo para a tabela correta!</p>
+                
+                <div class="card" style="background: rgba(244, 180, 26, 0.15); margin-bottom: 2rem;">
+                    <div class="card-title" style="text-align: center;">Tabela Original: Vendas</div>
+                    <div class="card-content" style="text-align: center; font-size: 0.95rem;">
+                        ID_Pedido, Data_Pedido, ID_Produto, Nome_Produto, Preço, ID_Vendedor, Nome_Vendedor
+                    </div>
+                </div>
+                
+                <div id="dragGameContainer" style="margin: 2rem 0;"></div>
+                
+                <div class="card" id="dragSuccessMessage" style="display: none; background: rgba(72, 187, 120, 0.2); border-color: #48bb78; margin-top: 2rem;">
+                    <div class="card-icon" style="text-align: center; font-size: 3rem;">🎉</div>
+                    <div class="card-title" style="text-align: center; color: #48bb78;">Perfeito! Sua decomposição está em 3FN!</div>
+                    <div class="card-content" style="text-align: center;">
+                        Você organizou corretamente todos os campos nas tabelas normalizadas.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 21: Activity Introduction -->
+            <div class="slide" data-slide="21">
+                <h2>📝 ATIVIDADE 2 (BD I) - Análise de Normalização (Entregar pelo Google Sala de aula)</h2>
+                <h3 style="text-align: center; color: #f4b41a;">Normalize uma Tabela para 3FN</h3>
+                
+                <div class="card" style="margin: 2rem 0; background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon" style="font-size: 3rem; text-align: center;">📊</div>
+                    <div class="card-title" style="text-align: center; font-size: 1.4rem;">Instruções da Atividade</div>
+                    <div class="card-content" style="font-size: 1.05rem;">
+                        Analise a seguinte tabela <strong>NÃO NORMALIZADA</strong> e responda as questões:
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-title">Tabela: Vendas (Chave Primária Composta: ID_Pedido + ID_Produto)</div>
+                    <table class="db-table">
+                        <thead>
+                            <tr>
+                                <th>ID_Pedido</th>
+                                <th>Data</th>
+                                <th>ID_Produto</th>
+                                <th>Nome_Produto</th>
+                                <th>Preço</th>
+                                <th>Nome_Vendedor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5001</td>
+                                <td>2025-01-15</td>
+                                <td>101</td>
+                                <td>Notebook</td>
+                                <td>3500</td>
+                                <td>João Silva</td>
+                            </tr>
+                            <tr>
+                                <td>5001</td>
+                                <td>2025-01-15</td>
+                                <td>102</td>
+                                <td>Mouse</td>
+                                <td>150</td>
+                                <td>João Silva</td>
+                            </tr>
+                            <tr>
+                                <td>5002</td>
+                                <td>2025-01-16</td>
+                                <td>101</td>
+                                <td>Notebook</td>
+                                <td>3500</td>
+                                <td>Maria Santos</td>
+                            </tr>
+                            <tr>
+                                <td>5002</td>
+                                <td>2025-01-16</td>
+                                <td>103</td>
+                                <td>Teclado</td>
+                                <td>350</td>
+                                <td>Maria Santos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">QUESTÕES A RESPONDER:</div>
+                    <div class="card-content">
+                        <ol style="padding-left: 1.5rem; line-height: 2;">
+                            <li>Essa tabela está na 1FN? Por quê? (Justifique com base nos critérios de atomicidade)</li>
+                            <li>Identifique as dependências funcionais que VIOLAM 2FN. Qual atributo depende de apenas uma parte da chave composta?</li>
+                            <li>Identifique as dependências funcionais que VIOLAM 3FN. Existem dependências transitivas?</li>
+                            <li>Proponha a decomposição desta tabela em tabelas que atinjam 3FN. Indique o nome, campos, chave primária e chaves estrangeiras.</li>
+                            <li>Justifique por que sua solução atinge 3FN.</li>
+                            <li>Entrega: Gravar um video respondendo cada uma das perguntas.</li>
+                        </ol>
+                        <p>Entrega: Gravar um video respondendo cada uma das perguntas.</p>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Slide 22: Summary -->
+            <div class="slide" data-slide="22">
+                <h2>📚 Resumo dos Conceitos - Normalização</h2>
+                <div class="card" style="background: rgba(244, 180, 26, 0.15); border-color: #f4b41a; margin-bottom: 2rem;">
+                    <div class="card-content" style="text-align: center; font-weight: 600;">
+                        ⚠️ Revise todos esses conceitos para dominar o design de bancos de dados normalizados!
+                    </div>
+                </div>
+                
+                <div class="concept-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🚫</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">REDUNDÂNCIA</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Dados repetidos desnecessariamente</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">❌</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">ANOMALIA DE INSERÇÃO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Impossibilidade de inserir dados incompletos</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗑️</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">ANOMALIA DE EXCLUSÃO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Perda de informações ao deletar um registro</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">⚠️</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">ANOMALIA DE ATUALIZAÇÃO</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Inconsistência por necessidade de atualizar em múltiplos lugares</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">📦</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">1FN</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Atomicidade + Eliminação de Grupos Repetitivos</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">📐</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">2FN</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">1FN + Sem Dependências Parciais</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔗</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">3FN</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">2FN + Sem Dependências Transitivas</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">➡️</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">DEPENDÊNCIA FUNCIONAL</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">X → Y (Y depende de X)</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">⚡</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">DEPENDÊNCIA PARCIAL</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Violação de 2FN</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔄</div>
+                            <div class="concept-name" style="font-size: 1.1rem;">DEPENDÊNCIA TRANSITIVA</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 0.95rem;">Violação de 3FN</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(72, 187, 120, 0.15) 0%, rgba(26, 58, 74, 0.8) 100%); border-color: #48bb78;">
+                    <div class="card-title" style="text-align: center; font-size: 1.3rem;">✅ CHECKLIST DE APRENDIZADO</div>
+                    <ul class="objectives-list" style="margin-top: 1rem;">
+                        <li>Entendo o conceito de redundância</li>
+                        <li>Conheço os 3 tipos de anomalias</li>
+                        <li>Consigo identificar violações de 1FN</li>
+                        <li>Consigo identificar violações de 2FN</li>
+                        <li>Consigo identificar violações de 3FN</li>
+                        <li>Posso decompor tabelas para 3FN</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 23: Conclusão -->
+            <div class="slide" data-slide="23">
+                <h2>🌟 Conclusão - Normalização de Banco de Dados</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(26, 58, 74, 0.9) 100%); margin: 2rem 0; padding: 2rem;">
+                    <div class="card-icon" style="text-align: center; font-size: 3.5rem;">🎯</div>
+                    <div class="card-title" style="text-align: center; font-size: 1.5rem;">Sua Jornada de Aprendizado</div>
+                    <div class="card-content" style="font-size: 1.1rem; line-height: 1.8;">
+                        Ao longo deste módulo, você aprendeu a <strong>organizar dados de forma eficiente</strong>, eliminando redundâncias e anomalias que podem comprometer a integridade de um banco de dados.
+                    </div>
+                </div>
+
+                <div class="concept-grid">
+                    <div class="concept-card" style="border-color: #48bb78;">
+                        <div class="concept-header">
+                            <div class="concept-icon">✅</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">HABILIDADES ADQUIRIDAS</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 1rem; color: #cbd5e0;">
+                            <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                                <li>Identificar redundâncias e anomalias</li>
+                                <li>Aplicar 1FN, 2FN e 3FN</li>
+                                <li>Decompor tabelas corretamente</li>
+                                <li>Analisar dependências funcionais</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-card" style="border-color: #f4b41a;">
+                        <div class="concept-header">
+                            <div class="concept-icon">💡</div>
+                            <div class="concept-name" style="font-size: 1.2rem;">IMPORTÂNCIA NA PRÁTICA</div>
+                        </div>
+                        <div class="concept-definition" style="font-size: 1rem; color: #cbd5e0;">
+                            <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                                <li>Bancos de dados mais confiáveis</li>
+                                <li>Facilita manutenção e atualizações</li>
+                                <li>Evita inconsistências de dados</li>
+                                <li>Base para projetos profissionais</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(244, 180, 26, 0.15); border-color: #f4b41a; margin-top: 2rem; padding: 1.5rem;">
+                    <div class="card-content" style="text-align: center; font-size: 1.1rem;">
+                        <strong>🚀 Próximos Passos:</strong><br>
+                        Continue praticando normalização em seus próprios projetos. Lembre-se: um banco de dados bem normalizado é a base de qualquer sistema robusto e escalável.
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(72, 187, 120, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%); border: 2px solid #48bb78; text-align: center; padding: 2rem; margin-top: 2rem;">
+                    <div class="card-icon" style="font-size: 3rem;">🎓</div>
+                    <div class="card-content" style="font-size: 1.2rem; font-weight: 600; color: #68d391;">
+                        Parabéns! Você está pronto para criar bancos de dados profissionais e bem estruturados!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 24: Referências -->
+            <div class="slide" data-slide="24">
+                <h2>📚 Referências Bibliográficas</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">📖 Livros e Publicações Acadêmicas</div>
+                    <div class="card-content">
+                        <ol style="padding-left: 1.5rem; line-height: 2;">
+                            <li><strong>ELMASRI, R.; NAVATHE, S. B.</strong> Sistemas de Banco de Dados. 7ª ed. São Paulo: Pearson Education do Brasil, 2019.</li>
+                            <li><strong>DATE, C. J.</strong> Introdução a Sistemas de Bancos de Dados. 8ª ed. Rio de Janeiro: Campus, 2004.</li>
+                            <li><strong>HEUSER, C. A.</strong> Projeto de Banco de Dados. 6ª ed. Porto Alegre: Bookman, 2009.</li>
+                            <li><strong>SILBERSCHATZ, A.; KORTH, H. F.; SUDARSHAN, S.</strong> Sistema de Banco de Dados. 6ª ed. São Paulo: Pearson Makron Books, 2012.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🌐 Recursos Online</div>
+                    <div class="card-content">
+                        <ul style="padding-left: 1.5rem; line-height: 2;">
+                            <li><strong>Database Normalization - GeeksforGeeks:</strong> <a href="https://www.geeksforgeeks.org/database-normalization-normal-forms/" target="_blank" style="color: #f4b41a; text-decoration: underline;">geeksforgeeks.org</a></li>
+                            <li><strong>Normalization of Database - Tutorials Point:</strong> <a href="https://www.tutorialspoint.com/dbms/database_normalization.htm" target="_blank" style="color: #f4b41a; text-decoration: underline;">tutorialspoint.com</a></li>
+                            <li><strong>Database Design - Stanford University:</strong> Material didático disponível online</li>
+                        </ul>
+                    </div>
+                </div>
+
+              
+
+
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%); border: 2px solid #f4b41a; text-align: center; padding: 2rem; margin-top: 2rem;">
+                    <div class="card-icon" style="font-size: 3rem;">✨</div>
+                    <div class="card-content" style="font-size: 1.2rem; font-weight: 600;">
+                        Obrigado por concluir o Módulo 2 - Normalização de Banco de Dados!<br>
+                        <span style="color: #f4b41a;">Bons estudos e sucesso em sua jornada!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="navigation">
+                <button class="nav-btn prev" id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
+                <div class="slide-indicator" id="slideIndicator">Slide 1 de 25</div>
+                <button class="nav-btn next" id="nextBtn" onclick="changeSlide(1)">Próximo ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
