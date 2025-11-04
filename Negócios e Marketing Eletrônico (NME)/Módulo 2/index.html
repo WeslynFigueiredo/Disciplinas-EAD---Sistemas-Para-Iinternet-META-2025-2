@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÓDULO 2 - Negócios e Marketing Eletrônico</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            <div class="progress-indicator" id="progressIndicator">Slide 1 de 15</div>
+        </div>
+
+        <div class="slide active" id="slide1">
+            <div class="home-center">
+                <div class="home-logo">📚</div>
+                <h1 class="home-title" style="font-size: 48px; margin-bottom: 10px;">MÓDULO 2</h1>
+                <h2 class="home-subtitle" style="font-size: 26px; margin-bottom: 10px;">Negócios e Marketing Eletrônico</h2>
+                <h3 class="home-subtitle" style="font-size: 22px; margin-bottom: 10px; color: var(--color-meta-gold-light);">Entendendo o Cliente: Persona e Jornada</h3>
+                <p class="content-text" style="max-width: 700px; text-align: center; margin-bottom: 40px; font-size: 18px; color: var(--color-meta-gray-light);">
+                    Material de Estudo Autodidata com Storytelling e Exemplos Práticos<br>
+                    <span style="font-size: 14px; opacity: 0.9;">Aprenda a mapear e entender seu cliente digital de forma estratégica</span>
+                </p>
+                <button class="btn" onclick="nextSlide()" style="padding: 16px 48px; font-size: 18px;">Iniciar Módulo 2</button>
+            </div>
+        </div>
+
+        <div class="slide" id="slide2">
+            <h1 class="slide-title">Sumário do Módulo</h1>
+            <p class="content-text">Este módulo aborda 6 tópicos essenciais para entender e mapear o cliente digital:</p>
+            
+            <div class="sumario-grid">
+                <div class="sumario-item">
+                    <div class="sumario-number">01</div>
+                    <div class="sumario-title">O que é Persona? (Slide 3)</div>
+                </div>
+                <div class="sumario-item">
+                    <div class="sumario-number">02</div>
+                    <div class="sumario-title">Persona vs Público-Alvo (Slide 4)</div>
+                </div>
+                <div class="sumario-item">
+                    <div class="sumario-number">03</div>
+                    <div class="sumario-title">Método de Criação de Personas (Slides 5-6)</div>
+                </div>
+                <div class="sumario-item">
+                    <div class="sumario-number">04</div>
+                    <div class="sumario-title">Jornada do Cliente - Estágios (Slides 7-10)</div>
+                </div>
+                <div class="sumario-item">
+                    <div class="sumario-number">05</div>
+                    <div class="sumario-title">Conteúdo para cada Estágio (Slides 11-12)</div>
+                </div>
+                <div class="sumario-item">
+                    <div class="sumario-number">06</div>
+                    <div class="sumario-title">Atividade Prática (Slides 13-15)</div>
+                </div>
+            </div>
+
+            <div class="dica-box">
+                <div class="dica-box-title">Como Usar Este Material</div>
+                <p>Este material é 100% autodidata com analogias, exemplos práticos do mercado brasileiro e atividades interativas. Aprenda no seu ritmo e aplique os conceitos!</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide3">
+            <h1 class="slide-title">O que é uma Persona?</h1>
+            
+            <p class="content-text">
+                Uma <strong>Persona</strong> é uma representação semi-fictícia do seu cliente ideal, criada com base em dados reais e insights sobre comportamento, necessidades e objetivos.
+            </p>
+
+            <p class="content-text">
+                Diferente de um conceito amplo, a persona é <strong>específica e humanizada</strong> - ela tem nome, idade, profissão, história de vida, desafios e sonhos.
+            </p>
+
+            <div class="dica-box">
+                <div class="dica-box-title">Analogia do Vizinho</div>
+                <p><strong>💡 Pense na persona como seu VIZINHO ESPECÍFICO que você conhece muito bem</strong> - não um grupo abstrato de pessoas, mas UMA PESSOA com nome, rosto e personalidade única.</p>
+            </div>
+
+            <h3 class="slide-subtitle" style="margin-top: 30px;">Características da Persona:</h3>
+            <ul class="list-styled">
+                <li><strong>Nome e foto:</strong> Torna a persona real e tangível</li>
+                <li><strong>Dados demográficos específicos:</strong> Idade, localização, profissão, renda</li>
+                <li><strong>Comportamentos e hábitos:</strong> Como consome conteúdo, quais canais usa</li>
+                <li><strong>Objetivos e aspirações:</strong> O que ela quer alcançar profissionalmente e pessoalmente</li>
+                <li><strong>Desafios e dores:</strong> Problemas que ela enfrenta diariamente</li>
+                <li><strong>Objeções de compra:</strong> Por que ela hesitaria em comprar</li>
+                <li><strong>Canais preferidos:</strong> Onde ela busca informação e se comunica</li>
+            </ul>
+
+            <div class="reflexao-box">
+                <div class="reflexao-box-title">Por Que Personas São Importantes?</div>
+                <p>Personas transformam dados abstratos em pessoas reais. Quando você conhece profundamente seu cliente, pode criar conteúdo, produtos e estratégias que realmente resolvem seus problemas!</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide4">
+            <h1 class="slide-title">Estratégia Digital vs Transformação Digital</h1>
+            
+            <p class="content-text">
+                É fundamental diferenciar estes dois conceitos:
+            </p>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">🔄</div>
+                    <div class="factor-title">Transformação Digital</div>
+                </div>
+                <p class="factor-description">
+                    É a <strong>mudança estrutural</strong> da organização. É o processo de se tornar uma empresa digital em sua essência.
+                </p>
+                <div class="factor-example">Uma rede de lojas físicas que reconstrói todo seu modelo para incluir vendas online, logística integrada, análise de dados em tempo real e automação de processos.</div>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">📋</div>
+                    <div class="factor-title">Estratégia Digital</div>
+                </div>
+                <p class="factor-description">
+                    É o <strong>plano de ação</strong> para implementar a transformação. Define objetivos, táticas, ferramentas e métricas.
+                </p>
+                <div class="factor-example">Investir em SEO, criar aplicativo mobile, treinar equipes em ferramentas digitais, implementar CRM - são ações estratégicas específicas.</div>
+            </div>
+
+            <h3 class="slide-subtitle" style="margin-top: 30px;">📌 Exemplo Prático: Táxis Tradicionais vs. Uber</h3>
+            <p class="content-text">
+                <strong>Táxis tradicionais:</strong> Mantiveram processos antigos (telefone, corrida na rua)<br>
+                <strong>Uber:</strong> Transformação digital completa - app, pagamento digital, avaliação em tempo real, GPS integrado
+            </p>
+
+            <div class="reflexao-box">
+                <div class="reflexao-box-title">Reflexão Rápida</div>
+                <p><strong>Pense e anote 3 áreas da sua vida que foram transformadas digitalmente:</strong></p>
+                <p style="margin-top: 10px;">1. ___________________________________</p>
+                <p>2. ___________________________________</p>
+                <p>3. ___________________________________</p>
+                <p style="margin-top: 15px; font-size: 14px; font-style: italic;">Exemplos: compras (físico → online), comunicação (carta → WhatsApp), entretenimento (TV aberta → streaming)</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide5">
+            <h1 class="slide-title">Como Criar uma Persona - Componentes Essenciais</h1>
+            <h2 class="slide-subtitle">5 Elementos Obrigatórios para uma Persona Completa</h2>
+            
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">📊</div>
+                    <div class="factor-title">1️⃣ Dados Demográficos</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Nome, idade, gênero</li>
+                    <li style="margin: 8px 0;">Localização, estado civil</li>
+                    <li style="margin: 8px 0;">Escolaridade, profissão</li>
+                    <li style="margin: 8px 0;">Renda mensal</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">🎯</div>
+                    <div class="factor-title">2️⃣ Comportamento</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Canais que usa (LinkedIn, Instagram, YouTube)</li>
+                    <li style="margin: 8px 0;">Hábitos de consumo de conteúdo</li>
+                    <li style="margin: 8px 0;">Dispositivos preferidos (mobile, desktop)</li>
+                    <li style="margin: 8px 0;">Horários de maior atividade online</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">🎯</div>
+                    <div class="factor-title">3️⃣ Objetivos e Aspirações</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">O que ela quer alcançar?</li>
+                    <li style="margin: 8px 0;">Quais são seus sonhos profissionais/pessoais?</li>
+                    <li style="margin: 8px 0;">Onde ela quer estar daqui a 1 ano?</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">😓</div>
+                    <div class="factor-title">4️⃣ Desafios e Dores</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Quais problemas ela enfrenta?</li>
+                    <li style="margin: 8px 0;">O que a impede de alcançar seus objetivos?</li>
+                    <li style="margin: 8px 0;">Quais frustrações ela tem?</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">🤔</div>
+                    <div class="factor-title">5️⃣ Objeções de Compra</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Por que ela hesitaria em comprar?</li>
+                    <li style="margin: 8px 0;">Preço? Falta de tempo? Desconfiança?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide" id="slide6">
+            <h1 class="slide-title">Esquema de Coleta de Dados para Criar Personas</h1>
+            <h2 class="slide-subtitle">Métodos Práticos de Pesquisa</h2>
+            
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">📊</div>
+                    <div class="factor-title">Pesquisas e Entrevistas</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Questionários online com clientes atuais</li>
+                    <li style="margin: 8px 0;">Entrevistas 1-on-1 (15-30 minutos)</li>
+                    <li style="margin: 8px 0;">Perguntas abertas sobre desafios e objetivos</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">📈</div>
+                    <div class="factor-title">Análise de Dados</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Google Analytics (comportamento no site)</li>
+                    <li style="margin: 8px 0;">CRM (histórico de compras)</li>
+                    <li style="margin: 8px 0;">Redes sociais (engajamento)</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">🗣️</div>
+                    <div class="factor-title">Conversa com Equipe de Vendas</div>
+                </div>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;">Quais objeções são mais comuns?</li>
+                    <li style="margin: 8px 0;">Que perguntas os clientes fazem?</li>
+                    <li style="margin: 8px 0;">Perfil dos melhores clientes</li>
+                </ul>
+            </div>
+
+            <div class="exemplo-container" style="margin-top: 30px;">
+                <div class="exemplo-title">Exemplo de Perguntas para Entrevista</div>
+                <ul class="list-styled">
+                    <li><strong>1.</strong> "Qual seu maior desafio profissional hoje?"</li>
+                    <li><strong>2.</strong> "Como você busca soluções para seus problemas?"</li>
+                    <li><strong>3.</strong> "O que te faria comprar um produto/curso online?"</li>
+                    <li><strong>4.</strong> "Quais marcas você confia e por quê?"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide" id="slide7">
+            <h1 class="slide-title">Mapeamento da Jornada do Cliente</h1>
+            <h2 class="slide-subtitle">Os 4 Estágios Essenciais</h2>
+            
+            <p class="content-text">
+                A <strong>Jornada do Cliente</strong> representa os estágios pelos quais um consumidor passa desde o primeiro contato com uma marca até a decisão de compra.
+            </p>
+
+            <div class="exemplo-container" style="margin-top: 30px;">
+                <div class="exemplo-title">Diagrama Visual dos 4 Estágios</div>
+                <div style="display: flex; align-items: center; justify-content: space-around; margin: 30px 0; flex-wrap: wrap;">
+                    <div style="text-align: center; margin: 10px;">
+                        <div style="background: var(--color-meta-gold-medium); color: var(--color-meta-navy-dark); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 10px;">1</div>
+                        <div style="font-weight: bold;">DESCOBERTA</div>
+                    </div>
+                    <div style="font-size: 30px; color: var(--color-meta-gold-medium);">→</div>
+                    <div style="text-align: center; margin: 10px;">
+                        <div style="background: var(--color-meta-gold-medium); color: var(--color-meta-navy-dark); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 10px;">2</div>
+                        <div style="font-weight: bold;">RECONHECIMENTO</div>
+                    </div>
+                    <div style="font-size: 30px; color: var(--color-meta-gold-medium);">→</div>
+                    <div style="text-align: center; margin: 10px;">
+                        <div style="background: var(--color-meta-gold-medium); color: var(--color-meta-navy-dark); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 10px;">3</div>
+                        <div style="font-weight: bold;">CONSIDERAÇÃO</div>
+                    </div>
+                    <div style="font-size: 30px; color: var(--color-meta-gold-medium);">→</div>
+                    <div style="text-align: center; margin: 10px;">
+                        <div style="background: var(--color-meta-gold-medium); color: var(--color-meta-navy-dark); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 10px;">4</div>
+                        <div style="font-weight: bold;">DECISÃO</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dica-box">
+                <div class="dica-box-title">Analogia do Médico</div>
+                <p><strong>🏥 Imagine ir ao médico:</strong></p>
+                <ul style="margin: 15px 0 0 20px;">
+                    <li style="margin: 8px 0;"><strong>1. Descoberta:</strong> "Estou sentindo algo estranho..."</li>
+                    <li style="margin: 8px 0;"><strong>2. Reconhecimento:</strong> "Isso é uma dor de cabeça constante - tenho um problema!"</li>
+                    <li style="margin: 8px 0;"><strong>3. Consideração:</strong> "Posso tomar remédio, fazer exames, consultar especialista..."</li>
+                    <li style="margin: 8px 0;"><strong>4. Decisão:</strong> "Vou comprar esse remédio específico e marcar consulta com Dr. Silva"</li>
+                </ul>
+            </div>
+        </div>
+        
+
+        <div class="slide" id="slide8">
+            <h1 class="slide-title">Tópico 3: Diferença entre E-business e E-commerce</h1>
+            <h2 class="slide-subtitle">Conceitos Fundamentais que Você Precisa Dominar</h2>
+            
+            <p class="content-text">
+                Muitas pessoas confundem estes termos, mas eles têm significados distintos e complementares:
+            </p>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">🛒</div>
+                    <div class="factor-title">E-commerce (Comércio Eletrônico)</div>
+                </div>
+                <p class="factor-description">
+                    É a <strong>transação de compra e venda online</strong>. Refere-se especificamente ao ato de comercializar produtos ou serviços pela internet. É o "negócio" em si.
+                </p>
+                <div class="factor-example">Loja virtual da Magazine Luiza, Amazon, qualquer site onde você compra algo</div>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">💼</div>
+                    <div class="factor-title">E-business (Negócio Eletrônico)</div>
+                </div>
+                <p class="factor-description">
+                    É o <strong>uso da internet para TODOS os processos internos e externos</strong> da empresa. Engloba muito mais do que vendas: inclui logística, RH, comunicação interna, relacionamento com fornecedores, gestão financeira, etc. É a "estrutura completa".
+                </p>
+                <div class="factor-example">Sistema ERP integrado, intranet corporativa, automação de marketing, CRM, comunicação com fornecedores via plataforma digital</div>
+            </div>
+
+            <div class="dica-box">
+                <div class="dica-box-title">Dica de Mercado</div>
+                <p><strong>E-commerce é PARTE do E-business!</strong> Uma empresa pode ter E-business sem ter E-commerce (processos digitais internos sem vender online), mas dificilmente terá um E-commerce de sucesso sem uma estrutura de E-business bem desenvolvida.</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide9">
+            <h1 class="slide-title">E-business vs E-commerce: A Relação</h1>
+            
+            <div class="diagram-container" style="height: 400px;">
+                <div class="diagram-circle large">E-BUSINESS<br>(Estrutura Digital Completa)</div>
+                <div class="diagram-circle small">E-COMMERCE<br>(Vendas Online)</div>
+            </div>
+
+            <h3 class="slide-subtitle" style="margin-top: 40px;">Exemplo Prático Detalhado</h3>
+            
+            <p class="content-text"><strong>Magazine Luiza - Caso Real:</strong></p>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">🛒</div>
+                    <div>E-commerce da Magalu</div>
+                </div>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li style="margin: 8px 0;">Loja virtual (site e app)</li>
+                    <li style="margin: 8px 0;">Venda de produtos online</li>
+                    <li style="margin: 8px 0;">Checkout e pagamento digital</li>
+                </ul>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="icon-badge">💼</div>
+                    <div>E-business da Magalu (muito mais amplo!)</div>
+                </div>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li style="margin: 8px 0;">Sistema de gestão de estoque em tempo real</li>
+                    <li style="margin: 8px 0;">Integração digital com fornecedores</li>
+                    <li style="margin: 8px 0;">Plataforma de capacitação online para funcionários</li>
+                    <li style="margin: 8px 0;">Sistema de logística reversa automatizado</li>
+                    <li style="margin: 8px 0;">CRM para gestão de relacionamento com clientes</li>
+                    <li style="margin: 8px 0;">Análise de dados e BI (Business Intelligence)</li>
+                    <li style="margin: 8px 0;">Marketplace (Parceiros vendem na plataforma)</li>
+                    <li style="margin: 8px 0;">Lu (assistente virtual com IA)</li>
+                </ul>
+            </div>
+
+            <div class="reflexao-box">
+                <div class="reflexao-box-title">Reflexão Importante</div>
+                <p>Uma empresa tradicional que cria apenas um site de vendas tem <strong>E-commerce</strong>. Uma empresa que digitaliza TODOS os seus processos tem <strong>E-business completo</strong>, e provavelmente terá muito mais sucesso!</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide10">
+            <h1 class="slide-title">Estágio 4: Decisão de Compra</h1>
+            
+            <div class="dica-box">
+                <div class="dica-box-title">Definição</div>
+                <p>Cliente está <strong>pronto para escolher uma solução específica e comprar</strong>. Ele já sabe o que quer, só precisa decidir o fornecedor.</p>
+            </div>
+
+            <h3 class="slide-subtitle" style="margin-top: 30px;">Características:</h3>
+            <ul class="list-styled">
+                <li><strong>Decidido a comprar</strong> - passou da fase de consideração</li>
+                <li><strong>Compara fornecedores/marcas</strong> - qual empresa escolher</li>
+                <li><strong>Busca provas sociais</strong> - depoimentos, avaliações, cases</li>
+                <li><strong>Analisa preço, condições, garantias</strong> - detalhes finais da compra</li>
+            </ul>
+
+            <div class="exemplo-container" style="margin-top: 30px;">
+                <div class="exemplo-title">Exemplo Prático</div>
+                <p class="content-text">
+                    <strong>João decide:</strong> "Vou comprar o curso X porque tem certificado, 150 aulas práticas, 4.8 estrelas e custa R$ 297 com desconto até amanhã!"
+                </p>
+            </div>
+
+            <div class="reflexao-box">
+                <div class="reflexao-box-title">Resumo da Jornada Completa</div>
+                <p><strong>1. Descoberta:</strong> Não sabe que tem problema → <strong>2. Reconhecimento:</strong> Identifica o problema → <strong>3. Consideração:</strong> Pesquisa soluções → <strong>4. Decisão:</strong> Compra a solução</p>
+            </div>
+
+            <div class="dica-box">
+                <div class="dica-box-title">Importante Saber</div>
+                <p>Cada estágio exige um <strong>tipo diferente de conteúdo</strong>! Vender diretamente para quem está na Descoberta não funciona. Você precisa nutrir o cliente ao longo da jornada.</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide11">
+            <h1 class="slide-title">Tipos de Conteúdo por Estágio da Jornada</h1>
+            <h2 class="slide-subtitle">Cada Estágio Precisa de Conteúdo Específico</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>ESTÁGIO</th>
+                        <th>TIPO DE CONTEÚDO</th>
+                        <th>EXEMPLOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. DESCOBERTA</strong></td>
+                        <td>Educacional, amplo, sem venda</td>
+                        <td>Blog posts, Infográficos, Vídeos introdutórios, Podcasts, Posts redes sociais</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. RECONHECIMENTO</strong></td>
+                        <td>Aprofundamento do problema</td>
+                        <td>E-books, Webinars, Guias completos, Checklists, Estudos de caso</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. CONSIDERAÇÃO</strong></td>
+                        <td>Comparativos e soluções</td>
+                        <td>Comparativos de produtos, Demonstrações, Reviews, Webinars técnicos, Whitepapers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. DECISÃO</strong></td>
+                        <td>Prova social e ofertas</td>
+                        <td>Depoimentos de clientes, Cases de sucesso, Avaliação gratuita (trial), Demos personalizadas, Cupons de desconto</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="dica-box" style="margin-top: 30px;">
+                <div class="dica-box-title">Dica Estratégica</div>
+                <p><strong>Não tente vender na Descoberta!</strong> Quem está descobrindo um tema não quer ser vendido - ele quer aprender. Ofereça conteúdo educacional primeiro, construa confiança e, só então, apresente sua solução.</p>
+            </div>
+
+            <div class="reflexao-box" style="margin-top: 20px;">
+                <div class="reflexao-box-title">Por Que Isso Importa?</div>
+                <p>Se você entender a jornada do cliente, pode criar o <strong>conteúdo certo, no momento certo</strong>, aumentando drasticamente suas taxas de conversão!</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide12">
+            <h1 class="slide-title">🎮 Mini-Desafio de Conteúdo</h1>
+            <h2 class="slide-subtitle">Teste Seu Conhecimento Sobre a Jornada!</h2>
+            
+            <div class="exemplo-container">
+                <div class="exemplo-title">Cenário do Desafio</div>
+                <p class="content-text"><strong>Qual tipo de conteúdo um cliente no estágio de DECISÃO mais precisa ver?</strong></p>
+                
+                <div class="quiz-container" id="quizDesafio">
+                    <div class="quiz-question">
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="checkContentQuiz('A', this)" style="width: 100%; margin: 10px 0; text-align: left; padding: 15px;">
+                                <strong>A)</strong> Post de blog: "10 tendências de marketing 2024"
+                            </button>
+                            <button class="quiz-option" onclick="checkContentQuiz('B', this)" style="width: 100%; margin: 10px 0; text-align: left; padding: 15px;">
+                                <strong>B)</strong> Infográfico: "O que é marketing digital?"
+                            </button>
+                            <button class="quiz-option" onclick="checkContentQuiz('C', this)" style="width: 100%; margin: 10px 0; text-align: left; padding: 15px;">
+                                <strong>C)</strong> Depoimento em vídeo: "Como a empresa X aumentou vendas em 300%"
+                            </button>
+                            <button class="quiz-option" onclick="checkContentQuiz('D', this)" style="width: 100%; margin: 10px 0; text-align: left; padding: 15px;">
+                                <strong>D)</strong> E-book: "Guia completo de SEO"
+                            </button>
+                        </div>
+                        <div class="quiz-feedback" id="feedbackContent" style="margin-top: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reflexao-box" style="margin-top: 30px;">
+                <div class="reflexao-box-title">Reflexão Final</div>
+                <p>Entender a jornada do cliente é a base do marketing moderno. Quando você sabe em que estágio seu cliente está, pode criar o conteúdo perfeito para levá-lo ao próximo passo!</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide13">
+            <h1 class="slide-title">📝 ATIVIDADE 2 - Criação de Persona e Jornada (Entregar pelo Google Sala de Aula)</h1>
+            <h2 class="slide-subtitle">Aplique Todo o Conhecimento na Prática!</h2>
+            
+            <div class="exemplo-container">
+                <div class="exemplo-title">Instruções da Atividade</div>
+                <p class="content-text">
+                    Crie uma Persona detalhada para uma <strong>loja de produtos digitais para programadores</strong> (ex: cursos avançados de Python, templates de código, temas para IDEs).
+                </p>
+
+                <h3 class="slide-subtitle" style="margin-top: 20px;">A descrição deve incluir:</h3>
+                <ul class="list-styled">
+                    <li><strong>Nome, Idade, Profissão, Nível de Experiência em TI</strong></li>
+                    <li>Seu <strong>principal Objetivo</strong> ao visitar a loja</li>
+                    <li>O <strong>principal Desafio/Dor</strong> que a impede de alcançar esse objetivo</li>
+                </ul>
+
+                <h3 class="slide-subtitle" style="margin-top: 25px;">Depois, descreva a Jornada do Cliente:</h3>
+                <p class="content-text">
+                    Descreva a jornada dessa Persona desde a <strong>Descoberta</strong> de que precisa do produto até a <strong>Decisão de Compra</strong>, citando <strong>1 conteúdo de marketing para cada estágio</strong> (Descoberta, Reconhecimento, Consideração, Decisão).
+                </p>
+            </div>
+
+            <div class="reflexao-box">
+                <div class="reflexao-box-title">Dica para Realizar a Atividade</div>
+                <p><strong>Seja específico e realista!</strong> Crie uma persona que realmente existe no mercado. Pense em alguém que você conhece ou em você mesmo como programador.</p>
+                <p style="margin-top: 10px;">Nos próximos 2 slides, você verá um <strong>exemplo completo de resolução</strong> usando Lucas Fernandes como persona de referência!</p>
+            </div>
+
+            <div class="dica-box">
+                <div class="dica-box-title">Objetivo desta Atividade</div>
+                <p>Dominar a criação de personas detalhadas e mapear a jornada do cliente com conteúdos estratégicos para cada estágio.</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide14">
+            <h1 class="slide-title">Exemplo de Resolução - Persona Criada</h1>
+            <h2 class="slide-subtitle">Use este modelo como referência</h2>
+            
+            <div class="exemplo-container">
+                <div class="exemplo-title">📋 PERSONA: LUCAS FERNANDES</div>
+                
+                <div class="factor-card">
+                    <div class="factor-card-header">
+                        <div class="icon-badge">📊</div>
+                        <div class="factor-title">Dados Demográficos</div>
+                    </div>
+                    <ul style="margin: 15px 0 0 20px;">
+                        <li style="margin: 8px 0;"><strong>Idade:</strong> 28 anos</li>
+                        <li style="margin: 8px 0;"><strong>Profissão:</strong> Desenvolvedor Backend Pleno</li>
+                        <li style="margin: 8px 0;"><strong>Localização:</strong> Belo Horizonte, MG</li>
+                        <li style="margin: 8px 0;"><strong>Salário:</strong> R$ 7.500/mês</li>
+                        <li style="margin: 8px 0;"><strong>Formação:</strong> Ciência da Computação (completo)</li>
+                        <li style="margin: 8px 0;"><strong>Experiência:</strong> 4 anos em desenvolvimento</li>
+                    </ul>
+                </div>
+
+                <div class="factor-card">
+                    <div class="factor-card-header">
+                        <div class="icon-badge">🎯</div>
+                        <div class="factor-title">Comportamento</div>
+                    </div>
+                    <ul style="margin: 15px 0 0 20px;">
+                        <li style="margin: 8px 0;">Ativo no <strong>GitHub</strong> e <strong>Stack Overflow</strong></li>
+                        <li style="margin: 8px 0;">Assiste tutoriais no <strong>YouTube às 22h</strong> (pós-trabalho)</li>
+                        <li style="margin: 8px 0;">Lê newsletters tech (<strong>Python Weekly, Real Python</strong>)</li>
+                        <li style="margin: 8px 0;">Prefere aprender com <strong>projetos práticos</strong></li>
+                    </ul>
+                </div>
+
+                <div class="factor-card">
+                    <div class="factor-card-header">
+                        <div class="icon-badge">🎯</div>
+                        <div class="factor-title">Objetivo Principal</div>
+                    </div>
+                    <p class="factor-description">
+                        "Evoluir para cargo de <strong>Desenvolvedor Sênior</strong> dominando arquitetura de microsserviços e padrões avançados de Python (async, design patterns)"
+                    </p>
+                </div>
+
+                <div class="factor-card">
+                    <div class="factor-card-header">
+                        <div class="icon-badge">😓</div>
+                        <div class="factor-title">Principal Desafio/Dor</div>
+                    </div>
+                    <p class="factor-description">
+                        "<strong>Falta de tempo para estudar</strong> (trabalha 9h/dia) e dificuldade em encontrar conteúdo prático e direto - a maioria dos cursos são muito teóricos ou superficiais"
+                    </p>
+                </div>
+
+                <div class="factor-card">
+                    <div class="factor-card-header">
+                        <div class="icon-badge">🤔</div>
+                        <div class="factor-title">Objeções</div>
+                    </div>
+                    <ul style="margin: 15px 0 0 20px;">
+                        <li style="margin: 8px 0;">"Será que vale o investimento?"</li>
+                        <li style="margin: 8px 0;">"Terei tempo de concluir o curso?"</li>
+                        <li style="margin: 8px 0;">"Esse certificado é reconhecido no mercado?"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide15">
+            <h1 class="slide-title">Exemplo de Resolução - Jornada Mapeada</h1>
+            <h2 class="slide-subtitle">🗺️ Jornada do Cliente: Lucas Fernandes</h2>
+            
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">1</div>
+                    <div class="factor-title">DESCOBERTA (Aprendizado)</div>
+                </div>
+                <p class="factor-description">
+                    <strong>Estado mental:</strong> "Quero evoluir na carreira, mas não sei por onde começar"
+                </p>
+                <div class="factor-example">
+                    <strong>Conteúdo sugerido:</strong> 📝 Post de blog: "7 habilidades que todo Dev Pleno precisa dominar para virar Sênior"<br>
+                    <em>Objetivo: Mostrar que arquitetura e design patterns são essenciais</em>
+                </div>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">2</div>
+                    <div class="factor-title">RECONHECIMENTO DO PROBLEMA</div>
+                </div>
+                <p class="factor-description">
+                    <strong>Estado mental:</strong> "Meu código funciona, mas não é escalável. Preciso aprender arquitetura!"
+                </p>
+                <div class="factor-example">
+                    <strong>Conteúdo sugerido:</strong> 📚 E-book gratuito: "Guia Completo: Arquitetura de Microsserviços com Python - Do Zero à Produção"<br>
+                    <em>Objetivo: Aprofundar o problema e mostrar o que ele precisa aprender</em>
+                </div>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">3</div>
+                    <div class="factor-title">CONSIDERAÇÃO DA SOLUÇÃO</div>
+                </div>
+                <p class="factor-description">
+                    <strong>Estado mental:</strong> "Vou fazer um curso. Mas qual escolher?"
+                </p>
+                <div class="factor-example">
+                    <strong>Conteúdo sugerido:</strong> 🎥 Webinar gravado: "Comparativo: Os 5 melhores cursos de Python Avançado (2024) - Qual escolher?"<br>
+                    <em>Objetivo: Posicionar nosso curso entre as melhores opções</em>
+                </div>
+            </div>
+
+            <div class="factor-card">
+                <div class="factor-card-header">
+                    <div class="factor-number">4</div>
+                    <div class="factor-title">DECISÃO DE COMPRA</div>
+                </div>
+                <p class="factor-description">
+                    <strong>Estado mental:</strong> "Esse curso parece bom! Vou comprar"
+                </p>
+                <div class="factor-example">
+                    <strong>Conteúdo sugerido:</strong> ⭐ Landing page com:<br>
+                    - Depoimentos de alunos que foram promovidos<br>
+                    - Demo gratuita da aula 1<br>
+                    - Garantia de 30 dias<br>
+                    - Cupom de 20% OFF<br>
+                    <em>Objetivo: Eliminar objeções e facilitar decisão</em>
+                </div>
+            </div>
+
+            <div class="dica-box" style="margin-top: 30px;">
+                <div class="dica-box-title">Conclusão</div>
+                <p>✅ Percebeu como cada estágio exige um conteúdo diferente? A jornada guia toda sua estratégia de marketing!</p>
+            </div>
+
+            <div class="reflexao-box" style="margin-top: 20px;">
+                <div class="reflexao-box-title">🎓 Parabéns! Você Concluiu o Módulo 2</div>
+                <p>Agora você domina a criação de personas detalhadas e o mapeamento estratégico da jornada do cliente. Use esse conhecimento para criar conteúdo e estratégias de marketing altamente eficazes!</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-secondary" onclick="goToSlide(1)">🏠 Voltar ao Início</button>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="progress-bar" id="progressBar" style="width: 6.67%;"></div>
+            <button class="nav-btn prev" id="prevBtn" onclick="prevSlide()">← Anterior</button>
+            <div class="slide-counter" id="slideCounter">Slide 1 de 15</div>
+            <button class="nav-btn next" id="nextBtn" onclick="nextSlide()">Próximo →</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
