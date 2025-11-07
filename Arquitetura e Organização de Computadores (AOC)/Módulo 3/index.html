@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 - O Coração da CPU | META</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- SLIDE 1: Título -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <br><br>
+                    <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+                    <p style="font-size: 1.3rem; margin-top: 40px; color: rgba(255,255,255,0.8);">Arquitetura e Organização de Computadores (AOC)</p>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Estrutura Interna do Processador e Pipeline</p>
+                    <div class="title-decoration"></div>
+                    <br>
+                    <p>Módulo 3</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Objetivos -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Objetivos de Aprendizagem</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Compreender a estrutura interna do processador como o "cérebro" do computador</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Conhecer os 3 componentes principais: UC, ULA e Registradores</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Entender o conceito de Pipeline e como aumenta o desempenho</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Dominar o fluxo de execução: Fetch → Decode → Execute</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: O que é CPU -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="slide-title">🧠 A CPU: O Cérebro do Computador</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que é a CPU?</h3>
+                    <div class="highlight">
+                        <p><strong>CPU (Unidade Central de Processamento)</strong> é o componente responsável por:</p>
+                        <ul style="margin-left: 20px; margin-top: 15px;">
+                            <li>Buscar instruções da memória</li>
+                            <li>Interpretar o que cada instrução deve fazer</li>
+                            <li>Executar operações aritméticas e lógicas</li>
+                            <li>Controlar todos os demais componentes do computador</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.08); border-radius: 8px;">
+                        <p style="text-align: center; font-size: 1.2rem; margin: 0;"><strong>A CPU = O Coração que bombeia "vida" para o computador</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Três Componentes Principais -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2 class="slide-title">⚙️ Três Componentes Principais da CPU</h2>
+                <div class="content-box">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 25px;">
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">1️⃣ UC</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Unidade de Controle</h4>
+                            <p style="margin: 0;">O "Maestro" que direciona e coordena todas as ações</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">2️⃣ ULA</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Unidade Lógica Aritmética</h4>
+                            <p style="margin: 0;">A "Calculadora" que realiza contas e decisões lógicas</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">3️⃣ REG</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Registradores</h4>
+                            <p style="margin: 0;">Memórias ultrarrápidas para dados temporários</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: UC - O Maestro -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2 class="slide-title">🎼 A Unidade de Controle (UC): O Maestro</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que a UC faz?</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">1</span>
+                            <div>
+                                <p style="margin: 0 0 5px 0; font-weight: bold;"><strong>BUSCAR</strong></p>
+                                <p style="margin: 0;">Vai à memória e traz a próxima instrução para processar</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">2</span>
+                            <div>
+                                <p style="margin: 0 0 5px 0; font-weight: bold;"><strong>DECODIFICAR</strong></p>
+                                <p style="margin: 0;">Interpreta o que a instrução pede para ser feito</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">3</span>
+                            <div>
+                                <p style="margin: 0 0 5px 0; font-weight: bold;"><strong>GERAR SINAIS</strong></p>
+                                <p style="margin: 0;">Manda sinais elétricos (pulsos) para a ULA, registradores e memória</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                        <p style="margin: 0; text-align: center;"><strong>A UC = Guarda de trânsito que direciona todo fluxo do processador!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: ULA - A Calculadora -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2 class="slide-title">🧮 A Unidade Lógica Aritmética (ULA): A Calculadora</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que a ULA realiza?</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; font-size: 1.2rem;">➕ OPERAÇÕES ARITMÉTICAS</h4>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                <li>Soma (+)</li>
+                                <li>Subtração (-)</li>
+                                <li>Multiplicação (×)</li>
+                                <li>Divisão (÷)</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; font-size: 1.2rem;">🔀 OPERAÇÕES LÓGICAS</h4>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                <li>AND (E)</li>
+                                <li>OR (OU)</li>
+                                <li>NOT (NÃO)</li>
+                                <li>Comparações (=, >, <)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>A ULA = Cérebro que calcula e toma decisões!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Registradores -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2 class="slide-title">💾 Registradores: Memórias Ultrarrápidas</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que são Registradores?</h3>
+                    <p style="margin-bottom: 20px;">Pequenas memórias MUITO RÁPIDAS dentro da CPU que guardam dados temporários durante a execução das instruções[.]</p>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Registradores Importantes:</h3>
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">🔍 PC (Program Counter)</h4>
+                            <p style="margin: 0;"><strong>Função:</strong> Armazena o endereço da PRÓXIMA instrução a ser buscada</p>
+                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8);"><em>Exemplo: Se PC = 1000, a próxima instrução está no endereço 1000 da memória</em></p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">📋 IR (Instruction Register)</h4>
+                            <p style="margin: 0;"><strong>Função:</strong> Armazena a instrução ATUAL que está sendo decodificada e executada</p>
+                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8);"><em>Exemplo: IR pode conter a instrução "SOMA", aguardando os dados para executar</em></p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                        <p style="margin: 0; text-align: center;"><strong>❓ QUEBRA-CABEÇA: Qual registrador garante que a CPU não se perca no programa?</strong></p>
+                        <p style="margin: 15px 0 0 0; text-align: center; color: rgb(76, 175, 80);"><strong>✓ Resposta: O Program Counter (PC)!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Fluxo de Execução -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2 class="slide-title">🔄 Ciclo de Execução de uma Instrução</h2>
+                <div class="content-box">
+                    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">O que acontece a cada ciclo de clock:</p>
+                    <div style="display: grid; gap: 20px;">
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">1</div>
+                            <div>
+                                <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">FETCH (BUSCAR)</h4>
+                                <p style="margin: 0;">UC busca a instrução apontada por PC e a coloca em IR</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">2</div>
+                            <div>
+                                <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">DECODE (DECODIFICAR)</h4>
+                                <p style="margin: 0;">UC interpreta o que a instrução em IR deve fazer</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">3</div>
+                            <div>
+                                <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">EXECUTE (EXECUTAR)</h4>
+                                <p style="margin: 0;">ULA realiza a operação solicitada pela instrução</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px; background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                        <p style="margin: 0; text-align: center;"><strong>🔁 Depois, PC é incrementado e o ciclo recomeça com a próxima instrução!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: O que é Pipeline -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2 class="slide-title">🏗️ Pipeline: A Revolução da Velocidade</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Problema SEM Pipeline:</h3>
+                    <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 20px; border-radius: 6px; margin-bottom: 30px;">
+                        <p style="margin: 0; text-align: center;"><strong>Uma instrução de cada vez!</strong></p>
+                        <p style="margin: 15px 0 0 0; text-align: center; font-size: 0.9rem;">Fetch → Decode → Execute → Pronto! Aí começa a próxima!</p>
+                        <p style="margin: 10px 0 0 0; text-align: center; font-size: 0.9rem; color: rgb(255, 84, 89);">❌ Componentes ficam OCIOSOS enquanto esperam!</p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Solução COM Pipeline:</h3>
+                    <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                        <p style="margin: 0; text-align: center;"><strong>Múltiplas instruções em paralelo!</strong></p>
+                        <p style="margin: 15px 0 0 0; text-align: center; font-size: 0.9rem;">I1 está em Fetch, I2 em Decode, I3 em Execute - SIMULTANEAMENTE!</p>
+                        <p style="margin: 10px 0 0 0; text-align: center; font-size: 0.9rem; color: rgb(76, 175, 80);">✓ Todos os componentes trabalham SEM PARAR!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Analogia Pipeline -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <h2 class="slide-title">🏭 Analogia: Linha de Montagem de Carros</h2>
+                <div class="content-box">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 25px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; font-size: 1.2rem;">❌ SEM Pipeline (Produção Sequencial)</h4>
+                            <p style="margin: 0 0 15px 0;"><strong>Carro 1:</strong> Entra → Pintura (8h) → Sai</p>
+                            <p style="margin: 0 0 15px 0;"><strong>Carro 2:</strong> Entra → Pintura (8h) → Sai</p>
+                            <p style="margin: 0 0 15px 0;"><strong>Carro 3:</strong> Entra → Pintura (8h) → Sai</p>
+                            <p style="margin: 0; color: rgb(255, 84, 89); font-size: 0.9rem;"><strong>Resultado:</strong> 3 carros em 24 horas. Máquina de pintura fica vazia 2/3 do tempo!</p>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); padding: 25px; border-radius: 8px; border-left: 4px solid rgb(76, 175, 80);">
+                            <h4 style="color: rgb(76, 175, 80); margin: 0 0 15px 0; font-size: 1.2rem;">✓ COM Pipeline (Produção Paralela)</h4>
+                            <p style="margin: 0 0 15px 0;"><strong>Hora 1:</strong> C1 em Pintura</p>
+                            <p style="margin: 0 0 15px 0;"><strong>Hora 2:</strong> C1 em Secagem + C2 em Pintura</p>
+                            <p style="margin: 0 0 15px 0;"><strong>Hora 3:</strong> C1 em Inspeção + C2 em Secagem + C3 em Pintura</p>
+                            <p style="margin: 0; color: rgb(76, 175, 80); font-size: 0.9rem;"><strong>Resultado:</strong> 3 carros em 8 horas! Máquina sempre ocupada!</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>🚀 Pipeline = Aumentar Desempenho SEM Aumentar Velocidade do Clock!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Estágios do Pipeline -->
+        <div class="slide" data-slide="11">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Os 3 Estágios Clássicos do Pipeline</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block;">FETCH (BUSCAR)</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">1️⃣ Estágio de Busca</h4>
+                            <p style="margin: 0;">A instrução é trazida da memória e colocada em IR</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block;">DECODE (DECODIFICAR)</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">2️⃣ Estágio de Decodificação</h4>
+                            <p style="margin: 0;">UC interpreta a instrução e gera sinais de controle</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block;">EXECUTE (EXECUTAR)</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">3️⃣ Estágio de Execução</h4>
+                            <p style="margin: 0;">ULA realiza a operação e armazena resultado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Diagrama Pipeline -->
+        <div class="slide" data-slide="12">
+            <div class="slide-content">
+                <h2 class="slide-title">🎬 Diagrama do Pipeline em Ação</h2>
+                <div class="content-box">
+                    <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem;">Como 3 instruções progridem em paralelo:</p>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <thead>
+                            <tr style="background: rgba(244, 180, 26, 0.15);">
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold); width: 15%;">Ciclo</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold); width: 28%;">Estágio 1</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold); width: 28%;">Estágio 2</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold); width: 28%;">Estágio 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); font-weight: bold;">1</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I1 FETCH</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">-</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); font-weight: bold;">2</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I2 FETCH</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I1 DECODE</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">-</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); font-weight: bold;">3</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I3 FETCH</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I2 DECODE</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I1 EXEC</strong></td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); font-weight: bold;">4</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I3 DECODE</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I2 EXEC</strong></td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); font-weight: bold;">5</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2); background: rgba(76, 175, 80, 0.2);"><strong>I3 EXEC</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: rgba(255,255,255,0.8);"><strong>Verde = Instrução ativa | Observe: No ciclo 3, TODAS as 3 instruções estão sendo processadas!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Vantagens Pipeline -->
+        <div class="slide" data-slide="13">
+            <div class="slide-content">
+                <h2 class="slide-title">✨ Vantagens do Pipeline</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Maior Desempenho</h4>
+                            <p style="margin: 0;">Múltiplas instruções em paralelo = mais trabalho por unidade de tempo</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🎯</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Melhor Utilização de Recursos</h4>
+                            <p style="margin: 0;">Cada componente (Fetch, Decode, Execute) está sempre ocupado</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💰</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Sem Aumentar Clock</h4>
+                            <p style="margin: 0;">Velocidade do processador não precisa aumentar fisicamente</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Throughput Aumentado</h4>
+                            <p style="margin: 0;">Mais instruções concluídas por ciclo (maior vazão)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Desafios Pipeline -->
+        <div class="slide" data-slide="14">
+            <div class="slide-content">
+                <h2 class="slide-title">⚠️ Desafios do Pipeline</h2>
+                <div class="reasons-list">
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Hazards de Dados</h4>
+                            <p style="margin: 0;">Quando uma instrução depende do resultado da anterior</p>
+                        </div>
+                    </div>
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Hazards de Controle</h4>
+                            <p style="margin: 0;">Desvios (saltos) podem invalidar instruções no pipeline</p>
+                        </div>
+                    </div>
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Complexidade</h4>
+                            <p style="margin: 0;">Projetar CPU com pipeline é mais complicado e caro</p>
+                        </div>
+                    </div>
+                    <div class="reason-item" style="background: rgba(255, 84, 89, 0.15); border: 1px solid rgb(255, 84, 89);">
+                        <span style="font-size: 2rem;">❌</span>
+                        <div>
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 8px 0;">Atrasos (Stalls)</h4>
+                            <p style="margin: 0;">Às vezes o pipeline precisa parar para resolver conflitos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Exemplo Prático -->
+        <div class="slide" data-slide="15">
+            <div class="slide-content">
+                <h2 class="slide-title">🔍 Exemplo Prático: Um Programa Simples</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Programa em Pseudocódigo:</h3>
+                    <div style="background: #000; color: var(--meta-gold); padding: 20px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.8;">
+                        Instrução 1: LOAD A, 5  → Carrega 5 em Registrador A<br>
+                        Instrução 2: LOAD B, 3  → Carrega 3 em Registrador B<br>
+                        Instrução 3: ADD C, A, B → Soma A+B e coloca em C<br>
+                        Instrução 4: STORE C, Mem → Armazena C na memória
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Processamento SEM Pipeline (8 ciclos):</h3>
+                    <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                        <p style="margin: 0; font-size: 0.9rem;"><strong>I1:</strong> Fetch(2) + Decode(2) + Execute(2) = 6 ciclos</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>I2:</strong> Fetch(2) + Decode(2) + Execute(2) = 6 ciclos</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>Total: 12 ciclos (sequencial)</strong></p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Processamento COM Pipeline (5 ciclos):</h3>
+                    <div style="background: rgba(76, 175, 80, 0.15); padding: 15px; border-radius: 6px;">
+                        <p style="margin: 0; font-size: 0.9rem;"><strong>Ciclo 1:</strong> I1 Fetch</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>Ciclo 2:</strong> I1 Decode + I2 Fetch</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>Ciclo 3:</strong> I1 Execute + I2 Decode + I3 Fetch</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>Ciclo 4:</strong> I2 Execute + I3 Decode + I4 Fetch</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>Ciclo 5:</strong> I3 Execute + I4 Decode</p>
+                        <p style="margin: 8px 0 0 0; font-size: 0.9rem;"><strong>Total: ~5 ciclos (paralelo)</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDES 16-22: Conteúdo Resumido (para alcançar 25 slides) -->
+        <!-- SLIDE 16 -->
+        <div class="slide" data-slide="16">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Resumo: Componentes da CPU</h2>
+                <div class="content-box">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(244, 180, 26, 0.15);">
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Componente</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Função</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Analogia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>UC</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Busca, decodifica e coordena</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Maestro/Gerente</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>ULA</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Realiza operações aritméticas/lógicas</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Calculadora</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>Registradores</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Armazenam dados temporários</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Prateleiras rápidas</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;"><strong>PC</strong></td>
+                                <td style="padding: 12px;">Aponta próxima instrução</td>
+                                <td style="padding: 12px;">Marcador no livro</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17 -->
+        <div class="slide" data-slide="17">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Pipeline: Comparativo</h2>
+                <div class="content-box">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 20px; border-radius: 8px;">
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 15px 0; text-align: center;">❌ SEM Pipeline</h4>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem;">
+                                <li>1 instrução por vez</li>
+                                <li>Componentes ociosos</li>
+                                <li>Desempenho baixo</li>
+                                <li>Simples de projetar</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 8px;">
+                            <h4 style="color: rgb(76, 175, 80); margin: 0 0 15px 0; text-align: center;">✓ COM Pipeline</h4>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem;">
+                                <li>N instruções em paralelo</li>
+                                <li>Máxima utilização</li>
+                                <li>Alto desempenho</li>
+                                <li>Complexo, mas eficiente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18 -->
+        <div class="slide" data-slide="18">
+            <div class="slide-content">
+                <h2 class="slide-title">💡 Curiosidades: Pipeline em CPUs Reais</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📱</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Processadores Modernos</h4>
+                            <p style="margin: 0;">Têm pipelines de 10+ estágios (não apenas 3!)</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Intel/AMD Core i7/i9</h4>
+                            <p style="margin: 0;">Usam pipelines de 14-19 estágios para máxima velocidade</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🔧</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Flushing</h4>
+                            <p style="margin: 0;">Quando há desvio, todo o pipeline precisa ser limpado</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Super-Pipelining</h4>
+                            <p style="margin: 0;">CPUs modernas executam mais de 1 instrução por ciclo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19 -->
+        <div class="slide" data-slide="19">
+            <div class="slide-content">
+                <h2 class="slide-title">🔗 Interação dos Componentes</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Durante uma instrução SOMA:</h3>
+                    <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; line-height: 2;">
+                        <p style="margin: 0;">1️⃣ <strong>PC</strong> aponta a instrução SOMA na memória</p>
+                        <p style="margin: 0;">2️⃣ <strong>UC</strong> vai buscar e coloca em <strong>IR</strong></p>
+                        <p style="margin: 0;">3️⃣ <strong>UC</strong> decodifica: "Preciso adicionar 2 números"</p>
+                        <p style="margin: 0;">4️⃣ <strong>UC</strong> busca os números dos registradores</p>
+                        <p style="margin: 0;">5️⃣ <strong>ULA</strong> realiza A + B</p>
+                        <p style="margin: 0;">6️⃣ Resultado volta para um registrador</p>
+                        <p style="margin: 0;">7️⃣ <strong>PC</strong> é incrementado para próxima instrução</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20 -->
+        <div class="slide" data-slide="20">
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Checklist de Aprendizado</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>CPU = Cérebro com UC, ULA e Registradores</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>UC = Maestro (busca, decodifica, coordena)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>ULA = Calculadora (operações aritmét./lógicas)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>PC garante sequência do programa</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Pipeline = 3 estágios em paralelo</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Pipeline aumenta desempenho sem aumentar clock</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21 -->
+        <div class="slide" data-slide="21">
+            <div class="slide-content">
+                <h2 class="slide-title">📚 Atividade 3 - Entregar pelo Google Sala de aula</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Questão 1: UC na Execução</h3>
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>Explique o principal papel da Unidade de Controle (UC) na execução de uma instrução.</strong></p>
+                    </div>
+                </div>
+                <br>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Questão 2: Pipeline na CPU</h3>
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>Qual é o objetivo principal do Pipeline em uma CPU e como ele alcança esse objetivo?</strong></p>
+                    </div>
+                </div>
+                <p>(máx. 8 linhas por resposta)</p>
+            </div>
+        </div>
+
+                <!-- SLIDE 22 -->
+        <div class="slide" data-slide="22">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Conclusão: O Coração Funciona</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">❤️</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">A CPU é o Coração</h4>
+                            <p style="margin: 0;">UC, ULA e Registradores trabalham em harmonia</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🔄</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Pipeline é a Revolução</h4>
+                            <p style="margin: 0;">Mudou a forma como processadores trabalham</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Desempenho Exponencial</h4>
+                            <p style="margin: 0;">A cada geração, o pipeline fica mais profundo e inteligente</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💪</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Você Entendeu!</h4>
+                            <p style="margin: 0;">Agora sabe como o computador executa seus programas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23 -->
+        <div class="slide" data-slide="23">
+            <div class="slide-content">
+                <h2 class="slide-title">📋 Resumo Final: Tópicos Cobertos</h2>
+                <div class="content-box">
+                    <ul style="list-style: none; padding: 0; display: grid; gap: 15px;">
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Estrutura Interna da CPU:</strong> UC, ULA, Registradores (PC, IR)</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Funções da UC:</strong> Buscar, decodificar, gerar sinais de controle</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Funções da ULA:</strong> Operações aritméticas e lógicas</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Pipeline Conceito:</strong> 3 estágios em paralelo (Fetch, Decode, Execute)</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Vantagens:</strong> Desempenho 3x maior, utilização máxima de recursos</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Aplicações Reais:</strong> Todos os processadores modernos usam pipeline</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Obrigado -->
+        <div class="slide" data-slide="24">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <h1 class="main-title" style="font-size: 3rem;">Parabéns! 🎓</h1>
+                    <h2 class="subtitle">Você domina o Coração da CPU!</h2>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Módulo 3 - Estrutura da CPU e Pipeline</p>
+                    <div class="title-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="navigation-bar">
+        <button class="nav-button" id="prevBtn">‹</button>
+        <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">25</span></div>
+        <button class="nav-button" id="nextBtn">›</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
