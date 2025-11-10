@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura e Padrões de Software - Módulo 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" data-slide="1">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content title-slide">
+                <div class="module-badge">Módulo 4</div>
+                <h1 class="main-title">Arquitetura e Padrões de Software (APS)</h1>
+                <p class="subtitle">Estrutura e Comportamento Inteligentes</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Table of Contents -->
+        <div class="slide" data-slide="2">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sumário da Aula</h2>
+                <div class="toc-grid">
+                    <div class="toc-card">
+                        <div class="toc-number">01</div>
+                        <div class="toc-title">Revisão: Padrões Criacionais</div>
+                        <div class="toc-slides">Slide 3</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">02</div>
+                        <div class="toc-title">Padrões Estruturais: Adapter e Facade</div>
+                        <div class="toc-slides">Slides 4-12</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">03</div>
+                        <div class="toc-title">Padrões Comportamentais: Observer e Strategy</div>
+                        <div class="toc-slides">Slides 13-22</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">04</div>
+                        <div class="toc-title">Padrões em Frameworks Modernos e Atividade Final</div>
+                        <div class="toc-slides">Slides 23-29</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Revisão - Padrões Criacionais -->
+        <div class="slide" data-slide="3">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Flashback Rápido: O Que Vimos no Módulo 3?</h2>
+                <p class="slide-subtitle">Padrões Criacionais</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🏭</div>
+                    <p class="definition-text">No Módulo 3, estudamos os <strong>Padrões CRIACIONAIS</strong>, que lidam com a <strong>CRIAÇÃO de objetos</strong></p>
+                </div>
+                <div class="advantages-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="advantage-card" style="border-left-color: #4caf50;">
+                        <div class="advantage-icon">🏭</div>
+                        <h4>FACTORY METHOD (Fábrica)</h4>
+                        <ul class="key-points">
+                            <li>Define interface para criar objetos</li>
+                            <li>Subclasses decidem qual classe instanciar</li>
+                            <li><strong>Analogia:</strong> Fábrica de Carros</li>
+                            <li><strong>Exemplo:</strong> Sistema de pagamento (CreditCard, PayPal, Pix)</li>
+                        </ul>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: #2196f3;">
+                        <div class="advantage-icon">🔒</div>
+                        <h4>SINGLETON (Instância Única)</h4>
+                        <ul class="key-points">
+                            <li>Garante apenas UMA instância</li>
+                            <li>Ponto de acesso global</li>
+                            <li><strong>Analogia:</strong> Presidente do país</li>
+                            <li><strong>Exemplo:</strong> Conexão com banco de dados</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="activity-question" style="margin-top: 30px;">
+                    <h3>❓ Qual categoria de padrão vimos no último módulo?</h3>
+                </div>
+                <div class="quiz-options" id="flashback-options" style="grid-template-columns: repeat(3, 1fr);">
+                    <button class="quiz-option" data-correct="true" data-activity="flashback">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Criacionais</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="flashback">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Estruturais</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="flashback">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Comportamentais</span>
+                    </button>
+                </div>
+                <div class="feedback-box" id="flashback-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Padrões Estruturais - Introdução -->
+        <div class="slide" data-slide="4">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrões Estruturais: Como as Classes se Relacionam</h2>
+                <p class="slide-subtitle">Organizando Objetos em Estruturas Maiores</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🏛️</div>
+                    <p class="definition-text">Padrões Estruturais lidam com a COMPOSIÇÃO de classes e objetos. Eles organizam entidades em estruturas maiores mantendo flexibilidade e eficiência.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>❓ Como organizar classes e objetos em estruturas complexas sem criar acoplamento excessivo?</h3>
+                </div>
+                <div class="section-title">7 Padrões Estruturais (GoF)</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>⭐ Adapter (foco deste módulo)</li>
+                        <li>⭐ Facade (foco deste módulo)</li>
+                        <li>Bridge</li>
+                        <li>Composite</li>
+                        <li>Decorator</li>
+                        <li>Flyweight</li>
+                        <li>Proxy</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p>Estudaremos <strong>Adapter</strong> e <strong>Facade</strong> em detalhes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Adapter - Conceito -->
+        <div class="slide" data-slide="5">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrão ADAPTER (Adaptador): Integrando o Incompatível</h2>
+                <p class="slide-subtitle">Fazendo Interfaces Diferentes Trabalharem Juntas</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🔌</div>
+                    <p class="definition-text">O padrão <strong>Adapter</strong> permite que classes com interfaces incompatíveis trabalhem juntas, convertendo a interface de uma classe em outra interface esperada pelo cliente.</p>
+                </div>
+                <div class="section-title">❓ Problema que Resolve</div>
+                <div class="content-card">
+                    <p style="font-size: 16px; color: var(--color-gray-200); margin-bottom: 15px;">Você precisa usar uma classe existente, mas sua interface não é compatível com o resto do seu código. Reescrever não é uma opção!</p>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔄</div>
+                        <h3>Reutilização</h3>
+                        <p>Permite usar código legado sem modificá-lo</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔌</div>
+                        <h3>Compatibilidade</h3>
+                        <p>Conecta sistemas com interfaces diferentes</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🛡️</div>
+                        <h3>Proteção</h3>
+                        <p>Isola mudanças em bibliotecas externas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Adapter - Analogia Tomada -->
+        <div class="slide" data-slide="6">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia do Mundo Real: Adaptador de Tomada</h2>
+                <p class="slide-subtitle">Viagem Brasil → Europa</p>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <div class="comparison-header">🇧🇷 NO BRASIL</div>
+                        <div class="comparison-card">
+                            <div style="text-align: center; font-size: 48px; margin: 20px 0;">🔌</div>
+                            <ul>
+                                <li><strong>Tomada Tipo N:</strong> 3 pinos redondos</li>
+                                <li><strong>Voltagem:</strong> 110V ou 220V</li>
+                                <li><strong>Seu carregador:</strong> Funciona perfeitamente!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <div class="comparison-header">🇪🇺 NA EUROPA</div>
+                        <div class="comparison-card">
+                            <div style="text-align: center; font-size: 48px; margin: 20px 0;">⚡</div>
+                            <ul>
+                                <li><strong>Tomada Tipo C:</strong> 2 pinos redondos</li>
+                                <li><strong>Voltagem:</strong> 230V</li>
+                                <li><strong>Problema:</strong> Seu carregador NÃO encaixa!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-card" style="margin-top: 30px;">
+                    <h3>🔌 Solução: ADAPTADOR DE TOMADA</h3>
+                    <p style="margin-bottom: 10px;">Você compra um adaptador que:</p>
+                    <ul class="key-points">
+                        <li>Recebe seu plugue brasileiro (interface antiga)</li>
+                        <li>Converte para o formato europeu (interface nova)</li>
+                        <li>Você NÃO precisa trocar seu carregador!</li>
+                        <li>O adaptador faz a "tradução" entre as interfaces</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p><strong>📌 Conclusão:</strong> O padrão Adapter funciona exatamente assim no código! Ele "adapta" uma interface antiga para uma nova, sem modificar o código original.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Adapter - Estrutura -->
+        <div class="slide" data-slide="7">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Adapter - Estrutura e Componentes</h2>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <div class="element-icon">👤</div>
+                        <h3>Client</h3>
+                        <p>Código que precisa usar um serviço específico</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📋</div>
+                        <h3>Target Interface</h3>
+                        <p>Interface que o cliente espera</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">🔌</div>
+                        <h3>Adapter</h3>
+                        <p>Converte interface do Adaptee para Target</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📦</div>
+                        <h3>Adaptee</h3>
+                        <p>Classe existente com interface incompatível</p>
+                    </div>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">🔄 Fluxo de Funcionamento</div>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p><strong>Client</strong> chama método na interface Target</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p><strong>Adapter</strong> recebe a chamada e traduz para o método do Adaptee</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p><strong>Adaptee</strong> executa a operação com sua interface original</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <p><strong>Adapter</strong> retorna resultado ao Client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Adapter - Pseudo-Código -->
+        <div class="slide" data-slide="8">
+            <div class="logo-area">
+               <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Adapter - Exemplo Prático em Código</h2>
+                <p class="slide-subtitle">Cenário: Sistema Novo (JSON) precisa integrar com API Antiga (XML)</p>
+                <div class="code-container">
+                    <pre><code>// Interface que nosso sistema espera (Target)
+interface DataProcessor {
+    processData(jsonData: string): void;
+}
+
+// Classe legada que só trabalha com XML (Adaptee)
+class LegacyXMLParser {
+    parseXML(xmlData: string): void {
+        console.log("Processando XML: " + xmlData);
+        // Lógica complexa de processamento XML...
+    }
+}
+
+// ADAPTER: Converte JSON para XML
+class XMLAdapter implements DataProcessor {
+    private xmlParser: LegacyXMLParser;
+    
+    constructor() {
+        this.xmlParser = new LegacyXMLParser();
+    }
+    
+    processData(jsonData: string): void {
+        // Converte JSON para XML
+        let xmlData = this.convertJSONtoXML(jsonData);
+        // Chama o método do sistema legado
+        this.xmlParser.parseXML(xmlData);
+    }
+    
+    private convertJSONtoXML(json: string): string {
+        // Lógica de conversão...
+        return "<data>" + json + "</data>";
+    }
+}
+
+// USO
+let processor: DataProcessor = new XMLAdapter();
+processor.processData('{"nome": "João"}'); // Sistema novo usa JSON!
+// Adapter traduz para XML e chama o sistema legado</code></pre>
+                </div>
+                <div class="note-card">
+                    <p><strong>💡 Vantagens:</strong> O código cliente (novo) não precisa saber que está falando com um sistema XML (antigo). O Adapter faz toda a "tradução"!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Facade - Conceito -->
+        <div class="slide" data-slide="9">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrão FACADE (Fachada): Simplificando o Complexo</h2>
+                <p class="slide-subtitle">Uma Interface Simples para um Sistema Complexo</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🏢</div>
+                    <p class="definition-text">O padrão <strong>Facade</strong> fornece uma interface simplificada para um conjunto complexo de classes, subsistemas ou bibliotecas.</p>
+                </div>
+                <div class="section-title">❓ Problema que Resolve</div>
+                <div class="content-card">
+                    <p style="font-size: 16px; color: var(--color-gray-200); margin-bottom: 15px;">Seu código precisa interagir com múltiplos subsistemas complexos. Chamar diretamente cada classe torna o código difícil de entender e manter.</p>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">✨</div>
+                        <h3>Simplicidade</h3>
+                        <p>Interface fácil de usar para operações comuns</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔒</div>
+                        <h3>Encapsulamento</h3>
+                        <p>Esconde a complexidade interna do sistema</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎯</div>
+                        <h3>Desacoplamento</h3>
+                        <p>Reduz dependências entre cliente e subsistemas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Facade - Analogia Controle Remoto -->
+        <div class="slide" data-slide="10">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Home Theater - Com e Sem Facade</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-red-400);">❌ SEM FACADE</div>
+                        <div class="comparison-card">
+                            <p style="font-size: 15px; color: var(--color-white); margin-bottom: 15px;"><strong>Para assistir um filme você precisa:</strong></p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">1️⃣ Ligar a TV</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">2️⃣ Selecionar entrada HDMI 2</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">3️⃣ Ligar o amplificador</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">4️⃣ Ajustar volume para 65</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">5️⃣ Selecionar entrada do amplificador</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">6️⃣ Ligar o Blu-ray player</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">7️⃣ Inserir o disco</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">8️⃣ Diminuir as luzes</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">9️⃣ Dar play</li>
+                            </ul>
+                            <p style="color: var(--color-red-400); font-weight: 600; margin-top: 15px;">😩 9 passos! Muito complexo!</p>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-teal-500);">✅ COM FACADE</div>
+                        <div class="comparison-card">
+                            <p style="font-size: 15px; color: var(--color-white); margin-bottom: 15px;"><strong>Você usa um controle universal:</strong></p>
+                            <div style="text-align: center; margin: 40px 0;">
+                                <div style="font-size: 64px; margin-bottom: 20px;">🎬</div>
+                                <div style="background: var(--color-accent-orange); color: var(--color-bg-dark-blue); padding: 15px 30px; border-radius: 10px; display: inline-block; font-size: 20px; font-weight: 700;">Botão "ASSISTIR FILME"</div>
+                            </div>
+                            <p style="color: var(--color-teal-300); font-weight: 600; margin-top: 20px;">😊 1 clique! O Facade faz todo o resto!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>📌 Conclusão:</strong> O Facade esconde toda a complexidade e oferece uma interface simples. No código, funciona da mesma forma!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Facade - Pseudo-Código -->
+        <div class="slide" data-slide="11">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Facade - Exemplo Prático: Sistema de E-commerce</h2>
+                <p class="slide-subtitle">Simplificando o processo de finalização de compra</p>
+                <div class="code-container">
+                    <pre><code>// Subsistemas complexos
+class InventorySystem {
+    checkStock(productId: string): boolean { /* ... */ }
+    reserveProduct(productId: string): void { /* ... */ }
+}
+
+class PaymentSystem {
+    processPayment(amount: number, card: string): boolean { /* ... */ }
+}
+
+class ShippingSystem {
+    calculateShipping(address: string): number { /* ... */ }
+    scheduleDelivery(orderId: string): void { /* ... */ }
+}
+
+class NotificationSystem {
+    sendEmail(to: string, message: string): void { /* ... */ }
+    sendSMS(phone: string, message: string): void { /* ... */ }
+}
+
+// FACADE: Interface simplificada
+class CheckoutFacade {
+    private inventory = new InventorySystem();
+    private payment = new PaymentSystem();
+    private shipping = new ShippingSystem();
+    private notification = new NotificationSystem();
+    
+    // UM método simples que orquestra tudo
+    completeOrder(productId: string, card: string, address: string, email: string): boolean {
+        // 1. Verifica estoque
+        if (!this.inventory.checkStock(productId)) {
+            return false;
+        }
+        
+        // 2. Reserva produto
+        this.inventory.reserveProduct(productId);
+        
+        // 3. Calcula frete
+        let shippingCost = this.shipping.calculateShipping(address);
+        
+        // 4. Processa pagamento
+        if (!this.payment.processPayment(100 + shippingCost, card)) {
+            return false;
+        }
+        
+        // 5. Agenda entrega
+        this.shipping.scheduleDelivery("ORDER123");
+        
+        // 6. Envia confirmação
+        this.notification.sendEmail(email, "Pedido confirmado!");
+        
+        return true;
+    }
+}
+
+// USO: Super simples!
+let checkout = new CheckoutFacade();
+checkout.completeOrder("PROD123", "4111...", "Rua A, 123", "email@example.com");</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Atividade Interativa #1 -->
+        <div class="slide" data-slide="12">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Atividade Prática: Adapter ou Facade?</h2>
+                <p class="slide-subtitle">Identifique qual padrão estrutural usar em cada cenário</p>
+                <div class="classifier-scenarios">
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>📱 Cenário 1: Integração com API de Pagamento</h4>
+                            <p>Sua aplicação aceita pagamentos via cartão de crédito. Você precisa integrar uma nova biblioteca de pagamento que usa métodos e estruturas de dados completamente diferentes do que seu código atual espera.</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="1" data-correct="true">Adapter</button>
+                            <button class="classifier-btn" data-scenario="1" data-correct="false">Facade</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario1-feedback" style="display: none;"></div>
+                    </div>
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>🏪 Cenário 2: Sistema de Pedidos Complexo</h4>
+                            <p>Seu e-commerce tem subsistemas separados para estoque, pagamento, envio e notificações. Você quer fornecer uma interface única e simples para que o cliente finalize a compra sem lidar com cada subsistema individualmente.</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="2" data-correct="false">Adapter</button>
+                            <button class="classifier-btn" data-scenario="2" data-correct="true">Facade</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario2-feedback" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Padrões Comportamentais - Introdução -->
+        <div class="slide" data-slide="13">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrões Comportamentais: Como Objetos Se Comunicam</h2>
+                <p class="slide-subtitle">Gerenciando Algoritmos, Relacionamentos e Responsabilidades</p>
+                <div class="definition-card highlight">
+                    <div class="icon">💬</div>
+                    <p class="definition-text">Padrões Comportamentais lidam com a <strong>COMUNICAÇÃO</strong> entre objetos e a <strong>DISTRIBUIÇÃO DE RESPONSABILIDADES</strong>. Eles definem como objetos interagem e colaboram.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>❓ Como organizar a comunicação entre objetos de forma flexível e eficiente?</h3>
+                </div>
+                <div class="section-title">11 Padrões Comportamentais (GoF)</div>
+                <div class="content-card">
+                    <ul class="key-points" style="columns: 2; column-gap: 30px;">
+                        <li>⭐ Observer (foco deste módulo)</li>
+                        <li>⭐ Strategy (foco deste módulo)</li>
+                        <li>Command</li>
+                        <li>State</li>
+                        <li>Template Method</li>
+                        <li>Iterator</li>
+                        <li>Chain of Responsibility</li>
+                        <li>Mediator</li>
+                        <li>Memento</li>
+                        <li>Visitor</li>
+                        <li>Interpreter</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p>Estudaremos <strong>Observer</strong> (notificações) e <strong>Strategy</strong> (intercâmbio de algoritmos) em detalhes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Observer - Conceito -->
+        <div class="slide" data-slide="14">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrão OBSERVER (Observador): Sistema de Notificações</h2>
+                <p class="slide-subtitle">Comunicação Um-para-Muitos</p>
+                <div class="definition-card highlight">
+                    <div class="icon">👀</div>
+                    <p class="definition-text">O padrão <strong>Observer</strong> define uma dependência um-para-muitos entre objetos, onde quando um objeto muda de estado, todos os seus dependentes são notificados e atualizados automaticamente.</p>
+                </div>
+                <div class="section-title">❓ Problema que Resolve</div>
+                <div class="content-card">
+                    <p style="font-size: 16px; color: var(--color-gray-200); margin-bottom: 15px;">Como notificar múltiplos objetos sobre mudanças em outro objeto, sem criar forte acoplamento entre eles?</p>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔔</div>
+                        <h3>Notificação Automática</h3>
+                        <p>Observadores são avisados automaticamente</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">➕</div>
+                        <h3>Flexibilidade</h3>
+                        <p>Adicione/remova observadores em runtime</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔓</div>
+                        <h3>Baixo Acoplamento</h3>
+                        <p>Subject não conhece detalhes dos observers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Observer - Analogia Jornal -->
+        <div class="slide" data-slide="15">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Assinatura de Jornal / Canal do YouTube</h2>
+                <div class="advantages-grid" style="grid-template-columns: 1fr;">
+                    <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                        <div class="advantage-icon">📰</div>
+                        <h4>JORNAL (Subject/Publisher)</h4>
+                        <ul class="key-points">
+                            <li>Publica notícias diariamente</li>
+                            <li>Mantém lista de assinantes</li>
+                            <li>Quando há nova edição, NOTIFICA todos os assinantes</li>
+                            <li>Não se importa com o que cada assinante faz com o jornal</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="advantages-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 20px;">
+                    <div class="advantage-card" style="border-left-color: var(--color-teal-500);">
+                        <div class="advantage-icon">👤</div>
+                        <h4>ASSINANTE 1 (Observer)</h4>
+                        <p>Recebe o jornal e lê durante o café da manhã</p>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: var(--color-teal-500);">
+                        <div class="advantage-icon">👤</div>
+                        <h4>ASSINANTE 2 (Observer)</h4>
+                        <p>Recebe o jornal e lê apenas os esportes</p>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: var(--color-teal-500);">
+                        <div class="advantage-icon">👤</div>
+                        <h4>ASSINANTE 3 (Observer)</h4>
+                        <p>Recebe o jornal e usa para embalar objetos frágeis</p>
+                    </div>
+                </div>
+                <div class="highlight-card" style="margin-top: 30px;">
+                    <h3>📺 Exemplos do Dia a Dia</h3>
+                    <ul class="key-points">
+                        <li><strong>YouTube:</strong> Você se inscreve em um canal → recebe notificação de novos vídeos</li>
+                        <li><strong>Newsletter:</strong> Você assina → recebe e-mails quando há novos artigos</li>
+                        <li><strong>Redes Sociais:</strong> Você segue alguém → é notificado de novos posts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Observer - Estrutura -->
+        <div class="slide" data-slide="16">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Observer - Estrutura e Componentes</h2>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <div class="element-icon">📢</div>
+                        <h3>Subject (Publisher)</h3>
+                        <p>Objeto observado que notifica mudanças</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">👀</div>
+                        <h3>Observer Interface</h3>
+                        <p>Define método update() para receber notificações</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📧</div>
+                        <h3>Concrete Observers</h3>
+                        <p>Implementações específicas que reagem às notificações</p>
+                    </div>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">🔄 Fluxo de Funcionamento</div>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p><strong>Observer</strong> se registra no Subject: subject.subscribe(observer)</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p><strong>Subject</strong> adiciona observer à lista de inscritos</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p>Estado do <strong>Subject</strong> muda (novo evento ocorre)</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <p><strong>Subject</strong> chama notify(), que itera sobre todos observers</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">5</div>
+                        <p>Cada <strong>Observer</strong> recebe update() e reage conforme sua lógica</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Observer - Pseudo-Código -->
+        <div class="slide" data-slide="17">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Observer - Exemplo Prático: Sistema de Notícias</h2>
+                <p class="slide-subtitle">Múltiplos canais de notificação (Email, SMS, App)</p>
+                <div class="code-container">
+                    <pre><code>// Interface Observer
+interface NewsSubscriber {
+    update(news: string): void;
+}
+
+// Concrete Observers
+class EmailSubscriber implements NewsSubscriber {
+    private email: string;
+    
+    constructor(email: string) {
+        this.email = email;
+    }
+    
+    update(news: string): void {
+        console.log(`📧 Enviando e-mail para ${this.email}: ${news}`);
+    }
+}
+
+class SMSSubscriber implements NewsSubscriber {
+    private phone: string;
+    
+    constructor(phone: string) {
+        this.phone = phone;
+    }
+    
+    update(news: string): void {
+        console.log(`📱 Enviando SMS para ${this.phone}: ${news}`);
+    }
+}
+
+class AppNotificationSubscriber implements NewsSubscriber {
+    private userId: string;
+    
+    constructor(userId: string) {
+        this.userId = userId;
+    }
+    
+    update(news: string): void {
+        console.log(`🔔 Push notification para ${this.userId}: ${news}`);
+    }
+}
+
+// Subject (Publisher)
+class NewsPublisher {
+    private subscribers: NewsSubscriber[] = [];
+    
+    subscribe(subscriber: NewsSubscriber): void {
+        this.subscribers.push(subscriber);
+    }
+    
+    unsubscribe(subscriber: NewsSubscriber): void {
+        const index = this.subscribers.indexOf(subscriber);
+        if (index > -1) {
+            this.subscribers.splice(index, 1);
+        }
+    }
+    
+    notify(news: string): void {
+        for (let subscriber of this.subscribers) {
+            subscriber.update(news);
+        }
+    }
+    
+    publishNews(news: string): void {
+        console.log(`📰 Notícia publicada: ${news}`);
+        this.notify(news);
+    }
+}
+
+// USO
+let publisher = new NewsPublisher();
+
+publisher.subscribe(new EmailSubscriber("user@email.com"));
+publisher.subscribe(new SMSSubscriber("+5511999999999"));
+publisher.subscribe(new AppNotificationSubscriber("USER123"));
+
+publisher.publishNews("Brasil vence a Copa do Mundo!");
+// Todos os 3 subscribers são notificados automaticamente!</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Strategy - Conceito -->
+        <div class="slide" data-slide="18">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrão STRATEGY (Estratégia): Algoritmos Intercambiáveis</h2>
+                <p class="slide-subtitle">Trocar Comportamento em Tempo de Execução</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🎯</div>
+                    <p class="definition-text">O padrão <strong>Strategy</strong> define uma família de algoritmos, encapsula cada um deles e os torna intercambiáveis. O cliente pode escolher qual algoritmo usar em tempo de execução.</p>
+                </div>
+                <div class="section-title">❓ Problema que Resolve</div>
+                <div class="content-card">
+                    <p style="font-size: 16px; color: var(--color-gray-200); margin-bottom: 15px;">Como trocar algoritmos/comportamentos dinamicamente sem usar múltiplos if/else ou switch gigantes? Como adicionar novos algoritmos sem modificar código existente?</p>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔄</div>
+                        <h3>Flexibilidade</h3>
+                        <p>Troque algoritmos em runtime</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🧩</div>
+                        <h3>Elimina Condicionais</h3>
+                        <p>Substitui if/else e switch complexos</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">➕</div>
+                        <h3>Extensível</h3>
+                        <p>Adicione novos algoritmos sem quebrar código</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Strategy - Analogia Pagamento -->
+        <div class="slide" data-slide="19">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Métodos de Pagamento em E-commerce</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-red-400);">❌ SEM STRATEGY</div>
+                        <div class="comparison-card">
+                            <div class="code-container">
+                                <pre><code>function processPayment(method: string, amount: number) {
+    if (method === "credit_card") {
+        // Lógica cartão de crédito
+        // 50 linhas de código...
+    } else if (method === "pix") {
+        // Lógica PIX
+        // 40 linhas de código...
+    } else if (method === "boleto") {
+        // Lógica boleto
+        // 30 linhas de código...
+    } else if (method === "paypal") {
+        // Lógica PayPal
+        // 45 linhas de código...
+    }
+    // ... mais métodos
+}</code></pre>
+                            </div>
+                            <p style="color: var(--color-red-400); font-weight: 600; margin-top: 15px;">😩 Função gigante! Difícil de manter!</p>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-teal-500);">✅ COM STRATEGY</div>
+                        <div class="comparison-card">
+                            <div class="code-container">
+                                <pre><code>// Cada método é uma classe separada
+class CreditCardStrategy { pay() {...} }
+class PixStrategy { pay() {...} }
+class BoletoStrategy { pay() {...} }
+class PayPalStrategy { pay() {...} }
+
+// Cliente escolhe a estratégia
+let payment = new PaymentProcessor();
+payment.setStrategy(new PixStrategy());
+payment.process(100.00);
+
+// Trocar é fácil!
+payment.setStrategy(new CreditCardStrategy());
+payment.process(200.00);</code></pre>
+                            </div>
+                            <p style="color: var(--color-teal-300); font-weight: 600; margin-top: 15px;">😊 Organizado! Cada estratégia isolada!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>💡 Vantagem:</strong> Adicionar novo método de pagamento = criar nova classe. Não precisa mexer no código existente!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Strategy - Estrutura -->
+        <div class="slide" data-slide="20">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Strategy - Estrutura e Componentes</h2>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <div class="element-icon">💼</div>
+                        <h3>Context</h3>
+                        <p>Mantém referência à estratégia atual</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📋</div>
+                        <h3>Strategy Interface</h3>
+                        <p>Define método comum para todas estratégias</p>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">🛠️</div>
+                        <h3>Concrete Strategies</h3>
+                        <p>Implementações específicas do algoritmo</p>
+                    </div>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">🔄 Fluxo de Funcionamento</div>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p><strong>Context</strong> é criado (ex: PaymentProcessor)</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p>Cliente define qual <strong>Strategy</strong> usar: setStrategy(new PixStrategy())</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p><strong>Context</strong> armazena referência à estratégia</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <p>Quando necessário, <strong>Context</strong> delega execução para a Strategy</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">5</div>
+                        <p><strong>Concrete Strategy</strong> executa seu algoritmo específico</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Strategy - Pseudo-Código -->
+        <div class="slide" data-slide="21">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Strategy - Exemplo Prático: Sistema de Pagamento</h2>
+                <div class="code-container">
+                    <pre><code>// Interface Strategy
+interface PaymentStrategy {
+    pay(amount: number): void;
+}
+
+// Concrete Strategies
+class CreditCardStrategy implements PaymentStrategy {
+    private cardNumber: string;
+    private cvv: string;
+    
+    constructor(cardNumber: string, cvv: string) {
+        this.cardNumber = cardNumber;
+        this.cvv = cvv;
+    }
+    
+    pay(amount: number): void {
+        console.log(`💳 Pagando R$${amount} com Cartão de Crédito ${this.cardNumber}`);
+        // Lógica de integração com operadora...
+    }
+}
+
+class PixStrategy implements PaymentStrategy {
+    private pixKey: string;
+    
+    constructor(pixKey: string) {
+        this.pixKey = pixKey;
+    }
+    
+    pay(amount: number): void {
+        console.log(`💱 Pagando R$${amount} via PIX para chave ${this.pixKey}`);
+        // Gera QR Code, aguarda confirmação...
+    }
+}
+
+class BoletoStrategy implements PaymentStrategy {
+    pay(amount: number): void {
+        console.log(`📄 Gerando boleto de R$${amount}`);
+        // Gera código de barras, data de vencimento...
+    }
+}
+
+// Context
+class ShoppingCart {
+    private paymentStrategy: PaymentStrategy;
+    private totalAmount: number = 0;
+    
+    setPaymentStrategy(strategy: PaymentStrategy): void {
+        this.paymentStrategy = strategy;
+    }
+    
+    addItem(price: number): void {
+        this.totalAmount += price;
+    }
+    
+    checkout(): void {
+        if (!this.paymentStrategy) {
+            console.log("❌ Escolha um método de pagamento!");
+            return;
+        }
+        this.paymentStrategy.pay(this.totalAmount);
+    }
+}
+
+// USO
+let cart = new ShoppingCart();
+cart.addItem(50.00);
+cart.addItem(30.00);
+
+// Cliente escolhe PIX
+cart.setPaymentStrategy(new PixStrategy("meuemail@exemplo.com"));
+cart.checkout(); // Paga R$80 via PIX
+
+// Em outra compra, pode escolher cartão
+cart.setPaymentStrategy(new CreditCardStrategy("1234-5678-9012-3456", "123"));
+cart.checkout(); // Paga com cartão</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Atividade Interativa #2 -->
+        <div class="slide" data-slide="22">
+            <div class="logo-area">
+                v
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Atividade Prática: Observer ou Strategy?</h2>
+                <p class="slide-subtitle">Identifique qual padrão comportamental usar em cada cenário</p>
+                <div class="classifier-scenarios">
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>📦 Cenário 1: Rastreamento de Pedidos</h4>
+                            <p>Quando o status de um pedido muda ("Em preparo" → "Enviado" → "Entregue"), o sistema precisa: enviar e-mail ao cliente, atualizar dashboard do vendedor, notificar app mobile, registrar log no banco. Cada ação é independente.</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="3" data-correct="true">Observer</button>
+                            <button class="classifier-btn" data-scenario="3" data-correct="false">Strategy</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario3-feedback" style="display: none;"></div>
+                    </div>
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>🚚 Cenário 2: Cálculo de Frete</h4>
+                            <p>Seu e-commerce oferece vários métodos de entrega: SEDEX (rápido, caro), PAC (lento, barato), Entrega Express (mesmo dia, muito caro), Retirar na Loja (grátis). O cliente escolhe UMA opção no checkout e o sistema calcula o preço baseado nessa escolha.</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="4" data-correct="false">Observer</button>
+                            <button class="classifier-btn" data-scenario="4" data-correct="true">Strategy</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario4-feedback" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Padrões em Frameworks Modernos -->
+        <div class="slide" data-slide="23">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrões em Frameworks Modernos</h2>
+                <p class="slide-subtitle">Como os 4 Padrões Aparecem no Mundo Real</p>
+                <div class="advantages-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                        <div class="advantage-icon">👀</div>
+                        <h4>OBSERVER em JavaScript/React</h4>
+                        <ul class="key-points">
+                            <li><strong>addEventListener:</strong> Event listeners do DOM</li>
+                            <li><strong>React useEffect, useState:</strong> State changes</li>
+                            <li><strong>RxJS Observables:</strong> Reactive programming</li>
+                            <li><strong>Redux:</strong> State management subscribers</li>
+                        </ul>
+                        <div class="code-container" style="margin-top: 15px;">
+                            <pre><code>button.addEventListener('click', () => {
+  console.log('Clicked!');
+});</code></pre>
+                        </div>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: var(--color-teal-500);">
+                        <div class="advantage-icon">🎯</div>
+                        <h4>STRATEGY em Bibliotecas</h4>
+                        <ul class="key-points">
+                            <li><strong>Array.sort():</strong> Comparadores customizados</li>
+                            <li><strong>Algoritmos de compressão:</strong> ZIP, GZIP, Brotli</li>
+                            <li><strong>Payment gateways:</strong> Stripe, PayPal, etc</li>
+                        </ul>
+                        <div class="code-container" style="margin-top: 15px;">
+                            <pre><code>array.sort((a, b) => a - b);
+// Estratégia de ordenação!</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="advantages-grid" style="grid-template-columns: repeat(2, 1fr); margin-top: 20px;">
+                    <div class="advantage-card" style="border-left-color: #2196f3;">
+                        <div class="advantage-icon">🏢</div>
+                        <h4>FACADE em Frameworks</h4>
+                        <ul class="key-points">
+                            <li><strong>jQuery $.ajax():</strong> Simplifica XMLHttpRequest</li>
+                            <li><strong>Spring Framework:</strong> Abstrações de alto nível</li>
+                            <li><strong>Express.js:</strong> Simplifica HTTP server</li>
+                            <li><strong>Hibernate ORM:</strong> Simplifica JDBC</li>
+                        </ul>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: #4caf50;">
+                        <div class="advantage-icon">🔌</div>
+                        <h4>ADAPTER em Integrações</h4>
+                        <ul class="key-points">
+                            <li><strong>API wrappers:</strong> Adaptam APIs externas</li>
+                            <li><strong>Database adapters:</strong> MySQL, PostgreSQL, MongoDB</li>
+                            <li><strong>ORM tools:</strong> Sequelize, TypeORM</li>
+                            <li><strong>Axios:</strong> Unifica fetch/XMLHttpRequest</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Resumo Comparativo -->
+        <div class="slide" data-slide="24">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Resumo: Quando Usar Cada Padrão?</h2>
+                <p class="slide-subtitle">Tabela Comparativa dos 4 Padrões</p>
+                <div class="content-card" style="padding: 30px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(245, 166, 35, 0.2); border-bottom: 2px solid var(--color-accent-orange);">
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Padrão</th>
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Categoria</th>
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Quando Usar</th>
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Problema que Resolve</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Adapter</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Estrutural</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Interfaces incompatíveis</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Incompatibilidade entre sistemas</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Facade</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Estrutural</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Subsistema muito complexo</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Complexidade excessiva</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Observer</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Comportamental</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Múltiplos objetos reagindo a eventos</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Notificação automática</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Strategy</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Comportamental</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Trocar algoritmo em runtime</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">If/else ou switch complexos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight-card" style="margin-top: 30px;">
+                    <h3>🤔 Guia Rápido de Decisão</h3>
+                    <ul class="key-points" style="font-size: 17px;">
+                        <li><strong>Integrar código incompatível?</strong> → Use <span style="color: var(--color-accent-orange);">ADAPTER</span></li>
+                        <li><strong>Simplificar sistema complexo?</strong> → Use <span style="color: var(--color-accent-orange);">FACADE</span></li>
+                        <li><strong>Notificar múltiplos objetos?</strong> → Use <span style="color: var(--color-accent-orange);">OBSERVER</span></li>
+                        <li><strong>Trocar algoritmo em runtime?</strong> → Use <span style="color: var(--color-accent-orange);">STRATEGY</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Conclusão e Referências -->
+        <div class="slide" data-slide="25">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Conclusão: Módulo 4 Completo! 🎉</h2>
+                <div class="content-card" style="padding: 30px; margin-bottom: 25px;">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 20px; font-size: 22px;">🎯 Principais Aprendizados</h3>
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--color-teal-300); font-size: 18px; margin-bottom: 10px;">Padrões Estruturais:</h4>
+                        <ul class="key-points">
+                            <li><strong>Adapter:</strong> Interfaces incompatíveis colaboram</li>
+                            <li><strong>Facade:</strong> Simplifica subsistemas complexos</li>
+                        </ul>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--color-teal-300); font-size: 18px; margin-bottom: 10px;">Padrões Comportamentais:</h4>
+                        <ul class="key-points">
+                            <li><strong>Observer:</strong> Notificação automática um-para-muitos</li>
+                            <li><strong>Strategy:</strong> Algoritmos intercambiáveis em runtime</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--color-teal-300); font-size: 18px; margin-bottom: 10px;">Uso em Frameworks:</h4>
+                        <ul class="key-points">
+                            <li>Event listeners → Observer</li>
+                            <li>Array.sort() → Strategy</li>
+                            <li>jQuery, Express → Facade</li>
+                            <li>Database adapters → Adapter</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-card" style="margin-bottom: 25px;">
+                    <h3>🚀 Próximos Passos</h3>
+                    <ul class="key-points" style="font-size: 16px;">
+                        <li>→ Praticar identificação de padrões em código real</li>
+                        <li>→ Implementar os 4 padrões em seus projetos</li>
+                        <li>→ Estudar outros padrões do GoF (23 total)</li>
+                        <li>→ Explorar padrões de arquitetura modernos</li>
+                    </ul>
+                </div>
+                <div class="content-card" style="padding: 30px;">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 15px; font-size: 20px;">📚 Referências</h3>
+                    <ul class="key-points" style="font-size: 15px;">
+                        <li>📖 <strong>Design Patterns: Elements of Reusable Object-Oriented Software</strong> - Gang of Four (1994)</li>
+                        <li>📖 <strong>Head First Design Patterns</strong> - Freeman &amp; Freeman</li>
+                        <li>💻 <a href="https://refactoring.guru/design-patterns" target="_blank" style="color: var(--color-teal-300);">refactoring.guru/design-patterns</a></li>
+                        <li>💻 <a href="https://patterns.dev" target="_blank" style="color: var(--color-teal-300);">patterns.dev</a></li>
+                        <li>💻 <a href="https://sourcemaking.com" target="_blank" style="color: var(--color-teal-300);">sourcemaking.com</a></li>
+                    </ul>
+                </div>
+                <div class="thank-you" style="margin-top: 40px;">
+                    <h2 style="font-size: 36px; color: var(--color-accent-orange);">Obrigado! 🎓</h2>
+                    <p style="font-size: 18px; color: var(--color-gray-200);">Arquitetura e Padrões de Software - Módulo 4</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="navigation-controls">
+        <button class="nav-button" id="prevBtn" aria-label="Slide anterior">
+            <span>‹</span>
+        </button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">29</span>
+        </div>
+        <button class="nav-button" id="nextBtn" aria-label="Próximo slide">
+            <span>›</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
