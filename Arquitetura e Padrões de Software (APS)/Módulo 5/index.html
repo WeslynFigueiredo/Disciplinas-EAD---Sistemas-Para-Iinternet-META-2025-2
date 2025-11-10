@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código Limpo: Refatoração e o SRP - Módulo 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" data-slide="1">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content title-slide">
+                <div class="module-badge">Módulo 5</div>
+                <h1 class="main-title">Arquitetura e Padrões de Software (APS)</h1>
+                <p class="subtitle">Código Limpo: Refatoração e o SRP</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Table of Contents -->
+        <div class="slide" data-slide="2">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sumário da Aula</h2>
+                <div class="toc-grid">
+                    <div class="toc-card">
+                        <div class="toc-number">01</div>
+                        <div class="toc-title">O que é Refatoração</div>
+                        <div class="toc-slides">Slides 3-5</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">02</div>
+                        <div class="toc-title">Dívida Técnica e Seus Custos</div>
+                        <div class="toc-slides">Slides 6-9</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">03</div>
+                        <div class="toc-title">Princípios SOLID e o SRP</div>
+                        <div class="toc-slides">Slides 10-19</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">04</div>
+                        <div class="toc-title">Atividade 5: Análise e Aplicação do SRP</div>
+                        <div class="toc-slides">Slides 20-22</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: O que é Refatoração -->
+        <div class="slide" data-slide="3">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">O que é Refatoração?</h2>
+                <p class="slide-subtitle">Melhoria Interna sem Mudar o Comportamento Externo</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🔄</div>
+                    <p class="definition-text">Refatoração é o processo de <strong>REESTRUTURAR</strong> o código existente <strong>SEM</strong> alterar sua <strong>FUNCIONALIDADE EXTERNA</strong> (o que o usuário vê e experimenta).</p>
+                </div>
+                <div class="highlight-card" style="margin-top: 25px;">
+                    <h3>💡 Conceito-Chave</h3>
+                    <p style="font-size: 18px; margin: 0;">Mudamos a <strong>ESTRUTURA INTERNA</strong> mantendo o <strong>COMPORTAMENTO EXTERNO</strong> igual</p>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">✅ Benefícios da Refatoração</div>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📖</div>
+                        <h3>Código mais LEGÍVEL</h3>
+                        <p>Fácil de entender e ler</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔧</div>
+                        <h3>Código mais MANUTENÍVEL</h3>
+                        <p>Fácil de corrigir e modificar</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🚀</div>
+                        <h3>Código mais EXTENSÍVEL</h3>
+                        <p>Fácil adicionar novas features</p>
+                    </div>
+                </div>
+                <div class="content-card" style="margin-top: 25px;">
+                    <ul class="key-points">
+                        <li>Reduz <strong>complexidade</strong> do código</li>
+                        <li>Facilita <strong>adicionar novas features</strong></li>
+                        <li>Melhora a <strong>qualidade geral</strong> do sistema</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Analogia da Casa -->
+        <div class="slide" data-slide="4">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Organizar uma Casa 🏠</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-red-400);">❌ SEM Refatoração</div>
+                        <div class="comparison-card">
+                            <div style="text-align: center; font-size: 48px; margin: 20px 0;">🏚️</div>
+                            <h4 style="color: var(--color-red-400); margin-bottom: 15px; font-size: 18px;">Casa Desorganizada</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">📦 Móveis bagunçados</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">👕 Roupas espalhadas</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">🔍 Difícil encontrar as coisas</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">🧹 Difícil limpar</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">😰 Visitantes: "Que bagunça!"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-teal-500);">✅ COM Refatoração</div>
+                        <div class="comparison-card">
+                            <div style="text-align: center; font-size: 48px; margin: 20px 0;">🏡</div>
+                            <h4 style="color: var(--color-teal-300); margin-bottom: 15px; font-size: 18px;">Casa Organizada</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">✨ Móveis no lugar certo</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">📁 Tudo organizado</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">👌 Fácil encontrar as coisas</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">🧽 Fácil limpar</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">😊 Visitantes: "Que casa bonita!"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-card" style="margin-top: 30px;">
+                    <h3>🔑 Importante:</h3>
+                    <p style="font-size: 17px; margin-bottom: 10px;">A <strong>CASA</strong> (comportamento externo) continua a mesma. O que mudou foi a <strong>ORGANIZAÇÃO INTERNA</strong>!</p>
+                </div>
+                <div class="note-card">
+                    <p><strong>📌 Conclusão:</strong> Refatoração é como <strong>ORGANIZAR A CASA</strong>: você muda móveis de lugar e limpa sem alterar o <strong>EXTERIOR</strong> da casa. Para quem olha de fora, a casa é a mesma. Mas para quem vive nela, tudo fica mais fácil!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Exemplos Práticos -->
+        <div class="slide" data-slide="5">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Exemplos de Refatoração</h2>
+                <p class="slide-subtitle">Técnicas Comuns de Refatoração</p>
+                <div class="refactoring-grid">
+                    <div class="refactoring-card">
+                        <div class="refactoring-icon">💡</div>
+                        <h4>1. Renomear Variáveis</h4>
+                        <div class="code-example">
+                            <p class="code-label">❌ Antes:</p>
+                            <code>let x = 10</code>
+                        </div>
+                        <div class="code-example">
+                            <p class="code-label">✅ Depois:</p>
+                            <code>let quantidadeProdutos = 10</code>
+                        </div>
+                        <p class="refactoring-reason"><strong>Por quê:</strong> Clareza e legibilidade</p>
+                    </div>
+                    <div class="refactoring-card">
+                        <div class="refactoring-icon">📦</div>
+                        <h4>2. Extrair Método</h4>
+                        <div class="code-example">
+                            <p class="code-label">❌ Antes:</p>
+                            <code>Método com 100 linhas</code>
+                        </div>
+                        <div class="code-example">
+                            <p class="code-label">✅ Depois:</p>
+                            <code>Método principal + 5 métodos auxiliares</code>
+                        </div>
+                        <p class="refactoring-reason"><strong>Por quê:</strong> Responsabilidade única, legibilidade</p>
+                    </div>
+                    <div class="refactoring-card">
+                        <div class="refactoring-icon">♻️</div>
+                        <h4>3. Remover Código Duplicado</h4>
+                        <div class="code-example">
+                            <p class="code-label">❌ Antes:</p>
+                            <code>Mesmo código em 3 lugares</code>
+                        </div>
+                        <div class="code-example">
+                            <p class="code-label">✅ Depois:</p>
+                            <code>Código em 1 lugar, chamado 3 vezes</code>
+                        </div>
+                        <p class="refactoring-reason"><strong>Por quê:</strong> DRY (Don't Repeat Yourself)</p>
+                    </div>
+                    <div class="refactoring-card">
+                        <div class="refactoring-icon">🔀</div>
+                        <h4>4. Simplificar Condicionais</h4>
+                        <div class="code-example">
+                            <p class="code-label">❌ Antes:</p>
+                            <code>if/else aninhados complexos</code>
+                        </div>
+                        <div class="code-example">
+                            <p class="code-label">✅ Depois:</p>
+                            <code>Condicionais simples e claras</code>
+                        </div>
+                        <p class="refactoring-reason"><strong>Por quê:</strong> Reduzir complexidade cognitiva</p>
+                    </div>
+                    <div class="refactoring-card">
+                        <div class="refactoring-icon">🔪</div>
+                        <h4>5. Dividir Classe Grande</h4>
+                        <div class="code-example">
+                            <p class="code-label">❌ Antes:</p>
+                            <code>Classe com 10 responsabilidades</code>
+                        </div>
+                        <div class="code-example">
+                            <p class="code-label">✅ Depois:</p>
+                            <code>10 classes, cada uma com 1 responsabilidade</code>
+                        </div>
+                        <p class="refactoring-reason"><strong>Por quê:</strong> Single Responsibility Principle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Dívida Técnica -->
+        <div class="slide" data-slide="6">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Dívida Técnica: O Atalho que Cobra Juros</h2>
+                <div class="definition-card highlight">
+                    <div class="icon">💳</div>
+                    <p class="definition-text">Dívida Técnica é o <strong>ATALHO</strong> de código que prioriza a <strong>ENTREGA RÁPIDA</strong> hoje, mas que cria <strong>CUSTOS</strong> de manutenção e desenvolvimento no <strong>FUTURO</strong>.</p>
+                </div>
+                <div class="content-card" style="margin-top: 25px;">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 15px;">🏛️ Origem do Termo</h3>
+                    <p style="font-size: 16px; color: var(--color-gray-200); line-height: 1.6;">Termo criado por <strong>Ward Cunningham</strong> (1992), popularizado por <strong>Martin Fowler</strong></p>
+                </div>
+                <div class="highlight-card" style="margin-top: 25px;">
+                    <h3>💡 A Analogia Financeira</h3>
+                    <p style="font-size: 17px; line-height: 1.6; margin-bottom: 15px;">Assim como um empréstimo bancário:</p>
+                    <ul class="key-points">
+                        <li><strong>Valor Principal:</strong> Código com atalhos/gambiarras</li>
+                        <li><strong>Vantagem Imediata:</strong> Feature entregue rapidamente</li>
+                        <li><strong>Juros:</strong> Tempo extra para manutenção e correções</li>
+                        <li><strong>Se não "pagar":</strong> Código fica cada vez mais difícil de manter</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p><strong>⚠️ Lembre-se:</strong> Dívida Técnica não é necessariamente ruim, mas deve ser <strong>gerenciada estrategicamente</strong>!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Analogia do Empréstimo -->
+        <div class="slide" data-slide="7">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Empréstimo Bancário 💳</h2>
+                <div class="content-card" style="padding: 30px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(245, 166, 35, 0.2); border-bottom: 2px solid var(--color-accent-orange);">
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Aspecto</th>
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Empréstimo Financeiro</th>
+                                <th style="padding: 15px; text-align: left; color: var(--color-white); font-size: 16px;">Dívida Técnica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Principal</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Valor emprestado</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Código com atalhos/gambiarras</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Vantagem Imediata</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Dinheiro na mão hoje</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Feature entregue rápido</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Custo Futuro</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Juros mensais</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Manutenção difícil, bugs</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Se não pagar</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Juros aumentam, dívida cresce</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Código fica insuportável</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; color: var(--color-accent-orange); font-weight: 600;">Pagamento</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Parcelas + juros</td>
+                                <td style="padding: 15px; color: var(--color-gray-200);">Refatoração + tempo extra</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="comparison-grid" style="margin-top: 30px;">
+                    <div class="comparison-column">
+                        <div class="example-scenario">
+                            <h4 style="color: var(--color-accent-orange); margin-bottom: 10px;">💰 Exemplo Financeiro</h4>
+                            <p style="color: var(--color-gray-200); line-height: 1.6;">Você precisa de <strong>R$ 10.000 HOJE</strong> para uma oportunidade. Pega empréstimo. <strong>MAS:</strong> paga <strong>R$ 15.000</strong> no total (juros de 50%).</p>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <div class="example-scenario">
+                            <h4 style="color: var(--color-accent-orange); margin-bottom: 10px;">💻 Exemplo Técnico</h4>
+                            <p style="color: var(--color-gray-200); line-height: 1.6;">Você precisa entregar feature <strong>HOJE</strong>. Faz com código ruim. <strong>MAS:</strong> gasta <strong>3x mais tempo</strong> para manter/estender depois.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Tipos de Dívida Técnica -->
+        <div class="slide" data-slide="8">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Tipos de Dívida Técnica</h2>
+                <p class="slide-subtitle">Quadrante de Martin Fowler</p>
+                <div class="quadrant-grid">
+                    <div class="quadrant-card prudent-deliberate">
+                        <div class="quadrant-header">✅ Deliberada e Prudente</div>
+                        <div class="quadrant-content">
+                            <p class="quadrant-quote">"Sabemos das consequências mas precisamos entregar agora. Refatoraremos depois."</p>
+                            <p class="quadrant-example"><strong>Exemplo:</strong> MVP com prazo apertado, mas com plano de melhoria</p>
+                            <p class="quadrant-status" style="color: #4caf50;"><strong>Status:</strong> ACEITÁVEL (se paga depois)</p>
+                        </div>
+                    </div>
+                    <div class="quadrant-card imprudent-deliberate">
+                        <div class="quadrant-header">⚠️ Deliberada e Imprudente</div>
+                        <div class="quadrant-content">
+                            <p class="quadrant-quote">"Não temos tempo para design!"</p>
+                            <p class="quadrant-example"><strong>Exemplo:</strong> Sempre priorizar velocidade sobre qualidade</p>
+                            <p class="quadrant-status" style="color: var(--color-red-400);"><strong>Status:</strong> PERIGOSO</p>
+                        </div>
+                    </div>
+                    <div class="quadrant-card prudent-inadvertent">
+                        <div class="quadrant-header">💡 Inadvertida e Prudente</div>
+                        <div class="quadrant-content">
+                            <p class="quadrant-quote">"Agora sabemos como deveríamos ter feito."</p>
+                            <p class="quadrant-example"><strong>Exemplo:</strong> Aprendizado ao longo do projeto</p>
+                            <p class="quadrant-status" style="color: var(--color-teal-300);"><strong>Status:</strong> NORMAL (aprendizado)</p>
+                        </div>
+                    </div>
+                    <div class="quadrant-card imprudent-inadvertent">
+                        <div class="quadrant-header">❌ Inadvertida e Imprudente</div>
+                        <div class="quadrant-content">
+                            <p class="quadrant-quote">"O que é design?"</p>
+                            <p class="quadrant-example"><strong>Exemplo:</strong> Falta de conhecimento técnico</p>
+                            <p class="quadrant-status" style="color: var(--color-red-400);"><strong>Status:</strong> CRÍTICO</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Atividade Interativa #1 -->
+        <div class="slide" data-slide="9">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade: Mito vs Verdade sobre Dívida Técnica</h2>
+                <div class="question-card" style="margin-top: 30px;">
+                    <div class="question-text" style="font-size: 20px; line-height: 1.8; text-align: center;">
+                        <strong>AFIRMAÇÃO:</strong><br><br>
+                        "Dívida Técnica é <strong>SEMPRE</strong> ruim e deve ser evitada a todo custo."
+                    </div>
+                </div>
+                <div class="activity-question" style="margin-top: 30px;">
+                    <h3>❓ Esta afirmação é um MITO ou VERDADE?</h3>
+                </div>
+                <div class="quiz-options" style="grid-template-columns: repeat(2, 1fr);">
+                    <button class="quiz-option" data-correct="true" data-activity="myth">
+                        <span class="option-letter">M</span>
+                        <span class="option-text">MITO</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="myth">
+                        <span class="option-letter">V</span>
+                        <span class="option-text">VERDADE</span>
+                    </button>
+                </div>
+                <div class="feedback-box" id="myth-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 10: SOLID Introdução -->
+        <div class="slide" data-slide="10">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Princípios SOLID: Os 5 Pilares do Código Limpo</h2>
+                <div class="definition-card highlight">
+                    <div class="icon">🏛️</div>
+                    <p class="definition-text"><strong>SOLID</strong> é um acrônimo de 5 princípios de design orientado a objetos que tornam o software mais compreensível, flexível e manutenível.</p>
+                </div>
+                <div class="content-card" style="margin-top: 25px;">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 15px;">👨‍💻 Criador</h3>
+                    <p style="font-size: 16px; color: var(--color-gray-200);">Criados por <strong>Robert C. Martin</strong> ('Uncle Bob') em 2000</p>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">Os 5 Princípios SOLID</div>
+                <div class="solid-principles">
+                    <div class="solid-card solid-s">
+                        <div class="solid-letter">S</div>
+                        <div class="solid-content">
+                            <h4>Single Responsibility Principle (SRP)</h4>
+                            <p>Princípio da Responsabilidade Única</p>
+                        </div>
+                    </div>
+                    <div class="solid-card solid-o">
+                        <div class="solid-letter">O</div>
+                        <div class="solid-content">
+                            <h4>Open/Closed Principle (OCP)</h4>
+                            <p>Princípio Aberto/Fechado</p>
+                        </div>
+                    </div>
+                    <div class="solid-card solid-l">
+                        <div class="solid-letter">L</div>
+                        <div class="solid-content">
+                            <h4>Liskov Substitution Principle (LSP)</h4>
+                            <p>Princípio da Substituição de Liskov</p>
+                        </div>
+                    </div>
+                    <div class="solid-card solid-i">
+                        <div class="solid-letter">I</div>
+                        <div class="solid-content">
+                            <h4>Interface Segregation Principle (ISP)</h4>
+                            <p>Princípio da Segregação de Interface</p>
+                        </div>
+                    </div>
+                    <div class="solid-card solid-d">
+                        <div class="solid-letter">D</div>
+                        <div class="solid-content">
+                            <h4>Dependency Inversion Principle (DIP)</h4>
+                            <p>Princípio da Inversão de Dependência</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>⭐ Foco deste módulo:</strong> Estudaremos em detalhes o <strong>PRIMEIRO princípio: SRP (Single Responsibility Principle)</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: SRP Conceito -->
+        <div class="slide" data-slide="11">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Single Responsibility Principle (SRP)</h2>
+                <p class="slide-subtitle">Princípio da Responsabilidade Única</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🎯</div>
+                    <p class="definition-text">Uma classe deve ter <strong>APENAS UMA RAZÃO</strong> para mudar. Em outras palavras: uma classe deve ter <strong>APENAS UMA RESPONSABILIDADE</strong>.</p>
+                </div>
+                <div class="content-card" style="margin-top: 25px; padding: 25px; background: rgba(245, 166, 35, 0.1);">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 15px; font-size: 18px;">💬 Uncle Bob diz:</h3>
+                    <p style="font-size: 17px; color: var(--color-white); font-style: italic; line-height: 1.6;">"Gather together the things that change for the same reasons. Separate those things that change for different reasons."</p>
+                    <p style="font-size: 14px; color: var(--color-gray-300); margin-top: 10px;">- Robert C. Martin</p>
+                </div>
+                <div class="highlight-card" style="margin-top: 25px;">
+                    <h3>🔑 Conceito-Chave</h3>
+                    <p style="font-size: 20px; text-align: center; margin: 15px 0; font-weight: 600;">
+                        RESPONSABILIDADE = RAZÃO PARA MUDAR = ATOR QUE SOLICITA MUDANÇA
+                    </p>
+                </div>
+                <div class="note-card">
+                    <p><strong>💡 Em outras palavras:</strong> Se você pode pensar em mais de uma razão para modificar uma classe, então ela tem mais de uma responsabilidade.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: SRP Explicação Detalhada -->
+        <div class="slide" data-slide="12">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Entendendo "Responsabilidade" no SRP</h2>
+                <div class="highlight-card">
+                    <p style="font-size: 17px; line-height: 1.6;">
+                        <strong>"Responsabilidade"</strong> deve ser vista como um <strong>EIXO DE MUDANÇA</strong>. Se a classe muda quando a regra de <strong>NEGÓCIO</strong> muda <strong>E</strong> também muda quando a regra de <strong>LOG</strong> muda, ela <strong>VIOLA</strong> o SRP.
+                    </p>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">❌ Classe que VIOLA SRP</div>
+                <div class="code-container">
+                    <pre><code>class Usuario {
+    criarUsuario()        // Muda quando: Regra de negócio muda
+    validarEmail()        // Muda quando: Regra de validação muda
+    salvarNoBanco()       // Muda quando: Banco de dados muda
+    enviarEmailBoasVindas() // Muda quando: Template de email muda
+    gerarRelatorio()      // Muda quando: Formato do relatório muda
+}</code></pre>
+                </div>
+                <div class="warning-card" style="margin-top: 20px;">
+                    <h4>❌ 5 RAZÕES PARA MUDAR = VIOLA SRP!</h4>
+                    <ul>
+                        <li>Mudança na regra de negócio → Modifica a classe</li>
+                        <li>Mudança na validação → Modifica a classe</li>
+                        <li>Mudança no banco de dados → Modifica a classe</li>
+                        <li>Mudança no template de email → Modifica a classe</li>
+                        <li>Mudança no relatório → Modifica a classe</li>
+                    </ul>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">✅ Respeitando SRP</div>
+                <div class="srp-solution">
+                    <div class="srp-class"><strong>Usuario:</strong> Regras de negócio</div>
+                    <div class="srp-class"><strong>EmailValidator:</strong> Validação</div>
+                    <div class="srp-class"><strong>UsuarioRepository:</strong> Persistência</div>
+                    <div class="srp-class"><strong>EmailService:</strong> Envio de emails</div>
+                    <div class="srp-class"><strong>RelatorioService:</strong> Geração de relatórios</div>
+                </div>
+                <div class="note-card" style="margin-top: 20px; background: rgba(76, 175, 80, 0.2); border-left-color: #4caf50;">
+                    <p style="color: #4caf50;"><strong>✅ Cada classe tem 1 RAZÃO para mudar</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Analogia Especialista -->
+        <div class="slide" data-slide="13">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Especialista vs Multifuncional 👨‍💼</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-red-400);">❌ Profissional MULTIFUNCIONAL</div>
+                        <div class="comparison-card">
+                            <div style="text-align: center; font-size: 48px; margin: 20px 0;">😰</div>
+                            <h4 style="color: var(--color-red-400); margin-bottom: 15px;">João faz TUDO</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">📊 Contador</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">🎨 Designer</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">💻 Programador</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">💼 Vendedor</li>
+                            </ul>
+                            <div style="margin-top: 20px; padding: 15px; background: rgba(255, 84, 89, 0.2); border-radius: 8px;">
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✗ Quando contabilidade muda → João muda</p>
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✗ Quando design muda → João muda</p>
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✗ Quando código muda → João muda</p>
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✗ Quando vendas mudam → João muda</p>
+                            </div>
+                            <p style="color: var(--color-red-400); font-weight: 600; margin-top: 15px; text-align: center;">😩 João sobrecarregado, mudanças arriscadas</p>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <div class="comparison-header" style="background: var(--color-teal-500);">✅ Profissionais ESPECIALISTAS</div>
+                        <div class="comparison-card">
+                            <div style="text-align: center; font-size: 48px; margin: 20px 0;">😊</div>
+                            <h4 style="color: var(--color-teal-300); margin-bottom: 15px;">Cada um com SUA área</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">📊 <strong>Maria:</strong> Contadora (só cuida de finanças)</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">🎨 <strong>Pedro:</strong> Designer (só cuida de design)</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">💻 <strong>Ana:</strong> Programadora (só cuida de código)</li>
+                                <li style="padding: 8px 0; color: var(--color-gray-200);">💼 <strong>Lucas:</strong> Vendedor (só cuida de vendas)</li>
+                            </ul>
+                            <div style="margin-top: 20px; padding: 15px; background: rgba(76, 175, 80, 0.2); border-radius: 8px;">
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✓ Mudança em finanças → Só Maria trabalha</p>
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✓ Mudança em design → Só Pedro trabalha</p>
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✓ Mudança em código → Só Ana trabalha</p>
+                                <p style="font-size: 14px; color: var(--color-gray-200); margin: 5px 0;">✓ Mudança em vendas → Só Lucas trabalha</p>
+                            </div>
+                            <p style="color: var(--color-teal-300); font-weight: 600; margin-top: 15px; text-align: center;">😊 Cada um especialista, mudanças isoladas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>📌 Conclusão:</strong> <strong>Especialistas</strong> (classes com 1 responsabilidade) são mais eficientes e menos arriscados do que <strong>multifuncionais</strong> (classes com N responsabilidades)!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Benefícios do SRP -->
+        <div class="slide" data-slide="14">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Por Que Seguir o SRP?</h2>
+                <p class="slide-subtitle">5 Principais Benefícios</p>
+                <div class="benefits-grid-large">
+                    <div class="benefit-card-large">
+                        <div class="benefit-icon-large">🔧</div>
+                        <h3>1. Manutenibilidade</h3>
+                        <ul class="key-points">
+                            <li>Mudanças <strong>localizadas</strong></li>
+                            <li>Fácil encontrar <strong>onde mudar</strong></li>
+                            <li>Menos risco de <strong>quebrar código</strong></li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card-large">
+                        <div class="benefit-icon-large">✅</div>
+                        <h3>2. Testabilidade</h3>
+                        <ul class="key-points">
+                            <li>Classes pequenas = <strong>testes simples</strong></li>
+                            <li>Mock de dependências <strong>facilitado</strong></li>
+                            <li>Cobertura de testes <strong>maior</strong></li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card-large">
+                        <div class="benefit-icon-large">♻️</div>
+                        <h3>3. Reusabilidade</h3>
+                        <ul class="key-points">
+                            <li>Classes com 1 responsabilidade podem ser <strong>reutilizadas</strong></li>
+                            <li>Menos <strong>acoplamento</strong></li>
+                            <li>Composição <strong>facilitada</strong></li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card-large">
+                        <div class="benefit-icon-large">📖</div>
+                        <h3>4. Compreensibilidade</h3>
+                        <ul class="key-points">
+                            <li>Código mais <strong>fácil de entender</strong></li>
+                            <li>Nome da classe = sua <strong>responsabilidade</strong></li>
+                            <li>Onboarding mais <strong>rápido</strong></li>
+                        </ul>
+                    </div>
+                    <div class="benefit-card-large">
+                        <div class="benefit-icon-large">🚀</div>
+                        <h3>5. Evolução</h3>
+                        <ul class="key-points">
+                            <li>Fácil <strong>adicionar novas features</strong></li>
+                            <li>Fácil <strong>substituir implementações</strong></li>
+                            <li>Arquitetura <strong>flexível</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Como Identificar Violação -->
+        <div class="slide" data-slide="15">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Como Saber se Estou Violando o SRP?</h2>
+                <p class="slide-subtitle">Sinais de Alerta (Red Flags)</p>
+                <div class="red-flags">
+                    <div class="red-flag-card">
+                        <div class="red-flag-icon">🚩</div>
+                        <h4>Classe com nome genérico</h4>
+                        <p><strong>Exemplos:</strong> <code>Manager</code>, <code>Handler</code>, <code>Util</code>, <code>Helper</code></p>
+                        <p class="red-flag-indication"><strong>Indica:</strong> Responsabilidades mal definidas</p>
+                    </div>
+                    <div class="red-flag-card">
+                        <div class="red-flag-icon">🚩</div>
+                        <h4>Classe muito grande</h4>
+                        <p><strong>Métrica:</strong> &gt; 200-300 linhas</p>
+                        <p class="red-flag-indication"><strong>Indica:</strong> Múltiplas responsabilidades</p>
+                    </div>
+                    <div class="red-flag-card">
+                        <div class="red-flag-icon">🚩</div>
+                        <h4>Métodos que não se relacionam</h4>
+                        <p><strong>Exemplo:</strong> Classe tem <code>calcularImposto()</code> E <code>enviarEmail()</code></p>
+                        <p class="red-flag-indication"><strong>Indica:</strong> Responsabilidades diferentes</p>
+                    </div>
+                    <div class="red-flag-card">
+                        <div class="red-flag-icon">🚩</div>
+                        <h4>Muitas razões para mudar</h4>
+                        <p>Mudança em <strong>LOG</strong> afeta classe<br>Mudança em <strong>BANCO</strong> afeta classe<br>Mudança em <strong>NEGÓCIO</strong> afeta classe</p>
+                        <p class="red-flag-indication"><strong>Indica:</strong> Viola SRP</p>
+                    </div>
+                    <div class="red-flag-card">
+                        <div class="red-flag-icon">🚩</div>
+                        <h4>Difícil dar nome para a classe</h4>
+                        <p>Classe faz X, Y, Z e W<br>Precisa de "E" ou "Ou" no nome</p>
+                        <p class="red-flag-indication"><strong>Indica:</strong> Responsabilidades não coesas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Exemplo Antes -->
+        <div class="slide" data-slide="16">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Exemplo: Classe que VIOLA SRP</h2>
+                <div class="code-container">
+                    <pre><code>class GerenciadorUsuario {
+    // Responsabilidade 1: Gerenciar dados do usuário
+    criarUsuario(nome, email) {
+        validarDados(nome, email)
+        usuario = new Usuario(nome, email)
+        return usuario
+    }
+    
+    atualizarUsuario(id, nome, email) {
+        usuario = buscarUsuario(id)
+        usuario.nome = nome
+        usuario.email = email
+        salvarUsuario(usuario)
+    }
+    
+    // Responsabilidade 2: Persistência no banco
+    salvarUsuario(usuario) {
+        sql = &quot;INSERT INTO usuarios...&quot;
+        database.execute(sql)
+    }
+    
+    buscarUsuario(id) {
+        sql = &quot;SELECT * FROM usuarios WHERE id = &quot; + id
+        return database.query(sql)
+    }
+    
+    // Responsabilidade 3: Validação
+    validarDados(nome, email) {
+        if (nome.length &lt; 3)
+            throw &quot;Nome inválido&quot;
+        if (!email.contains(&quot;@&quot;))
+            throw &quot;Email inválido&quot;
+    }
+    
+    // Responsabilidade 4: Envio de emails
+    enviarEmailBoasVindas(usuario) {
+        assunto = &quot;Bem-vindo!&quot;
+        corpo = &quot;Olá &quot; + usuario.nome + &quot;...&quot;
+        emailService.send(usuario.email, assunto, corpo)
+    }
+    
+    // Responsabilidade 5: Relatórios
+    gerarRelatorioUsuarios() {
+        usuarios = buscarTodosUsuarios()
+        relatorio = formatarRelatorio(usuarios)
+        return relatorio
+    }
+}</code></pre>
+                </div>
+                <div class="warning-card" style="margin-top: 20px;">
+                    <h4>❌ Problemas Identificados:</h4>
+                    <ul>
+                        <li><strong>5 responsabilidades diferentes</strong> na mesma classe</li>
+                        <li><strong>5 razões para mudar</strong> esta classe</li>
+                        <li><strong>VIOLA SRP!</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Exemplo Depois -->
+        <div class="slide" data-slide="17">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Refatoração: Respeitando o SRP</h2>
+                <div class="code-container">
+                    <pre><code>// Responsabilidade ÚNICA: Gerenciar regras de negócio de usuário
+class UsuarioService {
+    constructor(repository, validator, emailService) {
+        this.repository = repository
+        this.validator = validator
+        this.emailService = emailService
+    }
+    
+    criarUsuario(nome, email) {
+        this.validator.validar(nome, email)
+        usuario = new Usuario(nome, email)
+        this.repository.salvar(usuario)
+        this.emailService.enviarBoasVindas(usuario)
+        return usuario
+    }
+    
+    atualizarUsuario(id, nome, email) {
+        this.validator.validar(nome, email)
+        usuario = this.repository.buscar(id)
+        usuario.nome = nome
+        usuario.email = email
+        this.repository.salvar(usuario)
+    }
+}
+
+// Responsabilidade ÚNICA: Persistência
+class UsuarioRepository {
+    salvar(usuario) {
+        sql = "INSERT INTO usuarios..."
+        database.execute(sql)
+    }
+    
+    buscar(id) {
+        sql = "SELECT * FROM usuarios WHERE id = " + id
+        return database.query(sql)
+    }
+}
+
+// Responsabilidade ÚNICA: Validação
+class UsuarioValidator {
+    validar(nome, email) {
+        if (nome.length &lt; 3)
+            throw &quot;Nome inválido&quot;
+        if (!email.contains(&quot;@&quot;))
+            throw &quot;Email inválido&quot;
+    }
+}
+
+// Responsabilidade ÚNICA: Email
+class EmailService {
+    enviarBoasVindas(usuario) {
+        assunto = &quot;Bem-vindo!&quot;
+        corpo = &quot;Olá &quot; + usuario.nome + &quot;...&quot;
+        this.send(usuario.email, assunto, corpo)
+    }
+}
+
+// Responsabilidade ÚNICA: Relatórios
+class RelatorioService {
+    gerarRelatorioUsuarios() {
+        usuarios = repository.buscarTodos()
+        return this.formatarRelatorio(usuarios)
+    }
+}</code></pre>
+                </div>
+                <div class="note-card" style="margin-top: 20px; background: rgba(76, 175, 80, 0.2); border-left-color: #4caf50;">
+                    <p style="color: #4caf50;"><strong>✅ Resultado:</strong> 5 classes, cada uma com <strong>1 responsabilidade</strong>. Cada classe tem <strong>1 razão para mudar</strong>. <strong>RESPEITA SRP!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Atividade Interativa #2 -->
+        <div class="slide" data-slide="18">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade: Esta Classe Viola o SRP?</h2>
+                <div class="question-card" style="margin-top: 25px;">
+                    <h4 style="color: var(--color-accent-orange); margin-bottom: 15px;">📋 Analise o código abaixo:</h4>
+                    <div class="code-container">
+                        <pre><code>class Produto {
+    nome: string
+    preco: number
+    
+    calcularPrecoComDesconto(percentual) {
+        return this.preco * (1 - percentual/100)
+    }
+    
+    salvarNoBanco() {
+        sql = "INSERT INTO produtos..."
+        database.execute(sql)
+    }
+    
+    enviarEmailPromocao(email) {
+        assunto = "Promoção: " + this.nome
+        emailService.send(email, assunto, this.preco)
+    }
+}</code></pre>
+                    </div>
+                </div>
+                <div class="activity-question" style="margin-top: 30px;">
+                    <h3>❓ Esta classe Produto viola o SRP?</h3>
+                </div>
+                <div class="quiz-options" style="grid-template-columns: repeat(2, 1fr);">
+                    <button class="quiz-option" data-correct="true" data-activity="srp-quiz">
+                        <span class="option-letter">S</span>
+                        <span class="option-text">SIM, viola</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="srp-quiz">
+                        <span class="option-letter">N</span>
+                        <span class="option-text">NÃO, está OK</span>
+                    </button>
+                </div>
+                <div class="feedback-box" id="srp-quiz-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Resumo SRP -->
+        <div class="slide" data-slide="19">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Resumo: Single Responsibility Principle</h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>📖 Definição</h3>
+                        <p>Uma classe deve ter <strong>APENAS UMA RAZÃO</strong> para mudar</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>🔍 Como Identificar Violação</h3>
+                        <ul class="key-points">
+                            <li>Classe muito grande</li>
+                            <li>Métodos não relacionados</li>
+                            <li>Múltiplas razões para mudar</li>
+                            <li>Nome genérico (Manager, Helper, Util)</li>
+                        </ul>
+                    </div>
+                    <div class="summary-card">
+                        <h3>🛠️ Como Aplicar</h3>
+                        <ul class="key-points">
+                            <li>Separar responsabilidades em classes diferentes</li>
+                            <li>Cada classe = 1 responsabilidade</li>
+                            <li>Coesão <strong>alta</strong> dentro da classe</li>
+                            <li>Acoplamento <strong>baixo</strong> entre classes</li>
+                        </ul>
+                    </div>
+                    <div class="summary-card">
+                        <h3>✅ Benefícios</h3>
+                        <ul class="key-points">
+                            <li>✓ Código mais legível</li>
+                            <li>✓ Mais fácil de testar</li>
+                            <li>✓ Mais fácil de manter</li>
+                            <li>✓ Mais fácil de estender</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Atividade 5 - Problema -->
+        <div class="slide" data-slide="20">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">ATIVIDADE 5 (APS) - Análise e Aplicação do SRP</h2>
+                <p class="slide-subtitle">Problema</p>
+                <div class="question-card">
+                    <h4 style="color: var(--color-accent-orange); margin-bottom: 15px;">📋 Cenário:</h4>
+                    <p style="font-size: 17px; color: var(--color-white); line-height: 1.6; margin-bottom: 20px;">
+                        Imagine uma classe chamada <strong>GerenciadorProduto</strong> que possui os seguintes métodos:
+                    </p>
+                    <div class="code-container">
+                        <pre><code>class GerenciadorProduto {
+    CriarProduto(nome, preco)
+    AtualizarProduto(id, nome, preco)
+    EnviarEmailPromocional(produto, listaEmails)
+    GerarRelatorioVendas(periodo)
+}</code></pre>
+                    </div>
+                </div>
+                <div class="activity-info" style="margin-top: 30px;">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 15px;">❓ Questões:</h3>
+                    <div class="question-item">
+                        <p style="font-size: 16px; color: var(--color-white); font-weight: 600; margin-bottom: 10px;">1. Essa classe viola o Princípio da Responsabilidade Única (SRP)? Se sim, por quê?</p>
+                    </div>
+                    <div class="question-item" style="margin-top: 20px;">
+                        <p style="font-size: 16px; color: var(--color-white); font-weight: 600; margin-bottom: 10px;">2. Sugira a refatoração, dividindo essa classe em novas classes que respeitem o SRP. Liste os novos nomes e suas responsabilidades.</p>
+                    </div>
+                </div>
+                <div class="note-card" style="margin-top: 30px;">
+                    <p><strong>💡 Dica:</strong> Pense nas diferentes <strong>razões para mudar</strong> esta classe. Cada razão representa uma responsabilidade diferente!</p>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="color: var(--color-gray-300); font-size: 15px;">Veja a resolução completa nos próximos slides →</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Resolução Parte 1 -->
+        <div class="slide" data-slide="21">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">ATIVIDADE 5: Resolução Comentada - Análise</h2>
+                <p class="slide-subtitle">1. Essa classe viola o SRP?</p>
+                <div class="definition-card" style="background: rgba(255, 84, 89, 0.2); border-left-color: var(--color-red-400);">
+                    <div class="icon">✅</div>
+                    <p class="definition-text" style="font-size: 20px; color: var(--color-red-400); font-weight: 700;">SIM, VIOLA O SRP!</p>
+                </div>
+                <div class="section-title" style="margin-top: 30px;">📊 Análise das Responsabilidades</div>
+                <div class="responsibility-analysis">
+                    <div class="responsibility-item">
+                        <div class="responsibility-header">Responsabilidade 1: Gerenciamento de Produtos</div>
+                        <div class="responsibility-content">
+                            <p><strong>Métodos:</strong> <code>CriarProduto()</code>, <code>AtualizarProduto()</code></p>
+                            <p><strong>Razão para mudar:</strong> Regras de negócio de produtos mudam</p>
+                            <p><strong>Ator:</strong> Gerente de produtos / Equipe de negócios</p>
+                        </div>
+                    </div>
+                    <div class="responsibility-item">
+                        <div class="responsibility-header">Responsabilidade 2: Comunicação (Email Marketing)</div>
+                        <div class="responsibility-content">
+                            <p><strong>Método:</strong> <code>EnviarEmailPromocional()</code></p>
+                            <p><strong>Razão para mudar:</strong> Template de email muda, estratégia de marketing muda</p>
+                            <p><strong>Ator:</strong> Equipe de marketing</p>
+                        </div>
+                    </div>
+                    <div class="responsibility-item">
+                        <div class="responsibility-header">Responsabilidade 3: Geração de Relatórios</div>
+                        <div class="responsibility-content">
+                            <p><strong>Método:</strong> <code>GerarRelatorioVendas()</code></p>
+                            <p><strong>Razão para mudar:</strong> Formato do relatório muda, métricas mudam</p>
+                            <p><strong>Ator:</strong> Equipe de Business Intelligence / Gerência</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-card" style="margin-top: 30px;">
+                    <h4>❌ Por que VIOLA o SRP:</h4>
+                    <p style="font-size: 16px; line-height: 1.6; color: var(--color-gray-200);">A classe tem <strong>3-4 RAZÕES DIFERENTES</strong> para mudar. Se a equipe de marketing decide mudar o template de email promocional, a classe <code>GerenciadorProduto</code> precisa ser alterada. Se o BI quer novo formato de relatório, a classe também muda. Isso cria <strong>ACOPLAMENTO</strong> entre responsabilidades não relacionadas e <strong>AUMENTA</strong> o risco de bugs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Resolução Parte 2 -->
+        <div class="slide" data-slide="22">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">ATIVIDADE 5: Resolução Comentada - Refatoração</h2>
+                <p class="slide-subtitle">2. Proposta de Refatoração</p>
+                <div class="refactored-classes">
+                    <div class="refactored-class class-1">
+                        <div class="class-icon">📦</div>
+                        <h3>Classe 1: ProdutoService</h3>
+                        <div class="class-content">
+                            <p class="class-responsibility"><strong>Responsabilidade:</strong> Gerenciar REGRAS DE NEGÓCIO de produtos</p>
+                            <p class="class-methods"><strong>Métodos:</strong></p>
+                            <ul class="key-points">
+                                <li><code>CriarProduto(nome, preco)</code></li>
+                                <li><code>AtualizarProduto(id, nome, preco)</code></li>
+                                <li><code>BuscarProduto(id)</code></li>
+                            </ul>
+                            <p class="class-reason"><strong>Razão única para mudar:</strong> Regras de negócio de produtos mudam</p>
+                        </div>
+                    </div>
+                    <div class="refactored-class class-2">
+                        <div class="class-icon">📧</div>
+                        <h3>Classe 2: EmailMarketingService</h3>
+                        <div class="class-content">
+                            <p class="class-responsibility"><strong>Responsabilidade:</strong> Gerenciar ENVIO DE EMAILS PROMOCIONAIS</p>
+                            <p class="class-methods"><strong>Métodos:</strong></p>
+                            <ul class="key-points">
+                                <li><code>EnviarEmailPromocional(produto, listaEmails)</code></li>
+                                <li><code>EnviarCampanha(campanha)</code></li>
+                            </ul>
+                            <p class="class-reason"><strong>Razão única para mudar:</strong> Estratégia de marketing ou templates de email mudam</p>
+                        </div>
+                    </div>
+                    <div class="refactored-class class-3">
+                        <div class="class-icon">📊</div>
+                        <h3>Classe 3: RelatorioVendasService</h3>
+                        <div class="class-content">
+                            <p class="class-responsibility"><strong>Responsabilidade:</strong> Gerenciar GERAÇÃO DE RELATÓRIOS de vendas</p>
+                            <p class="class-methods"><strong>Métodos:</strong></p>
+                            <ul class="key-points">
+                                <li><code>GerarRelatorioVendas(periodo)</code></li>
+                                <li><code>GerarRelatorioMensal()</code></li>
+                                <li><code>ExportarParaPDF(relatorio)</code></li>
+                            </ul>
+                            <p class="class-reason"><strong>Razão única para mudar:</strong> Formato ou métricas dos relatórios mudam</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card" style="margin-top: 30px; background: rgba(76, 175, 80, 0.2); border-left-color: #4caf50;">
+                    <p style="color: #4caf50; font-size: 17px;"><strong>✅ Agora cada classe tem APENAS UMA responsabilidade e APENAS UMA razão para mudar. O código fica mais organizado, testável e manutenível!</strong></p>
+                </div>
+                <div class="content-card" style="margin-top: 25px;">
+                    <h3 style="color: var(--color-accent-orange); margin-bottom: 15px;">📋 Critérios de Avaliação</h3>
+                    <ul class="key-points">
+                        <li>✓ Identificou que GerenciadorProduto viola SRP</li>
+                        <li>✓ Explicou que classe tem múltiplas responsabilidades</li>
+                        <li>✓ Mencionou diferentes "atores" ou razões para mudar</li>
+                        <li>✓ Propôs separação em 3 classes diferentes</li>
+                        <li>✓ Cada nova classe tem 1 responsabilidade clara</li>
+                        <li>✓ Nomes das classes descrevem bem suas responsabilidades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="navigation-controls">
+        <button class="nav-button" id="prevBtn" aria-label="Slide anterior">
+            <span>‹</span>
+        </button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">22</span>
+        </div>
+        <button class="nav-button" id="nextBtn" aria-label="Próximo slide">
+            <span>›</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
