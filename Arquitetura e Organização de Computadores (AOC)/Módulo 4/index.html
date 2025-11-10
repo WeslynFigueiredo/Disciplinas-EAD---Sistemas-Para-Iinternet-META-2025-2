@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4 - A Organização Inteligente da Memória | META</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- SLIDE 1: Título -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <br><br>
+                    <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+                    <h1 class="main-title">MÓDULO 4</h1>
+                    <p style="font-size: 1.3rem; margin-top: 40px; color: rgba(255,255,255,0.8);">Arquitetura e Organização de Computadores (AOC)</p>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Hierarquia de Memória e Memória Cache</p>
+                    <div class="title-decoration"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Objetivos -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Objetivos de Aprendizagem</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Compreender a Hierarquia de Memória (Registradores → Cache → RAM → Disco)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Entender o trade-off entre velocidade, capacidade e custo</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Conhecer os níveis de Cache (L1, L2, L3) e suas características</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Dominar os Princípios de Localidade Temporal e Espacial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: O Problema -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="slide-title">⚡ O Dilema da Velocidade</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O Grande Desafio:</h3>
+                    <div class="highlight">
+                        <p><strong>A CPU é MUITO RÁPIDA</strong></p>
+                        <p style="margin-top: 15px;">Um processador moderno pode executar <strong>bilhões de instruções por segundo</strong></p>
+                    </div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); border-radius: 8px;">
+                        <p style="text-align: center; font-size: 1.2rem; margin: 0;"><strong>❌ PROBLEMA: A memória RAM é LENTA demais!</strong></p>
+                        <p style="text-align: center; margin: 15px 0 0 0;">Se a CPU esperasse a RAM o tempo todo, seria como uma Ferrari parada no trânsito 🚗💨</p>
+                    </div>
+                    <div style="margin-top: 25px; padding: 20px; background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); border-radius: 8px;">
+                        <p style="text-align: center; font-size: 1.2rem; margin: 0;"><strong>✓ SOLUÇÃO: Hierarquia de Memória!</strong></p>
+                        <p style="text-align: center; margin: 10px 0 0 0;">Usar memórias mais rápidas (Cache) entre CPU e RAM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Pirâmide da Hierarquia -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2 class="slide-title">🔺 A Pirâmide da Hierarquia de Memória</h2>
+                <div class="content-box">
+                    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">Do mais rápido (topo) ao mais lento (base):</p>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.3), rgba(244, 180, 26, 0.1)); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.3rem;">🔥 REGISTRADORES</h4>
+                            <p style="margin: 0; font-size: 0.9rem;">Velocidade: ⚡⚡⚡⚡⚡ | Capacidade: 📦 (bytes)</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.25), rgba(244, 180, 26, 0.08)); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.3rem;">⚡ CACHE (L1, L2, L3)</h4>
+                            <p style="margin: 0; font-size: 0.9rem;">Velocidade: ⚡⚡⚡⚡ | Capacidade: 📦📦 (KB - MB)</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.2), rgba(244, 180, 26, 0.05)); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.3rem;">💾 RAM (Memória Principal)</h4>
+                            <p style="margin: 0; font-size: 0.9rem;">Velocidade: ⚡⚡⚡ | Capacidade: 📦📦📦📦 (GB)</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.15), rgba(244, 180, 26, 0.03)); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.3rem;">💿 DISCO/SSD (Memória Secundária)</h4>
+                            <p style="margin: 0; font-size: 0.9rem;">Velocidade: ⚡ | Capacidade: 📦📦📦📦📦📦 (TB)</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: rgba(255,255,255,0.8);"><strong>↑ Quanto mais no topo = mais rápido, mais caro, menor capacidade</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Analogia da Cozinha -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2 class="slide-title">👨‍🍳 Analogia: Acessibilidade de uma Cozinha</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">✋ REGISTRADORES = MÃO</h4>
+                            <p style="margin: 0;">O que você está segurando AGORA. Acesso instantâneo, mas só cabe muito pouco!</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">📋 CACHE = PRATELEIRA DA FRENTE</h4>
+                            <p style="margin: 0;">Ingredientes mais usados na bancada. Acesso rápido (1 segundo), capacidade média</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">🗄️ RAM = ARMÁRIO</h4>
+                            <p style="margin: 0;">Todos os ingredientes da cozinha. Precisa abrir e buscar (5-10 segundos), mas tem MUITO</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">🏚️ DISCO = DESPENSA</h4>
+                            <p style="margin: 0;">Depósito no porão. Precisa ir até lá buscar (minutos), mas capacidade ENORME</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>🎯 Cozinheiro eficiente = Mantém itens mais usados NA MÃO e NA BANCADA!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Trade-off (Velocidade x Capacidade x Custo) -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2 class="slide-title">⚖️ O Trade-off: Velocidade × Capacidade × Custo</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O Grande Compromisso:</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <thead>
+                            <tr style="background: rgba(244, 180, 26, 0.15);">
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold);">Tipo</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold);">Velocidade</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold);">Capacidade</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid var(--meta-gold);">Custo/GB</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>Registradores</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">⚡⚡⚡⚡⚡</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">📦 (bytes)</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">💰💰💰💰💰</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>Cache</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">⚡⚡⚡⚡</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">📦📦 (MB)</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">💰💰💰💰</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>RAM</strong></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">⚡⚡⚡</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">📦📦📦📦 (GB)</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">💰💰</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 12px; text-align: center;"><strong>Disco/SSD</strong></td>
+                                <td style="padding: 12px; text-align: center;">⚡</td>
+                                <td style="padding: 12px; text-align: center;">📦📦📦📦📦📦 (TB)</td>
+                                <td style="padding: 12px; text-align: center;">💰</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px;">
+                        <p style="margin: 0; text-align: center;"><strong>📌 REGRA DE OURO: Não dá para ter tudo! Velocidade alta = Caro + Pouca capacidade</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Tempos de Acesso -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2 class="slide-title">⏱️ Tempos de Acesso Reais</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Quantos ciclos de clock para acessar?</h3>
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                            <h4 style="color: rgb(76, 175, 80); margin: 0 0 10px 0;">⚡ REGISTRADORES: < 1 ciclo</h4>
+                            <p style="margin: 0;">Acesso INSTANTÂNEO! Dados já estão DENTRO da CPU</p>
+                        </div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                            <h4 style="color: rgb(76, 175, 80); margin: 0 0 10px 0;">⚡ CACHE L1: 1-4 ciclos</h4>
+                            <p style="margin: 0;">Dentro do núcleo da CPU. Velocidade INSANA!</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">⚡ CACHE L2: 10-20 ciclos</h4>
+                            <p style="margin: 0;">Ainda no processador, mas compartilhada</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">⚡ CACHE L3: 30-70 ciclos</h4>
+                            <p style="margin: 0;">Compartilhada entre TODOS os núcleos</p>
+                        </div>
+                        <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 20px; border-radius: 6px;">
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 10px 0;">🐌 RAM: 100-300 ciclos</h4>
+                            <p style="margin: 0;">Fora da CPU. Demora MUITO mais! Cache miss = problema!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: O que é Cache -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2 class="slide-title">💎 Memória Cache: O Segredo da Velocidade</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que é Cache?</h3>
+                    <div class="highlight">
+                        <p><strong>Cache = Memória de altíssima velocidade que armazena CÓPIAS de dados da RAM</strong></p>
+                        <p style="margin-top: 15px;">Fica DENTRO ou MUITO PERTO da CPU para minimizar latência</p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Como funciona?</h3>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; line-height: 2;">
+                            <p style="margin: 0;">1️⃣ CPU precisa de um dado do endereço X</p>
+                            <p style="margin: 0;">2️⃣ CPU verifica: "X está na Cache?" (CACHE HIT?)</p>
+                            <p style="margin: 0;">3️⃣ <strong style="color: rgb(76, 175, 80);">SIM:</strong> Lê da Cache (RÁPIDO! 1-4 ciclos) ✓</p>
+                            <p style="margin: 0;">4️⃣ <strong style="color: rgb(255, 84, 89);">NÃO:</strong> Vai buscar na RAM (LENTO! 100+ ciclos) e copia para Cache ❌</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>🎯 Objetivo: Maximizar CACHE HIT (acerto) e minimizar CACHE MISS (erro)!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Níveis de Cache (L1, L2, L3) -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2 class="slide-title">🔢 Os 3 Níveis de Cache: L1, L2, L3</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 25px;">
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">L1 CACHE</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">🔥 A Mais Rápida!</h4>
+                            <p style="margin: 0;"><strong>Localização:</strong> Dentro de CADA núcleo da CPU</p>
+                            <p style="margin: 8px 0 0 0;"><strong>Tamanho:</strong> 32KB - 64KB (muito pequena!)</p>
+                            <p style="margin: 8px 0 0 0;"><strong>Velocidade:</strong> 1-4 ciclos de clock ⚡⚡⚡⚡⚡</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">L2 CACHE</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">⚡ O Meio-Termo</h4>
+                            <p style="margin: 0;"><strong>Localização:</strong> Ainda na CPU, mas pode ser compartilhada</p>
+                            <p style="margin: 8px 0 0 0;"><strong>Tamanho:</strong> 256KB - 1MB (maior que L1)</p>
+                            <p style="margin: 8px 0 0 0;"><strong>Velocidade:</strong> 10-20 ciclos de clock ⚡⚡⚡⚡</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">L3 CACHE</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">💪 A Maior!</h4>
+                            <p style="margin: 0;"><strong>Localização:</strong> Compartilhada entre TODOS os núcleos</p>
+                            <p style="margin: 8px 0 0 0;"><strong>Tamanho:</strong> 8MB - 64MB (enorme!)</p>
+                            <p style="margin: 8px 0 0 0;"><strong>Velocidade:</strong> 30-70 ciclos de clock ⚡⚡⚡</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Fluxo de Busca -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <h2 class="slide-title">🔍 Fluxo de Busca: CPU → Caches → RAM</h2>
+                <div class="content-box">
+                    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">Quando a CPU precisa de um dado:</p>
+                    <div style="display: grid; gap: 20px;">
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">1</div>
+                            <div>
+                                <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">Verifica L1 Cache</h4>
+                                <p style="margin: 0;">Achou? ✓ Usa! (1-4 ciclos) | Não achou? ❌ Vai para L2</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">2</div>
+                            <div>
+                                <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">Verifica L2 Cache</h4>
+                                <p style="margin: 0;">Achou? ✓ Usa! (10-20 ciclos) | Não achou? ❌ Vai para L3</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">3</div>
+                            <div>
+                                <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">Verifica L3 Cache</h4>
+                                <p style="margin: 0;">Achou? ✓ Usa! (30-70 ciclos) | Não achou? ❌ Vai para RAM</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="background: rgb(255, 84, 89); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">4</div>
+                            <div>
+                                <h4 style="color: rgb(255, 84, 89); margin: 0 0 5px 0;">Busca na RAM (MISS)</h4>
+                                <p style="margin: 0;">100-300 ciclos! 🐌 E copia o dado para Cache</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Princípios de Localidade -->
+        <div class="slide" data-slide="11">
+            <div class="slide-content">
+                <h2 class="slide-title">🧠 Os Princípios de Localidade</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Por que Cache funciona TÃO BEM?</h3>
+                    <div class="highlight">
+                        <p><strong>Porque os programas NÃO acessam a memória de forma aleatória!</strong></p>
+                        <p style="margin-top: 15px;">Eles seguem PADRÕES PREVISÍVEIS ✓</p>
+                    </div>
+                    <div style="margin-top: 30px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                        <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; font-size: 1.3rem; text-align: center;">🎯 Os 2 Princípios:</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">⏱️ TEMPORAL</h4>
+                                <p style="margin: 0; font-size: 0.95rem;">Dados recém-usados serão usados DE NOVO em breve</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 6px; text-align: center;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">📍 ESPACIAL</h4>
+                                <p style="margin: 0; font-size: 0.95rem;">Se usou X, logo usará X+1, X+2... (vizinhos)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Localidade Temporal -->
+        <div class="slide" data-slide="12">
+            <div class="slide-content">
+                <h2 class="slide-title">⏱️ Localidade Temporal</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que afirma?</h3>
+                    <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; margin-bottom: 30px; text-align: center;">
+                        <p style="margin: 0; font-size: 1.2rem;"><strong>"Se um item foi referenciado RECENTEMENTE, ele será referenciado NOVAMENTE em breve"</strong></p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplo Prático: Loop de Programação</h3>
+                    <div style="background: #000; color: var(--meta-gold); padding: 20px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.8;">
+for (int i = 0; i < 1000; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;soma = soma + i;<br>
+}
+                    </div>
+                    <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                        <h4 style="color: rgb(76, 175, 80); margin: 0 0 10px 0;">✓ Análise:</h4>
+                        <p style="margin: 0;">A variável <strong>soma</strong> é acessada 1000 vezes!</p>
+                        <p style="margin: 10px 0 0 0;">Cache mantém <strong>soma</strong> na L1 porque ela é usada REPETIDAMENTE</p>
+                        <p style="margin: 10px 0 0 0;">Resultado: 1000 acessos RÁPIDOS ao invés de 1000 idas à RAM! 🚀</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Localidade Espacial -->
+        <div class="slide" data-slide="13">
+            <div class="slide-content">
+                <h2 class="slide-title">📍 Localidade Espacial</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que afirma?</h3>
+                    <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px; margin-bottom: 30px; text-align: center;">
+                        <p style="margin: 0; font-size: 1.2rem;"><strong>"Se um item foi referenciado, itens com endereços PRÓXIMOS serão referenciados em breve"</strong></p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplo Prático: Percorrer um Array</h3>
+                    <div style="background: #000; color: var(--meta-gold); padding: 20px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.8;">
+int array[100];<br>
+for (int i = 0; i < 100; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(array[i]);<br>
+}
+                    </div>
+                    <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px;">
+                        <h4 style="color: rgb(76, 175, 80); margin: 0 0 10px 0;">✓ Análise:</h4>
+                        <p style="margin: 0;">Ao acessar <strong>array[0]</strong>, o Cache já traz <strong>array[1], array[2], array[3]...</strong> (VIZINHOS!)</p>
+                        <p style="margin: 10px 0 0 0;">Isso é feito em BLOCOS (cache line) de 64 bytes</p>
+                        <p style="margin: 10px 0 0 0;">Resultado: 1 acesso à RAM, mas 16+ elementos já estão no Cache! 🚀</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Quebra-Cabeça -->
+        <div class="slide" data-slide="14">
+            <div class="slide-content">
+                <h2 class="slide-title">❓ Quebra-Cabeça da Localidade</h2>
+                <div class="content-box">
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
+                        <h3 style="color: rgb(59, 130, 246); margin: 0 0 15px 0;">🧩 PERGUNTA LÓGICA:</h3>
+                        <p style="margin: 0; font-size: 1.1rem;">"Qual princípio explica por que, ao ler um elemento de um array, o computador já traz os próximos elementos automaticamente?"</p>
+                    </div>
+                    <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 25px; border-radius: 8px;">
+                        <h3 style="color: rgb(76, 175, 80); margin: 0 0 15px 0;">✓ RESPOSTA:</h3>
+                        <p style="margin: 0; font-size: 1.1rem;"><strong>Localidade ESPACIAL!</strong></p>
+                        <p style="margin: 15px 0 0 0;">Porque elementos de um array estão em endereços CONSECUTIVOS na memória. Ao buscar array[0], o sistema já sabe que você provavelmente vai acessar array[1], array[2]... então traz TODOS de uma vez em um bloco (cache line)!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Cache Line -->
+        <div class="slide" data-slide="15">
+            <div class="slide-content">
+                <h2 class="slide-title">📦 Cache Line: Blocos de Dados</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que é Cache Line?</h3>
+                    <div class="highlight">
+                        <p><strong>Cache Line = Unidade básica de transferência entre RAM e Cache</strong></p>
+                        <p style="margin-top: 15px;">Tamanho típico: <strong>64 bytes</strong></p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Como funciona?</h3>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; line-height: 2;">
+                            <p style="margin: 0;">1️⃣ CPU pede o byte no endereço 1000</p>
+                            <p style="margin: 0;">2️⃣ Cache MISS! Vai buscar na RAM</p>
+                            <p style="margin: 0;">3️⃣ <strong>Mas não traz só o byte 1000!</strong></p>
+                            <p style="margin: 0;">4️⃣ Traz TODA a cache line: endereços 1000-1063 (64 bytes)</p>
+                            <p style="margin: 0;">5️⃣ Armazena tudo na Cache</p>
+                            <p style="margin: 0;">6️⃣ Próximos acessos a 1001, 1002... são HITS! ✓</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>🎯 Otimização: 1 acesso lento, 64 bytes trazidos!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDES 16-22: Conteúdo Complementar -->
+        <!-- SLIDE 16 -->
+        <div class="slide" data-slide="16">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Resumo da Hierarquia</h2>
+                <div class="content-box">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(244, 180, 26, 0.15);">
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Nível</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Tamanho Típico</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Tempo Acesso</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid var(--meta-gold);">Função</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>Registradores</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">~1KB</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">< 1 ciclo</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Dados imediatos</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>L1 Cache</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">32-64 KB</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">1-4 ciclos</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Dados frequentes</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>L2 Cache</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">256KB-1MB</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">10-20 ciclos</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Backup de L1</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);"><strong>L3 Cache</strong></td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">8-64 MB</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">30-70 ciclos</td>
+                                <td style="padding: 12px; border-bottom: 1px solid rgba(244, 180, 26, 0.2);">Compartilhada</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;"><strong>RAM</strong></td>
+                                <td style="padding: 12px;">4-64 GB</td>
+                                <td style="padding: 12px;">100-300 ciclos</td>
+                                <td style="padding: 12px;">Memória principal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17 -->
+        <div class="slide" data-slide="17">
+            <div class="slide-content">
+                <h2 class="slide-title">💡 Por Que Cache Funciona?</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🎯</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Programas são Previsíveis</h4>
+                            <p style="margin: 0;">90% dos acessos seguem padrões de localidade temporal e espacial</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📦</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Cache Lines Inteligentes</h4>
+                            <p style="margin: 0;">Trazem blocos inteiros de dados de uma vez</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Taxa de Acerto Alta</h4>
+                            <p style="margin: 0;">CPUs modernas atingem 95%+ de cache hit em L1</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Ganho Exponencial</h4>
+                            <p style="margin: 0;">Diferença de 1-4 ciclos vs 100-300 ciclos = 25-75x mais rápido!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18 -->
+        <div class="slide" data-slide="18">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Checklist de Aprendizado</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Hierarquia: Registradores → Cache → RAM → Disco</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Trade-off: Velocidade ↔ Capacidade ↔ Custo</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Cache L1, L2, L3: Níveis de velocidade e tamanho</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Localidade Temporal: Dados recentes serão reusados</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Localidade Espacial: Vizinhos serão acessados</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Cache Line: 64 bytes trazidos por vez</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19 -->
+        <div class="slide" data-slide="19">
+            <div class="slide-content">
+                <h2 class="slide-title">🔗 Por Que Cache Está Perto da CPU?</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Distância Física = Latência</h3>
+                    <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;">⚡ Sinal elétrico viaja à velocidade da luz (~300.000 km/s)</p>
+                        <p style="margin: 15px 0 0 0; font-size: 1.05rem;">📏 MAS: Distâncias físicas importam em escala de nanossegundos!</p>
+                        <p style="margin: 15px 0 0 0; font-size: 1.05rem;">🎯 Cache L1 dentro do núcleo = 0 distância física!</p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O Trade-off:</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 8px;">
+                            <h4 style="color: rgb(76, 175, 80); margin: 0 0 10px 0;">✓ VANTAGEM</h4>
+                            <p style="margin: 0;">Velocidade MÁXIMA (1-4 ciclos)</p>
+                        </div>
+                        <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 20px; border-radius: 8px;">
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 10px 0;">❌ DESVANTAGEM</h4>
+                            <p style="margin: 0;">Tamanho LIMITADO (32-64 KB) devido ao espaço físico restrito</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20 -->
+        <div class="slide" data-slide="20">
+            <div class="slide-content">
+                <h2 class="slide-title">💰 Custo da Hierarquia</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Por que não fazer tudo em Cache?</h3>
+                    <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 25px; border-radius: 8px; margin-bottom: 25px; text-align: center;">
+                        <p style="margin: 0; font-size: 1.2rem;"><strong>CUSTO! Cache é EXTREMAMENTE CARA!</strong></p>
+                        <p style="margin: 15px 0 0 0;">Se 16GB de RAM custam $50, 16GB de Cache L1 custaria MILHÕES! 💸</p>
+                    </div>
+                    <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px;">
+                        <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; text-align: center;">💡 A Solução Inteligente:</h4>
+                        <p style="margin: 0; text-align: center;">Usar POUCA Cache (cara mas rápida) para dados quentes</p>
+                        <p style="margin: 10px 0 0 0; text-align: center;">+ MUITA RAM (barata mas lenta) para dados frios</p>
+                        <p style="margin: 10px 0 0 0; text-align: center; color: var(--meta-gold);"><strong>= Melhor custo-benefício!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21 -->
+        <div class="slide" data-slide="21">
+            <div class="slide-content">
+                <h2 class="slide-title">📚 Atividade 4</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Questão 1: Localidade Temporal</h3>
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>Explique o que o Princípio da Localidade Temporal afirma e forneça um exemplo prático (ex: em um loop de programação) de como ele se manifesta.</strong></p>
+                    </div>
+                </div>
+                <br>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Questão 2: Proximidade da Cache</h3>
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>Por que a Memória Cache está fisicamente mais próxima do processador e qual o principal trade-off (compromisso) dessa proximidade?</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 22 -->
+        <div class="slide" data-slide="22">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Conclusão: A Organização Inteligente</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🧠</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Hierarquia é Essencial</h4>
+                            <p style="margin: 0;">Combina velocidade e capacidade de forma inteligente</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Cache Salva o Dia</h4>
+                            <p style="margin: 0;">Transforma acesso lento à RAM em acesso rápido</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🎯</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Localidade é o Segredo</h4>
+                            <p style="margin: 0;">Programas previsíveis tornam Cache eficiente</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💪</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Você Entendeu!</h4>
+                            <p style="margin: 0;">Agora sabe como a memória é organizada de forma otimizada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23 -->
+        <div class="slide" data-slide="23">
+            <div class="slide-content">
+                <h2 class="slide-title">📋 Resumo Final: Tópicos Cobertos</h2>
+                <div class="content-box">
+                    <ul style="list-style: none; padding: 0; display: grid; gap: 15px;">
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Hierarquia de Memória:</strong> Registradores → Cache (L1, L2, L3) → RAM → Disco</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Trade-off:</strong> Velocidade alta = Caro + Pouca capacidade</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Cache:</strong> Memória ultrarrápida que armazena cópias de dados da RAM</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Localidade Temporal:</strong> Dados recentes são reusados</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Localidade Espacial:</strong> Vizinhos são acessados em sequência</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Cache Line:</strong> 64 bytes trazidos por vez para otimizar acesso</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Obrigado -->
+        <div class="slide" data-slide="24">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <h1 class="main-title" style="font-size: 3rem;">Parabéns! 🎓</h1>
+                    <h2 class="subtitle">Você domina a Organização Inteligente da Memória!</h2>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Módulo 4 - Hierarquia de Memória e Cache</p>
+                    <div class="title-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="navigation-bar">
+        <button class="nav-button" id="prevBtn">‹</button>
+        <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">25</span></div>
+        <button class="nav-button" id="nextBtn">›</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
