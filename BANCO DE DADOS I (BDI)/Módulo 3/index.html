@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÓDULO 3 - Banco de Dados I - SQL Básico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="progress-header">
+            <span class="progress-text" id="progressText">Slide 1 de 20</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="slide-wrapper">
+            <!-- Slide 1: Title -->
+            <div class="slide active" data-slide="1">
+                <div class="title-slide">
+                    <div class="database-icon">💻</div>
+                    <h1>MÓDULO 3 - Banco de Dados I</h1>
+                    <p class="subtitle">SQL Básico: Conversando com o Banco</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Objectives -->
+            <div class="slide" data-slide="2">
+                <h2>📋 Objetivos do Módulo</h2>
+                <p>Ao final deste módulo, você será capaz de:</p>
+                <ul class="objectives-list">
+                    <li>Compreender o que é SQL e sua importância</li>
+                    <li>Diferenciar DDL de DML</li>
+                    <li>Dominar o comando SELECT com suas cláusulas (FROM, WHERE, ORDER BY)</li>
+                    <li>Dominar o comando INSERT para adicionar dados</li>
+                    <li>Aplicar boas práticas ao escrever queries SQL</li>
+                    <li>Escrever comandos SQL funcionais para consulta e inserção</li>
+                </ul>
+            </div>
+
+            <!-- Slide 3: Introduction to SQL -->
+            <div class="slide" data-slide="3">
+                <h2>💬 O que é SQL? - A Linguagem do Banco de Dados</h2>
+                
+                <div class="card" style="margin: 2rem 0;">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        <strong>SQL (Structured Query Language)</strong> é a linguagem padrão para gerenciar e manipular Bancos de Dados Relacionais. É universalmente aceita e usada em praticamente todos os SGBDs (MySQL, PostgreSQL, Oracle, SQL Server, etc).
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">📚</div>
+                    <div class="card-title">Analogia do "Arquivista Chefe"</div>
+                    <div class="card-content">
+                        Imagine o Banco de Dados como um <strong>GRANDE ARQUIVO</strong> em uma biblioteca. O SGBD é o "Arquivista Chefe". Você não pode simplesmente gritar ou fazer gestos - precisa usar um <strong>IDIOMA FORMAL</strong> para fazer perguntas e dar ordens. Esse idioma é o SQL!
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; text-align: center;">Exemplos de "Conversas" com o Banco</h3>
+                
+                <div class="concept-grid">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔍</div>
+                            <div class="concept-name">SELECT</div>
+                        </div>
+                        <div class="concept-definition">"Mostre-me todos os livros publicados em 2024"</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">➕</div>
+                            <div class="concept-name">INSERT</div>
+                        </div>
+                        <div class="concept-definition">"Adicione este novo livro ao catálogo"</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">✏️</div>
+                            <div class="concept-name">UPDATE</div>
+                        </div>
+                        <div class="concept-definition">"Atualize o preço deste livro"</div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗑️</div>
+                            <div class="concept-name">DELETE</div>
+                        </div>
+                        <div class="concept-definition">"Remova este livro do catálogo"</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content" style="text-align: center;">
+                        <strong>IMPORTANTE:</strong> SQL não é case-sensitive (SELECT = select), mas POR CONVENÇÃO usamos <strong>COMANDOS EM MAIÚSCULO</strong> e nomes de tabelas/colunas em minúsculo para melhor legibilidade.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: DDL vs DML -->
+            <div class="slide" data-slide="4">
+                <h2>🔧 DDL vs. DML - Dois "Dialetos" do SQL</h2>
+                
+                <div class="concept-grid">
+                    <div class="card" style="grid-column: span 1;">
+                        <div class="card-icon">📐</div>
+                        <div class="card-title">DDL (Data Definition Language)</div>
+                        <div class="card-content">
+                            <p><strong>Nome:</strong> Linguagem de Definição de Dados</p>
+                            <p><strong>Função:</strong> Cria ou muda a ESTRUTURA das tabelas</p>
+                            <p><strong>Analogia:</strong> É como um arquiteto alterando a planta de uma biblioteca (mudando as prateleiras, criando novas seções)</p>
+                            
+                            <p style="margin-top: 1rem;"><strong>Comandos principais:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>✓ <code>CREATE TABLE</code> - Cria uma nova tabela</li>
+                                <li>✓ <code>DROP TABLE</code> - Remove uma tabela</li>
+                                <li>✓ <code>ALTER TABLE</code> - Modifica a estrutura</li>
+                                <li>✓ <code>CREATE INDEX</code> - Cria um índice</li>
+                            </ul>
+
+                            <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15);">
+                                <div class="card-content">
+                                    <strong>Exemplo DDL:</strong>
+                                    <pre style="margin-top: 0.5rem; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>CREATE TABLE produtos (
+    id INT PRIMARY KEY,
+    nome VARCHAR(100),
+    preco DECIMAL(10,2)
+);</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="grid-column: span 1;">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">DML (Data Manipulation Language)</div>
+                        <div class="card-content">
+                            <p><strong>Nome:</strong> Linguagem de Manipulação de Dados</p>
+                            <p><strong>Função:</strong> Manipula os DADOS dentro das estruturas</p>
+                            <p><strong>Analogia:</strong> É como um bibliotecário cadastrando/consultando/atualizando livros nas prateleiras existentes</p>
+                            
+                            <p style="margin-top: 1rem;"><strong>Comandos principais:</strong></p>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>✓ <code>SELECT</code> - Consulta dados</li>
+                                <li>✓ <code>INSERT</code> - Adiciona novos dados</li>
+                                <li>✓ <code>UPDATE</code> - Atualiza dados existentes</li>
+                                <li>✓ <code>DELETE</code> - Remove dados</li>
+                            </ul>
+
+                            <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15);">
+                                <div class="card-content">
+                                    <strong>Exemplo DML:</strong>
+                                    <pre style="margin-top: 0.5rem; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>SELECT nome, preco
+FROM produtos
+WHERE preco &gt; 100;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: DDL/DML Game -->
+            <div class="slide" data-slide="5">
+                <h2>🎮 Jogo: DDL ou DML?</h2>
+                <p class="subtitle">Identifique a categoria de cada comando SQL</p>
+                
+                <div id="game-ddl-dml" class="game-container">
+                    <div class="game-progress">
+                        <p>Questão <span id="ddl-current">1</span> de 8</p>
+                        <p>Acertos: <span id="ddl-score">0</span></p>
+                    </div>
+                    
+                    <div id="ddl-scenario" class="scenario-box">
+                        <!-- Comando será inserido dinamicamente -->
+                    </div>
+                    
+                    <div id="ddl-options" class="options-container">
+                        <!-- Opções serão inseridas dinamicamente -->
+                    </div>
+                    
+                    <div id="ddl-feedback" class="feedback-box" style="display: none;">
+                        <!-- Feedback será inserido dinamicamente -->
+                    </div>
+                    
+                    <button id="ddl-next-btn" class="btn" style="display: none;">Próxima Questão</button>
+                    
+                    <div id="ddl-final" class="final-score" style="display: none;">
+                        <!-- Placar final -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: SELECT Introduction -->
+            <div class="slide" data-slide="6">
+                <h2>🔍 Comando SELECT - A Base das Consultas</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-content">
+                        <p>O <strong>SELECT</strong> é o comando mais usado em SQL. Com ele, você <strong>CONSULTA</strong> (busca) dados no banco.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Estrutura Básica:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>SELECT colunas
+FROM tabela
+WHERE condição
+ORDER BY coluna;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Anatomia do SELECT - 4 Partes Principais</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2;">
+                            <li>
+                                <strong style="color: #f4b41a;">SELECT</strong> - "O QUE você quer ver"
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Lista as colunas que você quer no resultado</p>
+                                <p style="margin-left: 1.5rem;">Exemplo: <code style="background: rgba(244, 180, 26, 0.2); padding: 0.2rem 0.5rem; border-radius: 3px;">SELECT nome, preco</code></p>
+                            </li>
+                            <li style="margin-top: 1rem;">
+                                <strong style="color: #f4b41a;">FROM</strong> - "DE ONDE você quer buscar"
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Especifica a tabela de origem</p>
+                                <p style="margin-left: 1.5rem;">Exemplo: <code style="background: rgba(244, 180, 26, 0.2); padding: 0.2rem 0.5rem; border-radius: 3px;">FROM produtos</code></p>
+                            </li>
+                            <li style="margin-top: 1rem;">
+                                <strong style="color: #f4b41a;">WHERE</strong> - "QUAIS linhas você quer filtrar"
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Define condições para filtrar registros</p>
+                                <p style="margin-left: 1.5rem;">Exemplo: <code style="background: rgba(244, 180, 26, 0.2); padding: 0.2rem 0.5rem; border-radius: 3px;">WHERE preco &gt; 500</code></p>
+                                <p style="margin-left: 1.5rem; font-style: italic; color: #a0aec0;">Opcional (se omitido, retorna todas as linhas)</p>
+                            </li>
+                            <li style="margin-top: 1rem;">
+                                <strong style="color: #f4b41a;">ORDER BY</strong> - "COMO você quer organizar"
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Ordena o resultado por uma ou mais colunas</p>
+                                <p style="margin-left: 1.5rem;">ASC = Ascendente (A-Z, 0-9) [padrão]</p>
+                                <p style="margin-left: 1.5rem;">DESC = Descendente (Z-A, 9-0)</p>
+                                <p style="margin-left: 1.5rem;">Exemplo: <code style="background: rgba(244, 180, 26, 0.2); padding: 0.2rem 0.5rem; border-radius: 3px;">ORDER BY nome ASC</code></p>
+                                <p style="margin-left: 1.5rem; font-style: italic; color: #a0aec0;">Opcional</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: SELECT Clause -->
+            <div class="slide" data-slide="7">
+                <h2>📝 Cláusula SELECT - O Que Você Quer Ver</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        A cláusula <strong>SELECT</strong> define <strong>QUAIS COLUNAS</strong> você quer visualizar no resultado.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>SELECT coluna1, coluna2, coluna3</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 1 - Selecionar colunas específicas</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos;</code></pre>
+                    <div class="card-content">
+                        <strong>Resultado:</strong> Retorna APENAS as colunas 'nome' e 'preco'
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 2 - Selecionar TODAS as colunas</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT *
+FROM produtos;</code></pre>
+                    <div class="card-content">
+                        <strong>Resultado:</strong> Retorna TODAS as colunas da tabela
+                    </div>
+                    <div class="card" style="margin-top: 0.5rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                        <div class="card-content">
+                            <strong>IMPORTANTE:</strong> Evite usar <code>*</code> em produção! Especifique sempre as colunas necessárias.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 3 - Selecionar com alias (apelido)</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome AS produto, preco AS valor
+FROM produtos;</code></pre>
+                    <div class="card-content">
+                        <strong>Resultado:</strong> As colunas aparecem com os nomes 'produto' e 'valor' no resultado
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: FROM Clause -->
+            <div class="slide" data-slide="8">
+                <h2>📂 Cláusula FROM - De Onde Buscar</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        A cláusula <strong>FROM</strong> especifica <strong>DE QUAL TABELA</strong> você quer buscar os dados.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>SELECT colunas
+FROM nome_da_tabela;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Exemplo:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos;</code></pre>
+                    <div class="card-content">
+                        <strong>Leitura:</strong> "Selecione nome e preço DA TABELA produtos"
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-title">⚠️ IMPORTANTE</div>
+                    <div class="card-content">
+                        <ul>
+                            <li>O nome da tabela DEVE existir no banco de dados</li>
+                            <li>Case-sensitive em alguns SGBDs (PostgreSQL)</li>
+                            <li>Sempre verifique o nome correto da tabela antes de consultar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: WHERE Clause -->
+            <div class="slide" data-slide="9">
+                <h2>🎯 Cláusula WHERE - Filtrando Resultados</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        A cláusula <strong>WHERE</strong> define <strong>CONDIÇÕES</strong> para filtrar quais linhas você quer no resultado. Só aparecem as linhas que atendem à condição.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>SELECT colunas
+FROM tabela
+WHERE condição;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Operadores Comuns no WHERE</div>
+                    <div class="card-content">
+                        <ul style="line-height: 1.8;">
+                            <li><code>=</code> - Igual a</li>
+                            <li><code>&gt;</code> - Maior que</li>
+                            <li><code>&lt;</code> - Menor que</li>
+                            <li><code>&gt;=</code> - Maior ou igual</li>
+                            <li><code>&lt;=</code> - Menor ou igual</li>
+                            <li><code>&lt;&gt;</code> ou <code>!=</code> - Diferente de</li>
+                            <li><code>AND</code> - E lógico (ambas condições devem ser verdadeiras)</li>
+                            <li><code>OR</code> - OU lógico (pelo menos uma condição deve ser verdadeira)</li>
+                            <li><code>LIKE</code> - Padrão de texto (usa % como coringa)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplos Práticos:</div>
+                    <div class="card-content">
+                        <p><strong>Exemplo 1:</strong> Produtos com preço maior que 100</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos
+WHERE preco &gt; 100;</code></pre>
+
+                        <p style="margin-top: 1rem;"><strong>Exemplo 2:</strong> Produtos de uma categoria específica</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos
+WHERE categoria = 'Eletrônicos';</code></pre>
+
+                        <p style="margin-top: 1rem;"><strong>Exemplo 3:</strong> Múltiplas condições com AND</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos
+WHERE preco &gt; 100 AND categoria = 'Eletrônicos';</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: ORDER BY -->
+            <div class="slide" data-slide="10">
+                <h2>📊 Cláusula ORDER BY - Ordenando Resultados</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        A cláusula <strong>ORDER BY</strong> ordena os resultados por uma ou mais colunas. Você pode ordenar de forma crescente (ASC) ou decrescente (DESC).
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>SELECT colunas
+FROM tabela
+ORDER BY coluna [ASC|DESC];</code></pre>
+                </div>
+
+                <div class="concept-grid" style="margin-top: 1.5rem;">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">⬆️</div>
+                            <div class="concept-name">ASC (Ascendente)</div>
+                        </div>
+                        <div class="concept-definition">
+                            Ordem crescente: A-Z, 0-9<br>
+                            É o padrão (se não especificar)
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">⬇️</div>
+                            <div class="concept-name">DESC (Descendente)</div>
+                        </div>
+                        <div class="concept-definition">
+                            Ordem decrescente: Z-A, 9-0<br>
+                            Precisa especificar explicitamente
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplos:</div>
+                    <div class="card-content">
+                        <p><strong>Exemplo 1:</strong> Ordenar por nome (A-Z)</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos
+ORDER BY nome ASC;</code></pre>
+
+                        <p style="margin-top: 1rem;"><strong>Exemplo 2:</strong> Ordenar por preço do maior para o menor</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, preco
+FROM produtos
+ORDER BY preco DESC;</code></pre>
+
+                        <p style="margin-top: 1rem;"><strong>Exemplo 3:</strong> Ordenar por múltiplas colunas</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>SELECT nome, categoria, preco
+FROM produtos
+ORDER BY categoria ASC, preco DESC;</code></pre>
+                        <p style="font-size: 0.9rem; color: #a0d7e7;">Ordena primeiro por categoria (A-Z), depois por preço (maior-menor) dentro de cada categoria</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: SELECT Complete Example -->
+            <div class="slide" data-slide="11">
+                <h2>🎯 SELECT Completo - Juntando Tudo</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-title">Exemplo Completo com Todas as Cláusulas</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 5px; margin: 1rem 0; font-size: 1.1rem;"><code>SELECT nome, categoria, preco
+FROM produtos
+WHERE preco &gt; 50 AND categoria = 'Eletrônicos'
+ORDER BY preco DESC;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Leitura passo a passo:</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2;">
+                            <li><strong style="color: #f4b41a;">SELECT nome, categoria, preco</strong><br>
+                            → "Quero ver as colunas: nome, categoria e preço"</li>
+                            
+                            <li><strong style="color: #f4b41a;">FROM produtos</strong><br>
+                            → "Da tabela produtos"</li>
+                            
+                            <li><strong style="color: #f4b41a;">WHERE preco &gt; 50 AND categoria = 'Eletrônicos'</strong><br>
+                            → "Mas APENAS os produtos que custam mais de 50 E são da categoria Eletrônicos"</li>
+                            
+                            <li><strong style="color: #f4b41a;">ORDER BY preco DESC</strong><br>
+                            → "E mostre os resultados ordenados por preço, do mais caro para o mais barato"</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-icon">💡</div>
+                    <div class="card-title">Dica Importante</div>
+                    <div class="card-content">
+                        A ordem das cláusulas no SQL é FIXA:
+                        <ol style="margin-top: 0.5rem;">
+                            <li>SELECT (obrigatório)</li>
+                            <li>FROM (obrigatório)</li>
+                            <li>WHERE (opcional)</li>
+                            <li>ORDER BY (opcional)</li>
+                        </ol>
+                        <p style="margin-top: 0.5rem;"><strong>Não pode mudar esta ordem!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: INSERT Introduction -->
+            <div class="slide" data-slide="12">
+                <h2>➕ Comando INSERT - Adicionando Dados</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-content">
+                        <p>O <strong>INSERT</strong> é usado para <strong>ADICIONAR NOVOS REGISTROS</strong> (linhas) em uma tabela.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Estrutura Básica:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>INSERT INTO nome_tabela (coluna1, coluna2, coluna3)
+VALUES (valor1, valor2, valor3);</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Anatomia do INSERT - 3 Partes</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2;">
+                            <li>
+                                <strong style="color: #f4b41a;">INSERT INTO nome_tabela</strong>
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Especifica EM QUAL TABELA você quer inserir</p>
+                            </li>
+                            <li style="margin-top: 1rem;">
+                                <strong style="color: #f4b41a;">(coluna1, coluna2, coluna3)</strong>
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Lista as colunas que receberão valores</p>
+                                <p style="margin-left: 1.5rem; font-style: italic;">Opcional se você vai preencher TODAS as colunas na ordem correta</p>
+                            </li>
+                            <li style="margin-top: 1rem;">
+                                <strong style="color: #f4b41a;">VALUES (valor1, valor2, valor3)</strong>
+                                <p style="margin-left: 1.5rem; color: #a0d7e7;">Os valores que serão inseridos, na mesma ordem das colunas</p>
+                                <p style="margin-left: 1.5rem;">Textos devem estar entre aspas simples: <code>'texto'</code></p>
+                                <p style="margin-left: 1.5rem;">Números não precisam de aspas: <code>123</code></p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content">
+                        <strong>⚠️ IMPORTANTE:</strong> A ordem dos valores em VALUES deve corresponder EXATAMENTE à ordem das colunas especificadas!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: INSERT Examples -->
+            <div class="slide" data-slide="13">
+                <h2>📝 INSERT - Exemplos Práticos</h2>
+                
+                <div class="card">
+                    <div class="card-title">Exemplo 1 - INSERT especificando colunas (RECOMENDADO)</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>INSERT INTO produtos (nome, categoria, preco)
+VALUES ('Notebook', 'Eletrônicos', 2500.00);</code></pre>
+                    <div class="card-content">
+                        <p><strong>Resultado:</strong> Adiciona um novo produto com os valores especificados</p>
+                        <p style="color: #a0d7e7;">✓ Mais seguro - você controla quais colunas está preenchendo</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 2 - INSERT sem especificar colunas</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>INSERT INTO produtos
+VALUES (1, 'Mouse', 'Eletrônicos', 45.00);</code></pre>
+                    <div class="card-content">
+                        <p><strong>Atenção:</strong> Você DEVE fornecer valores para TODAS as colunas, na ordem exata da tabela</p>
+                        <p style="color: #ff5459;">⚠️ Menos recomendado - se a estrutura da tabela mudar, o código quebra</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 3 - Inserir múltiplos registros de uma vez</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>INSERT INTO produtos (nome, categoria, preco)
+VALUES 
+    ('Teclado', 'Eletrônicos', 120.00),
+    ('Monitor', 'Eletrônicos', 800.00),
+    ('Webcam', 'Eletrônicos', 250.00);</code></pre>
+                    <div class="card-content">
+                        <p><strong>Resultado:</strong> Insere 3 produtos de uma só vez</p>
+                        <p style="color: #4ade80;">✓ Mais eficiente quando você precisa inserir vários registros</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">💡 Dica de Ouro</div>
+                    <div class="card-content">
+                        <p><strong>SEMPRE especifique as colunas no INSERT!</strong></p>
+                        <p>Isso torna seu código mais legível, seguro e resistente a mudanças na estrutura da tabela.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Best Practices -->
+            <div class="slide" data-slide="14">
+                <h2>✨ Boas Práticas em SQL</h2>
+                
+                <div class="card">
+                    <div class="card-icon">📜</div>
+                    <div class="card-title">1. Formatação e Legibilidade</div>
+                    <div class="card-content">
+                        <ul style="line-height: 1.8;">
+                            <li>✓ Use MAIÚSCULAS para palavras-chave SQL (SELECT, FROM, WHERE)</li>
+                            <li>✓ Use minúsculas para nomes de tabelas e colunas</li>
+                            <li>✓ Quebre comandos longos em múltiplas linhas</li>
+                            <li>✓ Indente adequadamente para facilitar leitura</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">2. Performance</div>
+                    <div class="card-content">
+                        <ul style="line-height: 1.8;">
+                            <li>✓ Evite SELECT * - especifique apenas as colunas necessárias</li>
+                            <li>✓ Use WHERE para filtrar dados e reduzir resultados</li>
+                            <li>✓ Crie índices em colunas frequentemente usadas no WHERE</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-icon">🔒</div>
+                    <div class="card-title">3. Segurança</div>
+                    <div class="card-content">
+                        <ul style="line-height: 1.8;">
+                            <li>✓ Sempre valide dados de entrada antes de INSERT/UPDATE</li>
+                            <li>✓ Use prepared statements para evitar SQL Injection</li>
+                            <li>✓ Faça backup antes de executar DELETE ou UPDATE em massa</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">4. Manutenibilidade</div>
+                    <div class="card-content">
+                        <ul style="line-height: 1.8;">
+                            <li>✓ Dê nomes descritivos para tabelas e colunas</li>
+                            <li>✓ Sempre especifique colunas no INSERT INTO</li>
+                            <li>✓ Comente queries complexas para explicar a lógica</li>
+                            <li>✓ Teste suas queries em ambiente de desenvolvimento primeiro</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: Activity Presentation -->
+            <div class="slide" data-slide="15">
+                <h2>📝 Atividade Prática - Hora de Aplicar!</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Cenário</div>
+                    <div class="card-content">
+                        <p>Você é o administrador de banco de dados de uma <strong>loja online</strong>. A tabela <code>produtos</code> tem a seguinte estrutura:</p>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 1rem 0;"><code>produtos (
+    id INT PRIMARY KEY,
+    nome VARCHAR(100),
+    categoria VARCHAR(50),
+    preco DECIMAL(10,2),
+    estoque INT
+)</code></pre>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Suas Tarefas:</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2;">
+                            <li><strong>Consulta SELECT:</strong> Escreva um comando SQL para listar todos os produtos da categoria 'Eletrônicos' que custam mais de 500 reais, ordenados por preço (do mais caro para o mais barato).</li>
+                            
+                            <li style="margin-top: 1rem;"><strong>Inserção INSERT:</strong> Escreva um comando SQL para adicionar um novo produto com os seguintes dados:
+                                <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                    <li>Nome: Smartphone XYZ</li>
+                                    <li>Categoria: Eletrônicos</li>
+                                    <li>Preço: 1800.00</li>
+                                    <li>Estoque: 25</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-content">
+                        <p><strong>💡 Dica:</strong> Revise os slides anteriores se precisar relembrar a sintaxe!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Summary -->
+            <div class="slide" data-slide="16">
+                <h2>📚 Resumo do Módulo</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">O Que Você Aprendeu</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong>SQL:</strong> A linguagem universal para banco de dados relacionais</li>
+                            <li><strong>DDL vs DML:</strong> Estrutura vs Dados</li>
+                            <li><strong>SELECT:</strong> O comando de consulta mais importante</li>
+                            <li><strong>INSERT:</strong> Como adicionar novos registros</li>
+                            <li><strong>Boas Práticas:</strong> Código limpo e eficiente</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-grid" style="margin-top: 1.5rem;">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔍</div>
+                            <div class="concept-name">SELECT</div>
+                        </div>
+                        <div class="concept-definition">
+                            Consulta dados<br>
+                            <code style="font-size: 0.85rem;">SELECT ... FROM ... WHERE ... ORDER BY</code>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">➕</div>
+                            <div class="concept-name">INSERT</div>
+                        </div>
+                        <div class="concept-definition">
+                            Adiciona dados<br>
+                            <code style="font-size: 0.85rem;">INSERT INTO ... VALUES</code>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🎯</div>
+                            <div class="concept-name">WHERE</div>
+                        </div>
+                        <div class="concept-definition">
+                            Filtra resultados<br>
+                            <code style="font-size: 0.85rem;">WHERE condição</code>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">📊</div>
+                            <div class="concept-name">ORDER BY</div>
+                        </div>
+                        <div class="concept-definition">
+                            Ordena resultados<br>
+                            <code style="font-size: 0.85rem;">ORDER BY ASC|DESC</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-content" style="text-align: center;">
+                        <p style="font-size: 1.2rem;"><strong>Parabéns por concluir o Módulo 3!</strong></p>
+                        <p style="margin-top: 0.5rem;">Você agora tem as bases para trabalhar com SQL.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: Conclusion -->
+            <div class="slide" data-slide="17">
+                <h2>🎓 Conclusão e Próximos Passos</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🌟</div>
+                    <div class="card-title">Você Completou o Módulo 3!</div>
+                    <div class="card-content">
+                        <p>Agora você possui conhecimentos fundamentais em SQL e está pronto para:</p>
+                        <ul style="margin-top: 1rem; line-height: 2;">
+                            <li>✓ Escrever consultas SELECT com filtros e ordenação</li>
+                            <li>✓ Inserir dados em tabelas usando INSERT</li>
+                            <li>✓ Compreender a diferença entre DDL e DML</li>
+                            <li>✓ Aplicar boas práticas em seus comandos SQL</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-icon">🚀</div>
+                    <div class="card-title">Próximos Passos</div>
+                    <div class="card-content">
+                        <p><strong>Continue Aprendendo:</strong></p>
+                        <ul style="margin-top: 0.5rem; line-height: 1.8;">
+                            <li>Pratique com bancos de dados reais (MySQL, PostgreSQL)</li>
+                            <li>Aprenda sobre UPDATE e DELETE</li>
+                            <li>Estude JOINs para relacionar tabelas</li>
+                            <li>Explore funções agregadas (COUNT, SUM, AVG)</li>
+                            <li>Aprofunde-se em subconsultas e views</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-content" style="text-align: center;">
+                        <p style="font-size: 1.3rem; margin-bottom: 0.5rem;">💪 Continue Praticando!</p>
+                        <p>A prática leva à perfeição. Quanto mais você escrever comandos SQL, mais natural se tornará.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: References -->
+            <div class="slide" data-slide="18">
+                <h2>📖 Referências e Recursos</h2>
+                
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <div class="card-title">Documentação Oficial</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong>MySQL:</strong> <a href="https://dev.mysql.com/doc/" target="_blank" style="color: #f4b41a;">dev.mysql.com/doc/</a></li>
+                            <li><strong>PostgreSQL:</strong> <a href="https://www.postgresql.org/docs/" target="_blank" style="color: #f4b41a;">postgresql.org/docs/</a></li>
+                            <li><strong>SQL Server:</strong> <a href="https://docs.microsoft.com/sql/" target="_blank" style="color: #f4b41a;">docs.microsoft.com/sql/</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-icon">🎮</div>
+                    <div class="card-title">Plataformas de Prática</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong>SQLZoo:</strong> Tutoriais interativos de SQL</li>
+                            <li><strong>HackerRank SQL:</strong> Desafios de programação SQL</li>
+                            <li><strong>LeetCode Database:</strong> Problemas de banco de dados</li>
+                            <li><strong>Mode Analytics SQL Tutorial:</strong> Análise de dados com SQL</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-icon">📘</div>
+                    <div class="card-title">Livros Recomendados</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong>"SQL em 10 Minutos"</strong> - Ben Forta</li>
+                            <li><strong>"Use a Cabeça! SQL"</strong> - Lynn Beighley</li>
+                            <li><strong>"Learning SQL"</strong> - Alan Beaulieu</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-content" style="text-align: center;">
+                        <p style="font-size: 1.5rem; margin-bottom: 1rem;">🎉 Fim do Módulo 3</p>
+                        <p style="font-size: 1.1rem;">Obrigado por sua dedicação e atenção!</p>
+                        <p style="margin-top: 1rem; color: #f4b41a; font-weight: 600;">Sucesso em sua jornada com Banco de Dados!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue with navigation at bottom -->
+            <div class="navigation">
+                <button class="nav-btn prev" id="prevBtn">◀ Anterior</button>
+                <div class="slide-indicator" id="slideIndicator">Slide 1 de 20</div>
+                <button class="nav-btn next" id="nextBtn">Próximo ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
