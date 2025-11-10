@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5 - ISA: O Vocabulário da CPU | META</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- SLIDE 1: Título -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <br><br>
+                    <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+                    <h1 class="main-title">MÓDULO 5</h1>
+                    <p style="font-size: 1.3rem; margin-top: 40px; color: rgba(255,255,255,0.8);">Arquitetura e Organização de Computadores (AOC)</p>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Arquitetura de Conjunto de Instruções e Linguagem de Montagem</p>
+                    <div class="title-decoration"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Objetivos -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="slide-title">🎯 Objetivos de Aprendizagem</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Compreender o que é ISA (Instruction Set Architecture)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Conhecer os 4 tipos básicos de instruções (Transferência, Aritmética, Lógica, Controle)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Entender o que é Linguagem de Montagem (Assembly)</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Dominar o papel do Montador e Ligador no processo de execução</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: O que é ISA -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="slide-title">📖 O que é ISA?</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">ISA = Instruction Set Architecture</h3>
+                    <div class="highlight">
+                        <p><strong>ISA é a INTERFACE entre o SOFTWARE (programas) e o HARDWARE (processador)</strong></p>
+                        <p style="margin-top: 15px;">Define TODO o conjunto de comandos que uma CPU específica pode executar</p>
+                    </div>
+                    <div style="margin-top: 30px; padding: 20px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); border-radius: 8px;">
+                        <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; text-align: center;">🎯 ISA = Contrato entre Software e Hardware</h4>
+                        <p style="text-align: center; margin: 0;">O programador escreve instruções → A CPU deve saber executá-las!</p>
+                        <p style="text-align: center; margin: 10px 0 0 0;">Cada processador tem sua própria ISA (x86, ARM, MIPS, RISC-V...)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Analogia do Dicionário -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2 class="slide-title">📚 Analogia: ISA = Dicionário de Comandos</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 25px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; font-size: 1.2rem;">🗣️ Idioma Humano</h4>
+                            <p style="margin: 0;">Você precisa de um <strong>vocabulário</strong> (palavras que pode usar) e <strong>gramática</strong> (regras de como usar)</p>
+                            <p style="margin: 10px 0 0 0;">Se você falar "xyztqwer", ninguém entenderá!</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; font-size: 1.2rem;">🤖 "Idioma" do Processador (ISA)</h4>
+                            <p style="margin: 0;">A CPU tem um <strong>dicionário de instruções</strong> (ADD, SUB, LOAD...) que ela consegue executar</p>
+                            <p style="margin: 10px 0 0 0;">Se você enviar uma instrução que NÃO está na ISA, a CPU não saberá o que fazer! ❌</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>✓ ISA = Todas as "palavras" (instruções) que o processador compreende!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: ISA Define O Quê -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2 class="slide-title">📋 O que a ISA Define?</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">1️⃣ Conjunto de Instruções</h4>
+                            <p style="margin: 0;">Quais comandos existem? (ADD, SUB, LOAD, JUMP...)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">2️⃣ Formato das Instruções</h4>
+                            <p style="margin: 0;">Quantos bits tem cada instrução? Como está organizada?</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">3️⃣ Registradores</h4>
+                            <p style="margin: 0;">Quantos registradores existem? Como acessá-los?</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">4️⃣ Modos de Endereçamento</h4>
+                            <p style="margin: 0;">Como a CPU acessa dados na memória?</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">5️⃣ Tipos de Dados</h4>
+                            <p style="margin: 0;">Quais tipos suportados? (int, float, char...)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Os 4 Tipos de Instruções -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2 class="slide-title">🔢 Os 4 Tipos Básicos de Instruções</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 25px;">
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">1️⃣ TRANSFERÊNCIA</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Move Dados Entre Lugares</h4>
+                            <p style="margin: 0;">Registradores ↔ Memória | Registrador ↔ Registrador</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">2️⃣ ARITMÉTICA</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Operações Matemáticas</h4>
+                            <p style="margin: 0;">Soma, Subtração, Multiplicação, Divisão</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">3️⃣ LÓGICA</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Operações Booleanas e de Bits</h4>
+                            <p style="margin: 0;">AND, OR, NOT, XOR, Shift (deslocamento)</p>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <span style="background: var(--meta-gold); color: var(--meta-navy); padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; display: inline-block;">4️⃣ CONTROLE (Branch)</span>
+                            <h4 style="color: var(--meta-gold); margin: 15px 0 10px 0;">Altera o Fluxo de Execução</h4>
+                            <p style="margin: 0;">JUMP, BRANCH, CALL - Muda o Program Counter (PC)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Transferência de Dados -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2 class="slide-title">📦 Tipo 1: Instruções de Transferência de Dados</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que fazem?</h3>
+                    <div class="highlight">
+                        <p><strong>Movem dados de um lugar para outro SEM MODIFICÁ-LOS</strong></p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplos Práticos:</h3>
+                        <div style="display: grid; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">LOAD R1, [1000]</h4>
+                                <p style="margin: 0;">Carrega o valor do endereço de memória 1000 no registrador R1</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">STORE R2, [2000]</h4>
+                                <p style="margin: 0;">Armazena o valor do registrador R2 no endereço de memória 2000</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">MOV R3, R4</h4>
+                                <p style="margin: 0;">Copia o valor de R4 para R3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>🎯 Função: Transportar dados entre registradores e memória!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Instruções Aritméticas -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2 class="slide-title">➕ Tipo 2: Instruções Aritméticas</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que fazem?</h3>
+                    <div class="highlight">
+                        <p><strong>Realizam operações matemáticas (calculadora da CPU!)</strong></p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplos Práticos:</h3>
+                        <div style="display: grid; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">ADD R1, R2, R3</h4>
+                                <p style="margin: 0;">R1 = R2 + R3 (soma os valores de R2 e R3, coloca resultado em R1)</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">SUB R4, R5, R6</h4>
+                                <p style="margin: 0;">R4 = R5 - R6 (subtração)</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">MUL R7, R8, R9</h4>
+                                <p style="margin: 0;">R7 = R8 × R9 (multiplicação)</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">DIV R10, R11, R12</h4>
+                                <p style="margin: 0;">R10 = R11 ÷ R12 (divisão)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Instruções Lógicas -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2 class="slide-title">🔀 Tipo 3: Instruções Lógicas</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que fazem?</h3>
+                    <div class="highlight">
+                        <p><strong>Realizam operações booleanas bit a bit (manipulam 0s e 1s)</strong></p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplos Práticos:</h3>
+                        <div style="display: grid; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">AND R1, R2, R3</h4>
+                                <p style="margin: 0;">R1 = R2 AND R3 (E lógico bit a bit)</p>
+                                <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Exemplo: 1010 AND 1100 = 1000</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">OR R4, R5, R6</h4>
+                                <p style="margin: 0;">R4 = R5 OR R6 (OU lógico)</p>
+                                <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Exemplo: 1010 OR 1100 = 1110</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">NOT R7, R8</h4>
+                                <p style="margin: 0;">R7 = NOT R8 (inverte todos os bits)</p>
+                                <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Exemplo: NOT 1010 = 0101</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">SHL R9, R10, 2</h4>
+                                <p style="margin: 0;">R9 = R10 deslocado 2 bits à esquerda (shift left = multiplica por 4)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Instruções de Controle -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <h2 class="slide-title">🔄 Tipo 4: Instruções de Controle (Branch)</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que fazem?</h3>
+                    <div class="highlight">
+                        <p><strong>Alteram o FLUXO DE EXECUÇÃO do programa mudando o Program Counter (PC)</strong></p>
+                        <p style="margin-top: 10px;">Permitem loops, condicionais (if/else) e chamadas de funções</p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Exemplos Práticos:</h3>
+                        <div style="display: grid; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">JUMP [endereço]</h4>
+                                <p style="margin: 0;">Pula incondicionalmente para o endereço especificado (muda PC)</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">BEQ R1, R2, [label]</h4>
+                                <p style="margin: 0;">Branch if Equal: Se R1 == R2, pula para o label</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">BNE R3, R4, [label]</h4>
+                                <p style="margin: 0;">Branch if Not Equal: Se R3 ≠ R4, pula para o label</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px;">
+                                <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">CALL [função]</h4>
+                                <p style="margin: 0;">Chama uma função (salva PC e pula para função)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Jogo de Classificação -->
+        <div class="slide" data-slide="11">
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Jogo de Classificação: Teste Seu Conhecimento!</h2>
+                <div class="content-box">
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
+                        <h3 style="color: rgb(59, 130, 246); margin: 0 0 15px 0;">❓ DESAFIO:</h3>
+                        <p style="margin: 0; font-size: 1.1rem;">"Se um comando MUDA o Program Counter (PC), ele é de qual tipo?"</p>
+                    </div>
+                    <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
+                        <h3 style="color: rgb(76, 175, 80); margin: 0 0 15px 0;">✓ RESPOSTA:</h3>
+                        <p style="margin: 0; font-size: 1.1rem;"><strong>Instrução de CONTROLE (Branch)!</strong></p>
+                        <p style="margin: 15px 0 0 0;">Porque apenas instruções de controle alteram o fluxo de execução mudando para onde o PC aponta!</p>
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 15px;">Mais Exemplos:</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>LOAD R1, [100]</strong> → Transferência ✓</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>SUB R2, R3, R4</strong> → Aritmética ✓</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>AND R5, R6, R7</strong> → Lógica ✓</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>JUMP [200]</strong> → Controle ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: O que é Assembly -->
+        <div class="slide" data-slide="12">
+            <div class="slide-content">
+                <h2 class="slide-title">💻 Linguagem de Montagem (Assembly)</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que é Assembly?</h3>
+                    <div class="highlight">
+                        <p><strong>Assembly = Linguagem de BAIXO NÍVEL que usa mnemônicos para representar instruções da ISA</strong></p>
+                        <p style="margin-top: 15px;">Cada instrução Assembly se traduz QUASE DIRETAMENTE em código de máquina (binário)</p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Por que Mnemônicos?</h3>
+                        <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 8px; margin-bottom: 25px;">
+                            <p style="margin: 0; font-size: 1.05rem;"><strong>Porque é IMPOSSÍVEL lembrar números binários!</strong></p>
+                            <p style="margin: 15px 0 0 0;">Ao invés de <span style="font-family: monospace; color: var(--meta-gold);">10110001011001010110</span></p>
+                            <p style="margin: 10px 0 0 0;">Escrevemos <span style="font-family: monospace; color: var(--meta-gold); font-size: 1.2rem;">ADD R1, R2, R3</span></p>
+                            <p style="margin: 15px 0 0 0; color: rgba(255,255,255,0.8);">Muito mais fácil de entender e escrever! ✓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Assembly vs Código de Máquina -->
+        <div class="slide" data-slide="13">
+            <div class="slide-content">
+                <h2 class="slide-title">🔄 Assembly vs Código de Máquina</h2>
+                <div class="content-box">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 25px; border-radius: 8px;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 15px 0; text-align: center;">📝 ASSEMBLY</h4>
+                            <p style="margin: 0 0 15px 0; text-align: center;">Linguagem legível para humanos</p>
+                            <div style="background: #000; color: var(--meta-gold); padding: 15px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; line-height: 1.8;">
+ADD R1, R2, R3<br>
+LOAD R4, [100]<br>
+STORE R5, [200]<br>
+JUMP [300]
+                            </div>
+                            <p style="margin: 15px 0 0 0; text-align: center; color: rgb(76, 175, 80);">✓ Fácil de ler e escrever!</p>
+                        </div>
+                        <div style="background: rgba(255, 84, 89, 0.15); border: 2px solid rgb(255, 84, 89); padding: 25px; border-radius: 8px;">
+                            <h4 style="color: rgb(255, 84, 89); margin: 0 0 15px 0; text-align: center;">🔢 CÓDIGO DE MÁQUINA</h4>
+                            <p style="margin: 0 0 15px 0; text-align: center;">Binário que a CPU executa</p>
+                            <div style="background: #000; color: rgb(255, 84, 89); padding: 15px; border-radius: 6px; font-family: monospace; font-size: 0.9rem; line-height: 1.8;">
+10110001011001010110<br>
+11001010111001100101<br>
+01110011001110101100<br>
+00110101100111001011
+                            </div>
+                            <p style="margin: 15px 0 0 0; text-align: center; color: rgb(255, 84, 89);">❌ Impossível de ler!</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                        <p style="margin: 0;"><strong>🎯 Assembly é traduzido para Código de Máquina pelo MONTADOR (Assembler)!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: O Montador (Assembler) -->
+        <div class="slide" data-slide="14">
+            <div class="slide-content">
+                <h2 class="slide-title">🔧 O Montador (Assembler)</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que é o Montador?</h3>
+                    <div class="highlight">
+                        <p><strong>Montador = Programa que traduz código ASSEMBLY em CÓDIGO DE MÁQUINA (binário)</strong></p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Como funciona?</h3>
+                        <div style="display: grid; gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">1</div>
+                                <div>
+                                    <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">Lê o código Assembly</h4>
+                                    <p style="margin: 0;">Arquivo .asm com mnemônicos</p>
+                                </div>
+                            </div>
+                            <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">2</div>
+                                <div>
+                                    <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">Traduz para binário</h4>
+                                    <p style="margin: 0;">Converte mnemônicos em opcodes binários</p>
+                                </div>
+                            </div>
+                            <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="background: var(--meta-gold); color: var(--meta-navy); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; flex-shrink: 0;">3</div>
+                                <div>
+                                    <h4 style="color: var(--meta-gold); margin: 0 0 5px 0;">Gera arquivo objeto</h4>
+                                    <p style="margin: 0;">Arquivo .o ou .obj com código de máquina</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: O Ligador (Linker) -->
+        <div class="slide" data-slide="15">
+            <div class="slide-content">
+                <h2 class="slide-title">🔗 O Ligador (Linker)</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">O que é o Ligador?</h3>
+                    <div class="highlight">
+                        <p><strong>Ligador = Programa que COMBINA vários arquivos objeto em um ÚNICO EXECUTÁVEL</strong></p>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Por que precisamos dele?</h3>
+                        <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 8px; margin-bottom: 25px;">
+                            <p style="margin: 0; font-size: 1.05rem;">Porque programas grandes são divididos em MÚLTIPLOS ARQUIVOS:</p>
+                            <ul style="margin: 15px 0 0 20px; padding: 0;">
+                                <li style="margin: 8px 0;">Seu código (main.o)</li>
+                                <li style="margin: 8px 0;">Bibliotecas (printf, scanf...)</li>
+                                <li style="margin: 8px 0;">Outros módulos (funções auxiliares)</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 6px; text-align: center;">
+                            <p style="margin: 0;"><strong>🎯 Ligador junta tudo em um único arquivo .exe (Windows) ou .out (Linux)!</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Fluxograma Completo -->
+        <div class="slide" data-slide="16">
+            <div class="slide-content">
+                <h2 class="slide-title">📊 Fluxograma: Do Código à Execução</h2>
+                <div class="content-box">
+                    <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">Processo completo de compilação/montagem:</p>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: rgb(59, 130, 246); margin: 0 0 10px 0;">📝 CÓDIGO FONTE</h4>
+                            <p style="margin: 0;">programa.asm (Assembly) ou programa.c (C)</p>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">🔧 COMPILADOR / MONTADOR</h4>
+                            <p style="margin: 0;">Traduz para código de máquina</p>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">📦 CÓDIGO OBJETO</h4>
+                            <p style="margin: 0;">programa.o ou programa.obj (binário parcial)</p>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="background: rgba(244, 180, 26, 0.15); border: 2px solid var(--meta-gold); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0;">🔗 LIGADOR (LINKER)</h4>
+                            <p style="margin: 0;">Combina todos os arquivos objeto + bibliotecas</p>
+                        </div>
+                        <div style="text-align: center; font-size: 1.5rem; color: var(--meta-gold);">⬇️</div>
+                        <div style="background: rgba(76, 175, 80, 0.15); border: 2px solid rgb(76, 175, 80); padding: 20px; border-radius: 8px; text-align: center;">
+                            <h4 style="color: rgb(76, 175, 80); margin: 0 0 10px 0;">✓ EXECUTÁVEL</h4>
+                            <p style="margin: 0;">programa.exe (Windows) ou a.out (Linux) - PRONTO PARA RODAR!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDES 17-22: Conteúdo Complementar -->
+        <!-- SLIDE 17 -->
+        <div class="slide" data-slide="17">
+            <div class="slide-content">
+                <h2 class="slide-title">📚 Exemplo Completo: Programa Assembly</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Programa que soma 5 + 3 e salva o resultado:</h3>
+                    <div style="background: #000; color: var(--meta-gold); padding: 20px; border-radius: 6px; font-family: monospace; font-size: 0.95rem; line-height: 1.8; margin-bottom: 25px;">
+; Programa: Soma de dois números<br>
+<br>
+LOAD R1, #5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;; Carrega 5 no registrador R1<br>
+LOAD R2, #3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;; Carrega 3 no registrador R2<br>
+ADD R3, R1, R2&nbsp;&nbsp;; R3 = R1 + R2 (3 = 5 + 3)<br>
+STORE R3, [100]&nbsp;; Salva resultado no endereço 100<br>
+HALT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;; Para a execução
+                    </div>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 15px;">Análise Linha por Linha:</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>LOAD R1, #5</strong> → Transferência (coloca 5 em R1)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>ADD R3, R1, R2</strong> → Aritmética (soma R1+R2)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 6px;">
+                            <p style="margin: 0;"><strong>STORE R3, [100]</strong> → Transferência (salva na memória)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18 -->
+        <div class="slide" data-slide="18">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Checklist de Aprendizado</h2>
+                <div class="objectives-list">
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>ISA = Interface entre software e hardware</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>4 Tipos: Transferência, Aritmética, Lógica, Controle</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Assembly usa mnemônicos para facilitar programação</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Montador traduz Assembly → Código de Máquina</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Ligador combina arquivos objeto → Executável</p>
+                    </div>
+                    <div class="objective-item">
+                        <span class="bullet">✓</span>
+                        <p>Instruções de controle mudam o Program Counter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19 -->
+        <div class="slide" data-slide="19">
+            <div class="slide-content">
+                <h2 class="slide-title">💡 Por Que ISA é Importante?</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🔌</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Compatibilidade</h4>
+                            <p style="margin: 0;">Programas compilados para x86 rodam em qualquer CPU x86</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">⚙️</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Abstração</h4>
+                            <p style="margin: 0;">Programadores não precisam saber detalhes internos da CPU</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🔄</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Portabilidade</h4>
+                            <p style="margin: 0;">Mesmo código pode rodar em diferentes implementações da mesma ISA</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🚀</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Otimização</h4>
+                            <p style="margin: 0;">Compiladores conhecendo a ISA geram código eficiente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20 -->
+        <div class="slide" data-slide="20">
+            <div class="slide-content">
+                <h2 class="slide-title">🌐 ISAs Populares no Mundo Real</h2>
+                <div class="content-box">
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">x86 / x86-64 (Intel, AMD)</h4>
+                            <p style="margin: 0;">PCs, laptops, servidores. ISA CISC (Complex Instruction Set)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">ARM (Apple M1/M2, Qualcomm)</h4>
+                            <p style="margin: 0;">Smartphones, tablets, MacBooks. ISA RISC (Reduced Instruction Set)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">RISC-V (Open Source)</h4>
+                            <p style="margin: 0;">ISA aberta e gratuita. Usada em pesquisa e IoT</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; border-left: 4px solid var(--meta-gold);">
+                            <h4 style="color: var(--meta-gold); margin: 0 0 10px 0; font-size: 1.1rem;">MIPS</h4>
+                            <p style="margin: 0;">Roteadores, sistemas embarcados. ISA RISC clássica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21 -->
+        <div class="slide" data-slide="21">
+            <div class="slide-content">
+                <h2 class="slide-title">📚 Atividade 5</h2>
+                <div class="content-box">
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Questão 1: Diferença entre Instruções</h3>
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>Qual a principal diferença entre uma instrução de Transferência de Dados e uma instrução de Controle?</strong></p>
+                    </div>
+                <br>
+                    <h3 style="color: var(--meta-gold); margin-bottom: 20px;">Questão 2: Importância da ISA</h3>
+                    <div style="background: rgba(59, 130, 246, 0.15); border: 2px solid rgb(59, 130, 246); padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <p style="margin: 0; font-size: 1.05rem;"><strong>Por que a ISA é tão importante para os desenvolvedores de software, mesmo que eles não programem em Assembly?</strong></p>
+                    </div>
+                    
+                </div>    
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 22 -->
+        <div class="slide" data-slide="22">
+            <div class="slide-content">
+                <h2 class="slide-title">🎓 Conclusão: O Vocabulário Universal</h2>
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">📖</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">ISA = Dicionário da CPU</h4>
+                            <p style="margin: 0;">Define todas as instruções que o processador compreende</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">🔗</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Interface Essencial</h4>
+                            <p style="margin: 0;">Conecta software e hardware de forma padronizada</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💻</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Assembly Facilita</h4>
+                            <p style="margin: 0;">Mnemônicos tornam programação de baixo nível possível</p>
+                        </div>
+                    </div>
+                    <div class="reason-item">
+                        <span style="font-size: 2rem;">💪</span>
+                        <div>
+                            <h4 style="color: var(--meta-gold); margin: 0 0 8px 0;">Você Entendeu!</h4>
+                            <p style="margin: 0;">Agora sabe como programas se comunicam com hardware</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23 -->
+        <div class="slide" data-slide="23">
+            <div class="slide-content">
+                <h2 class="slide-title">📋 Resumo Final: Tópicos Cobertos</h2>
+                <div class="content-box">
+                    <ul style="list-style: none; padding: 0; display: grid; gap: 15px;">
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>ISA:</strong> Interface entre software e hardware, "dicionário" da CPU</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>4 Tipos de Instruções:</strong> Transferência, Aritmética, Lógica, Controle</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Assembly:</strong> Linguagem de baixo nível com mnemônicos legíveis</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Montador:</strong> Traduz Assembly → Código de Máquina (.o)</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Ligador:</strong> Combina arquivos objeto → Executável (.exe)</span>
+                        </li>
+                        <li style="display: flex; gap: 15px; align-items: flex-start;">
+                            <span style="color: var(--meta-gold); font-weight: bold;">✓</span>
+                            <span><strong>Controle muda PC:</strong> Instruções JUMP/BRANCH alteram fluxo</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Obrigado -->
+        <div class="slide" data-slide="24">
+            <div class="slide-content">
+                <div class="title-slide">
+                    <h1 class="main-title" style="font-size: 3rem;">Parabéns! 🎓</h1>
+                    <h2 class="subtitle">Você domina o Vocabulário da CPU!</h2>
+                    <p style="font-size: 1.3rem; margin-top: 40px; color: rgba(255,255,255,0.8);">META - Arquitetura e Organização de Computadores</p>
+                    <p style="font-size: 1.1rem; margin-top: 15px; color: rgba(255,255,255,0.7);">Módulo 5 - ISA e Linguagem de Montagem</p>
+                    <div class="title-decoration"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="navigation-bar">
+        <button class="nav-button" id="prevBtn">‹</button>
+    <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides"></span></div>
+        <button class="nav-button" id="nextBtn">›</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
