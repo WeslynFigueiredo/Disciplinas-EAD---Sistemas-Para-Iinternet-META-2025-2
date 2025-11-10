@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura e Padrões de Software - Módulo 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" data-slide="1">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content title-slide">
+                <div class="module-badge">Módulo 3</div>
+                <h1 class="main-title">Arquitetura e Padrões de Software (APS)</h1>
+                <p class="subtitle">Padrões de Projeto: O Vocabulário da Engenharia de Software</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Table of Contents -->
+        <div class="slide" data-slide="2">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Sumário da Aula</h2>
+                <div class="toc-grid">
+                    <div class="toc-card">
+                        <div class="toc-number">01</div>
+                        <div class="toc-title">O que são Padrões de Projeto (Design Patterns)</div>
+                        <div class="toc-slides">Slides 3-4</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">02</div>
+                        <div class="toc-title">Gang of Four e Vocabulário Comum</div>
+                        <div class="toc-slides">Slides 5-7</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">03</div>
+                        <div class="toc-title">Classificação dos Padrões</div>
+                        <div class="toc-slides">Slides 8-10</div>
+                    </div>
+                    <div class="toc-card">
+                        <div class="toc-number">04</div>
+                        <div class="toc-title">Padrões Criacionais: Factory Method e Singleton</div>
+                        <div class="toc-slides">Slides 11-23</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: O que são Padrões de Projeto? -->
+        <div class="slide" data-slide="3">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">O que são Padrões de Projeto (Design Patterns)?</h2>
+                <div class="definition-card highlight">
+                    <div class="icon">🎯</div>
+                    <p class="definition-text">Padrões de Projeto são <strong>SOLUÇÕES ELEGANTES</strong> e <strong>REUTILIZÁVEIS</strong> para problemas <strong>RECORRENTES</strong> no design de software. São <strong>MODELOS/TEMPLATES</strong>, não códigos prontos.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Conceito-Chave</h3>
+                    <p>Padrões NÃO são código pronto! São ESTRATÉGIAS que você implementa.</p>
+                </div>
+                <div class="section-title">Benefícios dos Padrões de Projeto</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Vocabulário comum entre desenvolvedores</li>
+                        <li>Aceleram o desenvolvimento (não reinventa a roda)</li>
+                        <li>Facilitam comunicação na equipe</li>
+                        <li>Código mais organizado e mantenível</li>
+                        <li>Soluções testadas e comprovadas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Analogia das Receitas de Bolo -->
+        <div class="slide" data-slide="4">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Receitas de Bolo vs Bolo Pronto</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">🎂 RECEITA DE BOLO (Padrão de Projeto)</h3>
+                        <div class="comparison-card">
+                            <ul class="key-points">
+                                <li>É um MODELO/GUIA</li>
+                                <li>Lista ingredientes e passos</li>
+                                <li>Você IMPLEMENTA seguindo o guia</li>
+                                <li>Pode adaptar ao seu contexto</li>
+                                <li>Cada pessoa faz um bolo diferente seguindo a mesma receita</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="comparison-column">
+                        <h3 class="comparison-header">🍰 BOLO PRONTO (Código Pronto)</h3>
+                        <div class="comparison-card">
+                            <ul class="key-points">
+                                <li>É o RESULTADO FINAL</li>
+                                <li>Você consome diretamente</li>
+                                <li>Não precisa fazer nada</li>
+                                <li>Sem flexibilidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <h3>Conclusão</h3>
+                    <p>Design Patterns são como <strong>RECEITAS</strong>. Você ainda precisa "cozinhar" (implementar), mas o caminho está traçado!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Gang of Four (GoF) -->
+        <div class="slide" data-slide="5">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Gang of Four (GoF) - Os 4 Mestres</h2>
+                <p class="slide-subtitle">Quem catalogou os Design Patterns?</p>
+                <div class="elements-grid">
+                    <div class="element-card">
+                        <div class="element-icon">📚</div>
+                        <h3>Erich Gamma</h3>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📚</div>
+                        <h3>Richard Helm</h3>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📚</div>
+                        <h3>Ralph Johnson</h3>
+                    </div>
+                    <div class="element-card">
+                        <div class="element-icon">📚</div>
+                        <h3>John Vlissides</h3>
+                    </div>
+                </div>
+                <div class="definition-card highlight">
+                    <div class="icon">📖</div>
+                    <div>
+                        <p class="definition-text"><strong>Livro:</strong> "Design Patterns: Elements of Reusable Object-Oriented Software" (1994)</p>
+                        <p class="definition-text"><strong>Total:</strong> 23 padrões catalogados</p>
+                        <p class="definition-text"><strong>Impacto:</strong> Livro mais influente em design de software OO</p>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <p><strong>1994 - Mais de 30 anos de relevância!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: O Poder do Vocabulário Comum -->
+        <div class="slide" data-slide="6">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Por Que Vocabulário Comum é Importante?</h2>
+                <div class="warning-card">
+                    <h4>❌ SEM Padrões:</h4>
+                    <p>"Precisamos criar uma classe que controla a criação de objetos de forma que o código cliente não saiba qual classe exata está sendo instanciada, mas que todas as classes criadas implementem uma interface comum e..."</p>
+                    <p><strong>[10 minutos explicando...]</strong></p>
+                </div>
+                <div class="highlight-card" style="background: linear-gradient(135deg, var(--color-card-bg) 0%, rgba(76, 175, 80, 0.15) 100%); border-left-color: #4caf50;">
+                    <h3 style="color: #4caf50;">✅ COM Padrões:</h3>
+                    <p>"Vamos usar um Factory Method aqui."</p>
+                    <p><strong>[5 segundos. Todo mundo entende.]</strong></p>
+                </div>
+                <div class="section-title">Benefícios</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Comunicação rápida e eficiente</li>
+                        <li>Menos tempo em reuniões</li>
+                        <li>Código review mais rápido</li>
+                        <li>Onboarding de novos dev facilitado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: ATIVIDADE INTERATIVA #1 -->
+        <div class="slide" data-slide="7">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade: Teste Seu Entendimento</h2>
+                <div class="activity-question">
+                    <h3>Qual das seguintes afirmações sobre Design Patterns está CORRETA?</h3>
+                </div>
+                <div class="quiz-options" id="activity1-options">
+                    <button class="quiz-option" data-correct="false" data-activity="1" data-option="A">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Design Patterns são bibliotecas de código pronto que você importa no seu projeto</span>
+                    </button>
+                    <button class="quiz-option" data-correct="true" data-activity="1" data-option="B">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Design Patterns são modelos/estratégias que você implementa para resolver problemas recorrentes</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="1" data-option="C">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Design Patterns só funcionam em Java e C++</span>
+                    </button>
+                    <button class="quiz-option" data-correct="false" data-activity="1" data-option="D">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Design Patterns são frameworks</span>
+                    </button>
+                </div>
+                <div class="feedback-box" id="activity1-feedback" style="display: none;"></div>
+                <div class="score-display">
+                    <span>Pontuação: <strong id="score-display">0/4</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Classificação dos Padrões GoF -->
+        <div class="slide" data-slide="8">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Classificação dos 23 Padrões GoF</h2>
+                <p class="slide-subtitle">3 Categorias Principais</p>
+                <div class="pattern-categories">
+                    <div class="pattern-category-card criacional">
+                        <div class="pattern-category-header">
+                            <h3>1. CRIACIONAIS (5 padrões)</h3>
+                        </div>
+                        <div class="pattern-category-content">
+                            <p><strong>Foco:</strong> Criação de objetos</p>
+                            <p><strong>Problema que resolve:</strong> Como criar objetos de forma flexível?</p>
+                            <p><strong>Exemplos:</strong> Singleton, Factory Method, Abstract Factory, Builder, Prototype</p>
+                        </div>
+                    </div>
+                    <div class="pattern-category-card estrutural">
+                        <div class="pattern-category-header">
+                            <h3>2. ESTRUTURAIS (7 padrões)</h3>
+                        </div>
+                        <div class="pattern-category-content">
+                            <p><strong>Foco:</strong> Composição de classes e objetos</p>
+                            <p><strong>Problema que resolve:</strong> Como organizar classes e objetos em estruturas maiores?</p>
+                            <p><strong>Exemplos:</strong> Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy</p>
+                        </div>
+                    </div>
+                    <div class="pattern-category-card comportamental">
+                        <div class="pattern-category-header">
+                            <h3>3. COMPORTAMENTAIS (11 padrões)</h3>
+                        </div>
+                        <div class="pattern-category-content">
+                            <p><strong>Foco:</strong> Comunicação e responsabilidades entre objetos</p>
+                            <p><strong>Problema que resolve:</strong> Como objetos se comunicam e distribuem responsabilidades?</p>
+                            <p><strong>Exemplos:</strong> Observer, Strategy, Command, Iterator, Template Method, Chain of Responsibility, State, Visitor, Mediator, Memento, Interpreter</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Detalhamento das Categorias -->
+        <div class="slide" data-slide="9">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Entendendo Cada Categoria</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-card" style="border-left-color: #4caf50;">
+                        <div class="advantage-icon">🏭</div>
+                        <h4>CRIACIONAIS</h4>
+                        <p><strong>Quando usar?</strong> Quando você precisa criar objetos de forma controlada e flexível</p>
+                        <p><strong>Benefício:</strong> Desacopla criação do uso</p>
+                        <p><strong>Pensamento:</strong> "Como EU CRIO objetos?"</p>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: #2196f3;">
+                        <div class="advantage-icon">🏛️</div>
+                        <h4>ESTRUTURAIS</h4>
+                        <p><strong>Quando usar?</strong> Quando você precisa compor objetos/classes em estruturas</p>
+                        <p><strong>Benefício:</strong> Facilita extensão e manutenção</p>
+                        <p><strong>Pensamento:</strong> "Como EU ORGANIZO objetos?"</p>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                        <div class="advantage-icon">💬</div>
+                        <h4>COMPORTAMENTAIS</h4>
+                        <p><strong>Quando usar?</strong> Quando você precisa definir como objetos se comunicam</p>
+                        <p><strong>Benefício:</strong> Distribui responsabilidades de forma clara</p>
+                        <p><strong>Pensamento:</strong> "Como objetos SE COMUNICAM?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: ATIVIDADE INTERATIVA #2 - Mini-Classificador -->
+        <div class="slide" data-slide="10">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade: Classifique o Problema</h2>
+                <p class="slide-subtitle">Leia cada problema e identifique a categoria do padrão</p>
+                <div class="classifier-scenarios" id="classifier-scenarios">
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>CENÁRIO 1:</h4>
+                            <p>"Preciso garantir que minha classe DatabaseConnection tenha apenas UMA instância em todo o sistema"</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="1" data-answer="criacional" data-correct="true">Criacional</button>
+                            <button class="classifier-btn" data-scenario="1" data-answer="estrutural">Estrutural</button>
+                            <button class="classifier-btn" data-scenario="1" data-answer="comportamental">Comportamental</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario1-feedback" style="display: none;"></div>
+                    </div>
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>CENÁRIO 2:</h4>
+                            <p>"Preciso fazer duas interfaces incompatíveis trabalharem juntas"</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="2" data-answer="criacional">Criacional</button>
+                            <button class="classifier-btn" data-scenario="2" data-answer="estrutural" data-correct="true">Estrutural</button>
+                            <button class="classifier-btn" data-scenario="2" data-answer="comportamental">Comportamental</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario2-feedback" style="display: none;"></div>
+                    </div>
+                    <div class="classifier-scenario">
+                        <div class="scenario-text">
+                            <h4>CENÁRIO 3:</h4>
+                            <p>"Preciso notificar múltiplos objetos quando o estado de um objeto muda"</p>
+                        </div>
+                        <div class="classifier-options">
+                            <button class="classifier-btn" data-scenario="3" data-answer="criacional">Criacional</button>
+                            <button class="classifier-btn" data-scenario="3" data-answer="estrutural">Estrutural</button>
+                            <button class="classifier-btn" data-scenario="3" data-answer="comportamental" data-correct="true">Comportamental</button>
+                        </div>
+                        <div class="scenario-feedback" id="scenario3-feedback" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Padrões Criacionais - Introdução -->
+        <div class="slide" data-slide="11">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrões Criacionais: Controlando a Criação de Objetos</h2>
+                <p class="slide-subtitle">Foco do Módulo 3</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🏭</div>
+                    <p class="definition-text">Padrões Criacionais abstraem o processo de instanciação de objetos, tornando o sistema independente de COMO seus objetos são criados.</p>
+                </div>
+                <div class="section-title">5 Padrões Criacionais</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>⭐ Factory Method (foco deste módulo)</li>
+                        <li>⭐ Singleton (foco deste módulo)</li>
+                        <li>Abstract Factory</li>
+                        <li>Builder</li>
+                        <li>Prototype</li>
+                    </ul>
+                </div>
+                <div class="note-card">
+                    <p>Estudaremos Factory Method e Singleton em detalhes. Os outros padrões serão abordados em módulos futuros.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Factory Method - Conceito -->
+        <div class="slide" data-slide="12">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrão Factory Method (Fábrica)</h2>
+                <p class="slide-subtitle">Padrão Criacional #1</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🏭</div>
+                    <p class="definition-text">Define uma INTERFACE para criar um objeto, mas DEIXA AS SUBCLASSES DECIDIREM qual classe instanciar.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Conceito-Chave</h3>
+                    <p>Você delega a decisão de QUAL objeto criar para as subclasses</p>
+                </div>
+                <div class="section-title">Problema que Resolve</div>
+                <div class="content-card">
+                    <p>Quando você não sabe de antemão qual classe exata precisa instanciar, ou quando a criação varia conforme o contexto</p>
+                </div>
+                <div class="section-title">Benefícios</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Desacopla código cliente das classes concretas</li>
+                        <li>Facilita extensão (adicionar novos tipos)</li>
+                        <li>Centraliza lógica de criação</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Analogia da Fábrica de Carros -->
+        <div class="slide" data-slide="13">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogia: Fábrica de Carros</h2>
+                <div class="note-card">
+                    <p><strong>FÁBRICA DE VEÍCULOS:</strong> Todas as linhas de montagem produzem VEÍCULOS. Cada linha decide qual TIPO de veículo produzir.</p>
+                </div>
+                <div class="advantages-grid">
+                    <div class="advantage-card" style="border-left-color: #4caf50;">
+                        <div class="advantage-icon">🚗</div>
+                        <h4>Linha 1: Fábrica de Carros de Passeio</h4>
+                        <p><strong>Produz:</strong> Sedan, SUV, Hatchback</p>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: #2196f3;">
+                        <div class="advantage-icon">🚚</div>
+                        <h4>Linha 2: Fábrica de Caminhões</h4>
+                        <p><strong>Produz:</strong> Caminhão leve, Caminhão pesado</p>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                        <div class="advantage-icon">🏍️</div>
+                        <h4>Linha 3: Fábrica de Motos</h4>
+                        <p><strong>Produz:</strong> Moto esportiva, Moto custom</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <h3>Conclusão</h3>
+                    <p>O CLIENTE pede "um veículo". A FÁBRICA (subclasse) decide qual TIPO criar. O cliente não precisa saber os detalhes!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Factory Method - Estrutura -->
+        <div class="slide" data-slide="14">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Estrutura do Factory Method</h2>
+                <div class="code-container">
+                    <div class="code-block">
+                        <h4>CRIADOR (Classe Abstrata ou Interface)</h4>
+                        <pre><code>+ factoryMethod(): Produto
++ operacao(): void {
+    produto = factoryMethod()
+    produto.usar()
+}</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <h4>CRIADOR CONCRETO A</h4>
+                        <pre><code>+ factoryMethod(): Produto {
+    return new ProdutoA()
+}</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <h4>CRIADOR CONCRETO B</h4>
+                        <pre><code>+ factoryMethod(): Produto {
+    return new ProdutoB()
+}</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <h4>PRODUTO (Interface)</h4>
+                        <pre><code>+ usar(): void</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <h4>PRODUTO A e PRODUTO B (Classes Concretas)</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Factory Method - Pseudo-Código -->
+        <div class="slide" data-slide="15">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Exemplo Prático: Sistema de Pagamento</h2>
+                <div class="code-container">
+                    <pre><code>// Interface do Produto
+interface Payment {
+    processPayment(amount)
+}
+
+// Produtos Concretos
+class CreditCardPayment implements Payment {
+    processPayment(amount) {
+        print "Processando $amount via Cartão de Crédito"
+    }
+}
+
+class PayPalPayment implements Payment {
+    processPayment(amount) {
+        print "Processando $amount via PayPal"
+    }
+}
+
+class PixPayment implements Payment {
+    processPayment(amount) {
+        print "Processando $amount via PIX"
+    }
+}
+
+// Criador (Factory)
+abstract class PaymentFactory {
+    // Factory Method
+    abstract createPayment(): Payment
+    
+    // Template Method que usa Factory Method
+    processOrder(amount) {
+        payment = createPayment()
+        payment.processPayment(amount)
+    }
+}
+
+// Criadores Concretos
+class CreditCardFactory extends PaymentFactory {
+    createPayment(): Payment {
+        return new CreditCardPayment()
+    }
+}
+
+class PixFactory extends PaymentFactory {
+    createPayment(): Payment {
+        return new PixPayment()
+    }
+}
+
+// Uso
+factory = new CreditCardFactory()
+factory.processOrder(100.00)
+// Output: "Processando 100.00 via Cartão de Crédito"
+
+factory = new PixFactory()
+factory.processOrder(50.00)
+// Output: "Processando 50.00 via PIX"</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: ATIVIDADE INTERATIVA #3 - Factory Method na Prática -->
+        <div class="slide" data-slide="16">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade: Implemente Factory Method</h2>
+                <div class="highlight-card">
+                    <h3>CENÁRIO</h3>
+                    <p>Você está criando um sistema de notificações. Pode enviar via Email, SMS ou Push.</p>
+                </div>
+                <div class="activity-question">
+                    <h3>Qual método abaixo implementa CORRETAMENTE o Factory Method?</h3>
+                </div>
+                <div class="code-quiz-options" id="activity3-options">
+                    <button class="code-quiz-option" data-correct="false" data-activity="3" data-option="A">
+                        <span class="option-letter">A</span>
+                        <div class="code-snippet">
+                            <pre><code>class NotificationService {
+    sendNotification(type, message) {
+        if (type == "email")
+            notification = new EmailNotification()
+        else if (type == "sms")
+            notification = new SMSNotification()
+        notification.send(message)
+    }
+}</code></pre>
+                        </div>
+                    </button>
+                    <button class="code-quiz-option" data-correct="true" data-activity="3" data-option="B">
+                        <span class="option-letter">B</span>
+                        <div class="code-snippet">
+                            <pre><code>abstract class NotificationFactory {
+    abstract createNotification(): Notification
+    
+    sendNotification(message) {
+        notification = createNotification()
+        notification.send(message)
+    }
+}
+
+class EmailFactory extends NotificationFactory {
+    createNotification() {
+        return new EmailNotification()
+    }
+}</code></pre>
+                        </div>
+                    </button>
+                    <button class="code-quiz-option" data-correct="false" data-activity="3" data-option="C">
+                        <span class="option-letter">C</span>
+                        <div class="code-snippet">
+                            <pre><code>class Notification {
+    static create(type) {
+        return new Notification(type)
+    }
+}</code></pre>
+                        </div>
+                    </button>
+                </div>
+                <div class="feedback-box" id="activity3-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Singleton - Conceito -->
+        <div class="slide" data-slide="17">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Padrão Singleton (Instância Única)</h2>
+                <p class="slide-subtitle">Padrão Criacional #2</p>
+                <div class="definition-card highlight">
+                    <div class="icon">🔒</div>
+                    <p class="definition-text">Garante que uma classe tenha APENAS UMA INSTÂNCIA e fornece um PONTO DE ACESSO GLOBAL a ela.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Conceito-Chave</h3>
+                    <p>Uma classe, uma instância, para sempre!</p>
+                </div>
+                <div class="section-title">Problema que Resolve</div>
+                <div class="content-card">
+                    <p>Quando você precisa controlar acesso a recurso compartilhado (banco de dados, configuração, log)</p>
+                </div>
+                <div class="section-title">Características</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Construtor PRIVADO (ninguém pode fazer 'new')</li>
+                        <li>Instância ESTÁTICA (única na memória)</li>
+                        <li>Método ESTÁTICO de acesso (getInstance())</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Analogias do Singleton -->
+        <div class="slide" data-slide="18">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Analogias do Mundo Real</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-card" style="border-left-color: #4caf50;">
+                        <div class="advantage-icon">🏛️</div>
+                        <h4>PRESIDENTE DE UM PAÍS</h4>
+                        <ul class="key-points">
+                            <li>Só pode haver UM presidente por vez</li>
+                            <li>Todos acessam o MESMO presidente</li>
+                            <li>Não faz sentido ter 2 presidentes simultâneos</li>
+                        </ul>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: #2196f3;">
+                        <div class="advantage-icon">⚡</div>
+                        <h4>GERENTE DE ENERGIA ELÉTRICA</h4>
+                        <ul class="key-points">
+                            <li>Sistema tem UM gerenciador de energia</li>
+                            <li>Todos os componentes consultam o MESMO gerenciador</li>
+                            <li>Se tivesse múltiplos gerenciadores = caos</li>
+                        </ul>
+                    </div>
+                    <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                        <div class="advantage-icon">📄</div>
+                        <h4>ARQUIVO DE CONFIGURAÇÃO</h4>
+                        <ul class="key-points">
+                            <li>Sistema carrega configurações UMA vez</li>
+                            <li>Todas as partes do sistema leem a MESMA configuração</li>
+                            <li>Não faz sentido carregar 100x o mesmo arquivo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Singleton - Estrutura -->
+        <div class="slide" data-slide="19">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Estrutura do Singleton</h2>
+                <div class="code-container">
+                    <div class="code-block">
+                        <h4>SINGLETON</h4>
+                        <pre><code>- static instance: Singleton
+- constructor() {private}
+
++ static getInstance(): Singleton {
+    if (instance == null)
+        instance = new Singleton()
+    return instance
+}
++ someMethod(): void</code></pre>
+                    </div>
+                </div>
+                <div class="section-title">Fluxo Visual</div>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <p>Cliente chama Singleton.getInstance()</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <p>Se instância não existe, cria</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <p>Se já existe, retorna a existente</p>
+                    </div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <p>SEMPRE retorna a MESMA instância</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Singleton - Pseudo-Código -->
+        <div class="slide" data-slide="20">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Exemplo Prático: Database Connection</h2>
+                <div class="code-container">
+                    <pre><code>class DatabaseConnection {
+    // Instância única (privada e estática)
+    private static instance: DatabaseConnection = null
+    private connection: Connection
+    
+    // Construtor PRIVADO (ninguém pode fazer 'new')
+    private constructor() {
+        // Conecta ao banco (operação cara)
+        this.connection = connectToDatabase("localhost", "mydb")
+        print "Conexão com banco estabelecida"
+    }
+    
+    // Método público estático para obter instância
+    public static getInstance(): DatabaseConnection {
+        if (instance == null) {
+            instance = new DatabaseConnection()
+        }
+        return instance
+    }
+    
+    // Métodos de negócio
+    public query(sql: string) {
+        return this.connection.execute(sql)
+    }
+}
+
+// Uso
+// IMPOSSÍVEL fazer isso (construtor privado):
+// db = new DatabaseConnection()  // ERRO!
+
+// Jeito CORRETO:
+db1 = DatabaseConnection.getInstance()
+db1.query("SELECT * FROM users")
+
+db2 = DatabaseConnection.getInstance()
+db2.query("SELECT * FROM orders")
+
+// db1 e db2 são a MESMA instância!
+print(db1 === db2)  // true
+
+// Conexão foi estabelecida apenas UMA vez
+// Economia de recursos!</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: ATIVIDADE INTERATIVA #4 - Identifique o Singleton -->
+        <div class="slide" data-slide="21">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">🎮 Atividade: Qual código implementa Singleton?</h2>
+                <div class="activity-question">
+                    <h3>Analise os 3 códigos. Qual implementa CORRETAMENTE o padrão Singleton?</h3>
+                </div>
+                <div class="code-quiz-options" id="activity4-options">
+                    <button class="code-quiz-option" data-correct="false" data-activity="4" data-option="A">
+                        <span class="option-letter">A</span>
+                        <div class="code-snippet">
+                            <pre><code>class Logger {
+    log(message) {
+        print(message)
+    }
+}
+
+// Uso
+logger1 = new Logger()
+logger2 = new Logger()</code></pre>
+                        </div>
+                    </button>
+                    <button class="code-quiz-option" data-correct="true" data-activity="4" data-option="B">
+                        <span class="option-letter">B</span>
+                        <div class="code-snippet">
+                            <pre><code>class Logger {
+    private static instance = null
+    
+    private constructor() {}
+    
+    public static getInstance() {
+        if (instance == null)
+            instance = new Logger()
+        return instance
+    }
+    
+    log(message) {
+        print(message)
+    }
+}
+
+// Uso
+logger1 = Logger.getInstance()
+logger2 = Logger.getInstance()
+// logger1 === logger2 (mesma instância)</code></pre>
+                        </div>
+                    </button>
+                    <button class="code-quiz-option" data-correct="false" data-activity="4" data-option="C">
+                        <span class="option-letter">C</span>
+                        <div class="code-snippet">
+                            <pre><code>class Logger {
+    static instance = new Logger()
+    
+    log(message) {
+        print(message)
+    }
+}</code></pre>
+                        </div>
+                    </button>
+                </div>
+                <div class="feedback-box" id="activity4-feedback" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Casos de Uso do Singleton -->
+        <div class="slide" data-slide="22">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Quando Usar Singleton?</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🗄️</div>
+                        <h4>CONEXÃO COM BANCO DE DADOS</h4>
+                        <p><strong>Por quê?</strong> Conexões são caras e limitadas</p>
+                        <p><strong>Singleton garante:</strong> Uma única conexão reutilizada</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">📝</div>
+                        <h4>SISTEMA DE LOGS</h4>
+                        <p><strong>Por quê?</strong> Logs precisam ser consistentes e centralizados</p>
+                        <p><strong>Singleton garante:</strong> Todos escrevem no mesmo arquivo/sistema</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">⚙️</div>
+                        <h4>CONFIGURAÇÕES GLOBAIS</h4>
+                        <p><strong>Por quê?</strong> Carregar config múltiplas vezes é desperdício</p>
+                        <p><strong>Singleton garante:</strong> Carrega UMA vez, todos usam</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">💾</div>
+                        <h4>GERENCIADOR DE CACHE</h4>
+                        <p><strong>Por quê?</strong> Cache deve ser compartilhado por toda aplicação</p>
+                        <p><strong>Singleton garante:</strong> Uma única fonte de verdade</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🔐</div>
+                        <h4>CONTROLE DE RECURSOS LIMITADOS</h4>
+                        <p><strong>Por quê?</strong> Ex: Pool de threads, File handlers</p>
+                        <p><strong>Singleton garante:</strong> Controle centralizado</p>
+                    </div>
+                </div>
+                <div class="warning-card">
+                    <h4>⚠️ CUIDADO:</h4>
+                    <p>Singleton pode dificultar testes e criar dependências globais. Use com moderação!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: ATIVIDADE 3 (FINAL) - Estudo de Caso -->
+        <div class="slide" data-slide="23">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">ATIVIDADE 3 (APS) - Aplicação de Conceitos</h2>
+                <div class="activity-info">
+                    <p><strong>Instrução:</strong> Descreva brevemente um cenário onde o Padrão Singleton seria a escolha mais adequada (diferente dos exemplos dados). Explique:</p>
+                    <ol style="padding-left: 20px; color: var(--color-gray-200);">
+                        <li>Qual o cenário?</li>
+                        <li>O que o Singleton garante?</li>
+                        <li>Por que essa garantia é crucial para o cenário?</li>
+                    </ol>
+                </div>
+                <div class="highlight-card">
+                    <h3>Exemplo de Resposta</h3>
+                    <p>Clique no botão abaixo para ver um exemplo completo de resposta</p>
+                </div>
+                <div class="activity-buttons">
+                    <button class="btn-verify" id="show-example-btn">Ver Exemplo de Resposta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: ATIVIDADE 3 - Resolução Demonstrada -->
+        <div class="slide" data-slide="24">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Resolução Exemplo da Atividade 3</h2>
+                <div class="highlight-card">
+                    <h3>CENÁRIO ESCOLHIDO: Gerenciamento de Configuração de uma Aplicação Web</h3>
+                </div>
+                <div class="advantage-card" style="border-left-color: #4caf50;">
+                    <h4>1. Cenário:</h4>
+                    <p>"Uma aplicação web de e-commerce precisa carregar configurações globais no início (URL do banco, credenciais de API de pagamento, tempo de sessão, etc.). Essas configurações são lidas de um arquivo config.json na inicialização."</p>
+                </div>
+                <div class="advantage-card" style="border-left-color: #2196f3;">
+                    <h4>2. O que o Singleton garante:</h4>
+                    <ul class="key-points">
+                        <li>Apenas UMA leitura do arquivo (ao iniciar app)</li>
+                        <li>UMA instância de ConfigManager para toda aplicação</li>
+                        <li>Todas as partes do sistema acessam a MESMA configuração</li>
+                        <li>Não há risco de configurações diferentes em partes diferentes</li>
+                    </ul>
+                </div>
+                <div class="advantage-card" style="border-left-color: var(--color-accent-orange);">
+                    <h4>3. Por que é crucial:</h4>
+                    <p><strong>SEM Singleton:</strong> Cada requisição HTTP poderia criar uma nova instância de ConfigManager, lendo o arquivo config.json repetidamente. Com 1000 requisições/segundo, teríamos:</p>
+                    <ul class="key-points">
+                        <li>1000 leituras de arquivo por segundo (I/O caro)</li>
+                        <li>Possibilidade de configurações inconsistentes</li>
+                        <li>Desperdício de memória (1000 objetos idênticos)</li>
+                    </ul>
+                    <p><strong>COM Singleton:</strong></p>
+                    <ul class="key-points">
+                        <li>1 leitura de arquivo na inicialização</li>
+                        <li>Configurações sempre consistentes</li>
+                        <li>Economia de memória e processamento</li>
+                        <li>Performance melhorada dramaticamente</li>
+                    </ul>
+                </div>
+                <div class="highlight-card" style="background: linear-gradient(135deg, var(--color-card-bg) 0%, rgba(76, 175, 80, 0.15) 100%); border-left-color: #4caf50;">
+                    <h3 style="color: #4caf50;">Critérios de Avaliação</h3>
+                    <ul class="key-points">
+                        <li>Cenário claro e diferente dos exemplos</li>
+                        <li>Explicou o que Singleton garante</li>
+                        <li>Justificou por que a garantia é crucial</li>
+                        <li>Usou argumentos técnicos (performance, consistência, economia)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Resumo e Referências -->
+        <div class="slide" data-slide="25">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+            <div class="slide-content">
+                <h2 class="slide-title">Resumo do Módulo 3</h2>
+                <div class="section-title">Principais Aprendizados</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Design Patterns = Soluções reutilizáveis (não código pronto)</li>
+                        <li>GoF catalogou 23 padrões em 1994</li>
+                        <li>Vocabulário comum facilita comunicação</li>
+                        <li>3 categorias: Criacionais, Estruturais, Comportamentais</li>
+                        <li>Factory Method: Delega criação às subclasses</li>
+                        <li>Singleton: Garante instância única</li>
+                    </ul>
+                </div>
+                <div class="section-title">Referências</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>📚 "Design Patterns: Elements of Reusable Object-Oriented Software" - GoF (1994)</li>
+                        <li>📚 "Head First Design Patterns" - Freeman &amp; Freeman (2004)</li>
+                        <li>💻 refactoring.guru - Padrões explicados com diagramas</li>
+                        <li>💻 sourcemaking.com - Design patterns e anti-patterns</li>
+                    </ul>
+                </div>
+                <div class="section-title">Próximos Passos</div>
+                <div class="content-card">
+                    <ul class="key-points">
+                        <li>Módulo 4: Padrões Estruturais e Comportamentais</li>
+                        <li>Praticar implementação dos padrões</li>
+                        <li>Identificar padrões em projetos reais</li>
+                    </ul>
+                </div>
+                <div class="thank-you">
+                    <h2>Obrigado!</h2>
+                    <p>Continue explorando, aprendendo e construindo sistemas incríveis! 🚀</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation-controls">
+        <button class="nav-button" id="prevBtn" aria-label="Slide anterior">
+            <span>‹</span>
+        </button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">25</span>
+        </div>
+        <button class="nav-button" id="nextBtn" aria-label="Próximo slide">
+            <span>›</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
