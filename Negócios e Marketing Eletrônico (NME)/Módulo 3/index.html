@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 - Marketing de Conteúdo e Funil de Vendas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Slide 1: Página Inicial -->
+    <div class="slide active" id="slide-1">
+        <div class="slide-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+        </div>
+        <div class="slide-content title-slide">
+            <h1 class="main-title">MÓDULO 3</h1>
+            <h2 class="subtitle-module">Negócios e Marketing Eletrônico (NME)</h2>
+            <p class="subtitle">Marketing de Conteúdo e Funil de Vendas</p>
+            <button class="btn-primary" onclick="changeSlide(1)">Iniciar Módulo 3</button>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)" disabled>← Anterior</button>
+            <span class="slide-indicator">1 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 2: Sumário -->
+    <div class="slide" id="slide-2">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Sumário da Aula</h2>
+            <div class="summary-grid">
+                <div class="summary-card" onclick="showSlide(3)">
+                    <div class="card-number">01</div>
+                    <h3>O que é Marketing de Conteúdo?</h3>
+                    <p class="card-subtitle">Slides 3-4</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(5)">
+                    <div class="card-number">02</div>
+                    <h3>Funil de Vendas</h3>
+                    <p class="card-subtitle">Slides 5-7</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(8)">
+                    <div class="card-number">03</div>
+                    <h3>Topo do Funil (ToFu)</h3>
+                    <p class="card-subtitle">Slides 8-9</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(10)">
+                    <div class="card-number">04</div>
+                    <h3>Meio do Funil (MoFu)</h3>
+                    <p class="card-subtitle">Slides 10-11</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(12)">
+                    <div class="card-number">05</div>
+                    <h3>Fundo do Funil (BoFu)</h3>
+                    <p class="card-subtitle">Slides 12-13</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(14)">
+                    <div class="card-number">06</div>
+                    <h3>Calendário Editorial</h3>
+                    <p class="card-subtitle">Slide 14</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(15)">
+                    <div class="card-number">07</div>
+                    <h3>Atividade Prática</h3>
+                    <p class="card-subtitle">Slides 15-17</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">2 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 3: O que é Marketing de Conteúdo -->
+    <div class="slide" id="slide-3">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">O que é Marketing de Conteúdo?</h2>
+
+            <div class="content-box">
+                <p><strong>Marketing de Conteúdo</strong> é a arte de criar e distribuir conteúdo <strong>valioso, relevante e consistente</strong> para atrair e reter um público-alvo claramente definido — com o objetivo final de gerar ações lucrativas do cliente.</p>
+            </div>
+
+            <div class="tip-box highlight">
+                <div class="tip-icon">🎯</div>
+                <div class="tip-content">
+                    <strong>IMPORTANTE:</strong> Conteúdo NÃO é propaganda! É uma forma de <strong>educar</strong> e construir <strong>confiança</strong> (autoridade) para, só depois, vender.
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>Por que Marketing de Conteúdo?</h3>
+                <ul class="feature-list">
+                    <li>✓ <strong>Atrai</strong> visitantes organicamente (SEO)</li>
+                    <li>✓ <strong>Educa</strong> o público sobre problemas e soluções</li>
+                    <li>✓ <strong>Constrói autoridade</strong> e confiança na marca</li>
+                    <li>✓ <strong>Nutre</strong> relacionamento até a decisão de compra</li>
+                    <li>✓ <strong>Reduz custo</strong> de aquisição de clientes (CAC)</li>
+                </ul>
+            </div>
+
+            <div class="example-box" style="margin-top: 1.5rem;">
+                <h3>📌 Exemplo Prático:</h3>
+                <p><strong>Blog da HubSpot:</strong> Em vez de vender software direto, eles ensinam "Como fazer Inbound Marketing" através de centenas de posts gratuitos. Resultado? Autoridade + Leads qualificados.</p>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">3 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 4: Conteúdo vs Propaganda -->
+    <div class="slide" id="slide-4">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Conteúdo vs Propaganda</h2>
+
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div class="table-col"><strong>❌ Propaganda Tradicional</strong></div>
+                    <div class="table-col"><strong>✅ Marketing de Conteúdo</strong></div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">"COMPRE AGORA!"</div>
+                    <div class="table-col">"Veja como resolver seu problema"</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Interrompe o usuário</div>
+                    <div class="table-col">Usuário busca ativamente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Foco no produto</div>
+                    <div class="table-col">Foco no cliente e suas dores</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Resultado imediato ou nada</div>
+                    <div class="table-col">Constrói relacionamento a longo prazo</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Alto custo por clique (CPC)</div>
+                    <div class="table-col">Tráfego orgânico + Autoridade</div>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Analogia do Relacionamento:</strong><br/>
+                    Propaganda = "Quer casar?" (no primeiro encontro) 😱<br/>
+                    Marketing de Conteúdo = Conhecer → Sair → Namoro → Casamento 💍
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">4 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 5: Funil de Vendas - Introdução -->
+    <div class="slide" id="slide-5">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Funil de Vendas (Sales Funnel)</h2>
+
+            <div class="content-box">
+                <p>O <strong>Funil de Vendas</strong> (ou Funil de Marketing) é um modelo visual que representa a <strong>jornada do cliente</strong> desde o primeiro contato com a marca até a decisão de compra.</p>
+                <p style="margin-top: 1rem;">Chamamos de "funil" porque o número de pessoas diminui a cada estágio — muitos entram no topo, mas poucos chegam ao fundo.</p>
+            </div>
+
+            <div class="funnel-diagram">
+                <div class="funnel-stage tofu">
+                    <div class="funnel-label">🔝 TOPO (ToFu)</div>
+                    <div class="funnel-description">Atração • Descoberta</div>
+                    <div class="funnel-audience">1000 pessoas</div>
+                </div>
+                <div class="funnel-arrow">↓</div>
+                <div class="funnel-stage mofu">
+                    <div class="funnel-label">🎯 MEIO (MoFu)</div>
+                    <div class="funnel-description">Consideração • Avaliação</div>
+                    <div class="funnel-audience">300 pessoas</div>
+                </div>
+                <div class="funnel-arrow">↓</div>
+                <div class="funnel-stage bofu">
+                    <div class="funnel-label">💰 FUNDO (BoFu)</div>
+                    <div class="funnel-description">Decisão • Conversão</div>
+                    <div class="funnel-audience">50 clientes</div>
+                </div>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">🏆</div>
+                <div class="tip-content">
+                    <strong>Cada estágio exige CONTEÚDO DIFERENTE</strong> porque o nível de conhecimento e intenção do público muda.
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">5 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 6: Analogia do Relacionamento -->
+    <div class="slide" id="slide-6">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Analogia: Conquistar um Relacionamento ❤️</h2>
+
+            <div class="journey-example">
+                <div class="journey-example-item">
+                    <div class="journey-example-stage tofu-bg">🔝 TOPO = Conhecer a Pessoa</div>
+                    <div class="journey-example-content">
+                        <p><strong>Situação:</strong> Você vê alguém interessante em uma festa.</p>
+                        <p><strong>Ação:</strong> Puxa conversa leve, fala de hobbies comuns.</p>
+                        <p><strong>Resultado:</strong> Troca de Instagram/WhatsApp.</p>
+                        <p style="margin-top: 0.5rem;"><em>❌ Não pede em casamento no primeiro dia!</em></p>
+                    </div>
+                </div>
+
+                <div class="journey-example-item">
+                    <div class="journey-example-stage mofu-bg">🎯 MEIO = Sair em Alguns Encontros</div>
+                    <div class="journey-example-content">
+                        <p><strong>Situação:</strong> Vocês já se conhecem melhor.</p>
+                        <p><strong>Ação:</strong> Jantar, cinema, apresenta aos amigos.</p>
+                        <p><strong>Resultado:</strong> A pessoa está considerando você como parceiro(a).</p>
+                    </div>
+                </div>
+
+                <div class="journey-example-item">
+                    <div class="journey-example-stage bofu-bg">💰 FUNDO = Pedido de Casamento</div>
+                    <div class="journey-example-content">
+                        <p><strong>Situação:</strong> Há confiança, comprometimento mútuo.</p>
+                        <p><strong>Ação:</strong> Pede em casamento com anel e tudo.</p>
+                        <p><strong>Resultado:</strong> SIM! 💍 (Conversão)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Moral da história:</strong> Não peça "casamento" (venda) para quem acabou de te conhecer. Construa o relacionamento!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">6 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 7: Resumo Visual do Funil -->
+    <div class="slide" id="slide-7">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Funil de Vendas - Resumo Visual</h2>
+
+            <div class="funnel-summary-table">
+                <div class="funnel-summary-header">
+                    <div>Estágio</div>
+                    <div>Objetivo</div>
+                    <div>Nível de Conhecimento</div>
+                    <div>Intenção de Compra</div>
+                </div>
+                <div class="funnel-summary-row tofu-row">
+                    <div class="stage-label">🔝 TOPO</div>
+                    <div>Atrair visitantes</div>
+                    <div>Não conhece problema</div>
+                    <div>Baixa (0%)</div>
+                </div>
+                <div class="funnel-summary-row mofu-row">
+                    <div class="stage-label">🎯 MEIO</div>
+                    <div>Educar e nutrir leads</div>
+                    <div>Reconhece problema</div>
+                    <div>Média (30%)</div>
+                </div>
+                <div class="funnel-summary-row bofu-row">
+                    <div class="stage-label">💰 FUNDO</div>
+                    <div>Converter em clientes</div>
+                    <div>Busca solução específica</div>
+                    <div>Alta (80%)</div>
+                </div>
+            </div>
+
+            <div class="activity-box" style="margin-top: 2rem;">
+                <h3>🎯 Teste Rápido</h3>
+                <p><strong>Um visitante pesquisa "o que é SEO?" no Google. Em qual estágio ele está?</strong></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'A')">A) Topo do Funil (descobrindo)</button>
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'B')">B) Meio do Funil (comparando)</button>
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'C')">C) Fundo do Funil (decidindo)</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-1"></div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">7 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 8: Topo do Funil (ToFu) -->
+    <div class="slide" id="slide-8">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🔝 Topo do Funil (ToFu)</h2>
+
+            <div class="stage-box tofu-box">
+                <h3>Características do Público:</h3>
+                <ul>
+                    <li>❌ <strong>Não sabe</strong> que tem um problema</li>
+                    <li>🔍 Está apenas <strong>pesquisando</strong> sobre um tema</li>
+                    <li>📊 <strong>Volume alto</strong> de visitantes</li>
+                    <li>💡 Busca por <strong>educação</strong> e conscientização</li>
+                    <li>⏰ <strong>Não tem pressa</strong> para comprar</li>
+                </ul>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>🎯 Objetivo do Conteúdo:</h3>
+                <p>Atrair o <strong>maior número possível</strong> de visitantes interessados no tema e começar a <strong>educar</strong> sobre problemas e oportunidades.</p>
+            </div>
+
+            <div class="example-box" style="margin-top: 1.5rem;">
+                <h3>📌 Exemplo Real:</h3>
+                <p><strong>Persona:</strong> Lucas (programador que quer evoluir)</p>
+                <p><strong>Busca no Google:</strong> "tendências em programação 2024"</p>
+                <p><strong>Resultado:</strong> Lucas não sabe que precisa de um curso ainda — está só explorando.</p>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1.5rem;">
+                <div class="tip-icon">⚠️</div>
+                <div class="tip-content">
+                    <strong>ERRO COMUM:</strong> Tentar vender direto no Topo. O visitante vai embora! Eduque primeiro.
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">8 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 9: Tipos de Conteúdo - ToFu -->
+    <div class="slide" id="slide-9">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Tipos de Conteúdo para o TOPO</h2>
+
+            <div class="content-types-grid">
+                <div class="content-type-card tofu-card">
+                    <div class="content-icon">📝</div>
+                    <h3>Posts de Blog (SEO)</h3>
+                    <p><strong>Por quê?</strong> Rankeiam no Google e trazem tráfego orgânico.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "7 Linguagens de Programação para 2024"</p>
+                </div>
+
+                <div class="content-type-card tofu-card">
+                    <div class="content-icon">🎥</div>
+                    <h3>Vídeos Curtos (Redes Sociais)</h3>
+                    <p><strong>Por quê?</strong> Alcance amplo, fácil de consumir.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "3 erros comuns de programadores iniciantes"</p>
+                </div>
+
+                <div class="content-type-card tofu-card">
+                    <div class="content-icon">📊</div>
+                    <h3>Infográficos</h3>
+                    <p><strong>Por quê?</strong> Visual, compartilhável, viraliza.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Salários em Tech 2024 [Infográfico]"</p>
+                </div>
+
+                <div class="content-type-card tofu-card">
+                    <div class="content-icon">📻</div>
+                    <h3>Podcasts</h3>
+                    <p><strong>Por quê?</strong> Consumo passivo (ouve enquanto faz outras coisas).</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Carreira em Tech: por onde começar?"</p>
+                </div>
+            </div>
+
+            <div class="insight-box" style="margin-top: 2rem;">
+                <div class="insight-icon">💡</div>
+                <div class="insight-content">
+                    <strong>Insight:</strong> Conteúdo de Topo precisa ser <strong>fácil de encontrar</strong> (SEO) e <strong>fácil de consumir</strong> (texto/vídeo curto).
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">9 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 10: Meio do Funil (MoFu) -->
+    <div class="slide" id="slide-10">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🎯 Meio do Funil (MoFu)</h2>
+
+            <div class="stage-box mofu-box">
+                <h3>Características do Público:</h3>
+                <ul>
+                    <li>✅ <strong>Já reconheceu</strong> que tem um problema</li>
+                    <li>🔍 Está <strong>pesquisando soluções</strong> diferentes</li>
+                    <li>📊 Volume <strong>médio</strong> de leads</li>
+                    <li>🤔 Quer se <strong>aprofundar</strong> no tema</li>
+                    <li>📧 Disposto a <strong>trocar contato</strong> por material valioso</li>
+                </ul>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>🎯 Objetivo do Conteúdo:</h3>
+                <p><strong>Nutrir</strong> o relacionamento, mostrar que você entende a dor dele e apresentar <strong>possíveis soluções</strong> (sem empurrar seu produto ainda).</p>
+            </div>
+
+            <div class="example-box" style="margin-top: 1.5rem;">
+                <h3>📌 Exemplo Real:</h3>
+                <p><strong>Persona:</strong> Lucas (programador)</p>
+                <p><strong>Busca no Google:</strong> "como melhorar arquitetura de código"</p>
+                <p><strong>Resultado:</strong> Lucas baixa um E-book "Guia Completo de Clean Code" (deixa e-mail).</p>
+            </div>
+
+            <div class="tip-box" style="margin-top: 1.5rem;">
+                <div class="tip-icon">📧</div>
+                <div class="tip-content">
+                    <strong>Importante:</strong> Meio de Funil é onde você <strong>captura leads</strong> (e-mails) para nutrir via email marketing.
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">10 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 11: Tipos de Conteúdo - MoFu -->
+    <div class="slide" id="slide-11">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Tipos de Conteúdo para o MEIO</h2>
+
+            <div class="content-types-grid">
+                <div class="content-type-card mofu-card">
+                    <div class="content-icon">📚</div>
+                    <h3>E-books / Guias Completos</h3>
+                    <p><strong>Por quê?</strong> Material aprofundado em troca de e-mail (lead magnet).</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Guia: Microsserviços na Prática [PDF]"</p>
+                </div>
+
+                <div class="content-type-card mofu-card">
+                    <div class="content-icon">🎓</div>
+                    <h3>Webinars / Lives</h3>
+                    <p><strong>Por quê?</strong> Interação ao vivo, educa e qualifica leads.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Live: Como subir de Pleno para Sênior"</p>
+                </div>
+
+                <div class="content-type-card mofu-card">
+                    <div class="content-icon">🎬</div>
+                    <h3>Vídeo-Aulas / Tutoriais</h3>
+                    <p><strong>Por quê?</strong> Demonstra expertise, cria vínculo.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Tutorial: Deploy de app Node.js"</p>
+                </div>
+
+                <div class="content-type-card mofu-card">
+                    <div class="content-icon">📊</div>
+                    <h3>Whitepapers / Estudos</h3>
+                    <p><strong>Por quê?</strong> Dados e análises para público B2B.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Estudo: Salários Tech Brasil 2024"</p>
+                </div>
+            </div>
+
+            <div class="activity-box" style="margin-top: 2rem;">
+                <h3>🎯 Conecte o Ponto</h3>
+                <p><strong>Um comparativo "5 Melhores Cursos Python 2024" se encaixa em qual estágio?</strong></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkQuiz(2, 'A')">A) Topo (ToFu)</button>
+                    <button class="quiz-btn" onclick="checkQuiz(2, 'B')">B) Meio (MoFu)</button>
+                    <button class="quiz-btn" onclick="checkQuiz(2, 'C')">C) Fundo (BoFu)</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-2"></div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">11 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 12: Fundo do Funil (BoFu) -->
+    <div class="slide" id="slide-12">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">💰 Fundo do Funil (BoFu)</h2>
+
+            <div class="stage-box bofu-box">
+                <h3>Características do Público:</h3>
+                <ul>
+                    <li>💡 <strong>Sabe exatamente</strong> o que precisa</li>
+                    <li>🛒 Está <strong>pronto para comprar</strong></li>
+                    <li>📊 Volume <strong>pequeno</strong> mas altamente qualificado</li>
+                    <li>⚖️ Está <strong>comparando fornecedores</strong></li>
+                    <li>💳 Quer <strong>provas</strong> de que você resolve o problema</li>
+                </ul>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>🎯 Objetivo do Conteúdo:</h3>
+                <p><strong>Converter</strong> o lead em cliente mostrando <strong>credibilidade</strong>, <strong>prova social</strong> e facilitando a <strong>decisão de compra</strong>.</p>
+            </div>
+
+            <div class="example-box" style="margin-top: 1.5rem;">
+                <h3>📌 Exemplo Real:</h3>
+                <p><strong>Persona:</strong> Lucas (programador)</p>
+                <p><strong>Busca no Google:</strong> "curso arquitetura microsserviços preço"</p>
+                <p><strong>Resultado:</strong> Lucas acessa página de vendas com depoimentos, certificado e garantia.</p>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 1.5rem;">
+                <div class="tip-icon">🚀</div>
+                <div class="tip-content">
+                    <strong>AGORA SIM:</strong> É a hora de vender! O cliente está aquecido, educado e confiante.
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">12 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 13: Tipos de Conteúdo - BoFu -->
+    <div class="slide" id="slide-13">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Tipos de Conteúdo para o FUNDO</h2>
+
+            <div class="content-types-grid">
+                <div class="content-type-card bofu-card">
+                    <div class="content-icon">⭐</div>
+                    <h3>Depoimentos / Testemunhos</h3>
+                    <p><strong>Por quê?</strong> Prova social — "Se funcionou para ele, pode funcionar pra mim".</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Evoluí de Júnior para Sênior em 8 meses"</p>
+                </div>
+
+                <div class="content-type-card bofu-card">
+                    <div class="content-icon">📊</div>
+                    <h3>Case Studies / Casos de Sucesso</h3>
+                    <p><strong>Por quê?</strong> Mostra ROI real, resultados mensuráveis.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Como a empresa X aumentou produtividade em 40%"</p>
+                </div>
+
+                <div class="content-type-card bofu-card">
+                    <div class="content-icon">🖥️</div>
+                    <h3>Demonstrações / Free Trials</h3>
+                    <p><strong>Por quê?</strong> Cliente testa antes de comprar, reduz objeções.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Teste 7 dias grátis da plataforma"</p>
+                </div>
+
+                <div class="content-type-card bofu-card">
+                    <div class="content-icon">💰</div>
+                    <h3>Páginas de Preço / Vendas</h3>
+                    <p><strong>Por quê?</strong> Transparência, facilita decisão.</p>
+                    <p class="content-example"><strong>Exemplo:</strong> "Planos: Basic R$97, Pro R$297"</p>
+                </div>
+            </div>
+
+            <div class="insight-box" style="margin-top: 2rem;">
+                <div class="insight-icon">🎯</div>
+                <div class="insight-content">
+                    <strong>Dica de Ouro:</strong> No Fundo, use <strong>gatilhos mentais</strong>: escassez (últimas vagas), urgência (oferta até domingo), garantia (7 dias para pedir reembolso).
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">13 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 14: Calendário Editorial -->
+    <div class="slide" id="slide-14">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📅 Calendário Editorial</h2>
+
+            <div class="content-box">
+                <p>O <strong>Calendário Editorial</strong> é uma ferramenta de organização que planeja <strong>quando</strong> e <strong>o quê</strong> publicar ao longo do tempo, garantindo consistência e cobertura de todos os estágios do Funil.</p>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>Por que ter um Calendário Editorial?</h3>
+                <ul class="feature-list">
+                    <li>✅ <strong>Consistência:</strong> Publica regularmente</li>
+                    <li>✅ <strong>Organização:</strong> Time alinhado sobre prazos</li>
+                    <li>✅ <strong>Estratégia:</strong> Equilibra Topo-Meio-Fundo</li>
+                    <li>✅ <strong>SEO:</strong> Planeja palavras-chave antecipadamente</li>
+                    <li>✅ <strong>Evita bloqueio criativo:</strong> Temas pré-definidos</li>
+                </ul>
+            </div>
+
+            <div class="calendar-example">
+                <h3 style="color: #fbbf24; margin-bottom: 1rem;">Exemplo de Calendário (Janeiro 2024):</h3>
+                <div class="calendar-grid">
+                    <div class="calendar-item tofu-item">
+                        <div class="calendar-date">02/Jan</div>
+                        <div class="calendar-type">🔝 ToFu</div>
+                        <div class="calendar-title">Post: "10 Tendências Tech 2024"</div>
+                    </div>
+                    <div class="calendar-item mofu-item">
+                        <div class="calendar-date">09/Jan</div>
+                        <div class="calendar-type">🎯 MoFu</div>
+                        <div class="calendar-title">E-book: "Guia de Microsserviços"</div>
+                    </div>
+                    <div class="calendar-item bofu-item">
+                        <div class="calendar-date">16/Jan</div>
+                        <div class="calendar-type">💰 BoFu</div>
+                        <div class="calendar-title">Case: "De Júnior a Sênior"</div>
+                    </div>
+                    <div class="calendar-item tofu-item">
+                        <div class="calendar-date">23/Jan</div>
+                        <div class="calendar-type">🔝 ToFu</div>
+                        <div class="calendar-title">Vídeo: "Erros comuns de devs"</div>
+                    </div>
+                    <div class="calendar-item mofu-item">
+                        <div class="calendar-date">30/Jan</div>
+                        <div class="calendar-type">🎯 MoFu</div>
+                        <div class="calendar-title">Webinar: "Clean Code"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">14 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 15: Atividade Prática - Instruções -->
+    <div class="slide" id="slide-15">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📝 Atividade 3 (NME) - Planejamento de Conteúdo</h2>
+
+            <div class="activity-instructions">
+                <h3>🎯 Instruções</h3>
+                <p>Usando a <strong>Persona Lucas Fernandes</strong> (programador pleno que busca evolução), sugira <strong>3 ideias de conteúdo</strong>, uma para cada etapa do Funil de Vendas:</p>
+
+                <div class="instructions-list">
+                    <div class="instruction-item tofu-bg">
+                        <strong>1. TOPO DO FUNIL (Atração)</strong>
+                        <p>Título do conteúdo + Formato escolhido + Por que esse formato?</p>
+                    </div>
+
+                    <div class="instruction-item mofu-bg">
+                        <strong>2. MEIO DO FUNIL (Consideração)</strong>
+                        <p>Título do conteúdo + Formato escolhido + Por que esse formato?</p>
+                    </div>
+
+                    <div class="instruction-item bofu-bg">
+                        <strong>3. FUNDO DO FUNIL (Decisão)</strong>
+                        <p>Título do conteúdo + Formato escolhido + Por que esse formato?</p>
+                    </div>
+                </div>
+
+                <div class="tip-box" style="margin-top: 2rem;">
+                    <div class="tip-icon">💡</div>
+                    <div class="tip-content">
+                        <strong>Lembre-se:</strong> Considere os objetivos de Lucas, seus desafios e onde ele busca informação (LinkedIn, YouTube, blogs técnicos).
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">15 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 16: Resolução da Atividade - Topo -->
+    <div class="slide" id="slide-16">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Resolução - Parte 1 (TOPO)</h2>
+
+            <div class="solution-box tofu-box">
+                <div class="solution-header">
+                    <h3>🔝 TOPO DO FUNIL</h3>
+                    <span class="solution-badge">Objetivo: ATRAIR</span>
+                </div>
+
+                <div class="solution-content">
+                    <div class="solution-item">
+                        <strong>📝 Título do Conteúdo:</strong>
+                        <p class="solution-title">"7 Habilidades Essenciais para Programadores se Tornarem Sênior em 2024"</p>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>📄 Formato Escolhido:</strong>
+                        <p>Post de Blog (1500 palavras, otimizado para SEO)</p>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>❓ Por que esse formato?</strong>
+                        <ul>
+                            <li>✅ <strong>SEO:</strong> Lucas (e milhares como ele) pesquisam "como virar programador sênior" no Google</li>
+                            <li>✅ <strong>Descoberta orgânica:</strong> Blog post é encontrado facilmente</li>
+                            <li>✅ <strong>Não exige comprometimento:</strong> Leitura rápida, sem necessidade de cadastro</li>
+                            <li>✅ <strong>Compartilhável:</strong> Lucas pode salvar ou enviar para colegas</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>🎯 O que Lucas ganha:</strong>
+                        <p>Conscientização sobre o GAP de habilidades que ele precisa preencher. Ele ainda não sabe da solução (curso), apenas está explorando.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">16 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 17: Resolução da Atividade - Meio -->
+    <div class="slide" id="slide-17">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Resolução - Parte 2 (MEIO)</h2>
+
+            <div class="solution-box mofu-box">
+                <div class="solution-header">
+                    <h3>🎯 MEIO DO FUNIL</h3>
+                    <span class="solution-badge">Objetivo: NUTRIR</span>
+                </div>
+
+                <div class="solution-content">
+                    <div class="solution-item">
+                        <strong>📚 Título do Conteúdo:</strong>
+                        <p class="solution-title">"E-book Gratuito: Guia Completo de Arquitetura de Microsserviços para Programadores"</p>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>📄 Formato Escolhido:</strong>
+                        <p>E-book (PDF de 40 páginas) com Landing Page para captura de e-mail</p>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>❓ Por que esse formato?</strong>
+                        <ul>
+                            <li>✅ <strong>Captura de Lead:</strong> Lucas deixa e-mail para baixar (agora você pode nutri-lo)</li>
+                            <li>✅ <strong>Aprofundamento:</strong> 40 páginas educam seriamente (mais do que um post)</li>
+                            <li>✅ <strong>Autoridade:</strong> Mostra que você domina o tema</li>
+                            <li>✅ <strong>Valor percebido:</strong> "Material completo grátis" gera reciprocidade</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>🎯 O que Lucas ganha:</strong>
+                        <p>Conhecimento prático sobre microsserviços + reconhece que precisa de uma solução estruturada (como um curso).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">17 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 18: Resolução da Atividade - Fundo -->
+    <div class="slide" id="slide-18">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Resolução - Parte 3 (FUNDO)</h2>
+
+            <div class="solution-box bofu-box">
+                <div class="solution-header">
+                    <h3>💰 FUNDO DO FUNIL</h3>
+                    <span class="solution-badge">Objetivo: CONVERTER</span>
+                </div>
+
+                <div class="solution-content">
+                    <div class="solution-item">
+                        <strong>⭐ Título do Conteúdo:</strong>
+                        <p class="solution-title">"Case de Sucesso: Como Bruno saiu de Pleno para Sênior em 8 meses com nosso método"</p>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>📄 Formato Escolhido:</strong>
+                        <p>Vídeo Depoimento (3 minutos) na Landing Page de Vendas do Curso</p>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>❓ Por que esse formato?</strong>
+                        <ul>
+                            <li>✅ <strong>Prova Social:</strong> Lucas vê alguém IGUAL a ele tendo sucesso</li>
+                            <li>✅ <strong>Credibilidade:</strong> Depoimento real, com rosto e nome, aumenta confiança</li>
+                            <li>✅ <strong>Resultado tangível:</strong> "8 meses" é específico e mensurável</li>
+                            <li>✅ <strong>Gatilho emocional:</strong> "Se ele conseguiu, eu também consigo"</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-item">
+                        <strong>🎯 O que Lucas ganha:</strong>
+                        <p>Confiança para comprar. Ele vê que o curso funciona, que tem ROI real, e que não é "só teoria".</p>
+                    </div>
+
+                    <div class="call-to-action" style="margin-top: 1.5rem;">
+                        <p style="text-align: center; font-size: 1.2rem; color: #fbbf24;"><strong>→ Logo abaixo do vídeo: Botão "QUERO EVOLUIR TAMBÉM" com preço, garantia e bônus.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">18 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 19: Resumo -->
+    <div class="slide" id="slide-19">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📋 Resumo</h2>
+            <div class="summary-content">
+                <div class="summary-topic">
+                    <h3>Marketing de Conteúdo</h3>
+                    <p>Educar e construir confiança ANTES de vender. Não é propaganda.</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>Funil de Vendas</h3>
+                    <p>Topo (atração) → Meio (consideração) → Fundo (conversão)</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>Conteúdo por Estágio</h3>
+                    <p>ToFu: Blog, vídeo curto | MoFu: E-book, webinar | BoFu: Depoimento, demo</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>Calendário Editorial</h3>
+                    <p>Organiza publicações e garante consistência em todos os estágios</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">19 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 20: Conclusão e Referências -->
+    <div class="slide" id="slide-20">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🎯 Conclusão e Referências</h2>
+
+            <div class="conclusion-content">
+                <div class="conclusion-box">
+                    <h3>Por que isso funciona?</h3>
+                    <ul>
+                        <li>✅ Respeita o tempo do cliente</li>
+                        <li>✅ Constrói relacionamento genuíno</li>
+                        <li>✅ Reduz objeções de compra</li>
+                        <li>✅ Gera autoridade e confiança</li>
+                        <li>✅ Tráfego orgânico sustentável (SEO)</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps-box">
+                    <h3>Próximos Passos</h3>
+                    <div class="next-step">
+                        <div class="step-number">1</div>
+                        <p>Complete a Atividade 3 usando sua própria persona</p>
+                    </div>
+                    <div class="next-step">
+                        <div class="step-number">2</div>
+                        <p>Monte um calendário editorial para 1 mês</p>
+                    </div>
+                    <div class="next-step">
+                        <div class="step-number">3</div>
+                        <p>Produza seu primeiro conteúdo de Topo!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="references-content" style="margin-top: 2rem;">
+                <h3>📚 Referências</h3>
+                <div class="reference-item">
+                    <p><strong>1.</strong> Content Marketing Institute - "What is Content Marketing?"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>2.</strong> HubSpot - "The Ultimate Guide to Marketing Funnels"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>3.</strong> Neil Patel - "Content for Every Stage of the Funnel"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>4.</strong> RD Station - "Funil de Vendas: Guia Completo"</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">20 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)" disabled>Próximo →</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
