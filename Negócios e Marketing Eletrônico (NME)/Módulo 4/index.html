@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4 - Métricas, KPIs e ROI</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- MathJax para renderizar fórmulas LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body>
+    <!-- Slide 1: Página Inicial -->
+    <div class="slide active" id="slide-1">
+        <div class="slide-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+        </div>
+        <div class="slide-content title-slide">
+            <h1 class="main-title">MÓDULO 4</h1>
+            <h2 class="subtitle-module">Negócios e Marketing Eletrônico (NME)</h2>
+            <p class="subtitle">Medindo o Sucesso: Métricas, KPIs e ROI</p>
+            <button class="btn-primary" onclick="changeSlide(1)">Iniciar Módulo 4</button>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)" disabled>← Anterior</button>
+            <span class="slide-indicator">1 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 2: Sumário -->
+    <div class="slide" id="slide-2">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Sumário da Aula</h2>
+            <div class="summary-grid">
+                <div class="summary-card" onclick="showSlide(3)">
+                    <div class="card-number">01</div>
+                    <h3>Métricas vs KPIs</h3>
+                    <p class="card-subtitle">Slides 3-4</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(5)">
+                    <div class="card-number">02</div>
+                    <h3>ROI - Return on Investment</h3>
+                    <p class="card-subtitle">Slides 5-7</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(8)">
+                    <div class="card-number">03</div>
+                    <h3>Taxa de Conversão</h3>
+                    <p class="card-subtitle">Slides 8-9</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(10)">
+                    <div class="card-number">04</div>
+                    <h3>CAC - Custo de Aquisição</h3>
+                    <p class="card-subtitle">Slides 10-11</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(12)">
+                    <div class="card-number">05</div>
+                    <h3>KPIs por Estágio do Funil</h3>
+                    <p class="card-subtitle">Slide 12</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(13)">
+                    <div class="card-number">06</div>
+                    <h3>Atividade Prática</h3>
+                    <p class="card-subtitle">Slides 13-16</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">2 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 3: Métricas vs KPIs -->
+    <div class="slide" id="slide-3">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Métricas vs KPIs</h2>
+
+            <div class="content-box">
+                <h3>📊 Métricas</h3>
+                <p><strong>Definição:</strong> São dados brutos e quantificáveis que medem algum aspecto do negócio.</p>
+                <p><strong>Exemplos:</strong> Número de visitas, cliques, curtidas, downloads, tempo no site.</p>
+                <p style="margin-top: 1rem;"><em>Métricas são como a "temperatura do corpo" — apenas um número.</em></p>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>🎯 KPIs (Key Performance Indicators)</h3>
+                <p><strong>Definição:</strong> São as métricas <strong>críticas</strong> que refletem o desempenho em relação aos <strong>objetivos estratégicos</strong> do negócio.</p>
+                <p><strong>Exemplos:</strong> Taxa de conversão, ROI, CAC, LTV (Lifetime Value), churn rate.</p>
+                <p style="margin-top: 1rem;"><em>KPIs são como o "nível de colesterol" — indicam saúde cardíaca (objetivo).</em></p>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">🏥</div>
+                <div class="tip-content">
+                    <strong>ANALOGIA DO RELATÓRIO MÉDICO:</strong><br/>
+                    <strong>Temperatura 36.5°C</strong> = Métrica (só um número)<br/>
+                    <strong>Colesterol 180 mg/dL</strong> = KPI (indica saúde do coração — objetivo crítico)
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">3 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 4: Diferença Prática -->
+    <div class="slide" id="slide-4">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Diferença na Prática</h2>
+
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div class="table-col"><strong>Aspecto</strong></div>
+                    <div class="table-col"><strong>Métrica</strong></div>
+                    <div class="table-col"><strong>KPI</strong></div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Propósito</div>
+                    <div class="table-col">Medir atividade</div>
+                    <div class="table-col">Medir sucesso estratégico</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Exemplo</div>
+                    <div class="table-col">10.000 visitas no site</div>
+                    <div class="table-col">Taxa de conversão 5%</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Ação</div>
+                    <div class="table-col">Informativo</div>
+                    <div class="table-col">Decisão de negócio</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col">Quantidade</div>
+                    <div class="table-col">Muitas (centenas)</div>
+                    <div class="table-col">Poucas (5-10)</div>
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>📌 Exemplo Prático:</h3>
+                <p><strong>Cenário:</strong> E-commerce de cursos online</p>
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Métrica:</strong> "Tivemos 50.000 visitas este mês" (só um número)</li>
+                    <li><strong>KPI:</strong> "Nossa Taxa de Conversão foi 2%, gerando ROI de 150%" (indica sucesso)</li>
+                </ul>
+                <p style="margin-top: 1rem;"><em>👉 O KPI responde: "Estamos atingindo nosso objetivo de rentabilidade?"</em></p>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">4 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 5: ROI - Introdução -->
+    <div class="slide" id="slide-5">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">💰 ROI - Return on Investment</h2>
+
+            <div class="content-box">
+                <p><strong>ROI (Retorno sobre Investimento)</strong> é o KPI financeiro mais importante. Ele mede a <strong>rentabilidade</strong> de um investimento, mostrando quanto dinheiro você ganhou (ou perdeu) em relação ao que gastou.</p>
+            </div>
+
+            <div class="formula-box">
+                <h3>📐 Fórmula do ROI:</h3>
+                <div class="formula-display">
+                    \[
+                    \text{ROI} = \frac{(\text{Ganho Obtido} - \text{Custo do Investimento})}{\text{Custo do Investimento}} \times 100\%
+                    \]
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>Interpretação:</h3>
+                <ul class="feature-list">
+                    <li>✅ <strong>ROI positivo (>0%)</strong> → Lucro! O investimento deu retorno.</li>
+                    <li>❌ <strong>ROI negativo (<0%)</strong> → Prejuízo! Perdeu dinheiro.</li>
+                    <li>⚖️ <strong>ROI = 0%</strong> → Empatou. Não ganhou nem perdeu.</li>
+                </ul>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Exemplo rápido:</strong> Gastei R$ 1.000 em anúncios e vendi R$ 3.000.<br/>
+                    ROI = (3.000 - 1.000) / 1.000 = 2 = <strong>200%</strong> 🎉
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">5 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 6: ROI - Exemplo Detalhado -->
+    <div class="slide" id="slide-6">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">ROI - Exemplo Passo a Passo</h2>
+
+            <div class="example-step-box">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3>Dados do Cenário</h3>
+                </div>
+                <p><strong>Investimento:</strong> R$ 1.000 em anúncios do Google Ads</p>
+                <p><strong>Receita gerada:</strong> R$ 3.000 em vendas diretas</p>
+            </div>
+
+            <div class="example-step-box">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3>Aplicar a Fórmula</h3>
+                </div>
+                <div class="calculation">
+                    \[
+                    \text{ROI} = \frac{(3.000 - 1.000)}{1.000} \times 100\%
+                    \]
+                </div>
+            </div>
+
+            <div class="example-step-box">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h3>Resolver o Cálculo</h3>
+                </div>
+                <div class="calculation">
+                    \[
+                    \text{ROI} = \frac{2.000}{1.000} \times 100\% = 2 \times 100\% = 200\%
+                    \]
+                </div>
+            </div>
+
+            <div class="result-box success">
+                <h3>✅ Resultado:</h3>
+                <p class="big-result">ROI = 200%</p>
+                <p><strong>Interpretação:</strong> Para cada R$ 1,00 investido, você ganhou R$ 2,00 de lucro líquido. A campanha foi um <strong>sucesso</strong>!</p>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">6 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 7: ROI - Cenários Múltiplos -->
+    <div class="slide" id="slide-7">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">ROI em Diferentes Cenários</h2>
+
+            <div class="scenarios-grid">
+                <div class="scenario-card success-scenario">
+                    <div class="scenario-icon">🚀</div>
+                    <h3>Cenário 1: Sucesso</h3>
+                    <p><strong>Investimento:</strong> R$ 500</p>
+                    <p><strong>Receita:</strong> R$ 2.000</p>
+                    <div class="scenario-calculation">
+                        <p>ROI = (2.000 - 500) / 500 = 3</p>
+                        <p class="scenario-result success">ROI = 300% ✅</p>
+                    </div>
+                    <p class="scenario-meaning">Triplicou o investimento!</p>
+                </div>
+
+                <div class="scenario-card neutral-scenario">
+                    <div class="scenario-icon">⚖️</div>
+                    <h3>Cenário 2: Break-even</h3>
+                    <p><strong>Investimento:</strong> R$ 1.000</p>
+                    <p><strong>Receita:</strong> R$ 1.000</p>
+                    <div class="scenario-calculation">
+                        <p>ROI = (1.000 - 1.000) / 1.000 = 0</p>
+                        <p class="scenario-result neutral">ROI = 0% ⚖️</p>
+                    </div>
+                    <p class="scenario-meaning">Empatou. Precisa otimizar.</p>
+                </div>
+
+                <div class="scenario-card failure-scenario">
+                    <div class="scenario-icon">📉</div>
+                    <h3>Cenário 3: Prejuízo</h3>
+                    <p><strong>Investimento:</strong> R$ 2.000</p>
+                    <p><strong>Receita:</strong> R$ 800</p>
+                    <div class="scenario-calculation">
+                        <p>ROI = (800 - 2.000) / 2.000 = -0.6</p>
+                        <p class="scenario-result failure">ROI = -60% ❌</p>
+                    </div>
+                    <p class="scenario-meaning">Perdeu 60% do investimento!</p>
+                </div>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">🎯</div>
+                <div class="tip-content">
+                    <strong>Regra de Ouro:</strong> Sempre busque ROI positivo. Na prática, um bom ROI em marketing digital é <strong>acima de 100%</strong>.
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">7 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 8: Taxa de Conversão -->
+    <div class="slide" id="slide-8">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📈 Taxa de Conversão</h2>
+
+            <div class="content-box">
+                <p><strong>Taxa de Conversão</strong> mede o percentual de visitantes ou usuários que <strong>completam uma ação desejada</strong> (compra, cadastro, download).</p>
+                <p style="margin-top: 1rem;">É um dos KPIs mais importantes porque mostra a <strong>eficácia</strong> do seu site, landing page ou campanha.</p>
+            </div>
+
+            <div class="formula-box">
+                <h3>📐 Fórmula da Taxa de Conversão:</h3>
+                <div class="formula-display">
+                    \[
+                    \text{Taxa de Conversão} = \frac{\text{Conversões}}{\text{Total de Oportunidades}} \times 100\%
+                    \]
+                </div>
+                <p style="margin-top: 1rem; text-align: center;"><em>Onde:</em></p>
+                <ul style="text-align: left; max-width: 500px; margin: 1rem auto;">
+                    <li><strong>Conversões:</strong> Número de ações concluídas (vendas, leads)</li>
+                    <li><strong>Oportunidades:</strong> Total de visitantes/cliques</li>
+                </ul>
+            </div>
+
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>📌 Exemplo Simples:</h3>
+                <p><strong>Cenário:</strong> Landing page recebeu <strong>1.000 visitas</strong> e gerou <strong>50 vendas</strong>.</p>
+                <div class="calculation">
+                    \[
+                    \text{Taxa de Conversão} = \frac{50}{1.000} \times 100\% = 5\%
+                    \]
+                </div>
+                <p style="margin-top: 1rem;"><strong>Interpretação:</strong> De cada 100 visitantes, 5 compraram. Taxa de 5%.</p>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">8 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 9: Taxa de Conversão - Benchmarks -->
+    <div class="slide" id="slide-9">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Taxa de Conversão - Benchmarks</h2>
+
+            <div class="content-box">
+                <h3>O que é uma boa Taxa de Conversão?</h3>
+                <p>Depende do setor e do tipo de ação, mas aqui estão as médias:</p>
+            </div>
+
+            <div class="benchmark-table">
+                <div class="benchmark-row header-row">
+                    <div>Tipo de Conversão</div>
+                    <div>Taxa Média</div>
+                    <div>Excelente</div>
+                </div>
+                <div class="benchmark-row">
+                    <div>E-commerce (compra)</div>
+                    <div>2% - 3%</div>
+                    <div>> 5%</div>
+                </div>
+                <div class="benchmark-row">
+                    <div>Landing Page (lead)</div>
+                    <div>5% - 10%</div>
+                    <div>> 20%</div>
+                </div>
+                <div class="benchmark-row">
+                    <div>Anúncios Google (clique)</div>
+                    <div>3% - 5%</div>
+                    <div>> 10%</div>
+                </div>
+                <div class="benchmark-row">
+                    <div>Email Marketing</div>
+                    <div>15% - 20%</div>
+                    <div>> 30%</div>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Dica:</strong> Para melhorar a Taxa de Conversão, teste diferentes versões (A/B Test) de headlines, CTAs, cores e ofertas.
+                </div>
+            </div>
+
+            <div class="activity-box" style="margin-top: 2rem;">
+                <h3>🎯 Teste Rápido</h3>
+                <p><strong>Uma campanha teve 2.000 cliques e 40 vendas. Qual a Taxa de Conversão?</strong></p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'A')">A) 2%</button>
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'B')">B) 4%</button>
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'C')">C) 20%</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-1"></div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">9 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 10: CAC - Custo de Aquisição de Cliente -->
+    <div class="slide" id="slide-10">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">💸 CAC - Custo de Aquisição de Cliente</h2>
+
+            <div class="content-box">
+                <p><strong>CAC (Customer Acquisition Cost)</strong> é o custo total para <strong>atrair e converter</strong> um novo cliente. Inclui gastos com marketing, vendas, ferramentas e equipe.</p>
+                <p style="margin-top: 1rem;">É um KPI fundamental para avaliar a <strong>sustentabilidade</strong> do negócio.</p>
+            </div>
+
+            <div class="formula-box">
+                <h3>📐 Fórmula do CAC:</h3>
+                <div class="formula-display">
+                    \[
+                    \text{CAC} = \frac{\text{Custo Total de Marketing e Vendas}}{\text{Número de Novos Clientes}}
+                    \]
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>📌 Exemplo Prático:</h3>
+                <p><strong>Cenário:</strong> Empresa gastou R$ 10.000 em marketing + vendas em 1 mês e conquistou <strong>50 novos clientes</strong>.</p>
+                <div class="calculation">
+                    \[
+                    \text{CAC} = \frac{10.000}{50} = R\$ 200
+                    \]
+                </div>
+                <p style="margin-top: 1rem;"><strong>Interpretação:</strong> Custa R$ 200 para conquistar cada cliente novo.</p>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">⚠️</div>
+                <div class="tip-content">
+                    <strong>Importante:</strong> O CAC deve ser <strong>menor</strong> que o LTV (Lifetime Value - valor que o cliente gera ao longo do tempo). Caso contrário, você perde dinheiro!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">10 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 11: CAC - Exemplo Comparativo -->
+    <div class="slide" id="slide-11">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">CAC - Análise Estratégica</h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-card good-card">
+                    <div class="comparison-icon">✅</div>
+                    <h3>Cenário BOM</h3>
+                    <div class="comparison-data">
+                        <p><strong>CAC:</strong> R$ 100</p>
+                        <p><strong>LTV:</strong> R$ 500</p>
+                        <div class="comparison-ratio">
+                            <p>Razão LTV/CAC = 5:1</p>
+                        </div>
+                    </div>
+                    <p class="comparison-meaning">Cliente vale 5x o custo de aquisição. Negócio saudável!</p>
+                </div>
+
+                <div class="comparison-card bad-card">
+                    <div class="comparison-icon">❌</div>
+                    <h3>Cenário RUIM</h3>
+                    <div class="comparison-data">
+                        <p><strong>CAC:</strong> R$ 300</p>
+                        <p><strong>LTV:</strong> R$ 250</p>
+                        <div class="comparison-ratio">
+                            <p>Razão LTV/CAC = 0.8:1</p>
+                        </div>
+                    </div>
+                    <p class="comparison-meaning">Você PERDE R$ 50 por cliente! Insustentável.</p>
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>Como Reduzir o CAC?</h3>
+                <ul class="feature-list">
+                    <li>✅ Melhorar Taxa de Conversão (menos gasto por cliente)</li>
+                    <li>✅ Focar em canais orgânicos (SEO, conteúdo)</li>
+                    <li>✅ Automatizar processos de vendas</li>
+                    <li>✅ Segmentar melhor o público (menos desperdício)</li>
+                    <li>✅ Investir em retenção (clientes existentes custam menos)</li>
+                </ul>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">🎯</div>
+                <div class="tip-content">
+                    <strong>Meta ideal:</strong> Razão LTV/CAC de <strong>3:1</strong> ou superior.
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">11 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 12: KPIs por Estágio do Funil -->
+    <div class="slide" id="slide-12">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">KPIs por Estágio do Funil</h2>
+
+            <div class="content-box">
+                <p>Cada estágio do Funil de Vendas tem <strong>KPIs específicos</strong> que medem o desempenho daquela etapa.</p>
+            </div>
+
+            <div class="funnel-kpis">
+                <div class="funnel-kpi-box tofu-kpi">
+                    <div class="funnel-kpi-header">
+                        <div class="funnel-kpi-icon">🔝</div>
+                        <h3>TOPO - Atração</h3>
+                    </div>
+                    <div class="funnel-kpi-content">
+                        <h4>Objetivo: Gerar tráfego</h4>
+                        <ul>
+                            <li><strong>Visitas/Tráfego:</strong> Quantas pessoas chegaram?</li>
+                            <li><strong>Origem do Tráfego:</strong> Google, redes sociais, direto?</li>
+                            <li><strong>Taxa de Rejeição:</strong> % que sai sem interagir</li>
+                            <li><strong>Tempo no Site:</strong> Engajamento</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="funnel-kpi-box mofu-kpi">
+                    <div class="funnel-kpi-header">
+                        <div class="funnel-kpi-icon">🎯</div>
+                        <h3>MEIO - Consideração</h3>
+                    </div>
+                    <div class="funnel-kpi-content">
+                        <h4>Objetivo: Gerar e nutrir leads</h4>
+                        <ul>
+                            <li><strong>Leads Gerados:</strong> Quantos deixaram contato?</li>
+                            <li><strong>Taxa de Conversão (visitante→lead):</strong> %</li>
+                            <li><strong>Taxa de Abertura de Email:</strong> Engajamento</li>
+                            <li><strong>Leads Qualificados (SQL):</strong> Prontos para vendas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="funnel-kpi-box bofu-kpi">
+                    <div class="funnel-kpi-header">
+                        <div class="funnel-kpi-icon">💰</div>
+                        <h3>FUNDO - Conversão</h3>
+                    </div>
+                    <div class="funnel-kpi-content">
+                        <h4>Objetivo: Converter em clientes</h4>
+                        <ul>
+                            <li><strong>Vendas/Conversões:</strong> Quantos compraram?</li>
+                            <li><strong>Taxa de Conversão (lead→cliente):</strong> %</li>
+                            <li><strong>ROI:</strong> Rentabilidade</li>
+                            <li><strong>CAC:</strong> Custo por cliente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">12 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 13: Atividade Prática - Instruções -->
+    <div class="slide" id="slide-13">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📝 Atividade 4 (NME) - Cálculo e Análise de ROI</h2>
+
+            <div class="activity-scenario">
+                <h3>🎯 Cenário da Campanha:</h3>
+                <div class="scenario-details">
+                    <p>Um negócio investiu <strong>R$ 2.000,00</strong> em uma campanha de mídia paga (Google Ads + Facebook Ads).</p>
+                    <p style="margin-top: 1rem;"><strong>Resultados da Campanha:</strong></p>
+                    <ul class="scenario-results">
+                        <li>✅ Receita gerada: <strong>R$ 5.500,00</strong> (vendas diretas)</li>
+                        <li>✅ Total de cliques: <strong>1.000 cliques</strong></li>
+                        <li>✅ Total de vendas: <strong>15 conversões</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="activity-instructions">
+                <h3>📋 Tarefas:</h3>
+                <div class="instructions-list">
+                    <div class="instruction-item">
+                        <div class="instruction-number">1</div>
+                        <p>Calcule o <strong>ROI</strong> dessa campanha (apresente o resultado em porcentagem)</p>
+                    </div>
+
+                    <div class="instruction-item">
+                        <div class="instruction-number">2</div>
+                        <p>Calcule a <strong>Taxa de Conversão</strong> (1.000 cliques → 15 vendas)</p>
+                    </div>
+
+                    <div class="instruction-item">
+                        <div class="instruction-number">3</div>
+                        <p>Com base no ROI, a campanha foi um <strong>sucesso</strong>? Justifique sua resposta.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Dica:</strong> Use as fórmulas dos slides anteriores e mostre o passo a passo!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">13 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 14: Resumo -->
+    <div class="slide" id="slide-14">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📋 Resumo do Módulo</h2>
+            <div class="summary-content">
+                <div class="summary-topic">
+                    <h3>Métricas vs KPIs</h3>
+                    <p>Métricas são dados brutos (visitas); KPIs são indicadores estratégicos (Taxa de Conversão, ROI)</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>ROI - Retorno sobre Investimento</h3>
+                    <p>Fórmula: (Ganho - Custo) / Custo × 100%. ROI > 0% = Lucro</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>Taxa de Conversão</h3>
+                    <p>Fórmula: (Conversões / Oportunidades) × 100%. Mede eficácia</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>CAC - Custo de Aquisição</h3>
+                    <p>Fórmula: Custo Total / Nº Clientes. Deve ser < LTV</p>
+                </div>
+                <div class="summary-topic">
+                    <h3>KPIs por Funil</h3>
+                    <p>Topo: Tráfego | Meio: Leads | Fundo: Vendas e ROI</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">17 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 15: Conclusão e Referências -->
+    <div class="slide" id="slide-15">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🎯 Conclusão e Referências</h2>
+
+            <div class="conclusion-content">
+                <div class="conclusion-box">
+                    <h3>Por que Métricas e KPIs são essenciais?</h3>
+                    <ul>
+                        <li>✅ Tomada de decisão baseada em dados (data-driven)</li>
+                        <li>✅ Justificam investimentos em marketing</li>
+                        <li>✅ Identificam gargalos no funil</li>
+                        <li>✅ Permitem otimização contínua</li>
+                        <li>✅ Demonstram ROI para stakeholders</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps-box">
+                    <h3>Próximos Passos</h3>
+                    <div class="next-step">
+                        <div class="step-number">1</div>
+                        <p>Defina os KPIs principais do seu negócio</p>
+                    </div>
+                    <div class="next-step">
+                        <div class="step-number">2</div>
+                        <p>Configure ferramentas de análise (Google Analytics)</p>
+                    </div>
+                    <div class="next-step">
+                        <div class="step-number">3</div>
+                        <p>Crie dashboards de acompanhamento mensal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="references-content" style="margin-top: 2rem;">
+                <h3>📚 Referências</h3>
+                <div class="reference-item">
+                    <p><strong>1.</strong> Kissmetrics - "The Ultimate Guide to Marketing Metrics and KPIs"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>2.</strong> Neil Patel - "ROI Calculator and Formula"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>3.</strong> HubSpot - "Understanding CAC and LTV"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>4.</strong> Google Analytics Academy - "Metrics vs KPIs"</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">18 / 18</span>
+            <button class="nav-btn" onclick="changeSlide(1)" disabled>Próximo →</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
