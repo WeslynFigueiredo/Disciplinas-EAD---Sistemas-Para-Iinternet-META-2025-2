@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5 - Growth Marketing e Canais de Aquisição</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Slide 1: Página Inicial -->
+    <div class="slide active" id="slide-1">
+        <div class="slide-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+            </div>
+        </div>
+        <div class="slide-content title-slide">
+            <h1 class="main-title">MÓDULO 5</h1>
+            <h2 class="subtitle-module">Negócios e Marketing Eletrônico (NME)</h2>
+            <p class="subtitle">Growth Marketing e Canais de Aquisição de Clientes</p>
+            <button class="btn-primary" onclick="changeSlide(1)">Iniciar Módulo 5</button>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)" disabled>← Anterior</button>
+            <span class="slide-indicator">1 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 2: Sumário -->
+    <div class="slide" id="slide-2">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Sumário da Aula</h2>
+            <div class="summary-grid">
+                <div class="summary-card" onclick="showSlide(3)">
+                    <div class="card-number">01</div>
+                    <h3>O que é Growth Marketing?</h3>
+                    <p class="card-subtitle">Slides 3-4</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(5)">
+                    <div class="card-number">02</div>
+                    <h3>Growth vs Marketing Tradicional</h3>
+                    <p class="card-subtitle">Slides 5-6</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(7)">
+                    <div class="card-number">03</div>
+                    <h3>Canais de Aquisição</h3>
+                    <p class="card-subtitle">Slides 7-10</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(11)">
+                    <div class="card-number">04</div>
+                    <h3>LTV vs CAC</h3>
+                    <p class="card-subtitle">Slides 11-13</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(14)">
+                    <div class="card-number">05</div>
+                    <h3>A/B Testing</h3>
+                    <p class="card-subtitle">Slides 14-15</p>
+                </div>
+                <div class="summary-card" onclick="showSlide(16)">
+                    <div class="card-number">06</div>
+                    <h3>Atividade Prática</h3>
+                    <p class="card-subtitle">Slides 16-19</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">2 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 3: O que é Growth Marketing -->
+    <div class="slide" id="slide-3">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">O que é Growth Marketing?</h2>
+
+            <div class="content-box">
+                <p><strong>Growth Marketing</strong> é uma abordagem <strong>baseada em experimentação rápida e dados</strong> para encontrar caminhos <strong>escaláveis para o crescimento</strong>.</p>
+                <p style="margin-top: 1rem;">O foco é testar hipóteses, medir resultados e iterarrapidamente para otimizar todo o funil, não apenas a atração.</p>
+            </div>
+
+            <div class="content-box" style="margin-top: 1.5rem;">
+                <h3>Características Principais:</h3>
+                <ul class="feature-list">
+                    <li>✅ <strong>Data-driven:</strong> Decisões baseadas em dados, não em palpites</li>
+                    <li>✅ <strong>Experimentação:</strong> Testa rapidamente múltiplas estratégias</li>
+                    <li>✅ <strong>Escalável:</strong> Encontra caminhos que crescem com o negócio</li>
+                    <li>✅ <strong>Holístico:</strong> Otimiza todo o funil (não apenas topo)</li>
+                    <li>✅ <strong>Ágil:</strong> Pivota rapidamente baseado em resultados</li>
+                </ul>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">🔬</div>
+                <div class="tip-content">
+                    <strong>Analogia:</strong> Growth Marketing = <strong>Cientista conduzindo experimentos</strong><br/>
+                    vs Marketing Tradicional = Propagandista divulgando sua marca
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">3 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 4: Modelo AARRR (Pirate Metrics) -->
+    <div class="slide" id="slide-4">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Modelo AARRR - Pirate Metrics 🏴‍☠️</h2>
+
+            <div class="content-box">
+                <p><strong>AARRR</strong> é o framework que Growth Marketing usa para otimizar <strong>todo o ciclo de vida</strong> do cliente, não apenas a atração.</p>
+            </div>
+
+            <div class="aarrr-framework">
+                <div class="aarrr-stage">
+                    <div class="stage-icon">🎯</div>
+                    <div class="stage-letter">A</div>
+                    <h3>Acquisition</h3>
+                    <p>Atrair usuários para o produto (Topo do Funil)</p>
+                </div>
+
+                <div class="aarrr-arrow">→</div>
+
+                <div class="aarrr-stage">
+                    <div class="stage-icon">⚡</div>
+                    <div class="stage-letter">A</div>
+                    <h3>Activation</h3>
+                    <p>Fazer usuários experimentarem valor (primeira compra)</p>
+                </div>
+
+                <div class="aarrr-arrow">→</div>
+
+                <div class="aarrr-stage">
+                    <div class="stage-icon">💰</div>
+                    <div class="stage-letter">R</div>
+                    <h3>Revenue</h3>
+                    <p>Monetizar clientes (vendas recorrentes)</p>
+                </div>
+
+                <div class="aarrr-arrow">→</div>
+
+                <div class="aarrr-stage">
+                    <div class="stage-icon">🔄</div>
+                    <div class="stage-letter">R</div>
+                    <h3>Retention</h3>
+                    <p>Manter clientes ativos e engajados</p>
+                </div>
+
+                <div class="aarrr-arrow">→</div>
+
+                <div class="aarrr-stage">
+                    <div class="stage-icon">📢</div>
+                    <div class="stage-letter">R</div>
+                    <h3>Referral</h3>
+                    <p>Clientes viram "brand advocates" (indicam amigos)</p>
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>📌 Exemplo Prático:</h3>
+                <p><strong>E-commerce de Cursos:</strong></p>
+                <ul>
+                    <li>🎯 <strong>Acquisition:</strong> Anúncios no Google Ads</li>
+                    <li>⚡ <strong>Activation:</strong> Primeira aula gratuita</li>
+                    <li>💰 <strong>Revenue:</strong> Compra do curso completo</li>
+                    <li>🔄 <strong>Retention:</strong> Email com dicas, comunidade exclusiva</li>
+                    <li>📢 <strong>Referral:</strong> "Indique e ganhe R$ 100 de desconto"</li>
+                </ul>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">4 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 5: Growth vs Marketing Tradicional -->
+    <div class="slide" id="slide-5">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Growth vs Marketing Tradicional</h2>
+
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div class="table-col"><strong>Aspecto</strong></div>
+                    <div class="table-col"><strong>Marketing Tradicional</strong></div>
+                    <div class="table-col"><strong>Growth Marketing</strong></div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col"><strong>Foco</strong></div>
+                    <div class="table-col">Branding e topo de funil</div>
+                    <div class="table-col">Todo o funil (AARRR)</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col"><strong>Abordagem</strong></div>
+                    <div class="table-col">Campanha única e grande</div>
+                    <div class="table-col">Experimentação contínua</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col"><strong>Decisões</strong></div>
+                    <div class="table-col">Baseadas em opinião</div>
+                    <div class="table-col">Baseadas em dados</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col"><strong>Velocidade</strong></div>
+                    <div class="table-col">Lenta (planejamento longo)</div>
+                    <div class="table-col">Rápida (iteração semanal)</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col"><strong>Budget</strong></div>
+                    <div class="table-col">Alto e centralizado</div>
+                    <div class="table-col">Distribuído e testável</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-col"><strong>Sucesso</strong></div>
+                    <div class="table-col">Mensurado por "awareness"</div>
+                    <div class="table-col">Mensurado por conversão e ROI</div>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">🎯</div>
+                <div class="tip-content">
+                    <strong>Resumo:</strong> Marketing Tradicional = "Fazer barulho"<br/>
+                    Growth Marketing = "Encontrar o que funciona e escalá-lo"
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">5 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 6: Analogia da Equipe -->
+    <div class="slide" id="slide-6">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">Analogia: Time de Anúncios vs Time de Cientistas</h2>
+
+            <div class="analogy-comparison">
+                <div class="analogy-side traditional-side">
+                    <div class="analogy-icon">📣</div>
+                    <h3>Marketing Tradicional</h3>
+                    <p><strong>Time de Anúncios:</strong></p>
+                    <ul class="analogy-list">
+                        <li>📺 "Vamos fazer um comercial na TV"</li>
+                        <li>🎬 "Custa R$ 1 milhão"</li>
+                        <li>⏰ "Demora 3 meses para produzir"</li>
+                        <li>❓ "Não sabemos bem se vai funcionar"</li>
+                        <li>📊 "Mas vamos torcer para 'viralizar'"</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><em>Decisão: baseada em gut feeling e criatividade</em></p>
+                </div>
+
+                <div class="analogy-side growth-side">
+                    <div class="analogy-icon">🔬</div>
+                    <h3>Growth Marketing</h3>
+                    <p><strong>Time de Cientistas:</strong></p>
+                    <ul class="analogy-list">
+                        <li>📊 "Testamos 5 variações de anúncio"</li>
+                        <li>⚡ "Custa R$ 500, rápido para testar"</li>
+                        <li>📈 "Resultados em 48 horas"</li>
+                        <li>✅ "Versão A converteu 15%"</li>
+                        <li>🚀 "Escalamos o que funciona"</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><em>Decisão: baseada em dados e experiências</em></p>
+                </div>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">🏆</div>
+                <div class="tip-content">
+                    <strong>Qual é melhor?</strong> Growth Marketing, porque testa rápido, gasta menos e produz resultados mensuráveis!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">6 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 7: Canais de Aquisição - Introdução -->
+    <div class="slide" id="slide-7">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🛣️ Canais de Aquisição de Clientes</h2>
+
+            <div class="content-box">
+                <p><strong>Canais de Aquisição</strong> são os caminhos pelos quais você atrai clientes para seu negócio.</p>
+                <p style="margin-top: 1rem;">Em Growth Marketing, o objetivo é <strong>identificar qual canal tem o melhor ROI e escalá-lo</strong>.</p>
+            </div>
+
+            <div class="channels-overview">
+                <div class="channel-category">
+                    <div class="category-icon">🌱</div>
+                    <h3>Tráfego Orgânico</h3>
+                    <ul>
+                        <li>SEO (Google Search)</li>
+                        <li>Redes Sociais Orgânicas</li>
+                        <li>Referência (boca a boca)</li>
+                    </ul>
+                </div>
+
+                <div class="channel-category">
+                    <div class="category-icon">💰</div>
+                    <h3>Tráfego Pago</h3>
+                    <ul>
+                        <li>Google Ads</li>
+                        <li>Meta Ads (Facebook, Instagram)</li>
+                        <li>LinkedIn Ads</li>
+                        <li>TikTok Ads</li>
+                    </ul>
+                </div>
+
+                <div class="channel-category">
+                    <div class="category-icon">📧</div>
+                    <h3>Direto</h3>
+                    <ul>
+                        <li>Email Marketing</li>
+                        <li>Partnerships</li>
+                        <li>Influenciadores</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">🎯</div>
+                <div class="tip-content">
+                    <strong>Regra de Ouro:</strong> Não use todos os canais. Encontre os 2-3 que funcionam melhor para seu negócio e domine-os!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">7 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 8: SEO - Tráfego Orgânico -->
+    <div class="slide" id="slide-8">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🌱 SEO - Tráfego Orgânico</h2>
+
+            <div class="channel-box seo-box">
+                <h3>O que é?</h3>
+                <p>Otimizar seu site para aparecer nos primeiros resultados do Google (posição 1-3 gera 65% dos cliques).</p>
+            </div>
+
+            <div class="advantages-box">
+                <h3>✅ Vantagens:</h3>
+                <ul class="advantage-list success">
+                    <li>💰 <strong>Custo baixo a longo prazo:</strong> Sem gastos contínuos (após investimento inicial)</li>
+                    <li>🏆 <strong>Confiança:</strong> Usuários confiam em resultado "orgânico" mais que anúncio</li>
+                    <li>📈 <strong>Escalável:</strong> Cresce com o tempo (efeito composto)</li>
+                    <li>♾️ <strong>Sustentável:</strong> Tráfego contínuo mesmo sem novos investimentos</li>
+                    <li>🎯 <strong>Alta intenção:</strong> Usuário já está procurando (não precisa convencer)</li>
+                </ul>
+            </div>
+
+            <div class="disadvantages-box">
+                <h3>❌ Desvantagens:</h3>
+                <ul class="disadvantage-list danger">
+                    <li>⏰ <strong>Lento:</strong> Leva 3-6 meses para ver resultados significativos</li>
+                    <li>🎲 <strong>Dependente do algoritmo:</strong> Google pode mudar as regras (ex: algoritmo de core update)</li>
+                    <li>📊 <strong>Imprevisível:</strong> Competição acirrada em nichos populares</li>
+                    <li>🛠️ <strong>Requer conhecimento técnico:</strong> Precisa de especialista ou agência</li>
+                </ul>
+            </div>
+
+            <div class="channel-timeline">
+                <h3>📊 Curva de Crescimento do SEO:</h3>
+                <div class="timeline-visual">
+                    <div style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">Mês 1-3: Pequeno (investimento)</div>
+                    <div class="timeline-bar seo-bar"></div>
+                    <div style="color: #999; font-size: 0.9rem; margin-top: 0.5rem;">Mês 4-12: Crescimento exponencial 📈</div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">8 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 9: Mídia Paga - Google Ads e Meta Ads -->
+    <div class="slide" id="slide-9">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">💰 Mídia Paga - Google Ads & Meta Ads</h2>
+
+            <div class="channel-box paid-box">
+                <h3>O que é?</h3>
+                <p>Pagar diretamente às plataformas (Google, Facebook, Instagram) para exibir seus anúncios.</p>
+            </div>
+
+            <div class="advantages-box">
+                <h3>✅ Vantagens:</h3>
+                <ul class="advantage-list success">
+                    <li>⚡ <strong>Velocidade:</strong> Resultados em 24-48 horas</li>
+                    <li>🎯 <strong>Controle total:</strong> Segmenta por idade, localização, interesse, comportamento</li>
+                    <li>📊 <strong>Previsível:</strong> Sabe exatamente quanto gastará</li>
+                    <li>🔄 <strong>Rápido ajuste:</strong> Pausa ou potencializa em tempo real</li>
+                    <li>🆕 <strong>Ideal para validação:</strong> Testa novo produto rápido</li>
+                </ul>
+            </div>
+
+            <div class="disadvantages-box">
+                <h3>❌ Desvantagens:</h3>
+                <ul class="disadvantage-list danger">
+                    <li>💸 <strong>Custo contínuo:</strong> Paga enquanto anúncio está ativo</li>
+                    <li>📉 <strong>Dependência de plataforma:</strong> Se a plataforma muda algoritmo, resultados mudam</li>
+                    <li>🎲 <strong>Competição por espaço:</strong> Custo por clique (CPC) aumenta em nichos populares</li>
+                    <li>⚠️ <strong>Risco de ad fatigue:</strong> Públicos veem mesmo anúncio e perdem interesse</li>
+                    <li>🚫 <strong>Baixa confiança inicial:</strong> Usuário sabe que é anúncio (pode ignorar)</li>
+                </ul>
+            </div>
+
+            <div class="channel-timeline">
+                <h3>📊 Curva de Crescimento da Mídia Paga:</h3>
+                <div class="timeline-visual">
+                    <div style="color: #999; font-size: 0.9rem; margin-bottom: 1rem;">Dia 1: Alto 🚀</div>
+                    <div class="timeline-bar paid-bar"></div>
+                    <div style="color: #999; font-size: 0.9rem; margin-top: 0.5rem;">Depois: Sustenta-se (enquanto gastar) 💰</div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">9 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 10: Qual Canal Usar? -->
+    <div class="slide" id="slide-10">
+        <div class="slide-header">
+           <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🤔 Qual Canal Usar? Teste Rápido</h2>
+
+            <div class="quiz-scenario">
+                <div class="scenario-header">
+                    <div class="scenario-number">1️⃣</div>
+                    <h3>Preciso de vendas AMANHÃ. Qual canal?</h3>
+                </div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'A')">A) SEO</button>
+                    <button class="quiz-btn" onclick="checkQuiz(1, 'B')">B) Mídia Paga</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-1"></div>
+            </div>
+
+            <div class="quiz-scenario">
+                <div class="scenario-header">
+                    <div class="scenario-number">2️⃣</div>
+                    <h3>Preciso validar um novo produto. Qual canal?</h3>
+                </div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkQuiz(2, 'A')">A) SEO</button>
+                    <button class="quiz-btn" onclick="checkQuiz(2, 'B')">B) Mídia Paga</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-2"></div>
+            </div>
+
+            <div class="quiz-scenario">
+                <div class="scenario-header">
+                    <div class="scenario-number">3️⃣</div>
+                    <h3>Quero tráfego gratuito daqui a 6 meses. Qual canal?</h3>
+                </div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkQuiz(3, 'A')">A) SEO</button>
+                    <button class="quiz-btn" onclick="checkQuiz(3, 'B')">B) Mídia Paga</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-3"></div>
+            </div>
+
+            <div class="recommendation-box" style="margin-top: 2rem;">
+                <h3>🎯 Recomendação:</h3>
+                <p><strong>Usar AMBOS!</strong> O melhor estratégia é combinar:</p>
+                <ul>
+                    <li>🔥 <strong>Curto prazo (0-3 meses):</strong> Mídia Paga para gerar receita imediata</li>
+                    <li>📈 <strong>Longo prazo (3-12 meses):</strong> SEO para construir tráfego sustentável</li>
+                </ul>
+                <p style="margin-top: 1rem;"><em>Enquanto SEO cresce, Mídia Paga sustenta o negócio financeiramente.</em></p>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">10 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 11: LTV - Lifetime Value -->
+    <div class="slide" id="slide-11">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">💎 LTV - Lifetime Value</h2>
+
+            <div class="content-box">
+                <p><strong>LTV (Lifetime Value)</strong> é o <strong>valor total de receita</strong> que um cliente gera para a empresa durante <strong>todo o período</strong> de seu relacionamento.</p>
+            </div>
+
+            <div class="formula-box">
+                <h3>📐 Fórmula Simples do LTV:</h3>
+                <div class="formula-display">
+                    LTV = Ticket Médio × Frequência de Compra × Tempo de Vida do Cliente
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>📌 Exemplo Prático:</h3>
+                <p><strong>Cenário:</strong> E-commerce de roupas</p>
+                <ul>
+                    <li><strong>Ticket Médio:</strong> R$ 150 por compra</li>
+                    <li><strong>Frequência:</strong> 4 compras por ano</li>
+                    <li><strong>Tempo de vida:</strong> 5 anos (cliente médio permanece 5 anos)</li>
+                </ul>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <p><strong>LTV = 150 × 4 × 5 = R$ 3.000</strong></p>
+                    <p style="margin-top: 0.5rem;"><em>Cada cliente vale R$ 3.000 durante sua vida como cliente</em></p>
+                </div>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Insights:</strong> Se você conhece o LTV, sabe quanto pode gastar para adquirir um cliente!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">11 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 12: CAC - Lembrança -->
+    <div class="slide" id="slide-12">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">💸 CAC - Lembrança Rápida</h2>
+
+            <div class="content-box">
+                <p>Lembrando do Módulo 4...</p>
+                <p style="margin-top: 1rem;"><strong>CAC (Custo de Aquisição de Cliente)</strong> é o custo total para conquistar <strong>um novo cliente</strong>.</p>
+            </div>
+
+            <div class="formula-box">
+                <h3>📐 Fórmula do CAC:</h3>
+                <div class="formula-display">
+                    CAC = Custo Total de Marketing e Vendas / Nº de Novos Clientes
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 2rem;">
+                <h3>📌 Exemplo Rápido:</h3>
+                <p>Gastou R$ 5.000 em anúncios e conquistou <strong>50 clientes novos</strong>.</p>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <p><strong>CAC = 5.000 / 50 = R$ 100</strong></p>
+                    <p style="margin-top: 0.5rem;"><em>Cada cliente custa R$ 100 para adquirir</em></p>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">🎯</div>
+                <div class="tip-content">
+                    <strong>Regra de Ouro:</strong> CAC deve ser no máximo <strong>1/3 do LTV</strong><br/>
+                    Se LTV = R$ 3.000, então CAC ideal ≤ R$ 1.000
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">12 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 13: LTV vs CAC - A Relação Crítica -->
+    <div class="slide" id="slide-13">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">⚖️ LTV vs CAC - A Relação Crítica</h2>
+
+            <div class="ltv-cac-comparison">
+                <div class="scenario-card healthy">
+                    <div class="scenario-icon">✅</div>
+                    <h3>Cenário SAUDÁVEL</h3>
+                    <div class="scenario-metrics">
+                        <p><strong>LTV:</strong> R$ 3.000</p>
+                        <p><strong>CAC:</strong> R$ 600</p>
+                        <p><strong>Razão:</strong> 5:1</p>
+                    </div>
+                    <p class="scenario-meaning">Ganha R$ 5 por cada R$ 1 gasto! 🚀</p>
+                </div>
+
+                <div class="scenario-card risky">
+                    <div class="scenario-icon">⚠️</div>
+                    <h3>Cenário ARRISCADO</h3>
+                    <div class="scenario-metrics">
+                        <p><strong>LTV:</strong> R$ 1.000</p>
+                        <p><strong>CAC:</strong> R$ 800</p>
+                        <p><strong>Razão:</strong> 1.25:1</p>
+                    </div>
+                    <p class="scenario-meaning">Margem apertada. Qualquer erro quebra o negócio ⚠️</p>
+                </div>
+
+                <div class="scenario-card broken">
+                    <div class="scenario-icon">❌</div>
+                    <h3>Cenário QUEBRADO</h3>
+                    <div class="scenario-metrics">
+                        <p><strong>LTV:</strong> R$ 500</p>
+                        <p><strong>CAC:</strong> R$ 800</p>
+                        <p><strong>Razão:</strong> 0.6:1</p>
+                    </div>
+                    <p class="scenario-meaning">Perde R$ 300 por cliente adquirido 💀</p>
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>Como Melhorar LTV/CAC?</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4>📈 Aumentar LTV:</h4>
+                        <ul>
+                            <li>✅ Vender mais para cliente (cross-sell)</li>
+                            <li>✅ Criar plano premium</li>
+                            <li>✅ Aumentar frequência de compra</li>
+                            <li>✅ Retenção melhor (menos churn)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>📉 Reduzir CAC:</h4>
+                        <ul>
+                            <li>✅ Melhorar taxa de conversão</li>
+                            <li>✅ Focar em canais eficientes</li>
+                            <li>✅ Automatizar vendas</li>
+                            <li>✅ Usar referência (mais barato)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">13 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 14: A/B Testing -->
+    <div class="slide" id="slide-14">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🧪 A/B Testing - Experimentação Contínua</h2>
+
+            <div class="content-box">
+                <p><strong>A/B Testing</strong> (ou Teste de Divisão) é comparar <strong>duas versões</strong> de um elemento para ver qual gera melhor resultado.</p>
+                <p style="margin-top: 1rem;">É a base do Growth Marketing para otimização baseada em dados.</p>
+            </div>
+
+            <div class="ab-test-example">
+                <h3>📌 Exemplo Visual:</h3>
+                <div class="test-comparison">
+                    <div class="test-version version-a">
+                        <div class="version-label">Versão A</div>
+                        <button class="test-button old-button">COMPRE AGORA</button>
+                        <p style="margin-top: 1rem; text-align: center; color: #9ca3af;">Conversão: 2%</p>
+                    </div>
+
+                    <div class="test-arrow">→</div>
+
+                    <div class="test-version version-b">
+                        <div class="version-label">Versão B (Teste)</div>
+                        <button class="test-button new-button">QUERO APROVEITAR</button>
+                        <p style="margin-top: 1rem; text-align: center; color: #10b981;"><strong>Conversão: 5%</strong></p>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; color: #fbbf24;"><strong>✅ Versão B venceu! Use-a daqui em diante.</strong></p>
+            </div>
+
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>🔬 Elementos que Você Pode Testar:</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div>
+                        <h4>📱 No Site:</h4>
+                        <ul>
+                            <li>Cor do botão</li>
+                            <li>Texto do CTA</li>
+                            <li>Posição do formulário</li>
+                            <li>Preço exibido</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>📧 Em Email:</h4>
+                        <ul>
+                            <li>Subject line</li>
+                            <li>Horário de envio</li>
+                            <li>Comprimento do email</li>
+                            <li>CTA (botão vs link)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box highlight" style="margin-top: 2rem;">
+                <div class="tip-icon">🚀</div>
+                <div class="tip-content">
+                    <strong>Regra de Ouro:</strong> Teste UM elemento por vez. Se testar 5 coisas simultaneamente, não sabe qual funcionou!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">14 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 15: A/B Testing - Passo a Passo -->
+    <div class="slide" id="slide-15">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">A/B Testing - Passo a Passo</h2>
+
+            <div class="ab-steps">
+                <div class="ab-step">
+                    <div class="step-number">1</div>
+                    <h3>Identifique o Problema</h3>
+                    <p>"Nosso email tem 15% de abertura. Baixo demais!"</p>
+                </div>
+
+                <div class="ab-arrow">⬇</div>
+
+                <div class="ab-step">
+                    <div class="step-number">2</div>
+                    <h3>Forme uma Hipótese</h3>
+                    <p>"Se mudarmos o subject de 'Promo' para 'Seu desconto de 50%'", a abertura aumenta"</p>
+                </div>
+
+                <div class="ab-arrow">⬇</div>
+
+                <div class="ab-step">
+                    <div class="step-number">3</div>
+                    <h3>Crie as Versões</h3>
+                    <p>Versão A: "Promo" (controle) | Versão B: "Seu desconto de 50%" (teste)</p>
+                </div>
+
+                <div class="ab-arrow">⬇</div>
+
+                <div class="ab-step">
+                    <div class="step-number">4</div>
+                    <h3>Execute o Teste</h3>
+                    <p>Envie 50% da lista para A e 50% para B. Espere 48 horas.</p>
+                </div>
+
+                <div class="ab-arrow">⬇</div>
+
+                <div class="ab-step">
+                    <div class="step-number">5</div>
+                    <h3>Analise os Resultados</h3>
+                    <p>Versão A: 15% abertura | Versão B: 22% abertura ✅</p>
+                </div>
+
+                <div class="ab-arrow">⬇</div>
+
+                <div class="ab-step">
+                    <div class="step-number">6</div>
+                    <h3>Implemente o Vencedor</h3>
+                    <p>Agora USE sempre "Seu desconto de 50%" nos próximos emails</p>
+                </div>
+
+                <div class="ab-arrow">⬇</div>
+
+                <div class="ab-step">
+                    <div class="step-number">7</div>
+                    <h3>Teste Outro Elemento</h3>
+                    <p>Próximo: "Horário de envio: 9h vs 14h?"</p>
+                </div>
+            </div>
+
+            <div class="content-box" style="margin-top: 2rem;">
+                <h3>📊 Impacto Acumulado:</h3>
+                <p>Se você testar e otimizar <strong>5 elementos</strong>, cada um com <strong>10% de melhoria</strong>:</p>
+                <div style="background: rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <p><strong>1.1 × 1.1 × 1.1 × 1.1 × 1.1 = 1.61 = +61% de melhor resultado!</strong> 🚀</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">15 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 16: Atividade Prática - Instruções -->
+    <div class="slide" id="slide-16">
+        <div class="slide-header">
+           <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">📝 Atividade 5 (NME) - Comparativo de Canais de Aquisição</h2>
+
+            <div class="activity-scenario">
+                <h3>🎯 Cenário:</h3>
+                <p><strong>Você tem um novo E-commerce de nicho</strong> (ex: produtos sustentáveis, games, skincare).</p>
+                <p style="margin-top: 1rem;">Responda as 3 perguntas abaixo:</p>
+            </div>
+
+            <div class="activity-instructions">
+                <div class="instruction-item">
+                    <div class="instruction-number">1</div>
+                    <h4>Qual é a principal Vantagem da estratégia de SEO em relação à Mídia Paga?</h4>
+                    <p style="margin-top: 0.5rem;"><em>Foco: Custos e Sustentabilidade</em></p>
+                </div>
+
+                <div class="instruction-item">
+                    <div class="instruction-number">2</div>
+                    <h4>Qual é a principal Vantagem da Mídia Paga em relação ao SEO?</h4>
+                    <p style="margin-top: 0.5rem;"><em>Foco: Velocidade e Controle</em></p>
+                </div>
+
+                <div class="instruction-item">
+                    <div class="instruction-number">3</div>
+                    <h4>Qual o principal fator de risco se o seu CAC for maior que o LTV?</h4>
+                    <p style="margin-top: 0.5rem;"><em>Foco: Insustentabilidade do modelo</em></p>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <strong>Dica:</strong> Revise os slides 8, 9 e 13 antes de responder!
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">16 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <!-- Slide 17: Conclusão e Referências -->
+    <div class="slide" id="slide-17">
+        <div class="slide-header">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="slide-content">
+            <h2 class="slide-title">🎯 Conclusão e Referências</h2>
+
+            <div class="conclusion-content">
+                <div class="conclusion-box">
+                    <h3>O que você aprendeu neste módulo?</h3>
+                    <ul>
+                        <li>✅ Growth Marketing = Experimentação + Dados (não "barulho")</li>
+                        <li>✅ Modelo AARRR para otimizar todo ciclo de vida</li>
+                        <li>✅ SEO é ativo a longo prazo; Mídia Paga é validação rápida</li>
+                        <li>✅ A relação LTV/CAC define a saúde financeira</li>
+                        <li>✅ A/B Testing é a ferramenta de otimização contínua</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps-box">
+                    <h3>🚀 Próximos Passos</h3>
+                    <div class="next-step">
+                        <div class="step-number">1</div>
+                        <p>Escolha seu principal canal (SEO ou Mídia Paga)</p>
+                    </div>
+                    <div class="next-step">
+                        <div class="step-number">2</div>
+                        <p>Calcule o LTV e CAC do seu negócio</p>
+                    </div>
+                    <div class="next-step">
+                        <div class="step-number">3</div>
+                        <p>Planeje seu primeiro A/B test</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="references-content" style="margin-top: 2rem;">
+                <h3>📚 Referências</h3>
+                <div class="reference-item">
+                    <p><strong>1.</strong> Sean Ellis - "Hacking Growth" (Livro essencial sobre Growth Marketing)</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>2.</strong> Google Analytics Academy - "Certificação em Digital Analytics"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>3.</strong> Neil Patel - "The Complete Guide to Growth Marketing"</p>
+                </div>
+                <div class="reference-item">
+                    <p><strong>4.</strong> Intercom - "Resources on Growth"</p>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-bar">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-indicator">20 / 20</span>
+            <button class="nav-btn" onclick="changeSlide(1)" disabled>Próximo →</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
