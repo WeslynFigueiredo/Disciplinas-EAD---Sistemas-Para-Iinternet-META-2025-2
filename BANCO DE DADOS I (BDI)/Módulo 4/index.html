@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÓDULO 4 - Banco de Dados I (BD I) - DML Avançado</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="progress-header">
+            <span class="progress-text" id="progressText">Slide 1 de 22</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="slide-wrapper">
+            <!-- SLIDE 1: TÍTULO -->
+            <div class="slide active" data-slide="1">
+                <div class="title-slide">
+                    <div class="database-icon">💾</div>
+                    <h1>MÓDULO 4 - Banco de Dados I</h1>
+                    <p class="subtitle">DML Avançado: Alterando e Removendo Dados</p>
+                    <p class="subtitle" style="font-size: 1.1rem; margin-top: 0.5rem;">UPDATE, DELETE e Integridade Referencial</p>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: OBJETIVOS -->
+            <div class="slide" data-slide="2">
+                <h2>📋 Objetivos do Módulo</h2>
+                <p>Ao final deste módulo, você será capaz de:</p>
+                <ul class="objectives-list">
+                    <li>Dominar o comando UPDATE para modificar dados existentes</li>
+                    <li>Dominar o comando DELETE para remover registros</li>
+                    <li>Entender a importância CRÍTICA da cláusula WHERE</li>
+                    <li>Compreender o conceito de CRUD completo</li>
+                    <li>Entender Chave Estrangeira (Foreign Key) e Integridade Referencial</li>
+                    <li>Escrever comandos SQL seguros e sem risco de perda de dados</li>
+                </ul>
+            </div>
+
+            <!-- SLIDE 3: REVISÃO DML -->
+            <div class="slide" data-slide="3">
+                <h2>🔄 Revisão: O Que Já Sabemos sobre DML</h2>
+                
+                <div class="card" style="margin: 1.5rem 0;">
+                    <div class="card-icon">📖</div>
+                    <div class="card-title">Comandos DML Aprendidos</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong style="color: #f4b41a;">SELECT:</strong> Consulta dados (READ)</li>
+                            <li><strong style="color: #f4b41a;">INSERT:</strong> Adiciona novos dados (CREATE)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Novos Comandos Hoje</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong style="color: #f4b41a;">UPDATE:</strong> Modifica dados existentes (UPDATE)</li>
+                            <li><strong style="color: #f4b41a;">DELETE:</strong> Remove dados (DELETE)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">CRUD Completo</div>
+                    <div class="card-content">
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                            <thead>
+                                <tr style="background: rgba(244, 180, 26, 0.2); border-bottom: 2px solid #f4b41a;">
+                                    <th style="padding: 0.75rem; text-align: left;">Operação</th>
+                                    <th style="padding: 0.75rem; text-align: left;">SQL</th>
+                                    <th style="padding: 0.75rem; text-align: left;">Função</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid rgba(244, 180, 26, 0.3);">
+                                    <td style="padding: 0.75rem;"><strong>CREATE</strong></td>
+                                    <td style="padding: 0.75rem;"><code>INSERT</code></td>
+                                    <td style="padding: 0.75rem;">Criar novos registros</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(244, 180, 26, 0.3);">
+                                    <td style="padding: 0.75rem;"><strong>READ</strong></td>
+                                    <td style="padding: 0.75rem;"><code>SELECT</code></td>
+                                    <td style="padding: 0.75rem;">Ler/consultar dados</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(244, 180, 26, 0.3);">
+                                    <td style="padding: 0.75rem;"><strong>UPDATE</strong></td>
+                                    <td style="padding: 0.75rem;"><code>UPDATE</code></td>
+                                    <td style="padding: 0.75rem;">Atualizar dados existentes</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;"><strong>DELETE</strong></td>
+                                    <td style="padding: 0.75rem;"><code>DELETE</code></td>
+                                    <td style="padding: 0.75rem;">Remover dados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content" style="text-align: center; font-size: 1.1rem;">
+                        <strong>🎯 Hoje completamos o CRUD - as 4 operações fundamentais de qualquer banco de dados!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: COMANDO UPDATE - INTRODUÇÃO -->
+            <div class="slide" data-slide="4">
+                <h2>⚙️ Comando UPDATE - Modificando Dados Existentes</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        O comando <strong>UPDATE</strong> modifica os VALORES de uma ou mais colunas em linhas EXISTENTES de uma tabela.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Analogia</div>
+                    <div class="card-content">
+                        É como usar uma borracha e reescrever informações em fichas de cadastro que já existem no arquivo.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe Básica:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>UPDATE nome_tabela
+SET coluna = novo_valor
+WHERE condição;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Estrutura em 3 Partes:</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2.2;">
+                            <li><strong style="color: #f4b41a;">UPDATE nome_tabela</strong><br>
+                            → Define QUAL tabela será modificada</li>
+                            
+                            <li style="margin-top: 0.75rem;"><strong style="color: #f4b41a;">SET coluna = novo_valor</strong><br>
+                            → Define QUAIS colunas serão alteradas e seus NOVOS valores</li>
+                            
+                            <li style="margin-top: 0.75rem;"><strong style="color: #f4b41a;">WHERE condição</strong><br>
+                            → Define QUAIS linhas serão afetadas<br>
+                            <span style="color: #ff5459; font-weight: bold;">⚠️ EXTREMAMENTE IMPORTANTE!</span></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: UPDATE - SINTAXE DETALHADA -->
+            <div class="slide" data-slide="5">
+                <h2>UPDATE - Sintaxe e Exemplos</h2>
+                
+                <div class="card">
+                    <div class="card-title">Exemplo 1 - Atualizar uma coluna específica:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>UPDATE produtos
+SET preco = 150.00
+WHERE id = 10;</code></pre>
+                    <div class="card-content">
+                        <strong>Explicação:</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Tabela: produtos</li>
+                            <li>Modifica: preco para 150.00</li>
+                            <li>Apenas a linha onde id = 10</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 2 - Atualizar múltiplas colunas:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>UPDATE clientes
+SET email = 'novo@email.com', status = 'Inativo'
+WHERE id = 25;</code></pre>
+                    <div class="card-content">
+                        <strong>Explicação:</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Modifica email E status</li>
+                            <li>Apenas do cliente com id = 25</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo 3 - Atualizar com cálculo:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>UPDATE produtos
+SET preco = preco * 1.10
+WHERE estoque &lt; 20;</code></pre>
+                    <div class="card-content">
+                        <strong>Explicação:</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Aumenta o preço em 10% (multiplica por 1.10)</li>
+                            <li>Apenas produtos com estoque menor que 20</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: ALERTA CRÍTICO - UPDATE SEM WHERE -->
+            <div class="slide" data-slide="6">
+                <h2 style="color: #ff5459;">🚨 ALERTA CRÍTICO DE SEGURANÇA - UPDATE SEM WHERE</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(255, 84, 89, 0.2) 0%, rgba(192, 21, 47, 0.2) 100%); border: 3px solid #ff5459;">
+                    <div class="card-content" style="text-align: center;">
+                        <h3 style="color: #ff5459; font-size: 1.8rem; margin-bottom: 1rem;">⚠️ PERIGO EXTREMO: UPDATE SEM WHERE ⚠️</h3>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Cenário Perigoso:</div>
+                    <pre style="background: rgba(255, 84, 89, 0.15); padding: 1rem; border-radius: 5px; margin: 0.5rem 0; border: 2px solid #ff5459;"><code>UPDATE produtos
+SET preco = 0.00;
+-- ❌ SEM WHERE!</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(255, 84, 89, 0.2); border: 2px solid #ff5459;">
+                    <div class="card-title" style="color: #ff5459;">Resultado CATASTRÓFICO:</div>
+                    <div class="card-content" style="font-size: 1.15rem; font-weight: bold;">
+                        TODOS os preços de TODOS os produtos são alterados para 0.00!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🔥</div>
+                    <div class="card-title">Analogia</div>
+                    <div class="card-content">
+                        É como entrar em uma biblioteca e RASGAR A MESMA PÁGINA de TODOS os livros ao mesmo tempo! Perda total de dados!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                    <div class="card-title" style="color: #4ade80;">Regra de Ouro:</div>
+                    <div class="card-content" style="font-size: 1.1rem;">
+                        ✅ SEMPRE use WHERE no UPDATE (a menos que você realmente queira modificar TODAS as linhas)
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo Correto vs. Incorreto:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>-- ❌ ERRADO - Todos os produtos ficam com preço 100
+UPDATE produtos
+SET preco = 100.00;
+
+-- ✅ CORRETO - Apenas o produto ID=5 fica com preço 100
+UPDATE produtos
+SET preco = 100.00
+WHERE id = 5;</code></pre>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: JOGO - UPDATE SEGURO OU PERIGOSO -->
+            <div class="slide" data-slide="7">
+                <h2>🎮 Jogo: UPDATE Seguro ou Perigoso?</h2>
+                <p class="subtitle">Analise cada comando e identifique se é seguro ou perigoso</p>
+                
+                <div id="game-update-safety" class="game-container">
+                    <div class="game-progress">
+                        <p>Questão <span id="update-current">1</span> de 6</p>
+                        <p>Acertos: <span id="update-score">0</span></p>
+                    </div>
+                    
+                    <div id="update-scenario" class="scenario-box"></div>
+                    
+                    <div id="update-options" class="options-container"></div>
+                    
+                    <div id="update-feedback" class="feedback-box" style="display: none;"></div>
+                    
+                    <button id="update-next-btn" class="btn" style="display: none;">Próxima Questão</button>
+                    
+                    <div id="update-final" class="final-score" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: COMANDO DELETE - INTRODUÇÃO -->
+            <div class="slide" data-slide="8">
+                <h2>🗑️ Comando DELETE - Removendo Dados</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        O comando <strong>DELETE</strong> remove linhas INTEIRAS de uma tabela. Diferente do UPDATE (que modifica), o DELETE APAGA completamente o registro.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Analogia</div>
+                    <div class="card-content">
+                        É como pegar uma ficha de cadastro e JOGAR FORA completamente (não apenas apagar um campo).
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe Básica:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>DELETE FROM nome_tabela
+WHERE condição;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Estrutura em 2 Partes:</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2.2;">
+                            <li><strong style="color: #f4b41a;">DELETE FROM nome_tabela</strong><br>
+                            → Define DE QUAL tabela os registros serão removidos</li>
+                            
+                            <li style="margin-top: 0.75rem;"><strong style="color: #f4b41a;">WHERE condição</strong><br>
+                            → Define QUAIS linhas serão removidas<br>
+                            <span style="color: #ff5459; font-weight: bold;">⚠️ EXTREMAMENTE IMPORTANTE!</span></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content">
+                        <strong>IMPORTANTE:</strong> DELETE remove a linha INTEIRA, não apenas um campo. Se você quer 'limpar' um campo, use UPDATE SET coluna = NULL.
+                    </div>
+                </div>
+            </div>
+            <!-- SLIDE 9: DELETE - EXEMPLOS -->
+            <div class="slide" data-slide="9">
+                <div class="slide-content">
+                    <h2 class="slide-title">🗑️ DELETE - Exemplos Práticos</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Exemplo 1 - Deletar um registro específico</div>
+                        <div class="code-example">
+                            <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>DELETE FROM clientes
+WHERE id = 10;</code></pre>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Explicação:</strong></p>
+                            <ul>
+                                <li>Remove COMPLETAMENTE o cliente com id = 10</li>
+                                <li>WHERE garante que apenas 1 registro seja afetado</li>
+                                <li>A linha inteira é removida da tabela</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">Exemplo 2 - Deletar com múltiplas condições</div>
+                        <div class="code-example">
+                            <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>DELETE FROM produtos
+WHERE estoque = 0 AND preco &lt; 10;</code></pre>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Explicação:</strong></p>
+                            <ul>
+                                <li>Remove produtos que têm estoque zero E preço menor que 10</li>
+                                <li>Útil para limpar produtos descontinuados baratos</li>
+                                <li>AND garante que AMBAS condições sejam verdadeiras</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">Exemplo 3 - Deletar registros antigos</div>
+                        <div class="code-example">
+                            <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>DELETE FROM pedidos
+WHERE data_pedido &lt; '2020-01-01';</code></pre>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Explicação:</strong></p>
+                            <ul>
+                                <li>Remove todos os pedidos anteriores a 2020</li>
+                                <li>Útil para arquivamento e limpeza de dados antigos</li>
+                                <li>Operador &lt; (menor que) funciona com datas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                        <div class="card-content">
+                            <strong>LEMBRE-SE:</strong> DELETE remove a linha INTEIRA. Se quiser apenas "limpar" um campo, use UPDATE SET campo = NULL.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: ALERTA DELETE SEM WHERE -->
+            <div class="slide" data-slide="10">
+                <h2 style="color: #ff5459;">🚨 ALERTA CRÍTICO - DELETE SEM WHERE</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(255, 84, 89, 0.2) 0%, rgba(192, 21, 47, 0.2) 100%); border: 3px solid #ff5459;">
+                    <div class="card-content" style="text-align: center;">
+                        <h3 style="color: #ff5459; font-size: 1.8rem; margin-bottom: 1rem;">⚠️ PERIGO EXTREMO: DELETE SEM WHERE ⚠️</h3>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Cenário Perigoso:</div>
+                    <pre style="background: rgba(255, 84, 89, 0.15); padding: 1rem; border-radius: 5px; margin: 0.5rem 0; border: 2px solid #ff5459;"><code>DELETE FROM clientes;
+-- ❌ SEM WHERE!</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(255, 84, 89, 0.2); border: 2px solid #ff5459;">
+                    <div class="card-title" style="color: #ff5459;">Resultado CATASTRÓFICO:</div>
+                    <div class="card-content" style="font-size: 1.15rem; font-weight: bold;">
+                        TODOS os clientes são DELETADOS! A tabela fica VAZIA!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🔥</div>
+                    <div class="card-title">Analogia</div>
+                    <div class="card-content">
+                        É como jogar TODO o arquivo de cadastros no INCINERADOR! Perda TOTAL e IRREVERSÍVEL (sem backup)!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                    <div class="card-title" style="color: #4ade80;">Regra de Ouro:</div>
+                    <div class="card-content" style="font-size: 1.1rem;">
+                        ✅ SEMPRE use WHERE no DELETE (a menos que você realmente queira apagar TUDO)
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Dica Profissional:</div>
+                    <div class="card-content">
+                        <strong>Antes de executar DELETE:</strong><br>
+                        1. Execute SELECT com o mesmo WHERE<br>
+                        2. Verifique QUANTAS linhas serão afetadas<br>
+                        3. Se estiver correto, substitua SELECT por DELETE
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: CRUD COMPLETO -->
+            <div class="slide" data-slide="11">
+                <h2>🎯 CRUD Completo - As 4 Operações Fundamentais</h2>
+                
+                <div class="card">
+                    <div class="card-title">Resumo das Operações DML</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="background: rgba(244, 180, 26, 0.2); border-bottom: 2px solid #f4b41a;">
+                                <th style="padding: 0.75rem; text-align: left;">CRUD</th>
+                                <th style="padding: 0.75rem; text-align: left;">SQL</th>
+                                <th style="padding: 0.75rem; text-align: left;">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(244, 180, 26, 0.3);">
+                                <td style="padding: 0.75rem;"><strong>CREATE</strong></td>
+                                <td style="padding: 0.75rem;"><code>INSERT</code></td>
+                                <td style="padding: 0.75rem;">Criar novos registros</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(244, 180, 26, 0.3);">
+                                <td style="padding: 0.75rem;"><strong>READ</strong></td>
+                                <td style="padding: 0.75rem;"><code>SELECT</code></td>
+                                <td style="padding: 0.75rem;">Ler/consultar dados</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(244, 180, 26, 0.3);">
+                                <td style="padding: 0.75rem;"><strong>UPDATE</strong></td>
+                                <td style="padding: 0.75rem;"><code>UPDATE</code></td>
+                                <td style="padding: 0.75rem;">Atualizar dados existentes</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.75rem;"><strong>DELETE</strong></td>
+                                <td style="padding: 0.75rem;"><code>DELETE</code></td>
+                                <td style="padding: 0.75rem;">Remover dados</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Exemplos Práticos de Cada Operação:</div>
+                    <div class="card-content">
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>-- CREATE
+INSERT INTO clientes (nome, email) VALUES ('João', 'joao@email.com');
+
+-- READ
+SELECT * FROM clientes WHERE id = 1;
+
+-- UPDATE
+UPDATE clientes SET email = 'novo@email.com' WHERE id = 1;
+
+-- DELETE
+DELETE FROM clientes WHERE id = 1;</code></pre>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">💼</div>
+                    <div class="card-title">CRUD no Dia a Dia</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong>E-commerce:</strong> INSERT (novo produto), SELECT (listar), UPDATE (preço), DELETE (descontinuado)</li>
+                            <li><strong>Rede Social:</strong> INSERT (nova postagem), SELECT (feed), UPDATE (editar post), DELETE (remover)</li>
+                            <li><strong>Sistema Bancário:</strong> INSERT (nova conta), SELECT (saldo), UPDATE (atualizar dados), DELETE (encerrar conta)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 12: FOREIGN KEY INTRODUÇÃO -->
+            <div class="slide" data-slide="12">
+                <h2>🔗 Chave Estrangeira (Foreign Key)</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        Uma <strong>Chave Estrangeira (FK)</strong> é uma coluna que cria um LINK entre duas tabelas, apontando para a Chave Primária (PK) de outra tabela.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🏠</div>
+                    <div class="card-title">Analogia</div>
+                    <div class="card-content">
+                        É como o <strong>endereço de uma casa</strong>: você não escreve o endereço completo toda vez, apenas REFERENCIA ele. A FK é essa referência!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Exemplo Visual:</div>
+                    <div class="card-content">
+                        <div class="two-columns">
+                            <div>
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">Tabela CLIENTES (PAI)</h4>
+                                <table style="width: 100%; border: 1px solid #f4b41a;">
+                                    <tr style="background: rgba(244, 180, 26, 0.2);">
+                                        <th style="padding: 0.5rem; border: 1px solid #f4b41a;">ID_Cliente (PK)</th>
+                                        <th style="padding: 0.5rem; border: 1px solid #f4b41a;">Nome</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">1</td>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">João</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">2</td>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">Maria</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">Tabela PEDIDOS (FILHO)</h4>
+                                <table style="width: 100%; border: 1px solid #f4b41a;">
+                                    <tr style="background: rgba(244, 180, 26, 0.2);">
+                                        <th style="padding: 0.5rem; border: 1px solid #f4b41a;">ID_Pedido</th>
+                                        <th style="padding: 0.5rem; border: 1px solid #f4b41a;">ID_Cliente (FK)</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">101</td>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">1 → João</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">102</td>
+                                        <td style="padding: 0.5rem; border: 1px solid rgba(244, 180, 26, 0.3);">2 → Maria</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; text-align: center; color: #f4b41a; font-weight: bold;">A FK ID_Cliente em PEDIDOS aponta para a PK ID_Cliente em CLIENTES</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 13: INTEGRIDADE REFERENCIAL -->
+            <div class="slide" data-slide="13">
+                <h2>🛡️ Integridade Referencial</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        <strong>Integridade Referencial</strong> é a garantia de que as relações entre tabelas permaneçam CONSISTENTES. Se uma FK aponta para uma PK, essa PK DEVE EXISTIR.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Regras Principais:</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2.2;">
+                            <li><strong style="color: #ff5459;">NÃO PODE</strong> inserir um FILHO sem PAI existente<br>
+                            Exemplo: Não pode criar pedido do cliente ID=999 se esse cliente não existe</li>
+                            
+                            <li style="margin-top: 1rem;"><strong style="color: #ff5459;">NÃO PODE</strong> deletar um PAI que tenha FILHOS<br>
+                            Exemplo: Não pode deletar cliente que tenha pedidos associados</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🔒</div>
+                    <div class="card-title">Por que é Importante?</div>
+                    <div class="card-content">
+                        Sem integridade referencial, você poderia ter:<br>
+                        • Pedidos de clientes que não existem<br>
+                        • Dados órfãos (sem relacionamento)<br>
+                        • Inconsistências que quebram a aplicação
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Exemplo de Bloqueio pelo SGBD:</div>
+                    <pre style="background: rgba(255, 84, 89, 0.15); padding: 1rem; border-radius: 5px; margin: 0.5rem 0; border: 2px solid #ff5459;"><code>-- Tentativa de INSERT filho sem pai
+INSERT INTO pedidos (id_cliente, data) VALUES (999, '2024-01-01');
+-- ❌ ERRO: Cliente 999 não existe!
+
+-- Tentativa de DELETE pai com filhos
+DELETE FROM clientes WHERE id = 1;
+-- ❌ ERRO: Cliente 1 tem pedidos associados!</code></pre>
+                </div>
+            </div>
+
+            <!-- SLIDE 14: FK NA PRÁTICA -->
+            <div class="slide" data-slide="14">
+                <h2>🔧 Foreign Key na Prática</h2>
+                
+                <div class="card">
+                    <div class="card-title">Criando Tabelas com FK:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>-- Tabela PAI (deve ser criada PRIMEIRO)
+CREATE TABLE clientes (
+    id INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+-- Tabela FILHO (criada DEPOIS, referencia o pai)
+CREATE TABLE pedidos (
+    id INT PRIMARY KEY,
+    id_cliente INT,
+    data_pedido DATE,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+);</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">O que a FK Garante:</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li>✅ Só pode inserir pedido se o cliente EXISTIR</li>
+                            <li>✅ Não pode deletar cliente que TEM pedidos</li>
+                            <li>✅ Dados sempre CONSISTENTES</li>
+                            <li>✅ SGBD bloqueia operações que violem a integridade</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Operações Permitidas vs Bloqueadas:</div>
+                    <div class="card-content">
+                        <div class="two-columns" style="gap: 1rem;">
+                            <div style="background: rgba(74, 222, 128, 0.1); padding: 1rem; border-radius: 8px; border: 1px solid #4ade80;">
+                                <h4 style="color: #4ade80; margin-bottom: 0.5rem;">✅ PERMITIDO</h4>
+                                <ul>
+                                    <li>Inserir cliente novo</li>
+                                    <li>Inserir pedido de cliente existente</li>
+                                    <li>Deletar pedido</li>
+                                    <li>Deletar cliente SEM pedidos</li>
+                                </ul>
+                            </div>
+                            <div style="background: rgba(255, 84, 89, 0.1); padding: 1rem; border-radius: 8px; border: 1px solid #ff5459;">
+                                <h4 style="color: #ff5459; margin-bottom: 0.5rem;">❌ BLOQUEADO</h4>
+                                <ul>
+                                    <li>Inserir pedido de cliente inexistente</li>
+                                    <li>Deletar cliente COM pedidos</li>
+                                    <li>Alterar FK para cliente inexistente</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 15: BOAS PRÁTICAS -->
+            <div class="slide" data-slide="15">
+                <h2>✅ Boas Práticas - UPDATE e DELETE Seguros</h2>
+                
+                <div class="card" style="background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                    <div class="card-title">1. SEMPRE use WHERE</div>
+                    <div class="card-content">
+                        Nunca execute UPDATE ou DELETE sem WHERE, a menos que você REALMENTE queira afetar TODAS as linhas.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                    <div class="card-title">2. Teste com SELECT primeiro</div>
+                    <div class="card-content">
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>-- 1. TESTE com SELECT
+SELECT * FROM produtos WHERE estoque = 0;
+-- Verifica: 15 linhas retornadas
+
+-- 2. Se correto, execute DELETE
+DELETE FROM produtos WHERE estoque = 0;</code></pre>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                    <div class="card-title">3. Use transações em operações críticas</div>
+                    <div class="card-content">
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px;"><code>BEGIN TRANSACTION;
+    UPDATE contas SET saldo = saldo - 100 WHERE id = 1;
+    UPDATE contas SET saldo = saldo + 100 WHERE id = 2;
+COMMIT; -- Ou ROLLBACK se houver erro</code></pre>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                    <div class="card-title">4. Faça backup antes de operações em massa</div>
+                    <div class="card-content">
+                        Antes de deletar ou atualizar muitos registros, faça backup da tabela ou banco de dados.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                    <div class="card-title">5. Respeite a integridade referencial</div>
+                    <div class="card-content">
+                        Ao deletar, sempre delete os FILHOS antes dos PAIS. Ao inserir, sempre insira os PAIS antes dos FILHOS.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 16: ATIVIDADE 4 -->
+            <div class="slide" data-slide="16">
+                <h2>📝 Atividade 4 - Comandos UPDATE e DELETE</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-title">Instrução</div>
+                    <div class="card-content">
+                        Com base nas tabelas abaixo, escreva comandos SQL para realizar as operações solicitadas. Justifique suas respostas.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Estrutura das Tabelas:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>CLIENTES (id, nome, email, status)
+PRODUTOS (id, nome, preco, estoque)</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Questões:</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2.2;">
+                            <li><strong>Questão 1:</strong> Escreva um comando UPDATE para aumentar o preço de todos os produtos em 15%.</li>
+                            <li style="margin-top: 1rem;"><strong>Questão 2:</strong> Escreva um comando DELETE para remover produtos com estoque zero.</li>
+                            <li style="margin-top: 1rem;"><strong>Questão 3:</strong> Por que é importante usar WHERE em UPDATE e DELETE? Dê um exemplo de problema que pode ocorrer sem WHERE.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Formato de Resposta:</div>
+                    <div class="card-content">
+                        Para cada questão, forneça:<br>
+                        • O comando SQL completo<br>
+                        • Justificativa explicando o comando
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 17: RESUMO CONCEITOS -->
+            <div class="slide" data-slide="17">
+                <h2>📚 Resumo dos Conceitos Principais</h2>
+                
+                <div class="concept-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">⚙️</div>
+                            <div class="concept-name">UPDATE</div>
+                        </div>
+                        <p>Modifica valores de colunas em linhas existentes</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🗑️</div>
+                            <div class="concept-name">DELETE</div>
+                        </div>
+                        <p>Remove linhas INTEIRAS de uma tabela</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🎯</div>
+                            <div class="concept-name">WHERE</div>
+                        </div>
+                        <p>Define QUAIS linhas serão afetadas</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🚨</div>
+                            <div class="concept-name">UPDATE sem WHERE</div>
+                        </div>
+                        <p>Modifica TODAS as linhas - PERIGOSO!</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">💥</div>
+                            <div class="concept-name">DELETE sem WHERE</div>
+                        </div>
+                        <p>Remove TODAS as linhas - CATASTRÓFICO!</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔄</div>
+                            <div class="concept-name">CRUD</div>
+                        </div>
+                        <p>CREATE, READ, UPDATE, DELETE</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🔗</div>
+                            <div class="concept-name">Foreign Key</div>
+                        </div>
+                        <p>Coluna que referencia PK de outra tabela</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">🛡️</div>
+                            <div class="concept-name">Integridade</div>
+                        </div>
+                        <p>Garante relações consistentes entre tabelas</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">👶</div>
+                            <div class="concept-name">Regra Filho/Pai</div>
+                        </div>
+                        <p>Não pode inserir filho sem pai existente</p>
+                    </div>
+
+                    <div class="concept-card">
+                        <div class="concept-header">
+                            <div class="concept-icon">👨</div>
+                            <div class="concept-name">Regra Pai/Filhos</div>
+                        </div>
+                        <p>Não pode deletar pai com filhos</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 18: CONCLUSÃO -->
+            <div class="slide" data-slide="18">
+                <h2>🎓 Conclusão do Módulo</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">O Que Você Aprendeu</div>
+                    <div class="card-content">
+                        <p style="line-height: 2;">
+                            Neste módulo, você dominou os comandos <strong>UPDATE</strong> e <strong>DELETE</strong>, completando o ciclo CRUD. 
+                            Aprendeu a importância CRÍTICA da cláusula WHERE e como a ausência dela pode causar perda de dados irreversível.
+                        </p>
+                        <p style="line-height: 2; margin-top: 1rem;">
+                            Você também compreendeu os fundamentos de <strong>Chave Estrangeira (FK)</strong> e <strong>Integridade Referencial</strong>, 
+                            essenciais para manter relacionamentos consistentes entre tabelas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">A Regra de Ouro</div>
+                    <div class="card-content" style="font-size: 1.2rem; text-align: center; color: #f4b41a; font-weight: bold;">
+                        SEMPRE use WHERE em UPDATE e DELETE,<br>
+                        a menos que você REALMENTE queira afetar TODAS as linhas!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Integridade Referencial em Prática</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li>✅ Sempre delete FILHOS antes de PAIS</li>
+                            <li>✅ Sempre insira PAIS antes de FILHOS</li>
+                            <li>✅ Confie no SGBD para bloquear operações inválidas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Próximos Passos</div>
+                    <div class="card-content">
+                        Continue praticando! A melhor forma de dominar SQL é <strong>escrevendo comandos</strong>. 
+                        Use ambientes de teste e sempre teste com SELECT antes de UPDATE ou DELETE.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                    <div class="card-title" style="color: #4ade80;">Checklist de Competências Adquiridas</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2.2;">
+                            <li>✅ Escrever comandos UPDATE seguros</li>
+                            <li>✅ Escrever comandos DELETE seguros</li>
+                            <li>✅ Entender o perigo de operações sem WHERE</li>
+                            <li>✅ Compreender CRUD completo</li>
+                            <li>✅ Identificar e criar Foreign Keys</li>
+                            <li>✅ Aplicar regras de Integridade Referencial</li>
+                            <li>✅ Testar com SELECT antes de modificar dados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(26, 58, 74, 0.9) 100%); border: 2px solid #f4b41a;">
+                    <div class="card-content" style="text-align: center; font-size: 1.3rem;">
+                        <strong>🎉 Parabéns por completar o Módulo 4!</strong><br>
+                        <p style="margin-top: 1rem; font-size: 1rem;">Você está pronto para trabalhar com dados de forma segura e profissional.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 19: REFERÊNCIAS -->
+            <div class="slide" data-slide="19">
+                <h2>📖 Referências Bibliográficas</h2>
+                
+                <div class="card">
+                    <div class="card-title">Livros Recomendados</div>
+                    <div class="card-content">
+                        <ol style="line-height: 2.5;">
+                            <li>
+                                <strong>ELMASRI, R.; NAVATHE, S.</strong> (2019). <em>Sistemas de Banco de Dados</em>. 7ª ed. São Paulo: Pearson.<br>
+                                <span style="color: #a0aec0; font-size: 0.9rem;">Referência completa sobre modelagem e SQL, incluindo integridade referencial.</span>
+                            </li>
+                            
+                            <li style="margin-top: 1rem;">
+                                <strong>DATE, C. J.</strong> (2004). <em>Introdução a Sistemas de Bancos de Dados</em>. 8ª ed. Rio de Janeiro: Campus.<br>
+                                <span style="color: #a0aec0; font-size: 0.9rem;">Abordagem teórica sólida sobre integridade e constraints.</span>
+                            </li>
+                            
+                            <li style="margin-top: 1rem;">
+                                <strong>SILBERSCHATZ, A.; KORTH, H.; SUDARSHAN, S.</strong> (2020). <em>Sistema de Banco de Dados</em>. 7ª ed. Rio de Janeiro: GEN LTC.<br>
+                                <span style="color: #a0aec0; font-size: 0.9rem;">Fundamentos de SQL e operações DML.</span>
+                            </li>
+                            
+                            <li style="margin-top: 1rem;">
+                                <strong>HEUSER, C. A.</strong> (2009). <em>Projeto de Banco de Dados</em>. 6ª ed. Porto Alegre: Bookman.<br>
+                                <span style="color: #a0aec0; font-size: 0.9rem;">Foco em modelagem e implementação prática.</span>
+                            </li>
+                            
+                            <li style="margin-top: 1rem;">
+                                <strong>RAMAKRISHNAN, R.; GEHRKE, J.</strong> (2008). <em>Database Management Systems</em>. 3rd ed. McGraw-Hill.<br>
+                                <span style="color: #a0aec0; font-size: 0.9rem;">Abordagem completa sobre gerenciamento de dados e integridade.</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Recursos Online</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2.5;">
+                            <li><strong>W3Schools SQL Tutorial:</strong> <a href="https://www.w3schools.com/sql/" target="_blank">w3schools.com/sql</a><br>
+                            <span style="color: #a0aec0; font-size: 0.9rem;">Tutoriais interativos com exemplos práticos de UPDATE e DELETE.</span></li>
+                            
+                            <li style="margin-top: 1rem;"><strong>PostgreSQL Documentation:</strong> <a href="https://www.postgresql.org/docs/" target="_blank">postgresql.org/docs</a><br>
+                            <span style="color: #a0aec0; font-size: 0.9rem;">Documentação oficial com detalhes sobre Foreign Keys e constraints.</span></li>
+                            
+                            <li style="margin-top: 1rem;"><strong>MySQL Reference Manual:</strong> <a href="https://dev.mysql.com/doc/" target="_blank">dev.mysql.com/doc</a><br>
+                            <span style="color: #a0aec0; font-size: 0.9rem;">Guia completo sobre operações DML e integridade referencial.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 20: QUIZ FINAL -->
+            <div class="slide" data-slide="20">
+                <h2>🎮 Quiz Final - Teste Seus Conhecimentos</h2>
+                <p class="subtitle">10 questões sobre todo o conteúdo do módulo</p>
+                
+                <div id="game-quiz-final" class="game-container">
+                    <div class="game-progress">
+                        <p>Questão <span id="quiz-current">1</span> de 10</p>
+                        <p>Acertos: <span id="quiz-score">0</span></p>
+                    </div>
+                    
+                    <div id="quiz-question" class="scenario-box"></div>
+                    
+                    <div id="quiz-options" class="options-container"></div>
+                    
+                    <div id="quiz-feedback" class="feedback-box" style="display: none;"></div>
+                    
+                    <button id="quiz-next-btn" class="btn" style="display: none;">Próxima Questão</button>
+                    
+                    <div id="quiz-final" class="final-score" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn prev" id="prevBtn">◀ Anterior</button>
+                <div class="slide-indicator" id="slideIndicator">Slide 1 de 22</div>
+                <button class="nav-btn next" id="nextBtn">Próximo ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
