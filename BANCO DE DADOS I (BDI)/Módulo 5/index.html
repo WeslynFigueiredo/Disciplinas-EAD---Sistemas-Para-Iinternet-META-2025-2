@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÓDULO 5 - Banco de Dados I (BD I) - Transações e ACID</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo da META" id="metaLogoImage">
+        </div>
+        <div class="progress-header">
+            <span class="progress-text" id="progressText">Slide 1 de 20</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="slide-wrapper">
+            <!-- SLIDE 1: TÍTULO -->
+            <div class="slide active" data-slide="1">
+                <div class="title-slide">
+                    <div class="database-icon">💾</div>
+                    <h1>MÓDULO 5 - Banco de Dados I (BD I)</h1>
+                    <p class="subtitle">Transações e ACID: A Garantia de Confiabilidade</p>
+                    <p class="subtitle" style="font-size: 1.1rem; margin-top: 0.5rem;">Atomicidade, Consistência, Isolamento e Durabilidade</p>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: OBJETIVOS -->
+            <div class="slide" data-slide="2">
+                <h2>📋 Objetivos do Módulo</h2>
+                <p>Ao final deste módulo, você será capaz de:</p>
+                <ul class="objectives-list">
+                    <li>Compreender o que são transações e por que são necessárias</li>
+                    <li>Dominar as 4 propriedades ACID (Atomicidade, Consistência, Isolamento, Durabilidade)</li>
+                    <li>Entender o problema da concorrência em banco de dados</li>
+                    <li>Conhecer estratégias de recuperação e backup</li>
+                    <li>Aplicar conceitos ACID em cenários do mundo real</li>
+                    <li>Identificar qual propriedade ACID resolve problemas específicos</li>
+                </ul>
+            </div>
+
+            <!-- SLIDE 3: O QUE SÃO TRANSAÇÕES -->
+            <div class="slide" data-slide="3">
+                <h2>💳 O Que São Transações? - A Unidade de Trabalho</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        Uma <strong>Transação</strong> é uma sequência lógica de operações de banco de dados que é tratada como uma UNIDADE ÚNICA E INDIVISÍVEL de trabalho.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">🚂</div>
+                    <div class="card-title">Analogia - O Trem nas Montanhas</div>
+                    <div class="card-content">
+                        Imagine um trem de carga atravessando um túnel na montanha. O trem INTEIRO deve atravessar ou NENHUM vagão entra. Não faz sentido 'metade do trem' atravessar!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Características:</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li>Agrupa múltiplas operações SQL</li>
+                            <li>Tratada como um único bloco</li>
+                            <li>Ou todas as operações acontecem (COMMIT)</li>
+                            <li>Ou nenhuma acontece (ROLLBACK)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15);">
+                    <div class="card-title">Sintaxe Básica:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>BEGIN TRANSACTION;
+
+-- Operação 1
+UPDATE contas SET saldo = saldo - 100 WHERE id = 1;
+
+-- Operação 2
+UPDATE contas SET saldo = saldo + 100 WHERE id = 2;
+
+COMMIT; -- Confirma tudo
+-- ou ROLLBACK; -- Desfaz tudo</code></pre>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: EXEMPLO CLÁSSICO - TRANSFERÊNCIA BANCÁRIA -->
+            <div class="slide" data-slide="4">
+                <h2>🏦 Exemplo Clássico: Transferência Bancária</h2>
+                
+                <div class="card">
+                    <div class="card-title">Cenário</div>
+                    <div class="card-content">
+                        Maria quer transferir R$ 500,00 da sua conta para a conta de João.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Operações Necessárias:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>BEGIN TRANSACTION;
+
+-- Operação 1: Retirar R$ 500 da conta de Maria
+UPDATE contas 
+SET saldo = saldo - 500 
+WHERE titular = 'Maria';
+
+-- Operação 2: Adicionar R$ 500 na conta de João
+UPDATE contas 
+SET saldo = saldo + 500 
+WHERE titular = 'João';
+
+COMMIT;</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-title">Por Que É Uma Transação?</div>
+                    <div class="card-content">
+                        Se APENAS a Operação 1 acontecer (retirar de Maria) mas a Operação 2 FALHAR (não adicionar em João), o dinheiro DESAPARECE do sistema! R$ 500 evaporam!
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Solução com Transação:</div>
+                    <div class="card-content">
+                        <p>✅ Se AMBAS operações funcionarem → COMMIT (confirma tudo)</p>
+                        <p style="margin-top: 0.5rem;">❌ Se QUALQUER operação falhar → ROLLBACK (desfaz tudo, Maria continua com o dinheiro)</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(244, 180, 26, 0.15); border-color: #f4b41a;">
+                    <div class="card-content">
+                        <strong>Resultado:</strong> Transações garantem que o sistema NUNCA fique em estado inconsistente (dinheiro perdido ou duplicado).
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: AS PROPRIEDADES ACID - INTRODUÇÃO -->
+            <div class="slide" data-slide="5">
+                <h2>🔐 ACID - Os 4 Pilares da Confiabilidade</h2>
+                <div class="card">
+                    <div class="card-title">O Que É ACID?</div>
+                    <div class="card-content">
+                        ACID é um acrônimo que representa as 4 propriedades fundamentais que garantem a CONFIABILIDADE de transações em bancos de dados.
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Os 4 Pilares</div>
+                    <div class="card-content">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
+                            <div style="background: rgba(244, 180, 26, 0.1); padding: 1rem; border-radius: 8px; border: 2px solid #f4b41a;">
+                                <div style="font-size:2rem; color:#f4b41a; font-weight:bold; margin-bottom: 0.5rem;">A</div>
+                                <div style="font-size:1.1rem; font-weight:600;">Atomicidade</div>
+                                <div style="color:#ffd700; margin-top: 0.25rem;">Tudo ou Nada</div>
+                            </div>
+                            <div style="background: rgba(244, 180, 26, 0.1); padding: 1rem; border-radius: 8px; border: 2px solid #f4b41a;">
+                                <div style="font-size:2rem; color:#f4b41a; font-weight:bold; margin-bottom: 0.5rem;">C</div>
+                                <div style="font-size:1.1rem; font-weight:600;">Consistência</div>
+                                <div style="color:#ffd700; margin-top: 0.25rem;">Sempre Válido</div>
+                            </div>
+                            <div style="background: rgba(244, 180, 26, 0.1); padding: 1rem; border-radius: 8px; border: 2px solid #f4b41a;">
+                                <div style="font-size:2rem; color:#f4b41a; font-weight:bold; margin-bottom: 0.5rem;">I</div>
+                                <div style="font-size:1.1rem; font-weight:600;">Isolamento</div>
+                                <div style="color:#ffd700; margin-top: 0.25rem;">Sem Interferência</div>
+                            </div>
+                            <div style="background: rgba(244, 180, 26, 0.1); padding: 1rem; border-radius: 8px; border: 2px solid #f4b41a;">
+                                <div style="font-size:2rem; color:#f4b41a; font-weight:bold; margin-bottom: 0.5rem;">D</div>
+                                <div style="font-size:1.1rem; font-weight:600;">Durabilidade</div>
+                                <div style="color:#ffd700; margin-top: 0.25rem;">Permanente e Seguro</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Por Que ACID É Importante?</div>
+                    <div class="card-content">
+                        Sem ACID, sistemas críticos (bancos, hospitais, e-commerce) seriam totalmente inseguros. Dados poderiam ser perdidos, corrompidos ou inconsistentes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: ATOMICIDADE -->
+            <div class="slide" data-slide="6">
+                <h2>⚛️ Atomicidade (A) - Tudo ou Nada</h2>
+                
+                <div class="card">
+                    <div class="card-title">Definição</div>
+                    <div class="card-content">
+                        Uma transação é ATÔMICA se ela é completada TOTALMENTE (COMMIT) ou DESFEITA TOTALMENTE (ROLLBACK). Não existe 'meio-termo'.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                    <div class="card-icon">✈️</div>
+                    <div class="card-title">Analogia - Comprar um Pacote de Viagem</div>
+                    <div class="card-content">
+                        Você compra um pacote: passagem + hotel + passeios. Se o HOTEL não estiver disponível, você NÃO quer apenas a passagem. Você quer CANCELAR TUDO ou TER TUDO.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <div class="card-title">Exemplo - Transferência:</div>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>BEGIN TRANSACTION;
+
+UPDATE contas SET saldo = saldo - 500 WHERE id = 1;
+UPDATE contas SET saldo = saldo + 500 WHERE id = 2;
+
+COMMIT; -- ✅ Ambas operações confirmadas
+
+-- Se houver erro:
+ROLLBACK; -- ❌ NENHUMA operação é mantida</code></pre>
+                </div>
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-title">Comandos ACID:</div>
+                    <div class="card-content">
+                        <ul style="line-height: 2;">
+                            <li><strong>COMMIT:</strong> Confirma todas as operações da transação (salva definitivamente)</li>
+                            <li><strong>ROLLBACK:</strong> Desfaz todas as operações da transação (volta ao estado inicial)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                    <div class="card-title" style="color: #4ade80;">Garantia da Atomicidade:</div>
+                    <div class="card-content">
+                        ✅ Ou a transferência COMPLETA acontece (ambas atualizações)<br>
+                        ❌ Ou NADA acontece (como se nunca tivesse começado)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: CONSISTÊNCIA -->
+            <div class="slide" data-slide="7">
+                <div class="slide-content">
+                    <h2>✅ Consistência (C) - Sempre Válido</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Definição</div>
+                        <div class="card-content">
+                            Uma transação leva o banco de dados de um ESTADO VÁLIDO para outro ESTADO VÁLIDO, respeitando TODAS as regras e restrições (constraints, foreign keys, checks).
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                        <div class="card-icon">🧩</div>
+                        <div class="card-title">Analogia - Quebra-Cabeça</div>
+                        <div class="card-content">
+                            Imagine um quebra-cabeça montado (estado válido). Você pode mover algumas peças durante a montagem, mas no FINAL, o quebra-cabeça deve estar COMPLETO e CORRETO novamente. Estados intermediários 'bagunçados' não são visíveis para outros.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">📋 Regras Que Devem Ser Respeitadas</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li>Chaves primárias únicas</li>
+                                <li>Foreign keys válidas</li>
+                                <li>Checks (ex: saldo &gt;= 0)</li>
+                                <li>Triggers e constraints personalizadas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">❌ Exemplo - Violação de Consistência</div>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>-- ANTES: Conta A tem saldo = 200
+
+BEGIN TRANSACTION;
+UPDATE contas SET saldo = saldo - 500 WHERE id = 'A';
+-- VIOLAÇÃO: saldo ficaria negativo (-300)!
+
+ROLLBACK; -- Sistema detecta e DESFAZ</code></pre>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                        <div class="card-title" style="color: #4ade80;">✅ Garantia da Consistência</div>
+                        <div class="card-content">
+                            O SGBD NUNCA permite que uma transação deixe o banco em estado INVÁLIDO. Se uma regra for violada, a transação é REJEITADA (ROLLBACK automático).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: ISOLAMENTO -->
+            <div class="slide" data-slide="8">
+                <div class="slide-content">
+                    <h2>🔒 Isolamento (I) - Sem Interferência</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Definição</div>
+                        <div class="card-content">
+                            Transações SIMULTÂNEAS (concorrentes) devem ser executadas como se fossem ISOLADAS umas das outras. Uma transação NÃO pode ver os estados intermediários de outra.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                        <div class="card-icon">🚪</div>
+                        <div class="card-title">Analogia - Cabines de Votação</div>
+                        <div class="card-content">
+                            Imagine cabines de votação. Cada pessoa vota em PRIVADO (isolada). Ninguém vê o voto dos outros durante o processo. Só no FINAL (após COMMIT) os votos são contabilizados juntos.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">⚠️ Problema Sem Isolamento</div>
+                        <div class="card-content">
+                            <p><strong>Transação A:</strong> Lê saldo = 1000, calcula novo saldo = 900</p>
+                            <p style="margin-top: 0.5rem;"><strong>Transação B:</strong> Lê saldo = 1000 (ainda não viu mudança de A), calcula novo saldo = 800</p>
+                            <p style="margin-top: 0.5rem; color: #ff5459;"><strong>Resultado:</strong> Apenas a última atualização sobrevive. PERDA DE ATUALIZAÇÃO!</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🔐 Solução: Locks (Travas)</div>
+                        <div class="card-content">
+                            <p>O sistema usa <strong>locks</strong> para garantir que quando A está modificando um registro, B deve ESPERAR até A terminar (COMMIT ou ROLLBACK).</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                        <div class="card-title" style="color: #4ade80;">✅ Garantia do Isolamento</div>
+                        <div class="card-content">
+                            Transações concorrentes não interferem. Resultado final = como se fossem executadas uma de cada vez (serialização).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: DURABILIDADE -->
+            <div class="slide" data-slide="9">
+                <div class="slide-content">
+                    <h2>💾 Durabilidade (D) - Permanente</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Definição</div>
+                        <div class="card-content">
+                            Após uma transação ser CONFIRMADA (COMMIT), suas mudanças são PERMANENTES e SOBREVIVEM a qualquer falha (queda de energia, crash do sistema, etc.).
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                        <div class="card-icon">🪨</div>
+                        <div class="card-title">Analogia - Escultura em Pedra</div>
+                        <div class="card-content">
+                            Quando você termina de esculpir uma estátua de pedra (COMMIT), a obra está PERMANENTE. Mesmo que chova, faça sol, ou haja terremoto, a escultura permanece. Diferente de desenho na areia (dados em memória RAM - temporários).
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🛡️ Como é Garantida?</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li><strong>Log de Transações:</strong> Todas as operações são gravadas em um arquivo de log ANTES de serem aplicadas</li>
+                                <li><strong>Write-Ahead Logging (WAL):</strong> Log é gravado no disco ANTES do COMMIT</li>
+                                <li><strong>Backup Periódico:</strong> Cópias de segurança regulares</li>
+                                <li><strong>Replicação:</strong> Dados copiados para múltiplos servidores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">💡 Exemplo</div>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>BEGIN TRANSACTION;
+INSERT INTO clientes VALUES (100, 'João Silva');
+COMMIT; -- ✅ Gravado permanentemente no disco
+
+-- 5 segundos depois: FALTA DE ENERGIA!
+-- Quando sistema volta: João Silva AINDA EXISTE no banco!</code></pre>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                        <div class="card-title" style="color: #4ade80;">✅ Garantia da Durabilidade</div>
+                        <div class="card-content">
+                            Após COMMIT, os dados NUNCA são perdidos, mesmo em caso de falhas catastróficas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: JOGO ACID -->
+            <div class="slide" data-slide="10">
+                <div class="slide-content">
+                    <h2>🎮 Jogo ACID - Teste Seus Conhecimentos!</h2>
+                    
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="card-content">
+                            <p style="text-align: center; font-size: 1.1rem;">Para cada cenário, identifique qual propriedade ACID resolve o problema!</p>
+                        </div>
+                    </div>
+
+                    <div class="game-container">
+                        <div class="game-progress">
+                            <span>Questão: <span id="game-acid-current">1</span>/8</span>
+                            <span>Pontuação: <span id="game-acid-score">0</span></span>
+                        </div>
+
+                        <div class="scenario-box" id="game-acid-scenario"></div>
+                        
+                        <div class="options-container" id="game-acid-options"></div>
+                        
+                        <div class="feedback-box" id="game-acid-feedback" style="display: none;"></div>
+                        
+                        <button class="btn" id="game-acid-next-btn" onclick="nextGameACIDQuestion()" style="display: none; margin-top: 1rem;">Próxima Questão</button>
+                        
+                        <div class="final-score" id="game-acid-final" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: CONCORRÊNCIA -->
+            <div class="slide" data-slide="11">
+                <div class="slide-content">
+                    <h2>🔄 Concorrência - O Problema</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">O Que É Concorrência?</div>
+                        <div class="card-content">
+                            Quando MÚLTIPLAS transações tentam acessar e modificar os MESMOS dados AO MESMO TEMPO.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">⚠️ Problemas de Concorrência</div>
+                        <div class="card-content">
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">1. Leitura Suja (Dirty Read)</h4>
+                                <p>Transação A lê dados que Transação B modificou mas ainda NÃO confirmou (COMMIT). Se B fizer ROLLBACK, A leu dados INVÁLIDOS.</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">2. Leitura Não-Repetível (Non-Repeatable Read)</h4>
+                                <p>Transação A lê um dado. Transação B modifica e confirma. A lê novamente e vê valor DIFERENTE.</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">3. Leitura Fantasma (Phantom Read)</h4>
+                                <p>Transação A busca registros. Transação B insere novos. A busca novamente e vê registros NOVOS que não existiam antes.</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">4. Perda de Atualização (Lost Update)</h4>
+                                <p>Duas transações leem o mesmo valor, modificam e salvam. A última sobrescreve a primeira, causando PERDA DE DADOS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 12: LEITURA SUJA -->
+            <div class="slide" data-slide="12">
+                <div class="slide-content">
+                    <h2>👻 Leitura Suja - Exemplo Detalhado</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Cenário: Reserva de Passagem Aérea</div>
+                        <div class="card-content">
+                            <p><strong>Situação Inicial:</strong> Voo XYZ tem 1 assento disponível.</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">📅 Linha do Tempo</div>
+                        <div class="card-content">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: rgba(244, 180, 26, 0.2);">
+                                        <th style="padding: 0.75rem; text-align: left; border: 1px solid rgba(255,255,255,0.2);">Tempo</th>
+                                        <th style="padding: 0.75rem; text-align: left; border: 1px solid rgba(255,255,255,0.2);">Transação A (Maria)</th>
+                                        <th style="padding: 0.75rem; text-align: left; border: 1px solid rgba(255,255,255,0.2);">Transação B (João)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">T1</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">BEGIN</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">T2</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">UPDATE vagas SET disponivel = 0</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">T3</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">-</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">SELECT disponivel (vê 0!) ❌</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">T4</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">ROLLBACK (erro no pagamento)</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">T5</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">-</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Desiste (viu 0 vagas) 😢</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: rgba(255, 84, 89, 0.15); border: 2px solid #ff5459;">
+                        <div class="card-title" style="color: #ff5459;">❌ Problema</div>
+                        <div class="card-content">
+                            João viu dados NÃO-CONFIRMADOS (leitura suja). O assento na verdade estava disponível, mas ele desistiu baseado em informação FALSA.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                        <div class="card-title" style="color: #4ade80;">✅ Solução: Isolamento com Locks</div>
+                        <div class="card-content">
+                            João seria BLOQUEADO de ler até Maria finalizar (COMMIT ou ROLLBACK).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 13: CONTROLE DE CONCORRÊNCIA -->
+            <div class="slide" data-slide="13">
+                <div class="slide-content">
+                    <h2>🔐 Controle de Concorrência - Locks</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">O Que São Locks (Travas)?</div>
+                        <div class="card-content">
+                            Mecanismos que IMPEDEM que múltiplas transações acessem os mesmos dados simultaneamente de forma conflitante.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🔒 Tipos de Locks</div>
+                        <div class="card-content">
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">1. Shared Lock (S) - Lock Compartilhado</h4>
+                                <p>Múltiplas transações podem LER o mesmo dado simultaneamente. Nenhuma pode MODIFICAR enquanto houver S-Lock.</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">2. Exclusive Lock (X) - Lock Exclusivo</h4>
+                                <p>Apenas UMA transação pode ter X-Lock. Ela pode LER e MODIFICAR. Outras transações devem ESPERAR.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">⚙️ Como Funcionam?</div>
+                        <div class="card-content">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                                <thead>
+                                    <tr style="background: rgba(244, 180, 26, 0.2);">
+                                        <th style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Operação</th>
+                                        <th style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Lock Necessário</th>
+                                        <th style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Efeito</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">SELECT</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">S-Lock</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Outros podem ler, ninguém pode modificar</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">UPDATE/DELETE</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">X-Lock</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">NINGUÉM pode ler ou modificar</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">INSERT</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">X-Lock</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Lock na tabela/índice</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🎯 Níveis de Isolamento SQL</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li><strong>READ UNCOMMITTED:</strong> Permite leitura suja</li>
+                                <li><strong>READ COMMITTED:</strong> Só lê dados confirmados</li>
+                                <li><strong>REPEATABLE READ:</strong> Leituras sempre retornam mesmo valor</li>
+                                <li><strong>SERIALIZABLE:</strong> Isolamento TOTAL (mais lento)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 14: RECUPERAÇÃO -->
+            <div class="slide" data-slide="14">
+                <div class="slide-content">
+                    <h2>🔧 Recuperação - Log de Transações</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">O Que É o Log de Transações?</div>
+                        <div class="card-content">
+                            Um arquivo especial que registra TODAS as operações realizadas no banco de dados, ANTES de serem aplicadas. É a "caixa preta" do sistema.
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">📝 O Que É Registrado?</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li>BEGIN TRANSACTION (início)</li>
+                                <li>Operações: INSERT, UPDATE, DELETE</li>
+                                <li>Valores ANTES e DEPOIS das modificações</li>
+                                <li>COMMIT (confirmação)</li>
+                                <li>ROLLBACK (cancelamento)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🛠️ Como a Recuperação Funciona?</div>
+                        <div class="card-content">
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">1. Após Crash do Sistema</h4>
+                                <p>O SGBD lê o log e identifica transações que fizeram COMMIT antes do crash. Essas são REAPLICADAS (REDO).</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">2. Transações Incompletas</h4>
+                                <p>Transações que NÃO fizeram COMMIT são DESFEITAS (UNDO) usando os valores ANTES registrados no log.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">📋 Exemplo de Log</div>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 5px; margin: 0.5rem 0;"><code>[T1] BEGIN TRANSACTION
+[T1] UPDATE contas SET saldo = 900 WHERE id = 1 (ANTES: 1000)
+[T1] UPDATE contas SET saldo = 1100 WHERE id = 2 (ANTES: 1000)
+[T1] COMMIT
+
+-- CRASH DO SISTEMA AQUI! --
+
+[Recuperação] T1 estava COMPLETA → REDO (reaplicar)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 15: BACKUP -->
+            <div class="slide" data-slide="15">
+                <div class="slide-content">
+                    <h2>💾 Backup de Dados</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Por Que Backup É Essencial?</div>
+                        <div class="card-content">
+                            O log de transações protege contra crashes, mas NÃO protege contra:
+                            <ul style="margin-top: 0.5rem; line-height: 2;">
+                                <li>Exclusão acidental de dados</li>
+                                <li>Corrupção de disco</li>
+                                <li>Desastres naturais (incêndio, inundação)</li>
+                                <li>Ataques de ransomware</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🗂️ Tipos de Backup</div>
+                        <div class="card-content">
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">1. Backup Completo (Full Backup)</h4>
+                                <p>Copia TODOS os dados do banco. Mais lento, mas recuperação é rápida.</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">2. Backup Incremental</h4>
+                                <p>Copia apenas as mudanças desde o ÚLTIMO backup. Rápido, mas recuperação é mais complexa.</p>
+                            </div>
+                            
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: #f4b41a; margin-bottom: 0.5rem;">3. Backup Diferencial</h4>
+                                <p>Copia mudanças desde o último backup COMPLETO. Meio-termo entre os dois anteriores.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">⏰ Estratégia 3-2-1</div>
+                        <div class="card-content">
+                            <p><strong>3</strong> cópias dos dados</p>
+                            <p><strong>2</strong> tipos diferentes de mídia (HD, nuvem)</p>
+                            <p><strong>1</strong> cópia em local EXTERNO (off-site)</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🔄 Replicação vs Backup</div>
+                        <div class="card-content">
+                            <p><strong>Replicação:</strong> Cópia em TEMPO REAL para outro servidor. Protege contra falhas de hardware.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Backup:</strong> Cópia PERIÓDICA. Protege contra exclusão acidental e corrupção.</p>
+                            <p style="margin-top: 0.5rem; color: #4ade80;"><strong>Ideal:</strong> Usar AMBOS!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 16: ATIVIDADE 5 -->
+            <div class="slide" data-slide="16">
+                <div class="slide-content">
+                    <h2>📝 Atividade 5 - Aplicando ACID</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">Cenário: Sistema de Reserva de Passagens Aéreas</div>
+                        <div class="card-content">
+                            <p>Você está desenvolvendo um sistema de reserva de passagens. O sistema deve:</p>
+                            <ul style="margin-top: 0.5rem; line-height: 2;">
+                                <li>Permitir que múltiplos usuários façam reservas simultaneamente</li>
+                                <li>Garantir que o mesmo assento não seja vendido duas vezes</li>
+                                <li>Manter a integridade dos dados mesmo em caso de falhas</li>
+                                <li>Registrar todas as transações para auditoria</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                        <div class="card-title">🎯 Tarefa</div>
+                        <div class="card-content">
+                            <p>Para cada situação abaixo, identifique:</p>
+                            <ol style="margin-top: 0.5rem; line-height: 2;">
+                                <li>Qual propriedade ACID está sendo aplicada?</li>
+                                <li>Por que essa propriedade é importante nesse contexto?</li>
+                                <li>O que aconteceria se essa propriedade NÃO fosse garantida?</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">📋 Situações para Análise</div>
+                        <div class="card-content">
+                            <p style="margin-bottom: 0.5rem;"><strong>Situação 1:</strong> Durante uma reserva, o sistema debita o valor do cartão de crédito mas falha ao criar o registro da reserva. A transação é cancelada e o valor é estornado.</p>
+                            
+                            <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Situação 2:</strong> Dois usuários tentam reservar o último assento disponível ao mesmo tempo. O sistema garante que apenas um consiga completar a reserva.</p>
+                            
+                            <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Situação 3:</strong> Após confirmar uma reserva e exibir o bilhete eletrônico, ocorre uma queda de energia no data center. Quando o sistema volta, a reserva ainda existe e está válida.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 17: RESUMO -->
+            <div class="slide" data-slide="17">
+                <div class="slide-content">
+                    <h2>📚 Resumo - Conceitos Fundamentais</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">🔐 Propriedades ACID</div>
+                        <div class="card-content">
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                                <thead>
+                                    <tr style="background: rgba(244, 180, 26, 0.2);">
+                                        <th style="padding: 0.75rem; text-align: left; border: 1px solid rgba(255,255,255,0.2);">Propriedade</th>
+                                        <th style="padding: 0.75rem; text-align: left; border: 1px solid rgba(255,255,255,0.2);">Garantia</th>
+                                        <th style="padding: 0.75rem; text-align: left; border: 1px solid rgba(255,255,255,0.2);">Mecanismo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);"><strong>Atomicidade</strong></td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Tudo ou nada</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">COMMIT / ROLLBACK</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);"><strong>Consistência</strong></td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Sempre válido</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Constraints / Triggers</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);"><strong>Isolamento</strong></td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Sem interferência</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Locks / Níveis de Isolamento</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);"><strong>Durabilidade</strong></td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Permanente</td>
+                                        <td style="padding: 0.75rem; border: 1px solid rgba(255,255,255,0.2);">Log / Backup / Replicação</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🔄 Problemas de Concorrência</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li><strong>Leitura Suja:</strong> Ler dados não confirmados</li>
+                                <li><strong>Leitura Não-Repetível:</strong> Valores mudam entre leituras</li>
+                                <li><strong>Leitura Fantasma:</strong> Novos registros aparecem</li>
+                                <li><strong>Perda de Atualização:</strong> Última modificação sobrescreve as anteriores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🛡️ Estratégias de Proteção</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li><strong>Log de Transações:</strong> Registra todas as operações (UNDO/REDO)</li>
+                                <li><strong>Backup Regular:</strong> Full, Incremental, Diferencial</li>
+                                <li><strong>Replicação:</strong> Cópias em tempo real</li>
+                                <li><strong>Locks:</strong> Shared (S) e Exclusive (X)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: rgba(74, 222, 128, 0.1); border: 2px solid #4ade80;">
+                        <div class="card-title" style="color: #4ade80;">💡 Lembre-se</div>
+                        <div class="card-content">
+                            ACID não é apenas teoria - é o que torna bancos de dados CONFIÁVEIS para sistemas críticos (bancos, hospitais, aviação, e-commerce).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 18: CONCLUSÃO -->
+            <div class="slide" data-slide="18">
+                <div class="slide-content">
+                    <h2>🎓 Conclusão - Módulo 5</h2>
+                    
+                    <div class="card">
+                        <div class="card-title">✅ O Que Você Aprendeu</div>
+                        <div class="card-content">
+                            <ul style="line-height: 2;">
+                                <li>O conceito de transações e sua importância</li>
+                                <li>As 4 propriedades ACID e como cada uma garante confiabilidade</li>
+                                <li>Problemas de concorrência e suas soluções</li>
+                                <li>Mecanismos de recuperação (log de transações)</li>
+                                <li>Estratégias de backup e proteção de dados</li>
+                                <li>Aplicação prática de ACID em cenários reais</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(244, 180, 26, 0.1) 0%, rgba(26, 58, 74, 0.8) 100%);">
+                        <div class="card-icon">💡</div>
+                        <div class="card-title">Conceito-Chave</div>
+                        <div class="card-content">
+                            <p style="font-size: 1.1rem; font-weight: 500;">ACID transforma bancos de dados de simples armazenadores de informação em sistemas CONFIÁVEIS e SEGUROS que sustentam aplicações críticas no mundo real.</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-title">🚀 Próximos Passos</div>
+                        <div class="card-content">
+                            <p>Para consolidar seu aprendizado:</p>
+                            <ol style="margin-top: 0.75rem; line-height: 2;">
+                                <li>Revise as situações da Atividade 5 e compare com as soluções</li>
+                                <li>Pratique identificando qual propriedade ACID resolve problemas específicos</li>
+                                <li>Estude como diferentes SGBDs implementam ACID (PostgreSQL, MySQL, Oracle)</li>
+                                <li>Experimente criar transações em um ambiente de teste</li>
+                                <li>Explore níveis de isolamento e seus trade-offs</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem; background: rgba(244, 180, 26, 0.15); border: 2px solid #f4b41a;">
+                        <div class="card-title" style="text-align: center; font-size: 1.3rem;">🎉 Parabéns!</div>
+                        <div class="card-content" style="text-align: center;">
+                            <p style="font-size: 1.1rem; margin-top: 0.75rem;">Você completou o Módulo 5!</p>
+                            <p style="margin-top: 0.5rem;">Agora você compreende os fundamentos que tornam bancos de dados confiáveis e seguros.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn prev" id="prevBtn">◀ Anterior</button>
+                <div class="slide-indicator" id="slideIndicator">Slide 1 de 20</div>
+                <button class="nav-btn next" id="nextBtn">Próximo ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
